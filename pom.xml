@@ -11,7 +11,6 @@
     </parent>
     <name>verso</name>
     <description>Progetto VERSO</description>
-    <url>https://nexus.ente.regione.emr.it/repository/parer-site/verso/${project.version}/</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -37,11 +36,18 @@
     </properties>
 
     <distributionManagement>
-        <site>
-            <id>site</id>
-            <url>dav:https://nexus.ente.regione.emr.it/repository/parer-site/verso/${project.version}</url>
-        </site>
+        <repository>
+          <id>github</id>
+          <url>https://maven.pkg.github.com/RegioneER/parer-verso</url>
+        </repository>      
     </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/RegioneER/parer-framework-parerpom</url>           
+        </repository>          
+     </repositories>
 
     <dependencyManagement>
         <dependencies>
