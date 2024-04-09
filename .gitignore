@@ -1,0 +1,8 @@
+/target/
+/wars/
+nb-configuration.xml
+/.idea/
+**/*.iml
+.classpath
+.project
+.settings/

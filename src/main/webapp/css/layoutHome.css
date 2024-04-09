@@ -1,0 +1,106 @@
+    /* Sticky footer styles
+      -------------------------------------------------- */
+
+      html,
+      body {
+        height: 3em;
+        /* The html and body elements cannot have any padding or margin. */
+      }
+
+      /* Wrapper for page content to push down footer */
+      #wrap {
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        /* Negative indent footer by it's height */
+        margin: 0 auto -60px;
+      }
+
+      /* Set the fixed height of the footer here */
+      #push,
+      #footer {
+        height: 5em;
+      }
+      #footer {
+        background-color: #f5f5f5;
+      }
+
+      /* Lastly, apply responsive CSS fixes as necessary */
+      @media (max-width: 767px) {
+        #footer {
+          margin-left: -20px;
+          margin-right: -20px;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }
+      div#footer {
+	background: #CECECE;
+	clear: both;
+	margin: 0em;
+	padding: 0em;
+	font-size: 0.8em;
+}
+
+div#footer div#sessioneScade {
+	clear: left;width: 100%;
+	color: #000000;
+	text-align: center;
+}
+div#testoFooter {
+	padding: 5px;
+}
+div#footer div#loghiFooter {
+	background: none;
+	text-align: right;
+	margin-top: -27px;
+	padding-top: 3px;
+}
+
+li.media.rigaUd {
+	border-top: 1px solid #ddd;
+	padding-top: 15px;
+}
+div.pagination.homeprivata {
+	border-top: 1px solid #ddd;
+	padding-top: 15px;
+}
+
+.profile-img
+{
+    width: 714px;
+    height: 100px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.version {
+    font-size: 12px;
+    text-align: left;
+    border-bottom-style: groove;
+    margin-left: 15px;
+}
+
+.span5 {
+    float: right !important;
+}
+
+.center {
+	float: none;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.headerSacer {
+	font-family: "FontAwesome";
+	letter-spacing: 1px;
+	font-size: 32pt;
+	line-height: 35pt;
+	text-shadow: 2px 2px 3px #222;
+	margin-top: 10px;
+	-webkit-font-smoothing: antialiased;
+	color: #0062ca;
+}

@@ -1,0 +1,29 @@
+input.submitAzione.buttonSidebar {
+	color: #ffffff;
+	width: 30px;
+    height: 30px;
+	margin-top: 10px;
+	cursor: pointer;
+	border-style: none;
+	-moz-box-shadow:3px 3px 3px #595959;
+	-webkit-box-shadow:3px 3px 3px #595959;
+    box-shadow:3px 3px 3px #595959;
+    filter: 0;
+}
+input#salva.buttonSidebar {
+	background: url("../../images/skin1/32x32/salva.png") no-repeat scroll 0 0 transparent;
+	filter: 0;
+}
+input#salvacontinua.buttonSidebar {
+	background: url("../../images/skin1/32x32/salvaecontinua.png") no-repeat scroll 0 0 transparent;
+  	filter: 0;
+}
+input#createRiga.buttonSidebar {
+	background: url("../../images/skin1/32x32/document-new.png") no-repeat scroll 0 0 transparent;
+  	filter: 0;
+}
+input#goHome.buttonSidebar {
+	background: url("../../images/skin1/32x32/indicecompilazione.png") no-repeat scroll 0 0 transparent;
+  	filter: 0;
+}
+

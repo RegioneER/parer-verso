@@ -1,0 +1,234 @@
+.forms {
+	border: none;
+	background: #FFFFFF;
+	padding: 0.188em;
+	/*margin: 0.188em;*/
+}
+
+.forms table {
+	width: 100%;
+}
+.forms table th {
+	text-align: left;
+}
+.forms table tr.odd {
+	background: #F0F0F0;
+}
+.forms table tr.even {
+	background: #FFFFFF;
+}
+.forms table tr td {
+	width: 75%;
+}
+.forms table#tabellaListaFiletabellaDatiSpecifici thead tr th,
+.forms table#tabellaListaFiletabellaDatiSpecifici tbody tr td,
+.forms table#tabellaListaFile thead tr th,
+.forms table#tabellaListaFile tbody tr td {
+	width: auto;
+}
+
+.forms input.textfield,
+.forms select.combobox,
+.forms textarea.textarea {
+	background: #FFFFFF;
+	width: 330px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.forms input.checkbox {
+	margin-bottom: 20px;
+}
+.forms label {
+	margin: 0px;
+	/*display: inline;*/
+	width: 140px;
+	text-align: left;
+	font-size: .9em;
+	font-weight: bold;
+}
+.forms label.checklabel{
+	width: auto;
+	float: none;
+	display: inline;
+	vertical-align: top;
+}
+
+.forms fieldset {
+	padding: 5px;
+	margin-left: 5px;
+}
+
+.forms fieldset legend {
+	color: #2D4AEC;
+	font-weight: bold;
+	background-color: transparent;
+	/*background-image: url("../../img/skin1/ico_freccia_verde_giu_dx.gif");
+	background-attachment: scroll;
+	background-repeat: no-repeat;
+	background-position: 0px 0px;*/
+	line-height: 13px;
+	padding-left: 14px;
+	font-size: 13px;
+	margin-bottom: 5px;
+}
+
+.forms fieldset.nolegend {
+	border: none;
+}
+
+.forms fieldset legend.collapsible:before {
+	content: "\e1f3   ";
+	font-family: 'IcoMoon';
+}
+.forms fieldset legend.collapsed:before {
+	content: "\e1f5  ";
+	font-family: 'IcoMoon';
+}
+
+
+.forms caption{
+	border-bottom: 1px solid #e5e5e5;
+	font-size: 1.1em;
+	font-style: italic;
+	font-weight: bold;
+	text-align: left;
+	color: #2D4AEC;	
+}
+
+.forms .tableform-error{
+	border: 1px solid red;
+}
+
+.forms table.details {
+    width: 100%;
+    border-collapse: collapse;
+    empty-cells: show;
+    margin: 0px;
+    padding: 0px;
+    table-layout:fixed;
+}
+
+.forms table.mde-form-table {
+	margin-left: 40px;
+}
+
+.forms table#tabellaListaFile, .forms table#tabellaListaFiletabellaDatiSpecifici {
+	margin-left: 50px;
+}
+
+input.btn-small {
+	margin-left: 50px;
+}
+
+.forms table.details th {
+    text-align: left;
+    vertical-align: top;
+    margin: 0px;
+    padding: 0px;
+}
+
+.forms table.details th label, table.details th div.value {
+    display: block;
+    margin: 5px 5px 5px 0px;
+    
+}
+
+.forms table.details td {
+    text-align: left;
+    vertical-align: top;
+    padding: 0px;
+    margin: -1px;
+}
+
+.forms table.details td div.value {
+    display: block;
+    margin: 5px 0px 5px 0px;
+}
+.forms table.details td input,
+.forms table.details td select,
+.forms table.details td textarea {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+/*******************************************************************************
+Inline form errors
+*******************************************************************************/
+
+.forms div.inputdescription{
+     display: block;
+     margin: 0;
+     padding: 0 0 0.6em 0;
+     border: 0 none;
+     font-style: italic;
+     font-size: 11px;
+}
+
+
+.forms ul.errors {
+     display: inline;
+     padding: 5px 0;
+     border: 0 none;
+     margin: 0;
+}
+
+.forms ul.errors li {
+     display: inline;
+     margin: 0;
+     padding: 0 0 0 16px;
+     border: 0 none;
+     color: #b94a48;
+     font-weight: normal;
+}
+
+ul.errorMessages { 
+	
+	padding: 8px 35px 8px 30px;
+	margin-bottom: 20px;
+	margin-left: 0;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	background-color: #fcf8e3;
+	border: 1px solid #fbeed5;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+
+	background-color: #f2dede; 
+	border-color: #eed3d7; 
+	color: #000;
+	
+} 
+
+ul.warningMessages { 
+	
+	padding: 8px 35px 8px 30px;
+	margin-bottom: 20px;
+	margin-left: 0;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	background-color: #fcf8e3;
+	border: 1px solid #fbeed5;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+
+	background-color: #fcf8e3; 
+	border-color: #fbeed5; 
+	color: #c09853;
+}
+
+ul.infoMessages { 
+	
+	padding: 8px 35px 8px 30px;
+	margin-bottom: 20px;
+	margin-left: 0;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	background-color: #fcf8e3;
+	border: 1px solid #fbeed5;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+
+	background-color: #dff0d8; 
+	border-color: #d6e9c6; 
+	color: #000;
+} 
