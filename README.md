@@ -27,9 +27,25 @@ Richiesta l'esecuzione delle seguenti guide secondo l'ordine riportato di seguit
 1. guida per la configurazione **base** di [guida 1](src/docs/JBoss7_configurazione_generale.md);
 2. guida con le configurazioni **specifiche** per il contesto applicativo **VERSO**  di [guida 2](src/docs/JBoss7_configurazione_verso.md).
 
+### Deploy su JBoss 7
+
+Di seguito le indicazioni per il rilascio su application server JBoss7: 
+
+1. generazione dell'artifact attraverso tool maven, eseguire il seguente comando: 
+
+   ```bash
+   mvn package
+   ```
+   
+2. viene generato l'artifact .war all'interno del modulo target (e.g. verso-1.8.0.war)
+3. deploy dell'ear generato allo step 1 su JBoss 7 (vedi configurazione [setup JBoss7](#setup-application-server-jboss-7))
+
+
 ## Predisposizione database
 
-TODO
+L'applicazione utilizza come DBMS di riferimento Oracle DB (https://www.oracle.com/it/database/) alla versione, consigliata, **19c**. Per l'installazione e la configurazione fare riferimento alle guide ufficiali.
+
+Per la creazione del modello E-R consultare il seguente [README.md](https://github.com/RegioneER/parer-db-init/blob/master/README.md) (progetto di riferimento https://github.com/RegioneER/parer-db-init).
 
 
 # Utilizzo
