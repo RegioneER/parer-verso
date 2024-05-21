@@ -1,0 +1,70 @@
+# This repository adheres to the publiccode.yml standard by including this 
+# metadata file that makes public software easily discoverable.
+# More info at https://github.com/italia/publiccode.yml
+
+publiccodeYmlVersion: '0.3'
+categories:
+  - data-collection
+  - data-visualization
+dependsOn:
+  open:
+    - name: Verso
+      optional: false
+      version: ''
+      versionMax: ''
+      versionMin: ''
+description:
+  it:
+    features:
+      - archiviazione documentale
+    genericName: Versamento Online
+    longDescription: |
+      Il client di versamento manuale VersO (Versamento Online) è un modulo che ParER mette a disposizione degli Enti produttori 
+      per il versamento in conservazione di unità documentarie. Poiché utilizza un’interfaccia web, 
+      non richiede l’installazione di alcun software sulla stazione di lavoro dell’Utente.
+    shortDescription: |-
+      Applicazione Web per il versamento manuale di unità documentarie al sistema SACER
+developmentStatus: stable
+intendedAudience:
+  countries:
+    - it
+it:
+  conforme:
+    gdpr: false
+    lineeGuidaDesign: false
+    misureMinimeSicurezza: false
+    modelloInteroperabilita: false
+  countryExtensionVersion: '0.2'
+  piattaforme:
+    anpr: false
+    cie: false
+    pagopa: false
+    spid: false
+  riuso:
+    codiceIPA: r_emiro
+landingURL: 'https://github.com/RegioneER/parer-verso'
+legal:
+  license: AGPL-3.0-or-later
+  mainCopyrightOwner: Regione Emilia-Romagna
+  repoOwner: Regione Emilia-Romagna
+localisation:
+  availableLanguages:
+    - it
+  localisationReady: true
+logo: |-
+  https://raw.githubusercontent.com/RegioneER/parer-verifica-firma-crypto/master/src/docs/rer-logo.png
+maintenance:
+  contacts:
+    - email: areasviluppoparer@regione.emilia-romagna.it
+      name: Cristiano Casagni
+  contractors:
+    - name: ' Engineering Ingegneria Informatica S.p.A.'
+      until: '2024-06-30'
+  type: contract
+name: Parer - Versamento Online
+platforms:
+  - linux
+releaseDate: '2023-11-13'
+softwareType: standalone/backend
+url: 'https://github.com/RegioneER/parer-verso.git'
+applicationSuite: SACER
