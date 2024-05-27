@@ -337,7 +337,7 @@
      </profiles>
      
     <scm>
-        <developerConnection>scm:git:git@gitlab.ente.regione.emr.it:parer/jboss/verso.git</developerConnection>
+        <developerConnection>scm:git:https://github.com/RegioneER/parer-verso.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 </project>
