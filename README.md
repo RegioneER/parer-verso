@@ -72,39 +72,129 @@ Requisiti minimi per installazione:
 - Java versione 17 (OpenJDK / Oracle)
 - Kubernetes / Docker : se rilasciato attraverso container oppure si esegue una build del progetto attraverso il profilo maven **uber-jar** per ottenere il JAR eseguibile (vedi paragrafi precendeti)
 
-## Librerie utilizzate
+# Librerie utilizzate
 
-|  GroupId | ArtifactId  | Version  | Type   |  Licenses |
-|---|---|---|---|---|
-|com.manydesigns |elements |4.1.beta6 |jar |GNU LESSER GENERAL PUBLIC LICENSE, Version 3||
-|com.manydesigns |elements-extras |4.0.8 |jar |-|
-|commons-collections |commons-collections |3.2.2 |jar |Apache License, Version 2.0|
-|commons-dbutils |commons-dbutils |1.7 |jar |Apache License, Version 2.0|
-|it.eng.parer |spagofat-core |5.12.0 |jar |-|
-|it.eng.parer |spagofat-middle |5.12.0 |jar |-|
-|it.eng.parer |spagofat-si-client |5.12.0 |jar |-|
-|it.eng.parer |spagofat-si-util |5.12.0 |jar |-|
-|jaxen |jaxen |1.2.0 |jar |BSD License 2.0|
-|net.datasiel |basewebapp |1.0.beta0 |jar |-|
-|net.sourceforge.stripes |stripes |1.5.8 |jar |The Apache Software License, Version 2.0|
-|ognl |ognl |3.3.4 |jar |The Apache Software License, Version 2.0|
-|org.apache.httpcomponents |httpmime |4.5.14 |jar |Apache License, Version 2.0|
-|org.jdom |jdom2 |2.0.6.1 |jar |Similar to Apache License but with the acknowledgment clause removed
-|org.reactivestreams |reactive-streams |1.0.3.redhat-00003 |jar |-|
-|org.springframework |spring-aop |5.3.30 |jar |Apache License, Version 2.0|
-|org.springframework |spring-context |5.3.30 |jar |Apache License, Version 2.0|
-|org.springframework |spring-context-support |5.3.30 |jar |Apache License, Version 2.0|
-|org.springframework |spring-core |5.3.30 |jar |Apache License, Version 2.0|
-|org.springframework |spring-tx |5.3.30 |jar |Apache License, Version 2.0|
-|org.springframework |spring-web |5.3.30 |jar |Apache License, Version 2.0|
-|org.springframework |spring-webmvc |5.3.30 |jar |Apache License, Version 2.0|
-|org.springframework.security |spring-security-config |5.8.8 |jar |Apache License, Version 2.0|
-|org.springframework.security |spring-security-core |5.8.8 |jar |Apache License, Version 2.0|
-|org.springframework.security |spring-security-web |5.8.8 |jar |Apache License, Version 2.0|
-|org.springframework.security.extensions |spring-security-saml2-core |1.0.10.RELEASE |jar |The Apache Software License, Version 2.0|
-|xalan |xalan |2.7.2 |jar |The Apache Software License, Version 2.0|
-|xerces |xercesImpl |2.12.0 |jar |The Apache Software License, Version 2.0|
 
+|  GroupId | ArtifactId  | Version |
+|:---:|:---:|:---:|
+|cglib|cglib-nodep|3.3.0|
+|com.fasterxml.jackson.core|jackson-annotations|2.12.7.redhat-00003|
+|com.fasterxml.jackson.core|jackson-core|2.12.7.redhat-00003|
+|com.fasterxml.jackson.core|jackson-databind|2.12.7.redhat-00003|
+|com.fasterxml.woodstox|woodstox-core|6.4.0.redhat-00001|
+|com.intellij|annotations|7.0.3|
+|com.io7m.xom|xom|1.2.10|
+|com.manydesigns|elements-extras|4.0.8|
+|com.manydesigns|elements|4.1.beta6|
+|com.narupley|not-going-to-be-commons-ssl|0.3.20|
+|com.sun.activation|jakarta.activation|1.2.2.redhat-00001|
+|com.zaxxer|SparseBitSet|1.2|
+|commons-codec|commons-codec|1.15|
+|commons-collections|commons-collections|3.2.2|
+|commons-configuration|commons-configuration|1.10|
+|commons-dbutils|commons-dbutils|1.7|
+|commons-fileupload|commons-fileupload|1.5|
+|commons-httpclient|commons-httpclient|3.1|
+|commons-io|commons-io|2.12.0|
+|commons-lang|commons-lang|2.5|
+|commons-logging|commons-logging|1.2|
+|commons-net|commons-net|3.9.0|
+|it.eng.parer|spagofat-core|5.12.0|
+|it.eng.parer|spagofat-middle|5.12.0|
+|it.eng.parer|spagofat-si-client|5.12.0|
+|it.eng.parer|spagofat-si-util|5.12.0|
+|it.eng.parer|spagofat-webresources|5.12.0|
+|javassist|javassist|3.8.0.GA|
+|javax.servlet.jsp.jstl|jstl-api|1.2|
+|javax.servlet.jsp|jsp-api|2.1|
+|javax.servlet|servlet-api|2.5|
+|jaxen|jaxen|1.2.0|
+|joda-time|joda-time|2.12.5|
+|junit|junit|4.13.2|
+|net.datasiel|basewebapp|1.0.beta0|
+|net.sourceforge.stripes|stripes|1.5.8|
+|ognl|ognl|3.3.4|
+|org.apache.commons|commons-collections4|4.4|
+|org.apache.commons|commons-lang3|3.12.0|
+|org.apache.commons|commons-math3|3.6.1|
+|org.apache.commons|commons-text|1.10.0|
+|org.apache.httpcomponents|httpclient|4.5.14|
+|org.apache.httpcomponents|httpcore|4.4.14.redhat-00001|
+|org.apache.httpcomponents|httpmime|4.5.14|
+|org.apache.poi|poi|4.1.2|
+|org.apache.santuario|xmlsec|2.2.3.redhat-00001|
+|org.apache.velocity|velocity-engine-core|2.0|
+|org.apache.xmlbeans|xmlbeans|3.1.0|
+|org.bouncycastle|bcpkix-jdk15on|1.70|
+|org.bouncycastle|bcprov-jdk15on|1.70|
+|org.bouncycastle|bcutil-jdk15on|1.70|
+|org.codehaus.jettison|jettison|1.5.4|
+|org.codehaus.woodstox|stax2-api|4.2.1.redhat-00001|
+|org.hamcrest|hamcrest-core|1.3|
+|org.javassist|javassist|3.27.0.GA-redhat-00001|
+|org.jboss.logging|jboss-logging|3.4.1.Final-redhat-00001|
+|org.jdom|jdom2|2.0.6.1|
+|org.json|json|20090211|
+|org.keycloak|keycloak-adapter-core|21.1.1|
+|org.keycloak|keycloak-adapter-spi|21.1.1|
+|org.keycloak|keycloak-authz-client|21.1.1|
+|org.keycloak|keycloak-common|21.1.1|
+|org.keycloak|keycloak-core|21.1.1|
+|org.keycloak|keycloak-crypto-default|21.1.1|
+|org.keycloak|keycloak-policy-enforcer|21.1.1|
+|org.keycloak|keycloak-server-spi-private|21.1.1|
+|org.keycloak|keycloak-server-spi|21.1.1|
+|org.keycloak|keycloak-servlet-adapter-spi|21.1.1|
+|org.keycloak|keycloak-servlet-filter-adapter|21.1.1|
+|org.opensaml|opensaml|2.6.6|
+|org.opensaml|openws|1.5.6|
+|org.opensaml|xmltooling|1.4.6|
+|org.owasp.esapi|esapi|2.2.0.0|
+|org.reactivestreams|reactive-streams|1.0.3.redhat-00003|
+|org.slf4j|slf4j-api|2.0.7|
+|org.springframework.security.extensions|spring-security-saml2-core|1.0.10.RELEASE|
+|org.springframework.security|spring-security-config|5.8.8|
+|org.springframework.security|spring-security-core|5.8.8|
+|org.springframework.security|spring-security-crypto|5.8.8|
+|org.springframework.security|spring-security-web|5.8.8|
+|org.springframework|spring-aop|5.3.30|
+|org.springframework|spring-beans|5.3.30|
+|org.springframework|spring-context-support|5.3.30|
+|org.springframework|spring-context|5.3.30|
+|org.springframework|spring-core|5.3.30|
+|org.springframework|spring-expression|5.3.30|
+|org.springframework|spring-jcl|5.3.30|
+|org.springframework|spring-jdbc|5.3.30|
+|org.springframework|spring-test|5.3.30|
+|org.springframework|spring-tx|5.3.30|
+|org.springframework|spring-web|5.3.30|
+|org.springframework|spring-webmvc|5.3.30|
+|xalan|serializer|2.7.2|
+|xalan|xalan|2.7.2|
+|xerces|xercesImpl|2.12.0|
+|xml-apis|xml-apis|1.4.01|
+
+
+## Lista licenze in uso
+
+
+ * agpl_v3     : GNU Affero General Public License (AGPL) version 3.0
+ * apache_v2   : Apache License version 2.0
+ * bsd_2       : BSD 2-Clause License
+ * bsd_3       : BSD 3-Clause License
+ * cddl_v1     : COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0
+ * epl_only_v1 : Eclipse Public License - v 1.0
+ * epl_only_v2 : Eclipse Public License - v 2.0
+ * epl_v1      : Eclipse Public + Distribution License - v 1.0
+ * epl_v2      : Eclipse Public License - v 2.0 with Secondary License
+ * eupl_v1_1   : European Union Public License v1.1
+ * fdl_v1_3    : GNU Free Documentation License (FDL) version 1.3
+ * gpl_v1      : GNU General Public License (GPL) version 1.0
+ * gpl_v2      : GNU General Public License (GPL) version 2.0
+ * gpl_v3      : GNU General Public License (GPL) version 3.0
+ * lgpl_v2_1   : GNU General Lesser Public License (LGPL) version 2.1
+ * lgpl_v3     : GNU General Lesser Public License (LGPL) version 3.0
+ * mit         : MIT-License
 
 # Supporto
 
