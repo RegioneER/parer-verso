@@ -37,11 +37,18 @@
     </properties>
 
     <distributionManagement>
-        <site>
-            <id>site</id>
-            <url>dav:https://nexus.ente.regione.emr.it/repository/parer-site/verso/${project.version}</url>
-        </site>
+        <repository>
+          <id>github</id>
+          <url>https://maven.pkg.github.com/RegioneER/parer-verso</url>
+        </repository>      
     </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/RegioneER/parer-framework-parerpom</url>           
+        </repository>          
+     </repositories>
 
     <dependencyManagement>
         <dependencies>
@@ -343,7 +350,7 @@
      </profiles>
      
     <scm>
-        <developerConnection>scm:git:git@gitlab.ente.regione.emr.it:parer/jboss/verso.git</developerConnection>
-        <tag>verso-jboss-3.0.0</tag>
+        <developerConnection>scm:git:https://github.com/RegioneER/parer-verso.git</developerConnection>
+        <tag>HEAD</tag>
     </scm>
 </project>
