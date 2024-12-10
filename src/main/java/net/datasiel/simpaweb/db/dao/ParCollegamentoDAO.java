@@ -101,15 +101,12 @@ public class ParCollegamentoDAO extends ParCollegamento {
      */
     public ParCollegamento retrieveByKey(Long idcollegamento, Connection con) throws SQLException {
 
-        // String query = "select * from PAR_COLLEGAMENTO"+" where IDCOLLEGAMENTO="+idcollegamento;
         String query = "select * from PAR_COLLEGAMENTO" + " where IDCOLLEGAMENTO=?";
-        // java.sql.Statement st = con.createStatement();
         java.sql.PreparedStatement st = con.prepareStatement(query);
         ResultSet r = null;
         st.setLong(1, idcollegamento);
         try {
             log.debug(query);
-            // ResultSet r = st.executeQuery(query);
             r = st.executeQuery();
             ParCollegamento obj = null;
             if (r.next()) {
@@ -251,7 +248,7 @@ public class ParCollegamentoDAO extends ParCollegamento {
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + preparedQuery);
+            log.error("Failed query: {}", preparedQuery, e);
             throw e;
         } finally {
             if (pst != null) {
@@ -323,7 +320,7 @@ public class ParCollegamentoDAO extends ParCollegamento {
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + preparedQuery);
+            log.error("Failed query: {}", preparedQuery, e);
             throw e;
         } finally {
             if (pst != null) {
@@ -450,17 +447,13 @@ public class ParCollegamentoDAO extends ParCollegamento {
      */
     public ParCollegamento retrieveByIndex(Long idcollegamento, Long idunitadoc, Connection con) throws SQLException {
 
-        // String query = "select * from PAR_COLLEGAMENTO"+" where IDCOLLEGAMENTO="+idcollegamento+" and
-        // IDUNITADOC="+idunitadoc;
         String query = "select * from PAR_COLLEGAMENTO" + " where IDCOLLEGAMENTO=?" + " and IDUNITADOC=?";
-        // java.sql.Statement st = con.createStatement();
         java.sql.PreparedStatement st = con.prepareStatement(query);
         ResultSet r = null;
         st.setLong(1, idcollegamento);
         st.setLong(2, idunitadoc);
         try {
             log.debug(query);
-            // ResultSet r = st.executeQuery(query);
             r = st.executeQuery();
             ParCollegamento obj = null;
             if (r.next()) {
@@ -541,7 +534,7 @@ public class ParCollegamentoDAO extends ParCollegamento {
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + preparedQuery);
+            log.error("Failed query: {}", preparedQuery, e);
             throw e;
         } finally {
             if (pst != null) {
@@ -620,7 +613,7 @@ public class ParCollegamentoDAO extends ParCollegamento {
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + prepQuery);
+            log.error("Failed query: {}", prepQuery, e);
             throw e;
         } finally {
             if (pst != null) {

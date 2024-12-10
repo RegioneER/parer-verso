@@ -20,7 +20,7 @@ package net.datasiel.simpaweb.db;
 /**
  * Elenca le possibiili tipologie di documenti con la relativa dicitura leggibile per le diverse ed il relativo valore
  * inserito in DB per individuare le tipologie documentarie ammesse.
- * 
+ *
  * @author reisoli
  *
  */

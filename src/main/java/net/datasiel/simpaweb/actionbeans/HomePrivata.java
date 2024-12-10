@@ -68,7 +68,7 @@ import net.sourceforge.stripes.action.UrlBinding;
 
 /**
  * @author reisoli
- * 
+ *
  */
 @UrlBinding("/pro/strut/{idStrut}")
 public class HomePrivata extends BaseAction {

@@ -19,7 +19,7 @@ package net.datasiel.simpaweb.db.dao;
 
 /**
   * VDecEstensioneFile
-  * 
+  *
   * WARNING! Automatically generated file!
   * Do not edit!
   */
@@ -83,11 +83,11 @@ public class VDecEstensioneFileDAO extends VDecEstensioneFile {
         pst.setString(indice++, obj.getCdEstensioneFile());
 
         try {
-            log.debug(prepQuery);
+            log.debug("{}", prepQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + prepQuery);
+            log.error("Failed query: {}", prepQuery, e);
             throw e;
         } finally {
             if (pst != null)

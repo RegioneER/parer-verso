@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  */
 package net.datasiel.webapp.crud;
 
@@ -44,7 +44,7 @@ import com.manydesigns.elements.messages.SessionMessages;
 
 /**
  * @author reisoli
- * 
+ *
  */
 public abstract class AbstractCrudAction extends BaseAction {
 
@@ -138,10 +138,10 @@ public abstract class AbstractCrudAction extends BaseAction {
 
     /**
      * Metodo eseguito di default.
-     * 
+     *
      * @throws Eccezione
      *             in caricamento model
-     * 
+     *
      * @return Forward di edit
      */
     @DefaultHandler
@@ -166,10 +166,10 @@ public abstract class AbstractCrudAction extends BaseAction {
 
     /**
      * Metodo per l'azione di aggiornamento.
-     * 
+     *
      * @throws Eccezione
      *             in caricamento model
-     * 
+     *
      * @return
      */
     public Resolution update() throws Exception {
@@ -284,7 +284,7 @@ public abstract class AbstractCrudAction extends BaseAction {
 
     /**
      * Metodo per l'inserimento di una nuova riga.
-     * 
+     *
      * @return
      */
     public Resolution insertRiga() {
@@ -368,7 +368,7 @@ public abstract class AbstractCrudAction extends BaseAction {
 
     /**
      * Eliminazione riga indicata dal value di delete che inseriamo come proprietà della classe.
-     * 
+     *
      * @return
      */
     public Resolution delete() {
@@ -403,7 +403,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     public abstract Resolution goHome();
 
     /**
-     * 
+     *
      */
     public void safeEndTransaction() {
         try {
@@ -774,7 +774,7 @@ public abstract class AbstractCrudAction extends BaseAction {
 
     /**
      * Impostazione delle possibili componenti dell'ui.
-     * 
+     *
      */
     public void setupUI() {
 
@@ -857,7 +857,7 @@ public abstract class AbstractCrudAction extends BaseAction {
 
     /**
      * Prepara gli elements per intestazione read/write.
-     * 
+     *
      * @param mode
      *            TODO
      */
@@ -890,7 +890,7 @@ public abstract class AbstractCrudAction extends BaseAction {
 
     /**
      * Hook per caricamento del model.
-     * 
+     *
      * @throws Eccezione
      *             generica a seconda della persistenza usata.
      */
@@ -903,37 +903,37 @@ public abstract class AbstractCrudAction extends BaseAction {
 
     /**
      * Hook per validazione singola riga.
-     * 
+     *
      * @param rigaModel
      *            Riga da validare
-     * 
+     *
      * @return esito validazione
      */
     public abstract boolean rigaValidate(RigaModel rigaModel);
 
     /**
      * Hook per la validazione business di una riga della tabella dettaglio 1.
-     * 
+     *
      * @param dettaglio
      *            Riga da validare
-     * 
+     *
      * @return Esito validazione
      */
     public abstract boolean dettaglio1Validate(Object dettaglio);
 
     /**
      * Hook per la validazione business di una riga della tabella dettaglio 2.
-     * 
+     *
      * @param dettaglio
      *            Riga da validare
-     * 
+     *
      * @return Esito validazione
      */
     public abstract boolean dettaglio2Validate(Object dettaglio);
 
     /**
      * Hook per l'eliminazine di una riga intera (testata e dettagli).
-     * 
+     *
      * @param indiceRiga
      *            indice 0 based della riga da eliminare.
      */
@@ -941,17 +941,17 @@ public abstract class AbstractCrudAction extends BaseAction {
 
     /**
      * Hook per il salvataggio dell'intero model su database.
-     * 
+     *
      * @throws Exception
      */
     public abstract void updateCrudModel() throws Exception;
 
     /**
      * Hook per inserimento di una singola riga.
-     * 
+     *
      * @param rigaModel
      *            Riga da inserire
-     * 
+     *
      * @throws Exception
      */
     public abstract void insertRigaModel(RigaModel rigaModel) throws Exception;
@@ -960,7 +960,7 @@ public abstract class AbstractCrudAction extends BaseAction {
 
     /**
      * Hook per inserimento riga dettaglio 1.
-     * 
+     *
      * @param indiceRiga
      *            Indice della riga a cui aggiungere la riga dettaglio.
      * @param dettaglio
@@ -974,7 +974,7 @@ public abstract class AbstractCrudAction extends BaseAction {
 
     /**
      * Hook per inserimento riga dettaglio 2.
-     * 
+     *
      * @param indiceRiga
      *            Indice della riga a cui aggiungere la riga dettaglio.
      * @param dettaglio
@@ -1015,7 +1015,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     /**
      * Restituisce il numero massimo di righe. Fare restituire 1 per caso estremo di una sola riga non eliminabile. Se
      * non c'è limite restituire 0.
-     * 
+     *
      * @return
      */
     public int getMaxRighe() {
@@ -1024,7 +1024,7 @@ public abstract class AbstractCrudAction extends BaseAction {
 
     /**
      * Restituisce il titolo del fieldset della riga Restiuire null per non avere il fieldset
-     * 
+     *
      * @return
      */
     public String getTitoloFieldsetRiga() {
@@ -1033,7 +1033,7 @@ public abstract class AbstractCrudAction extends BaseAction {
 
     /**
      * Hook per la restituzione della jsp da usare per la creazione di una riga del primo dettaglio.
-     * 
+     *
      * @return
      */
     public String getDettaglio1CreatoView() {
@@ -1043,7 +1043,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     /**
      * Hook per la restituzione della jsp da usare per la creazione di una riga del primo dettaglio nel caso JS
      * disabilitato.
-     * 
+     *
      * @return
      */
     public String getDettaglio1CreatoNoJSView() {
@@ -1052,7 +1052,7 @@ public abstract class AbstractCrudAction extends BaseAction {
 
     /**
      * Hook per la restituzione della jsp da usare per la creazione di una riga del secondo dettaglio.
-     * 
+     *
      * @return
      */
     public String getDettaglio2CreatoView() {
@@ -1062,7 +1062,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     /**
      * Hook per la restituzione della jsp da usare per la creazione di una riga del secondo dettaglio caso JS
      * disabilitato.
-     * 
+     *
      * @return
      */
     public String getDettaglio2CreatoNoJSView() {
@@ -1071,7 +1071,7 @@ public abstract class AbstractCrudAction extends BaseAction {
 
     /**
      * Hook per la restituzione della jsp da creare per la creazione di una nuova riga nel caso JS disabilitato.
-     * 
+     *
      * @return
      */
     public String getRigaCreataNoJSView() {
@@ -1080,7 +1080,7 @@ public abstract class AbstractCrudAction extends BaseAction {
 
     /**
      * Hook per la restituzione della jsp da creare per la creazione di una nuova riga.
-     * 
+     *
      * @return
      */
     public String getRigaCreataView() {
@@ -1089,7 +1089,7 @@ public abstract class AbstractCrudAction extends BaseAction {
 
     /**
      * Hook per la restituzione della jsp vista principale.
-     * 
+     *
      * @return
      */
     public String getEditView() {
@@ -1112,7 +1112,7 @@ public abstract class AbstractCrudAction extends BaseAction {
 
     /**
      * Hook per il rollback
-     * 
+     *
      */
     public abstract void endTransaction() throws Exception;
 

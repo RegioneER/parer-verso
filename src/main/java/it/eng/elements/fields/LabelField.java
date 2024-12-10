@@ -96,27 +96,33 @@ public class LabelField extends AbstractTextField {
     // **************************************************************************
     // Implementazione/override di AbstractLabelField
     // **************************************************************************
+    @Override
     public void readFromRequest(HttpServletRequest req) {
-
+        // not used
     }
 
+    @Override
     public void readFromObject(Object obj) {
-
+        // not used
     }
 
     public void writeToObject(Object obj) {
+        // not used
     }
 
+    @Override
     protected void valueToXhtmlEdit(XhtmlBuffer xb) {
         valueToXhtmlView(xb);
 
     }
 
+    @Override
     protected void valueToXhtmlPreview(XhtmlBuffer xb) {
         valueToXhtmlView(xb);
 
     }
 
+    @Override
     protected void valueToXhtmlView(XhtmlBuffer xb) {
         xb.openElement("div");
         String cssClass = "value";
@@ -145,6 +151,7 @@ public class LabelField extends AbstractTextField {
         xb.closeElement("div");
     }
 
+    @Override
     public String getDisplayValue() {
         String escapedText;
         if (richText) {
@@ -162,12 +169,12 @@ public class LabelField extends AbstractTextField {
     // **************************************************************************
     // Other methods
     // **************************************************************************
-
+    @Deprecated(forRemoval = true)
     private int numRowTextArea(String stringValue, int cols) {
         if (stringValue == null)
             return textAreaMinRows;
 
-        String dim[] = stringValue.split("\n");
+        String[] dim = stringValue.split("\n");
         int rows = 0;
         for (String aDim : dim) {
             if (aDim.length() >= cols)

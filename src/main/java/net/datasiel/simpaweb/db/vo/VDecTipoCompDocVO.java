@@ -19,7 +19,7 @@ package net.datasiel.simpaweb.db.vo;
 
 /**
  * V_dec_tipo_comp_doc
- * 
+ *
  * WARNING! Automatically generated file!
  * Do not edit!
  * Code Generator by J.A.Carter

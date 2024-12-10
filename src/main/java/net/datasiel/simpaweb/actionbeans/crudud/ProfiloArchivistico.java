@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  */
 package net.datasiel.simpaweb.actionbeans.crudud;
 
@@ -93,7 +93,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#goHome()
      */
     @Override
@@ -105,7 +105,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareIntestazioneUiRO()
      */
     @Override
@@ -121,7 +121,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareIntestazioneUiRW(com.manydesigns.elements.Mode)
      */
     @Override
@@ -134,7 +134,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareElRiga(java.lang.String, com.manydesigns.elements.Mode)
      */
     @Override
@@ -146,7 +146,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareEltafoDettaglio1(java.lang.String, int,
      * com.manydesigns.elements.Mode)
      */
@@ -158,7 +158,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareEltafoDettaglio2(java.lang.String, int,
      * com.manydesigns.elements.Mode)
      */
@@ -170,7 +170,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareElDettaglio1(java.lang.String,
      * com.manydesigns.elements.Mode)
      */
@@ -182,7 +182,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareElDettaglio2(java.lang.String,
      * com.manydesigns.elements.Mode)
      */
@@ -194,7 +194,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#loadCrudModel()
      */
     @Override
@@ -233,7 +233,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#businessValidate()
      */
     @Override
@@ -331,7 +331,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
      * @param elfoRW
      * @param identificativoInserito
      * @param oggettoInserito
-     * 
+     *
      * @return
      */
     protected boolean validaIdentificativoOggetto(Form elfo, boolean identificativoInserito, boolean oggettoInserito) {
@@ -352,7 +352,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#rigaValidate(net.datasiel.webapp.crud.RigaModel)
      */
     @Override
@@ -390,7 +390,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#dettaglio1Validate(java.lang.Object)
      */
     @Override
@@ -401,7 +401,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#dettaglio2Validate(java.lang.Object)
      */
     @Override
@@ -412,7 +412,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#deleteRiga(int)
      */
     @Override
@@ -426,7 +426,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#updateCrudModel()
      */
     @Override
@@ -478,7 +478,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#insertRigaModel(net.datasiel.webapp.crud.RigaModel)
      */
     @Override
@@ -499,7 +499,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#createRigaModel()
      */
     @Override
@@ -512,7 +512,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#insertDettaglio1Model(int, java.lang.Object)
      */
     @Override
@@ -523,7 +523,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#createDettaglio1Model()
      */
     @Override
@@ -534,7 +534,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#deleteDettaglio1Model(int, int)
      */
     @Override
@@ -545,7 +545,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#insertDettaglio2Model(int, java.lang.Object)
      */
     @Override
@@ -556,7 +556,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#createDettaglio2Model()
      */
     @Override
@@ -567,7 +567,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#deleteDettaglio2Model(int, int)
      */
     @Override
@@ -578,7 +578,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#commitTransaction()
      */
     @Override
@@ -588,7 +588,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#beginTransaction()
      */
     @Override
@@ -598,7 +598,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#endTransaction()
      */
     @Override
@@ -653,20 +653,20 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
          * String errorMsg = new String(); if (StringUtils.isNotEmpty(idSottofascicolo)) { if
          * (!idSottofascicolo.matches(".+\\/[0-9]{4}\\/[0-9]+\\/[0-9]+")) { isValid = false; errorMsg =
          * "formato non valido; formato corretto: categoria.classe.sottoclasse/anno/numero/numero"; } else {
-         * 
+         *
          * // se è stato valorizzato anche il campo identificativo occorre verificare che il suo valore sia stato
          * riportato nella prima parte del campo identificativo sottofascicolo if
          * (StringUtils.isNotEmpty(identificativo) && isIdentificativoValid) { int slashIdx =
          * idSottofascicolo.lastIndexOf("/"); String identificativoSub = idSottofascicolo.substring(0, slashIdx); if
          * (!identificativoSub.equals(identificativo)) { isValid = false; errorMsg =
          * "valore incoerente con quanto inserito nel campo 'Identificativo'"; } }
-         * 
+         *
          * // se è stato valorizzato anche il campo classifica occorre verificare che il suo valore sia stato riportato
          * nella prima parte del campo identificativo sottofascicolo if (StringUtils.isNotEmpty(classifica) &&
          * isClassificaValid) { int slashIdx = idSottofascicolo.indexOf("/"); String classificaSub =
          * idSottofascicolo.substring(0, slashIdx); if (!classificaSub.equals(classifica)) { isValid = false; errorMsg =
          * "valore incoerente con quanto inserito nel campo 'Classifica'"; } }
-         * 
+         *
          * } } if (!isValid) { elfoRW.findFieldByPropertyName("idsottofascicolo").getErrors().add(errorMsg); isValid =
          * false; }
          */

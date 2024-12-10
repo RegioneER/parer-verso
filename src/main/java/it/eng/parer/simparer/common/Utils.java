@@ -48,7 +48,7 @@ public class Utils {
          * String passphrase = "The quick brown fox jumped over the lazy brown dog"; String plaintext = "hello world";
          * byte [] ciphertext = encrypt(passphrase, plaintext); String recoveredPlaintext = decrypt(passphrase,
          * ciphertext);
-         * 
+         *
          * System.out.println(recoveredPlaintext);
          */
     }
@@ -87,23 +87,23 @@ public class Utils {
 
     /*
      * public static String encrypt(String inputData) {
-     * 
+     *
      * String encryptedData = null; try {
-     * 
+     *
      * byte[] encrypted=encrypt(key, inputData); encryptedData= new String(encrypted);
-     * 
+     *
      * } catch (Exception e) { System.out.println(e); }
-     * 
+     *
      * return encryptedData; }
-     * 
+     *
      * public static String decrypt(String encryptedData) {
-     * 
+     *
      * String outputData = null; try {
-     * 
+     *
      * outputData= decrypt(key,encryptedData.getBytes("UTF-8"));
-     * 
+     *
      * } catch (Exception e) { System.out.println(e); }
-     * 
+     *
      * return outputData; }
      */
     public static String getHexString(byte[] b) throws Exception {

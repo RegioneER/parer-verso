@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
@@ -44,6 +45,8 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import it.eng.exceptions.VersoException;
+import it.eng.exceptions.ErrorCategory.VersoErrorCategory;
 import net.datasiel.simpaweb.db.dao.VUsrIAMUserDAO;
 
 public class AppInfosSrvlt extends HttpServlet {
@@ -84,10 +87,8 @@ public class AppInfosSrvlt extends HttpServlet {
             // final result
             final Map<String, Map<String, String>> infos = Collections.synchronizedMap(new LinkedHashMap<>());
             // props or root to skip
-            final String rootToSkip = StringUtils.defaultString(System.getProperty(SYS_CONFIG_ROOT_TO_SKIP),
-                    StringUtils.EMPTY);
-            final String propToSkip = StringUtils.defaultString(System.getProperty(SYS_CONFIG_PROP_TO_SKIP),
-                    StringUtils.EMPTY);
+            final String rootToSkip = Objects.toString(System.getProperty(SYS_CONFIG_ROOT_TO_SKIP), StringUtils.EMPTY);
+            final String propToSkip = Objects.toString(System.getProperty(SYS_CONFIG_PROP_TO_SKIP), StringUtils.EMPTY);
             // infos
             // git
             Map<String, String> git = gitproperties.entrySet().stream()
@@ -149,12 +150,14 @@ public class AppInfosSrvlt extends HttpServlet {
         final String loginName = decodedAuth.split(AUTH_SPLITTERATOR)[0];
         final String pwd = decodedAuth.split(AUTH_SPLITTERATOR)[1];
 
+        // only for logging
+        log.info("Indirizzo IP del chiamante - access: ws - IP: {}", ipAddr);
         // check credentials
         // recupero cdPwd da IAMUSER
         try (Connection con = getConnection()) {
             VUsrIAMUserDAO viamUsr = new VUsrIAMUserDAO();
             return StringUtils.isNotBlank(viamUsr.isUserAuthenticated(loginName, pwd, con));
-        } catch (SQLException e) {
+        } catch (Exception e) {
             log.error("Errore generico", e);
             return false;
         }
@@ -176,11 +179,15 @@ public class AppInfosSrvlt extends HttpServlet {
         return ipVers;
     }
 
-    private Connection getConnection() throws SQLException {
+    private Connection getConnection() throws SQLException, VersoException {
         // context
         WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
         // get datasource
-        final DataSource datasource = (DataSource) ctx.getBean("dataSource");
-        return datasource.getConnection();
+        if (Objects.nonNull(ctx)) {
+            final DataSource datasource = (DataSource) ctx.getBean("dataSource");
+            return datasource.getConnection();
+        } else {
+            throw new VersoException("Context null cannot get connection", VersoErrorCategory.INTERNAL_ERROR);
+        }
     }
 }

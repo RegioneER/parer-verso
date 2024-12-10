@@ -26,14 +26,9 @@ package net.datasiel.simpaweb.db.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import net.datasiel.simpaweb.db.pojo.VUsrVRicUser;
 
 public class VUsrVRicUserDAO extends VUsrVRicUser {
-
-    private final Logger log = LoggerFactory.getLogger(VUsrVRicUserDAO.class);
 
     private static final long serialVersionUID = 0L;
     public static String[] fieldNames = null;

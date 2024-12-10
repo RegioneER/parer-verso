@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  */
 package net.datasiel.simpaweb.common.shiro;
 
@@ -49,7 +49,7 @@ import net.datasiel.webapp.AuthorizationException;
 
 /**
  * @author reisoli
- * 
+ *
  */
 public class CustomRealm {
     private static final Logger log = LoggerFactory.getLogger(CustomRealm.class);
@@ -162,9 +162,9 @@ public class CustomRealm {
 
     /**
      * Contiene le informazioni dell'utente e delle sue strutture di appartenenza.
-     * 
+     *
      * @author reisoli
-     * 
+     *
      */
 
 }

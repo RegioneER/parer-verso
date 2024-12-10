@@ -38,6 +38,8 @@ import org.slf4j.LoggerFactory;
 
 import com.manydesigns.elements.messages.SessionMessages;
 
+import it.eng.exceptions.ErrorCategory.VersoErrorCategory;
+import it.eng.exceptions.VersoException;
 import it.eng.parer.simparer.security.ClientUser;
 import it.eng.spagoCore.configuration.ConfigSingleton;
 import it.eng.spagoLite.SessionManager;
@@ -61,7 +63,7 @@ public class VerificaVersamentoUD {
 
     @SuppressWarnings("unchecked")
     public static InfoEsito esegui(EnumOperazione operazione, Long idUnitaDoc, Connection con,
-            HttpServletRequest request) throws Exception {
+            HttpServletRequest request) throws SQLException {
         InfoEsito infoEsito = new InfoEsito();
         HttpSession session = request.getSession();
         String xmlRichiesta = null;
@@ -121,7 +123,7 @@ public class VerificaVersamentoUD {
                         if (operazione == EnumOperazione.VERIFICA) {
                             opDesc = "Verifica fallita";
                         }
-                        infoEsito.setMessaggio(String.format("%s a causa di un errore generico", opDesc,
+                        infoEsito.setMessaggio(String.format("%s a causa di un errore generico %s", opDesc,
                                 ExceptionUtils.getRootCauseMessage(e)));
                         return infoEsito;
                     }
@@ -142,7 +144,7 @@ public class VerificaVersamentoUD {
                     if (infoEsito.getStato() == 1) {
                         if (Utils.isChiaveDoppia(infoEsito)) {
                             if (parUnitaDocVO.getStato(idUnitaDoc, con) == 4) {
-                                log.debug("UD " + idUnitaDoc + " già versata in Sacer!");
+                                log.debug("UD {} già versata in Sacer!", idUnitaDoc);
                             } else {
                                 parUnitaDocVO.aggiornaUnitaDoc(statoDopoVerifica, xmlRichiesta, esitoInvocazione,
                                         idUnitaDoc, simulaDb || isComunicazione ? null : infoEsito.getEsito(), con);
@@ -181,7 +183,7 @@ public class VerificaVersamentoUD {
         return infoEsito;
     }
 
-    public static boolean isVersata(Long idUnitaDoc, Connection conn) throws Exception {
+    public static boolean isVersata(Long idUnitaDoc, Connection conn) throws VersoException {
         ParUnitadocVO parUnitaDocVO = new ParUnitadocVO();
         boolean result;
 
@@ -192,7 +194,7 @@ public class VerificaVersamentoUD {
                 result = false;
             }
         } catch (SQLException e) {
-            throw new Exception();
+            throw new VersoException(e, VersoErrorCategory.INTERNAL_ERROR);
         }
 
         return result;

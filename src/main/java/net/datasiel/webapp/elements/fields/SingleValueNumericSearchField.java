@@ -27,7 +27,7 @@ import com.manydesigns.elements.xml.XhtmlBuffer;
 
 /**
  * @author reisoli
- * 
+ *
  */
 public class SingleValueNumericSearchField extends AbstractSearchField {
 
@@ -42,7 +42,7 @@ public class SingleValueNumericSearchField extends AbstractSearchField {
 
     /**
      * Costruttore standard.
-     * 
+     *
      * @param accessor
      *            L'accessor del campo
      */
@@ -53,7 +53,7 @@ public class SingleValueNumericSearchField extends AbstractSearchField {
 
     /**
      * Costruttore con il prefisso per le tavole.
-     * 
+     *
      * @param accessor
      *            L'accessor del campo
      * @param prefix
@@ -66,10 +66,10 @@ public class SingleValueNumericSearchField extends AbstractSearchField {
 
     /**
      * Configura il criterio di ricerca per uguaglianza.
-     * 
+     *
      * @see com.manydesigns.elements.fields.search.SearchField#configureCriteria(
      *      com.manydesigns.elements.fields.search.Criteria)
-     * 
+     *
      * @param criteria
      *            L'oggetto criteria da configurare
      */
@@ -81,7 +81,7 @@ public class SingleValueNumericSearchField extends AbstractSearchField {
 
     /**
      * @see com.manydesigns.elements.fields.search.SearchField#toSearchString(java .lang.StringBuilder)
-     * 
+     *
      * @param sb
      *            String buffer della query
      */
@@ -106,7 +106,7 @@ public class SingleValueNumericSearchField extends AbstractSearchField {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.manydesigns.elements.Element#validate()
      */
     public boolean validate() {
@@ -116,9 +116,9 @@ public class SingleValueNumericSearchField extends AbstractSearchField {
 
     /**
      * Rendering Xhtml del campo.
-     * 
+     *
      * @see com.manydesigns.elements.xml.XhtmlFragment#toXhtml( com.manydesigns.elements.xml.XhtmlBuffer)
-     * 
+     *
      * @param xb
      *            XhtmlBuffer a cui aggiungere il campo
      */

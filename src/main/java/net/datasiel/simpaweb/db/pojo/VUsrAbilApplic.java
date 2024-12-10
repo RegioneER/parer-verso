@@ -23,7 +23,7 @@ import com.manydesigns.elements.annotations.MaxLength;
 import com.manydesigns.elements.annotations.Required;
 
 /**
- * 
+ *
  * @author Moretti_Lu
  */
 public class VUsrAbilApplic implements Serializable {

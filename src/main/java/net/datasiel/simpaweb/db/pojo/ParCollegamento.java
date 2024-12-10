@@ -19,7 +19,7 @@ package net.datasiel.simpaweb.db.pojo;
 
 /**
  * ParCollegamento
- * 
+ *
  * WARNING! Automatically generated file!
  * Do not edit!
  */

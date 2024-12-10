@@ -135,19 +135,15 @@ public class ParComponenteDAO extends ParComponente {
     public ParComponente retrieveByKey(Long idunitadoc, Long iddocumento, Long idcomponente, Connection con)
             throws SQLException {
 
-        // String query = "select * from PAR_COMPONENTE"+" where IDUNITADOC="+idunitadoc+" and
-        // IDDOCUMENTO="+iddocumento+" and IDCOMPONENTE="+idcomponente;
         String query = "select * from PAR_COMPONENTE" + " where IDUNITADOC=?" + " and IDDOCUMENTO=?"
                 + " and IDCOMPONENTE=?";
-        // java.sql.Statement st = con.createStatement();
         java.sql.PreparedStatement st = con.prepareStatement(query);
         ResultSet r = null;
         st.setLong(1, idunitadoc);
         st.setLong(2, iddocumento);
         st.setLong(3, idcomponente);
         try {
-            log.info(query + " - [" + idunitadoc + "," + iddocumento + "," + idcomponente + "]");
-            // ResultSet r = st.executeQuery(query);
+            log.info("{} - [{} ,{} , {}]", query, idunitadoc, iddocumento, idcomponente);
             r = st.executeQuery();
             ParComponente obj = null;
             if (r.next()) {
@@ -178,7 +174,7 @@ public class ParComponenteDAO extends ParComponente {
         ResultSet r = null;
         try {
             st.setLong(1, idDocumento);
-            log.debug(query + " - [" + idDocumento + "]");
+            log.debug("{} - [{}]", query, idDocumento);
 
             r = st.executeQuery();
             while (r.next()) {
@@ -210,7 +206,7 @@ public class ParComponenteDAO extends ParComponente {
         ResultSet r = null;
         try {
             st.setString(1, code);
-            log.debug(query + " - [" + code + "]");
+            log.debug("{} - [{}]", query, code);
 
             r = st.executeQuery();
             while (r.next()) {
@@ -360,10 +356,10 @@ public class ParComponenteDAO extends ParComponente {
 
         try {
             int updates = pst.executeUpdate();
-            log.info(log_s.toString());
+            log.info("{}", log_s);
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + preparedQuery);
+            log.error("Failed query: {}", preparedQuery, e);
             throw e;
         } finally {
             if (pst != null) {
@@ -449,7 +445,7 @@ public class ParComponenteDAO extends ParComponente {
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + preparedQuery);
+            log.error("Failed query: {}", preparedQuery, e);
             throw e;
         } finally {
             if (pst != null) {
@@ -468,8 +464,7 @@ public class ParComponenteDAO extends ParComponente {
             st.setLong(1, obj.getIdunitadoc());
             st.setLong(2, obj.getIddocumento());
             st.setLong(3, obj.getIdcomponente());
-            log.info(query + " - [" + obj.getIdunitadoc() + "," + obj.getIddocumento() + "," + obj.getIdcomponente()
-                    + "]");
+            log.info("{} - [{}, {}, {}]", query, obj.getIdunitadoc(), obj.getIddocumento(), obj.getIdcomponente());
             int updates = st.executeUpdate();
             return updates;
         } finally {
@@ -525,7 +520,7 @@ public class ParComponenteDAO extends ParComponente {
             st.setLong(1, iddocumento);
             st.setLong(2, idunitadoc);
 
-            log.info(query + " - [" + iddocumento + "," + idunitadoc + "]");
+            log.info("{} - [{}, {}]", query, iddocumento, idunitadoc);
             r = st.executeQuery();
             while (r.next()) {
                 curRow = new ParComponente();
@@ -562,7 +557,7 @@ public class ParComponenteDAO extends ParComponente {
             st.setLong(1, iddocumento);
             st.setLong(2, idunitadoc);
 
-            log.info(query + " - [" + iddocumento + "," + idunitadoc + "]");
+            log.info("{} - [{}, {}]", query, iddocumento, idunitadoc);
             r = st.executeQuery();
             while (r.next()) {
                 curRow = new ParComponente();
@@ -595,7 +590,7 @@ public class ParComponenteDAO extends ParComponente {
         try {
             st.setLong(1, idcomponente);
             st.setLong(2, idunitadoc);
-            log.info(query + " - [" + idcomponente + "," + idunitadoc + "]");
+            log.info("{} - [{}, {}]", query, idcomponente, idunitadoc);
             r = st.executeQuery();
             while (r.next()) {
                 curRow = new ParComponente();
@@ -627,7 +622,7 @@ public class ParComponenteDAO extends ParComponente {
         ResultSet r = null;
         try {
             st.setLong(1, idunitadoc);
-            log.info(query + " - [" + idunitadoc + "]");
+            log.info("{} - [{}]", query, idunitadoc);
             r = st.executeQuery();
             while (r.next()) {
                 curRow = new ParComponente();
@@ -650,7 +645,7 @@ public class ParComponenteDAO extends ParComponente {
      */
     public java.util.List<ParComponente> getParComponentesByIddocumentoIdunitadocOrdered(Long iddocumento,
             Long idunitadoc, Connection con) throws SQLException {
-        java.util.List<ParComponente> retRows = new java.util.ArrayList<ParComponente>();
+        java.util.List<ParComponente> retRows = new java.util.ArrayList<>();
         ParComponente curRow;
 
         String query = "select * from PAR_COMPONENTE" + " where IDDOCUMENTO=? and IDUNITADOC=? ";
@@ -660,7 +655,7 @@ public class ParComponenteDAO extends ParComponente {
         try {
             st.setLong(1, iddocumento);
             st.setLong(2, idunitadoc);
-            log.debug(query + " - [" + iddocumento + "," + idunitadoc + "]");
+            log.debug("{} - [{}, {}]", query, iddocumento, idunitadoc);
             r = st.executeQuery();
             while (r.next()) {
                 curRow = new ParComponente();
@@ -696,19 +691,15 @@ public class ParComponenteDAO extends ParComponente {
     public ParComponente retrieveByIndex(Long iddocumento, Long idunitadoc, Long idcomponente, Connection con)
             throws SQLException {
 
-        // String query = "select * from PAR_COMPONENTE"+" where IDDOCUMENTO="+iddocumento+" and
-        // IDUNITADOC="+idunitadoc+" and IDCOMPONENTE="+idcomponente;
         String query = "select * from PAR_COMPONENTE" + " where IDDOCUMENTO=?" + " and IDUNITADOC=?"
                 + " and IDCOMPONENTE=?";
-        // java.sql.Statement st = con.createStatement();
         java.sql.PreparedStatement st = con.prepareStatement(query);
         ResultSet r = null;
         st.setLong(1, iddocumento);
         st.setLong(2, idunitadoc);
         st.setLong(3, idcomponente);
         try {
-            // ResultSet r = st.executeQuery(query);
-            log.debug(query + " - [" + iddocumento + "," + idunitadoc + "," + idcomponente + "]");
+            log.debug("{} - [{}, {}, {}]", query, iddocumento, idunitadoc, idcomponente);
             r = st.executeQuery();
             ParComponente obj = null;
             if (r.next()) {
@@ -838,8 +829,8 @@ public class ParComponenteDAO extends ParComponente {
             pst.setNull(indice++, Types.DATE);
             logStr.append(",3");
         } else {
-            pst.setDate(indice++, new java.sql.Date(((java.util.Date) obj.getDataRifTemp()).getTime()));
-            logStr.append(",").append(new java.sql.Date(((java.util.Date) obj.getDataRifTemp()).getTime()));
+            pst.setDate(indice++, new java.sql.Date((obj.getDataRifTemp()).getTime()));
+            logStr.append(",").append(new java.sql.Date((obj.getDataRifTemp()).getTime()));
         }
         pst.setString(indice++, obj.getDescRifTemp());
         logStr.append(",").append(obj.getDescRifTemp());
@@ -858,10 +849,10 @@ public class ParComponenteDAO extends ParComponente {
 
         try {
             int updates = pst.executeUpdate();
-            log.debug(logStr.toString());
+            log.debug("{}", logStr);
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + preparedQuery);
+            log.error("Failed query: {}", preparedQuery, e);
             throw e;
         } finally {
             if (pst != null) {
@@ -881,8 +872,7 @@ public class ParComponenteDAO extends ParComponente {
             st.setLong(2, obj.getIdunitadoc());
             st.setLong(3, obj.getIdcomponente());
 
-            log.debug(query + " - [" + obj.getIddocumento() + "," + obj.getIdunitadoc() + "," + obj.getIdcomponente()
-                    + "]");
+            log.debug("{} - [{}, {}, {}]", query, obj.getIddocumento(), obj.getIdunitadoc(), obj.getIdcomponente());
             int updates = st.executeUpdate();
             return updates;
         } finally {
@@ -896,7 +886,7 @@ public class ParComponenteDAO extends ParComponente {
      * Inserts the current object values into the database.
      *
      * @param blob
-     * 
+     *
      * @throws Exception
      */
     public int insertPrepared(ParComponente obj, Blob blob, Connection con) throws Exception {
@@ -1008,8 +998,8 @@ public class ParComponenteDAO extends ParComponente {
             pst.setNull(indice++, Types.DATE);
             log_s.append(",").append(Types.DATE);
         } else {
-            pst.setDate(indice++, new java.sql.Date(((java.util.Date) obj.getDataRifTemp()).getTime()));
-            log_s.append("," + new java.sql.Date(((java.util.Date) obj.getDataRifTemp()).getTime()));
+            pst.setDate(indice++, new java.sql.Date((obj.getDataRifTemp()).getTime()));
+            log_s.append("," + new java.sql.Date((obj.getDataRifTemp()).getTime()));
         }
 
         if (blob != null && blob.getDataFile() != null) {
@@ -1035,14 +1025,14 @@ public class ParComponenteDAO extends ParComponente {
 
         try {
             int updates = pst.executeUpdate();
-            log.info(log_s.toString());
+            log.info("{}", log_s);
 
             if (fileDati != null) {
                 fileDati.close();
             }
             return updates;
         } catch (Exception e) {
-            log.error("Failed query:" + prepQuery);
+            log.error("Failed query: {}", prepQuery, e);
             throw e;
         } finally {
             if (pst != null) {
@@ -1054,7 +1044,6 @@ public class ParComponenteDAO extends ParComponente {
 
     public InputStream getBlobWhereByCodAllegato(String codAllegato, Connection con) throws SQLException {
         String query = "select BL_FILE_COMP from PAR_COMPONENTE  where CODALLEGATO = ?";
-        // java.sql.Statement st = con.createStatement();
         java.sql.PreparedStatement st = con.prepareStatement(query);
         InputStream ret = null;
         ResultSet r = null;
@@ -1079,7 +1068,6 @@ public class ParComponenteDAO extends ParComponente {
 
     public InputStream getBlobWhereByIdCompIdUD(Long idComp, Long idUd, Connection con) throws SQLException {
         String query = "select BL_FILE_COMP from PAR_COMPONENTE  where IDCOMPONENTE = ? and IDUNITADOC = ?";
-        // java.sql.Statement st = con.createStatement();
         java.sql.PreparedStatement st = con.prepareStatement(query);
         InputStream ret = null;
         ResultSet r = null;

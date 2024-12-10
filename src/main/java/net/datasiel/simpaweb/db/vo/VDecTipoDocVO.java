@@ -60,9 +60,9 @@ public class VDecTipoDocVO extends VDecTipoDocDAO {
      *            ID dell'utente in IAM
      * @param con
      *            Connessione a db
-     * 
+     *
      * @return Numero di tipologie di documento trovate.
-     * 
+     *
      * @throws SQLException
      */
     public static int getNumeroTipiDoc(Long idTipoUnitaDoc, String strTiDoc, Long idUserIam, Connection con)
@@ -110,9 +110,9 @@ public class VDecTipoDocVO extends VDecTipoDocDAO {
      * @param con
      *            Connessione a db
      * @param fl_princ
-     * 
+     *
      * @return L'elenco delle tipologie documentarie ammesse.
-     * 
+     *
      * @throws SQLException
      */
     public static List<VDecTipoDocVO> getListaTipiDoc(Long idTipoUnitaDoc, String strTiDoc, Long idUserIam,

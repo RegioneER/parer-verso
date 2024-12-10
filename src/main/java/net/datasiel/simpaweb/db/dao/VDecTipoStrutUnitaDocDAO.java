@@ -88,22 +88,22 @@ public class VDecTipoStrutUnitaDocDAO extends VDecTipoStrutUnitaDoc {
         pst.setString(indice++, obj.getNmTipoStrutUnitaDoc());
         pst.setString(indice++, obj.getDsTipoStrutUnitaDoc());
         if (obj.getDtIstituz() != null) {
-            pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getDtIstituz()).getTime()));
+            pst.setObject(indice++, new java.sql.Date((obj.getDtIstituz()).getTime()));
         } else {
             pst.setObject(indice++, null);
         }
         if (obj.getDtSoppres() != null) {
-            pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getDtSoppres()).getTime()));
+            pst.setObject(indice++, new java.sql.Date((obj.getDtSoppres()).getTime()));
         } else {
             pst.setObject(indice++, null);
         }
 
         try {
-            log.debug(prepQuery);
+            log.debug("{}", prepQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + prepQuery);
+            log.error("Failed query: {}", prepQuery, e);
             throw e;
         } finally {
             if (pst != null) {

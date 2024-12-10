@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  */
 package net.datasiel.simpaweb.elements;
 
@@ -30,7 +30,7 @@ import net.datasiel.simpaweb.db.pojo.ParDocumento;
 
 /**
  * @author reisoli
- * 
+ *
  */
 public class RigaDocumentoForm extends Sequence {
     public Form elfoHidden;
@@ -42,7 +42,7 @@ public class RigaDocumentoForm extends Sequence {
             "cdVersioneXSD" };
 
     /**
-     * 
+     *
      */
     public RigaDocumentoForm(DefaultSelectionProvider selTipoDoc, DefaultSelectionProvider selCDVersione,
             DefaultSelectionProvider selTipoStrutDoc, String nomeFieldset, Mode mode, String prefix,

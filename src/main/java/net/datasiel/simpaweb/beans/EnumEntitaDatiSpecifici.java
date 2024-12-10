@@ -19,7 +19,7 @@ package net.datasiel.simpaweb.beans;
 
 /**
  * Elenco possibili valori per TI_ENTITA_SACER e relativo nome colonna in PAR_DATISPECIFICI.
- * 
+ *
  * @author reisoli
  *
  */

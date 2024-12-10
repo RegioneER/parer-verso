@@ -22,7 +22,7 @@ import org.w3c.dom.Document;
 /**
  * Oggetto contenente i dati specifici corrispondenti a un xsd custom. versioneDatiSpecifici e gli elementi descritti
  * nell'xsd devono avere corrispondenza sulla configurazione della base dati di SACER.
- * 
+ *
  * @author reisoli
  *
  */

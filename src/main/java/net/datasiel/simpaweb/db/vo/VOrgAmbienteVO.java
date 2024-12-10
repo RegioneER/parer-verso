@@ -31,7 +31,7 @@ import net.datasiel.simpaweb.db.dao.VorgAmbienteDAO;
 public class VOrgAmbienteVO extends VorgAmbienteDAO {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
     private static final Logger log = LoggerFactory.getLogger(VOrgAmbienteVO.class);

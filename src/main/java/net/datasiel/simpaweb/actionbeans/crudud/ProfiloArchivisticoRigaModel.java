@@ -23,7 +23,7 @@ import net.datasiel.simpaweb.db.pojo.ParFascicolo;
 import net.datasiel.webapp.crud.RigaModel;
 
 /**
- * 
+ *
  * @author reisoli
  *
  */

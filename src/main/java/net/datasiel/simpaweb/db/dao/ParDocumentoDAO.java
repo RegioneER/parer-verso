@@ -113,16 +113,13 @@ public class ParDocumentoDAO extends ParDocumento {
      */
     public ParDocumento retrieveByKey(Long idunitadoc, Long iddocumento, Connection con) throws SQLException {
 
-        // String query = "select * from PAR_DOCUMENTO"+" where IDUNITADOC="+idunitadoc+" and IDDOCUMENTO="+iddocumento;
         String query = "select * from PAR_DOCUMENTO" + " where IDUNITADOC=?" + " and IDDOCUMENTO=?";
-        // java.sql.Statement st = con.createStatement();
         java.sql.PreparedStatement st = con.prepareStatement(query);
         st.setLong(1, idunitadoc);
         st.setLong(2, iddocumento);
         ResultSet r = null;
         try {
             log.debug(query);
-            // ResultSet r = st.executeQuery(query);
             r = st.executeQuery();
             ParDocumento obj = null;
             if (r.next()) {
@@ -142,15 +139,12 @@ public class ParDocumentoDAO extends ParDocumento {
 
     public ParDocumento retrieveByKey(Long iddocumento, Connection con) throws SQLException {
 
-        // String query = "select * from PAR_DOCUMENTO"+" where IDUNITADOC="+idunitadoc+" and IDDOCUMENTO="+iddocumento;
         String query = "select * from PAR_DOCUMENTO" + " where IDDOCUMENTO=?";
-        // java.sql.Statement st = con.createStatement();
         java.sql.PreparedStatement st = con.prepareStatement(query);
         ResultSet r = null;
         st.setLong(1, iddocumento);
         try {
             log.debug(query);
-            // ResultSet r = st.executeQuery(query);
             r = st.executeQuery();
             ParDocumento obj = null;
             if (r.next()) {
@@ -286,7 +280,7 @@ public class ParDocumentoDAO extends ParDocumento {
         pst.setString(indice++, obj.getDfcodfiscale());
         pst.setString(indice++, obj.getDfpiva());
         if (obj.getDfdtemissione() != null) {
-            pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getDfdtemissione()).getTime()));
+            pst.setObject(indice++, new java.sql.Date((obj.getDfdtemissione()).getTime()));
         } else {
             pst.setObject(indice++, null);
         }
@@ -300,7 +294,7 @@ public class ParDocumentoDAO extends ParDocumento {
         pst.setString(indice++, obj.getDfregistro());
         pst.setString(indice++, obj.getDfperiodo());
         if (obj.getDfdttermineemissione() != null) {
-            pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getDfdttermineemissione()).getTime()));
+            pst.setObject(indice++, new java.sql.Date((obj.getDfdttermineemissione()).getTime()));
         } else {
             pst.setObject(indice++, null);
         }
@@ -317,7 +311,7 @@ public class ParDocumentoDAO extends ParDocumento {
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + preparedQuery);
+            log.error("Failed query: {}", preparedQuery, e);
             throw e;
         } finally {
             if (pst != null) {
@@ -378,7 +372,7 @@ public class ParDocumentoDAO extends ParDocumento {
         pst.setString(indice++, obj.getDfcodfiscale());
         pst.setString(indice++, obj.getDfpiva());
         if (obj.getDfdtemissione() != null) {
-            pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getDfdtemissione()).getTime()));
+            pst.setObject(indice++, new java.sql.Date((obj.getDfdtemissione()).getTime()));
         } else {
             pst.setObject(indice++, null);
         }
@@ -392,7 +386,7 @@ public class ParDocumentoDAO extends ParDocumento {
         pst.setString(indice++, obj.getDfregistro());
         pst.setString(indice++, obj.getDfperiodo());
         if (obj.getDfdttermineemissione() != null) {
-            pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getDfdttermineemissione()).getTime()));
+            pst.setObject(indice++, new java.sql.Date((obj.getDfdttermineemissione()).getTime()));
         } else {
             pst.setObject(indice++, null);
         }
@@ -467,7 +461,7 @@ public class ParDocumentoDAO extends ParDocumento {
      */
     public java.util.List<ParDocumento> getParDocumentosByIdunitadoc(Long idunitadoc, Connection con)
             throws SQLException {
-        java.util.List<ParDocumento> retRows = new java.util.ArrayList<ParDocumento>();
+        java.util.List<ParDocumento> retRows = new java.util.ArrayList<>();
         ParDocumento curRow;
 
         String query = "select * from PAR_DOCUMENTO" + " where IDUNITADOC=?";
@@ -551,16 +545,13 @@ public class ParDocumentoDAO extends ParDocumento {
      */
     public ParDocumento retrieveByIndex(Long iddocumento, Long idunitadoc, Connection con) throws SQLException {
 
-        // String query = "select * from PAR_DOCUMENTO"+" where IDDOCUMENTO="+iddocumento+" and IDUNITADOC="+idunitadoc;
         String query = "select * from PAR_DOCUMENTO" + " where IDDOCUMENTO=?" + " and IDUNITADOC=?";
-        // java.sql.Statement st = con.createStatement();
         java.sql.PreparedStatement st = con.prepareStatement(query);
         st.setLong(1, iddocumento);
         st.setLong(2, idunitadoc);
         ResultSet r = null;
         try {
             log.debug(query);
-            // ResultSet r = st.executeQuery(query);
             r = st.executeQuery();
             ParDocumento obj = null;
             if (r.next()) {
@@ -628,7 +619,7 @@ public class ParDocumentoDAO extends ParDocumento {
         pst.setString(indice++, obj.getDfcodfiscale());
         pst.setString(indice++, obj.getDfpiva());
         if (obj.getDfdtemissione() != null) {
-            pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getDfdtemissione()).getTime()));
+            pst.setObject(indice++, new java.sql.Date((obj.getDfdtemissione()).getTime()));
         } else {
             pst.setObject(indice++, null);
         }
@@ -642,7 +633,7 @@ public class ParDocumentoDAO extends ParDocumento {
         pst.setString(indice++, obj.getDfregistro());
         pst.setString(indice++, obj.getDfperiodo());
         if (obj.getDfdttermineemissione() != null) {
-            pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getDfdttermineemissione()).getTime()));
+            pst.setObject(indice++, new java.sql.Date((obj.getDfdttermineemissione()).getTime()));
         } else {
             pst.setObject(indice++, null);
         }
@@ -655,11 +646,11 @@ public class ParDocumentoDAO extends ParDocumento {
         pst.setLong(indice++, obj.getIdunitadoc());
 
         try {
-            log.debug(preparedQuery);
+            log.debug("{}", preparedQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + preparedQuery);
+            log.error("Failed query: {}", preparedQuery, e);
             throw e;
         } finally {
             if (pst != null) {
@@ -675,7 +666,7 @@ public class ParDocumentoDAO extends ParDocumento {
         String query = "delete from PAR_DOCUMENTO where IDDOCUMENTO=?   and IDUNITADOC=?";
         java.sql.PreparedStatement st = con.prepareStatement(query);
         try {
-            log.debug(query);
+            log.debug("{}", query);
             st.setLong(1, obj.getIddocumento());
             st.setLong(2, obj.getIdunitadoc());
             int updates = st.executeUpdate();
@@ -728,7 +719,7 @@ public class ParDocumentoDAO extends ParDocumento {
         pst.setString(indice++, obj.getDfcodfiscale());
         pst.setString(indice++, obj.getDfpiva());
         if (obj.getDfdtemissione() != null) {
-            pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getDfdtemissione()).getTime()));
+            pst.setObject(indice++, new java.sql.Date((obj.getDfdtemissione()).getTime()));
         } else {
             pst.setObject(indice++, null);
         }
@@ -740,7 +731,7 @@ public class ParDocumentoDAO extends ParDocumento {
         pst.setString(indice++, obj.getDfregistro());
         pst.setString(indice++, obj.getDfperiodo());
         if (obj.getDfdttermineemissione() != null) {
-            pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getDfdttermineemissione()).getTime()));
+            pst.setObject(indice++, new java.sql.Date((obj.getDfdttermineemissione()).getTime()));
         } else {
             pst.setObject(indice++, null);
         }
@@ -749,11 +740,11 @@ public class ParDocumentoDAO extends ParDocumento {
         pst.setNull(indice++, 3);
 
         try {
-            log.debug(prepQuery);
+            log.debug("{}", prepQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + prepQuery);
+            log.error("Failed query: {}", prepQuery, e);
             throw e;
         } finally {
             if (pst != null) {

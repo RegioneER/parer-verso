@@ -16,12 +16,13 @@
  */
 
 /**
- * 
+ *
  */
 package net.datasiel.webapp.crud;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -62,7 +63,7 @@ public class CrudUI implements Element {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.manydesigns.elements.Element#readFromObject(java.lang.Object)
      */
     public void readFromObject(Object obj) {
@@ -86,7 +87,7 @@ public class CrudUI implements Element {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.manydesigns.elements.Element#readFromRequest(javax.servlet.http.HttpServletRequest)
      */
     public void readFromRequest(HttpServletRequest req) {
@@ -105,7 +106,7 @@ public class CrudUI implements Element {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.manydesigns.elements.Element#validate()
      */
     public boolean validate() {
@@ -123,7 +124,7 @@ public class CrudUI implements Element {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.manydesigns.elements.Element#writeToObject(java.lang.Object)
      */
     public void writeToObject(Object obj) {
@@ -140,7 +141,7 @@ public class CrudUI implements Element {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.manydesigns.elements.xml.XhtmlFragment#toXhtml(com.manydesigns.elements.xml.XhtmlBuffer)
      */
     public void toXhtml(XhtmlBuffer xb) {
@@ -153,7 +154,7 @@ public class CrudUI implements Element {
 
         int index = 1;
         for (RigaUI rigaUI : righeUI) {
-            if (!(labelFieldset == null)) {
+            if (Objects.nonNull(labelFieldset)) {
                 xb.openElement("fieldset");
                 xb.writeLegend(labelFieldset + index, null);
             }
@@ -163,7 +164,7 @@ public class CrudUI implements Element {
             } else {
                 rigaUI.toXhtml(xb, index, readOnly, true, labelFieldset);
             }
-            if (!(labelFieldset == null)) {
+            if (Objects.nonNull(labelFieldset)) {
                 xb.closeElement("fieldset");
             }
             index++;

@@ -41,7 +41,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
     private final Logger log = LoggerFactory.getLogger(ParDatispecificiDAO.class);
 
     private static final long serialVersionUID = 0L;
-    public static String[] fieldNames = null;
+    protected static String[] fieldNames = null;
 
     static {
         fieldNames = new String[] { "iddatispecifici", "idunitadoc", "iddocumento", "entitasacer", "idcomponente",
@@ -99,15 +99,12 @@ public class ParDatispecificiDAO extends ParDatispecifici {
      */
     public ParDatispecifici retrieveByKey(Long iddatispecifici, Connection con) throws SQLException {
 
-        // String query = "select * from PAR_DATISPECIFICI"+" where IDDATISPECIFICI="+iddatispecifici;
         String query = "select * from PAR_DATISPECIFICI" + " where IDDATISPECIFICI=?";
-        // java.sql.Statement st = con.createStatement();
         java.sql.PreparedStatement st = con.prepareStatement(query);
         ResultSet r = null;
         st.setLong(1, iddatispecifici);
         try {
-            log.info(query + "[" + iddatispecifici + "]");
-            // ResultSet r = st.executeQuery(query);
+            log.info("{} [ {} ]", query, iddatispecifici);
             r = st.executeQuery();
             ParDatispecifici obj = null;
             if (r.next()) {
@@ -261,11 +258,11 @@ public class ParDatispecificiDAO extends ParDatispecifici {
         log_s.append("," + obj.getIddatispecifici() + "]");
 
         try {
-            log.info(log_s.toString());
+            log.info("{}", log_s);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + log_s.toString());
+            log.error("Failed query: {}", log_s, e);
             throw e;
         } finally {
             if (pst != null) {
@@ -330,7 +327,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + preparedQuery);
+            log.error("Failed query: {}", preparedQuery, e);
             throw e;
         } finally {
             if (pst != null) {
@@ -347,7 +344,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
         java.sql.PreparedStatement st = con.prepareStatement(query);
         try {
             st.setLong(1, obj.getIddatispecifici());
-            log.info(query + "[" + obj.getIddatispecifici() + "]");
+            log.info("{} [{}]", query, obj.getIddatispecifici());
             int updates = st.executeUpdate();
             return updates;
         } finally {
@@ -403,7 +400,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
             st.setLong(1, iddocumento);
             st.setLong(2, idunitadoc);
             st.setLong(3, idcomponente);
-            log.info(query + " - [" + iddocumento + "," + idunitadoc + "," + idcomponente + "]");
+            log.info("{} - [{} , {}, {}]", query, iddocumento, idunitadoc, idcomponente);
 
             r = st.executeQuery();
             while (r.next()) {
@@ -482,7 +479,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
             st.setLong(1, iddocumento);
             st.setLong(2, idunitadoc);
 
-            log.info(query + " - [" + iddocumento + "," + idunitadoc + "]");
+            log.info("{} - [{} ,{}]", query, iddocumento, idunitadoc);
             r = st.executeQuery();
             while (r.next()) {
                 curRow = new ParDatispecifici();
@@ -560,7 +557,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
         try {
             st.setLong(1, idunitadoc);
 
-            log.info(query + " - [" + idunitadoc + "]");
+            log.info("{} - [{}]", query, idunitadoc);
             r = st.executeQuery();
             while (r.next()) {
                 curRow = new ParDatispecifici();
@@ -628,11 +625,8 @@ public class ParDatispecificiDAO extends ParDatispecifici {
     public ParDatispecifici retrieveByIndex(Long iddatispecifici, Long idunitadoc, Long iddocumento, Long idcomponente,
             Connection con) throws SQLException {
 
-        // String query = "select * from PAR_DATISPECIFICI"+" where IDDATISPECIFICI="+iddatispecifici+" and
-        // IDUNITADOC="+idunitadoc+" and IDDOCUMENTO="+iddocumento+" and IDCOMPONENTE="+idcomponente;
         String query = "select * from PAR_DATISPECIFICI" + " where IDDATISPECIFICI=?" + " and IDUNITADOC=?"
                 + " and IDDOCUMENTO=?" + " and IDCOMPONENTE=?";
-        // java.sql.Statement st = con.createStatement();
         java.sql.PreparedStatement st = con.prepareStatement(query);
         st.setLong(1, iddatispecifici);
         st.setLong(2, idunitadoc);
@@ -640,7 +634,6 @@ public class ParDatispecificiDAO extends ParDatispecifici {
         st.setLong(4, idcomponente);
         ResultSet r = null;
         try {
-            // ResultSet r = st.executeQuery(query);
             r = st.executeQuery();
             log.info(query);
             ParDatispecifici obj = null;
@@ -737,10 +730,10 @@ public class ParDatispecificiDAO extends ParDatispecifici {
 
         try {
             int updates = pst.executeUpdate();
-            log.info(log_s.toString());
+            log.info("{}", log_s);
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + preparedQuery);
+            log.error("Failed query: {}", preparedQuery, e);
             throw e;
         } finally {
             if (pst != null) {
@@ -762,8 +755,8 @@ public class ParDatispecificiDAO extends ParDatispecifici {
             st.setLong(3, obj.getIddocumento());
             st.setLong(4, obj.getIdcomponente());
 
-            log.info(query + " - [" + obj.getIddatispecifici() + "," + obj.getIdunitadoc() + "," + obj.getIddocumento()
-                    + "," + obj.getIdcomponente() + "]");
+            log.info("{} - [{}, {}, {}, {}]", query, obj.getIddatispecifici(), obj.getIdunitadoc(),
+                    obj.getIddocumento(), obj.getIdcomponente());
             int updates = st.executeUpdate();
             return updates;
         } finally {
@@ -837,11 +830,11 @@ public class ParDatispecificiDAO extends ParDatispecifici {
         }
 
         try {
-            log.info(logStr.toString());
+            log.info("{}", logStr);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + prepQuery);
+            log.error("Failed query: {}", prepQuery, e);
             throw e;
         } finally {
             if (pst != null) {

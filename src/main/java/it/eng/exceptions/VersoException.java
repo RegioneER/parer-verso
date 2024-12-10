@@ -26,7 +26,7 @@ import it.eng.exceptions.ErrorCategory.VersoErrorCategory;
 public class VersoException extends Exception {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -9173356878746119329L;
     private final VersoErrorCategory category;

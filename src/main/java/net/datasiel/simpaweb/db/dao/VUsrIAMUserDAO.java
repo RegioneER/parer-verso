@@ -56,15 +56,6 @@ public class VUsrIAMUserDAO extends VUsrVRicUser {
         boolean isEquals = false;
         String codedPassw = null;
 
-        /*
-         * SELECT DISTINCT CD_PWD, CD_SALT FROM V_USR_IAM WHERE NM_USERID=? AND FL_ATTIVO='1'
-         * 
-         * java.sql.PreparedStatement st = con.prepareStatement(query); st.setLong (1 , idunitadoc); ResultSet r=null;
-         * try { log.debug(query); //ResultSet r = st.executeQuery(query); r=st.executeQuery(); ParUnitadoc obj = null;
-         * if (r.next()) { obj = new ParUnitadoc(); getFromResultSet(obj,r); } return obj; } finally { if(r!=null)
-         * r.close(); if(st!=null) st.close(); }
-         * 
-         */
         String sQuery = "SELECT DISTINCT CD_PWD, CD_SALT " + "FROM V_USR_IAM " + "WHERE NM_USERID=? "
                 + "AND FL_ATTIVO='1'";
         java.sql.PreparedStatement st = con.prepareStatement(sQuery);
@@ -72,7 +63,6 @@ public class VUsrIAMUserDAO extends VUsrVRicUser {
         ResultSet r = null;
         try {
             log.debug(sQuery + " - [" + nmUserId + "]");
-            // ResultSet r = st.executeQuery(query);
             r = st.executeQuery();
             ParUnitadoc obj = null;
             if (r.next()) {
@@ -87,7 +77,6 @@ public class VUsrIAMUserDAO extends VUsrVRicUser {
                 }
 
                 result = cdPwd.equals(codedPassw) ? password : null;
-                // result=cdPwd;
             }
         } finally {
             if (r != null) {

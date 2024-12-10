@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  */
 package net.datasiel.webapp.crud;
 
@@ -30,21 +30,21 @@ public interface RigaModel {
 
     /**
      * Restituisce la singola riga del modello.
-     * 
+     *
      * @return La riga
      */
     Object getRiga();
 
     /**
      * Restituisce le righe di dettaglio.
-     * 
+     *
      * @return Il primo dettaglio
      */
     List<Object> getDettagli1();
 
     /**
      * Restituisce le righe di dettaglio.
-     * 
+     *
      * @return Il secondo dettaglio
      */
     List<Object> getDettagli2();

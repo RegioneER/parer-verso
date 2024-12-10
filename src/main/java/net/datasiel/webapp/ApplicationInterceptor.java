@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  */
 package net.datasiel.webapp;
 
@@ -41,7 +41,7 @@ public class ApplicationInterceptor implements Interceptor {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * net.sourceforge.stripes.controller.Interceptor#intercept(net.sourceforge.stripes.controller.ExecutionContext)
      */

@@ -58,9 +58,9 @@ public class SimparerAuthenticator extends Authenticator {
     /**
      * Verifica se l'utente di cui viene passato l'<code>username</code> possiede l'autorizzazione per accedere
      * all'applicazione
-     * 
+     *
      * @param username
-     * 
+     *
      * @return <code>true</code> se possiede l'autorizzazione, altrimenti <code>false</code>
      */
     public boolean isAuthorized(String username) {
