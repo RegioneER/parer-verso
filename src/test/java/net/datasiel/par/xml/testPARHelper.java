@@ -72,7 +72,7 @@ import net.datasiel.simpaweb.common.Constants;
 /**
  * Attenzione: questi test non possono funzionare. In particolare {@link PARHelper#collectCompositeConfiguration()}
  * cerca un file che è al percorso sbagliato. Marcato tutto come @Ignore
- * 
+ *
  * @author Liguria?
  */
 @Ignore
@@ -267,9 +267,6 @@ public class testPARHelper {
             System.out.println(esito);
 
         } catch (IllegalCharsetNameException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ConfigurationException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (JAXBException e) {

@@ -245,7 +245,7 @@ public class Login extends BaseAction {
      *
      *
      * @param utente
-     * 
+     *
      * @return
      */
     public boolean isAutorized(User utente) {

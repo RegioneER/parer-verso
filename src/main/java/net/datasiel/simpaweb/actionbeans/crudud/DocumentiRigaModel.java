@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  */
 package net.datasiel.simpaweb.actionbeans.crudud;
 
@@ -31,7 +31,7 @@ import net.datasiel.webapp.crud.RigaModel;
 
 /**
  * @author reisoli
- * 
+ *
  */
 public class DocumentiRigaModel implements RigaModel {
     public final ParDocumento riga;
@@ -52,7 +52,7 @@ public class DocumentiRigaModel implements RigaModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.RigaModel#getRiga()
      */
     @Override
@@ -62,7 +62,7 @@ public class DocumentiRigaModel implements RigaModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.RigaModel#getDettagli1()
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -73,7 +73,7 @@ public class DocumentiRigaModel implements RigaModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.RigaModel#getDettagli2()
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })

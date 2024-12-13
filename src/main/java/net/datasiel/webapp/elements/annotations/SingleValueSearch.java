@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  */
 package net.datasiel.webapp.elements.annotations;
 
@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
 
 /**
  * Usata per avere campi di ricerca sul singolo valore invece che su un intervallo di valori (campi date e numerici).
- * 
+ *
  * @author reisoli
  */
 @Target({ ElementType.FIELD, ElementType.METHOD })

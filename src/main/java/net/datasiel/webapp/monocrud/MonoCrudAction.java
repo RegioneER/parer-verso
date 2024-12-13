@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  */
 package net.datasiel.webapp.monocrud;
 
@@ -87,10 +87,10 @@ public abstract class MonoCrudAction extends BaseAction {
 
     /**
      * Metodo eseguito di default.
-     * 
+     *
      * @throws Eccezione
      *             in caricamento model
-     * 
+     *
      * @return Forward di edit
      */
     @DefaultHandler
@@ -125,7 +125,7 @@ public abstract class MonoCrudAction extends BaseAction {
 
     /**
      * @return
-     * 
+     *
      * @throws Exception
      */
     public Resolution edit() throws Exception {
@@ -148,7 +148,7 @@ public abstract class MonoCrudAction extends BaseAction {
 
     /**
      * Impostazione delle possibili componenti dell'ui in edit.
-     * 
+     *
      */
     public void setupUIEdit() {
         reloadElementsThreadLocals();
@@ -172,7 +172,7 @@ public abstract class MonoCrudAction extends BaseAction {
 
     /**
      * Impostazione delle possibili componenti dell'ui in insert.
-     * 
+     *
      */
     public void setupUIInsert() {
         reloadElementsThreadLocals();
@@ -196,10 +196,10 @@ public abstract class MonoCrudAction extends BaseAction {
 
     /**
      * Metodo per l'azione di aggiornamento.
-     * 
+     *
      * @throws Eccezione
      *             in caricamento model
-     * 
+     *
      * @return
      */
     public Resolution update() throws Exception {
@@ -274,9 +274,9 @@ public abstract class MonoCrudAction extends BaseAction {
 
     /**
      * Metodo per inserimento nuovo record.
-     * 
+     *
      * @return
-     * 
+     *
      * @throws Exception
      */
     public Resolution save() throws Exception {
@@ -336,7 +336,7 @@ public abstract class MonoCrudAction extends BaseAction {
     /**
      * Hook per capire se si deve entrare in modalità create o update. Fare override se la condizione non è
      * semplicemente il controllo sulla presenza di idrecord.
-     * 
+     *
      * @return true se si deve creare il record.
      */
     protected boolean isCreate() {
@@ -351,7 +351,7 @@ public abstract class MonoCrudAction extends BaseAction {
     /**
      * L'override deve essere eseguito solo nelle action che supportano l'inserimento e deve restituire true se ci sono
      * le condizioni per inserire un nuovo record.
-     * 
+     *
      * @return
      */
     protected boolean isSaveEnabled() {
@@ -360,9 +360,9 @@ public abstract class MonoCrudAction extends BaseAction {
 
     /**
      * Metodo per inserimento nuovo recordo e passaggio a tab successivo.
-     * 
+     *
      * @return
-     * 
+     *
      * @throws Exception
      */
     public Resolution saveAndContinue() throws Exception {
@@ -375,7 +375,7 @@ public abstract class MonoCrudAction extends BaseAction {
     }
 
     /**
-     * 
+     *
      */
     public void safeEndTransaction() {
         try {
@@ -406,7 +406,7 @@ public abstract class MonoCrudAction extends BaseAction {
 
     /**
      * Hook per la preparazione della gui parte non modificabile in inserimento.
-     * 
+     *
      * @return TODO
      * @return
      */
@@ -414,7 +414,7 @@ public abstract class MonoCrudAction extends BaseAction {
 
     /**
      * Hook per la preparazione gui parte modificabile in inserimento.
-     * 
+     *
      * @param mode
      *            TODO
      */
@@ -422,7 +422,7 @@ public abstract class MonoCrudAction extends BaseAction {
 
     /**
      * Hook per la preparazione della gui parte non modificabile fase di edit.
-     * 
+     *
      * @return TODO
      * @return
      */
@@ -430,7 +430,7 @@ public abstract class MonoCrudAction extends BaseAction {
 
     /**
      * Hook per la preparazione gui parte modificabile in fase di edit.
-     * 
+     *
      * @param mode
      *            TODO
      */
@@ -438,7 +438,7 @@ public abstract class MonoCrudAction extends BaseAction {
 
     /**
      * Hook per caricamento del model.
-     * 
+     *
      * @throws Eccezione
      *             generica a seconda della persistenza usata.
      */
@@ -446,7 +446,7 @@ public abstract class MonoCrudAction extends BaseAction {
 
     /**
      * Hook per il salvataggio dell'intero model su database.
-     * 
+     *
      * @throws Exception
      */
     public abstract void updateModel() throws Exception;
@@ -478,13 +478,13 @@ public abstract class MonoCrudAction extends BaseAction {
 
     /**
      * Hook per il rollback
-     * 
+     *
      */
     public abstract void endTransaction() throws Exception;
 
     /**
      * Hook per la gestione del redirect dopo l'inserimento.
-     * 
+     *
      * @return
      */
     protected abstract String getCreatedPath();

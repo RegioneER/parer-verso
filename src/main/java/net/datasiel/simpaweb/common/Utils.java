@@ -146,7 +146,7 @@ public class Utils {
      * @param docEsito
      *            (xml di cui effettuare il parsing) verifica ("true" se si tratta di una verifica, "false" se si tratta
      *            di un versamento)
-     * 
+     *
      * @return infoEsito
      */
     public static InfoEsito getInfoEsito(Document docEsito, EnumOperazione operazione, Logger log) {

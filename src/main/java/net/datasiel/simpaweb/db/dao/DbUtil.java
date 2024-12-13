@@ -39,7 +39,6 @@ public class DbUtil {
     private static boolean isOracle = true;
     private boolean nomiEsatti = false;
     private boolean trimString = false;
-    private static DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
      * Costruttore di default. Imposta la proprietà nomiEsatti e trimString a false.
@@ -64,9 +63,9 @@ public class DbUtil {
      * @param sequenceName
      *            il nome del sequence
      * @param con
-     * 
+     *
      * @return
-     * 
+     *
      * @throws SQLException
      */
     public static long getSequenceValue(String sequenceName, Connection con) throws SQLException {
@@ -78,7 +77,7 @@ public class DbUtil {
             rs.next();
             nextValue = rs.getLong(1);
 
-            log.debug("next " + sequenceName + " value is " + nextValue);
+            log.debug("next {} value is {}", sequenceName, nextValue);
 
             rs.close();
             st.close();
@@ -86,7 +85,7 @@ public class DbUtil {
             return nextValue;
 
         } catch (SQLException e) {
-            log.error("unable to retrive nextval from the sequence " + sequenceName + ". reason: " + e.getMessage());
+            log.error("unable to retrive nextval from the sequence {}", sequenceName, e);
             throw (e);
         }
     }
@@ -103,9 +102,9 @@ public class DbUtil {
      * @param beanType
      *            Tipo dell'oggetto da creare e popolare
      * @param allString
-     * 
+     *
      * @return L'oggetto di tipo beanType che rappresenta il record corrente
-     * 
+     *
      * @throws Exception
      */
     public Object createResultBean(ResultSet rs, Class<?> beanType, boolean allString) throws Exception {
@@ -125,9 +124,9 @@ public class DbUtil {
      *            L'oggetto che punta al record
      * @param beanType
      *            Tipo dell'oggetto da creare e popolare
-     * 
+     *
      * @return L'oggetto di tipo beanType che rappresenta il record corrente
-     * 
+     *
      * @throws Exception
      */
     public Object createResultBean(ResultSet rs, Class<?> beanType) throws Exception {
@@ -148,7 +147,7 @@ public class DbUtil {
      *            Il tipo di oggetti che la collectio deve contenere
      * @param allStrings
      *            Informazione da passare a populateResultBean
-     * 
+     *
      * @throws Exception
      */
     public void populateResultList(ResultSet rs, List<Object> list, Class<?> beanType, boolean allString)
@@ -158,21 +157,6 @@ public class DbUtil {
             list.add(bean);
         }
     }
-    /*
-     * public void populateResultBean(ResultSet rs, Object bean, boolean allString) throws Exception { Class clazz =
-     * bean.getClass(); ResultSetMetaData metaData = rs.getMetaData(); String colName = ""; String methodName = ""; int
-     * colsNum = metaData.getColumnCount(); for(int i=1 ; i<=colsNum ; i++) { try { colName = metaData.getColumnName(i);
-     * methodName = createSetName(colName); Object val = rs.getObject(i); if(allString) { Class[] paramsTypes =
-     * {String.class}; Object[] args = new Object[1];
-     * 
-     * if(val != null) { args[0] = trimString ? val.toString().trim() : val.toString();
-     * log.debug("try to find method '"+methodName+"("+String.class.getName()+")'"); Method method =
-     * clazz.getMethod(methodName,paramsTypes); method.invoke(bean,args); } } else if(val != null) { Class[] paramsTypes
-     * = {val.getClass()}; Object[] args = new Object[1]; args[0] = trimString && val instanceof String ?
-     * ((String)val).trim() : val; log.debug("try to find method '"+methodName+"("+val.getClass().getName()+")'");
-     * Method method = clazz.getMethod(methodName,paramsTypes); method.invoke(bean,args); } } catch (Exception e) {
-     * log.debug("unable to set the bean property '"+colName+"' in "+clazz.getName()+" class."); } } }
-     */
 
     /**
      * Popola l'oggetto bean con il contenuto del record corrente associato al parametreo rs di tipo java.sql.ResultSet.
@@ -186,11 +170,14 @@ public class DbUtil {
      * @param bean
      *            L'oggetto da popolare
      * @param allStrings
-     * 
-     * @throws Exception
+     *            true = trasformazione in {@link String} del parametro di ritorno
+     *
+     * @throws SQLException
+     *             errore SQL
+     *
      */
     @SuppressWarnings("rawtypes")
-    public void populateResultBean(ResultSet rs, Object bean, boolean allString) throws Exception {
+    public void populateResultBean(ResultSet rs, Object bean, boolean allString) throws SQLException {
         Class<? extends Object> clazz = bean.getClass();
         ResultSetMetaData metaData = rs.getMetaData();
         String colName = null;
@@ -271,7 +258,7 @@ public class DbUtil {
     /**
      *
      * @param p
-     * 
+     *
      * @return
      */
     private String firstUp(String p) {
@@ -296,7 +283,7 @@ public class DbUtil {
         if (nomiEsatti) {
             return "set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1, fieldName.length());
         } else {
-            String setName = new String();
+            String setName = "";
             StringTokenizer tokenizer = new StringTokenizer(fieldName, "_");
             while (tokenizer.hasMoreTokens()) {
                 setName += firstUp(tokenizer.nextToken());
@@ -323,7 +310,7 @@ public class DbUtil {
         if (nomiEsatti) {
             return "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1, fieldName.length());
         } else {
-            String setName = new String();
+            String setName = "";
             StringTokenizer tokenizer = new StringTokenizer(fieldName, "_");
             while (tokenizer.hasMoreTokens()) {
                 setName += firstUp(tokenizer.nextToken());
@@ -384,10 +371,11 @@ public class DbUtil {
     /**
      *
      * @param ts
-     * 
+     *
      * @return
      */
     public static String formatTimeStamp(Date ts) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String tsString = "null";
         if (ts != null) {
             if (isOracle) {
@@ -403,10 +391,11 @@ public class DbUtil {
     /**
      *
      * @param ts
-     * 
+     *
      * @return
      */
     public static String formatTimeStamp(Timestamp ts) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String tsString = "null";
         if (ts != null) {
             if (isOracle) {
@@ -422,10 +411,11 @@ public class DbUtil {
     /**
      *
      * @param ts
-     * 
+     *
      * @return
      */
     public static String formatTimeStamp(java.util.Date ts) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String tsString = "null";
         if (ts != null) {
             if (isOracle) {
@@ -444,7 +434,7 @@ public class DbUtil {
     public static String formatString(String st) {
         String stString = "null";
         if (st != null) {
-            st = st.replaceAll("'", "''");
+            st = st.replace("'", "''");
             stString = "'" + st + "'";
         }
 

@@ -49,12 +49,12 @@ import net.datasiel.simpaweb.db.vo.VDecRegistroUnitaDocVO;
 public class ElementsHelper {
 
     /***************************************************************
-     * 
+     *
      * INIZIO PARTE CREAZIONE FORM
-     * 
+     *
      ***************************************************************/
 
-    static public Form buildIdFascicolo(String prefix) {
+    public static Form buildIdFascicolo(String prefix) {
         Form form = null;
         form = new FormBuilder(ParFascicolo.class).configPrefix(prefix).configFields("idfascicolo")
                 .configMode(Mode.HIDDEN).build();
@@ -103,15 +103,15 @@ public class ElementsHelper {
     }
 
     /***************************************************************
-     * 
+     *
      * FINE PARTE CREAZIONE FORM
-     * 
+     *
      ***************************************************************/
 
     /***************************************************************
-     * 
+     *
      * INIZIO PARTE CREAZIONE SELECTION PROVIDER
-     * 
+     *
      ***************************************************************/
 
     public static DefaultSelectionProvider getTipiRegUniDoc(Long idStruttura, Long idUser, Connection con)
@@ -304,19 +304,7 @@ public class ElementsHelper {
 
     public static DefaultSelectionProvider getFormatiFile(Long idStrut, Connection con) throws SQLException {
         StringBuilder prepQuery = new StringBuilder();
-        /*
-         * SELECT ID_FORMATO_FILE_DOC, NM_FORMATO_FILE_DOC||' - '||DS_FORMATO_FILE_DOC, ID_TIPO_COMP_DOC,
-         * NM_TIPO_COMP_DOC FROM V_DEC_TIPO_COMP_DOC WHERE ID_STRUT=41 ORDER BY 4,2;
-         * prepQuery.append(" SELECT R.ID_FORMATO_FILE_DOC ID_FORMATO, ");
-         * prepQuery.append(" R.NM_FORMATO_FILE_DOC||' - '|| R.DS_FORMATO_FILE_DOC NOME_FORMATO, ");
-         * prepQuery.append(" U.ID_TIPO_COMP_DOC ID_TIPO_COMP_DOC, ");
-         * prepQuery.append(" U.NM_TIPO_COMP_DOC NOME_TIPO_COMP_DOC ");
-         * prepQuery.append(" FROM V_DEC_FORMATO_FILE_AMMESSO A ");
-         * prepQuery.append(" JOIN V_DEC_FORMATO_FILE_DOC R ON R.ID_FORMATO_FILE_DOC = A.ID_FORMATO_FILE_DOC ");
-         * prepQuery.append(" JOIN V_DEC_TIPO_COMP_DOC U ON U.ID_TIPO_COMP_DOC = A.ID_TIPO_COMP_DOC "); if
-         * (idTipoStrutDoc!=null) prepQuery.append(" WHERE U.ID_TIPO_STRUT_DOC =?");
-         * prepQuery.append(" ORDER BY 	NOME_TIPO_COMP_DOC, NOME_FORMATO");
-         */
+
         prepQuery.append(
                 "SELECT ID_FORMATO_FILE_DOC ID_FORMATO, NM_FORMATO_FILE_DOC||' - '||DS_FORMATO_FILE_DOC NOME_FORMATO, ID_TIPO_COMP_DOC, NM_TIPO_COMP_DOC ");
         prepQuery.append("FROM V_DEC_TIPO_COMP_DOC ");
@@ -344,9 +332,9 @@ public class ElementsHelper {
     }
 
     /***************************************************************
-     * 
+     *
      * FINE PARTE CREAZIONE SELECTION PROVIDER
-     * 
+     *
      ***************************************************************/
 
 }

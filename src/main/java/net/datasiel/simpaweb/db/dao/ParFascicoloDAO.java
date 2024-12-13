@@ -90,16 +90,13 @@ public class ParFascicoloDAO extends ParFascicolo {
      */
     public ParFascicolo retrieveByKey(Long idunitadoc, Long idfascicolo, Connection con) throws SQLException {
 
-        // String query = "select * from PAR_FASCICOLO"+" where IDUNITADOC="+idunitadoc+" and IDFASCICOLO="+idfascicolo;
         String query = "select * from PAR_FASCICOLO" + " where IDUNITADOC=?" + " and IDFASCICOLO=?";
-        // java.sql.Statement st = con.createStatement();
         java.sql.PreparedStatement st = con.prepareStatement(query);
         st.setLong(1, idunitadoc);
         st.setLong(2, idfascicolo);
         ResultSet r = null;
         try {
-            log.debug(query);
-            // ResultSet r = st.executeQuery(query);
+            log.debug("{}", query);
             r = st.executeQuery();
             ParFascicolo obj = null;
             if (r.next()) {
@@ -134,7 +131,7 @@ public class ParFascicoloDAO extends ParFascicolo {
         java.sql.Statement st = con.createStatement();
         ResultSet r = null;
         try {
-            log.debug(query);
+            log.debug("{}", query);
             r = st.executeQuery(query);
             while (r.next()) {
                 curRow = new ParFascicolo();
@@ -165,7 +162,7 @@ public class ParFascicoloDAO extends ParFascicolo {
         java.sql.PreparedStatement st = con.prepareStatement(query);
         ResultSet r = null;
         try {
-            log.debug(query);
+            log.debug("{}", query);
             st.setLong(1, idunitadoc);
             r = st.executeQuery();
             while (r.next()) {
@@ -197,7 +194,7 @@ public class ParFascicoloDAO extends ParFascicolo {
         java.sql.PreparedStatement st = con.prepareStatement(query);
         ResultSet r = null;
         try {
-            log.debug(query);
+            log.debug("{}", query);
             st.setLong(1, idunitadoc);
             r = st.executeQuery();
             while (r.next()) {
@@ -262,7 +259,7 @@ public class ParFascicoloDAO extends ParFascicolo {
         pst.setLong(indice++, obj.getIdfascicolo());
 
         try {
-            log.debug(preparedQuery);
+            log.debug("{}", preparedQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
@@ -320,7 +317,7 @@ public class ParFascicoloDAO extends ParFascicolo {
         }
 
         try {
-            log.debug(preparedQuery);
+            log.debug("{}", preparedQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
@@ -340,7 +337,7 @@ public class ParFascicoloDAO extends ParFascicolo {
         String query = "delete from PAR_FASCICOLO where IDUNITADOC=? and IDFASCICOLO=?";
         java.sql.PreparedStatement st = con.prepareStatement(query);
         try {
-            log.debug(query);
+            log.debug("{}", query);
             st.setLong(1, obj.getIdunitadoc());
             st.setLong(2, obj.getIdfascicolo());
             int updates = st.executeUpdate();
@@ -359,7 +356,7 @@ public class ParFascicoloDAO extends ParFascicolo {
         String query = "delete from PAR_FASCICOLO where IDUNITADOC = ?";
         java.sql.PreparedStatement st = con.prepareStatement(query);
         try {
-            log.debug(query);
+            log.debug("{}", query);
             st.setLong(1, idUd);
             int updates = st.executeUpdate();
             return updates;
@@ -392,7 +389,7 @@ public class ParFascicoloDAO extends ParFascicolo {
         java.sql.PreparedStatement st = con.prepareStatement(query);
         ResultSet r = null;
         try {
-            log.debug(query);
+            log.debug("{}", query);
             st.setLong(1, idunitadoc);
             r = st.executeQuery();
             while (r.next()) {
@@ -523,11 +520,11 @@ public class ParFascicoloDAO extends ParFascicolo {
         pst.setLong(indice++, obj.getIdunitadoc());
 
         try {
-            log.debug(preparedQuery);
+            log.debug("{}", preparedQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + preparedQuery);
+            log.error("Failed query: {}", preparedQuery, e);
             throw e;
         } finally {
             if (pst != null) {
@@ -543,7 +540,7 @@ public class ParFascicoloDAO extends ParFascicolo {
         String query = "delete from PAR_FASCICOLO where IDFASCICOLO=? and IDUNITADOC=? ";
         java.sql.PreparedStatement st = con.prepareStatement(query);
         try {
-            log.debug(query);
+            log.debug("{}", query);
             st.setLong(1, obj.getIdfascicolo());
             st.setLong(2, obj.getIdunitadoc());
             int updates = st.executeUpdate();
@@ -591,11 +588,11 @@ public class ParFascicoloDAO extends ParFascicolo {
         }
 
         try {
-            log.debug(prepQuery);
+            log.debug("{}", prepQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + prepQuery);
+            log.error("Failed query: {}", prepQuery, e);
             throw e;
         } finally {
             if (pst != null) {

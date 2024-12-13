@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  */
 package net.datasiel.webapp;
 
@@ -43,6 +43,8 @@ import com.manydesigns.elements.blobs.Blob;
 import com.manydesigns.elements.blobs.BlobManager;
 import com.manydesigns.elements.messages.SessionMessages;
 
+import it.eng.exceptions.VersoException;
+import it.eng.exceptions.ErrorCategory.VersoErrorCategory;
 import net.datasiel.simpaweb.db.pojo.ParComponente;
 import net.datasiel.simpaweb.db.vo.ParComponenteVO;
 import net.sourceforge.stripes.action.ActionBean;
@@ -55,7 +57,7 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 
 /**
  * @author reisoli
- * 
+ *
  */
 public abstract class BaseAction implements ActionBean {
     protected static final Logger log = LoggerFactory.getLogger(BaseAction.class);
@@ -100,15 +102,15 @@ public abstract class BaseAction implements ActionBean {
 
     /**
      * Elimina i files associati ad un allegato elements.
-     * 
+     *
      * @param codiceBlob
      *            Il codice del blob da eliminare.
-     * 
+     *
      * @throws IOException
      */
     protected void cleanBlobFiles(String codiceBlob) throws IOException {
         if (codiceBlob != null) {
-            log.debug(String.format("Eliminazione file %s ", codiceBlob));
+            log.debug("Eliminazione file {}", codiceBlob);
             BlobManager blManager = BlobManager.createDefaultBlobManager();
             try {
                 Blob blob = blManager.loadBlob(codiceBlob);
@@ -122,7 +124,7 @@ public abstract class BaseAction implements ActionBean {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.sourceforge.stripes.action.ActionBean#getContext()
      */
 
@@ -132,7 +134,7 @@ public abstract class BaseAction implements ActionBean {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.sourceforge.stripes.action.ActionBean#setContext(net.sourceforge. stripes.action.ActionBeanContext)
      */
 
@@ -144,9 +146,9 @@ public abstract class BaseAction implements ActionBean {
 
     /**
      * Se necessario crea la connessione altrimenti restituisce quella che ha.
-     * 
+     *
      * @return
-     * 
+     *
      * @throws SQLException
      */
     public Connection getConnection() throws SQLException {
@@ -190,12 +192,12 @@ public abstract class BaseAction implements ActionBean {
     /**
      * Hook per gestione abilitazione/disabilitazione tabs Fare override se necessario cioè se nella gestione
      * dell'intero set di tabs c'è la necessità di gestire l'abilitazione dei tab.
-     * 
+     *
      * @param indiceTab
      *            indice del tab da controllare
-     * 
+     *
      * @return true se il tab deve essere abilitato false altrimenti.
-     * 
+     *
      * @throws SQLException
      */
     public boolean isTabEnabled(int indiceTab) throws SQLException {
@@ -222,7 +224,7 @@ public abstract class BaseAction implements ActionBean {
 
     /**
      * Aggiunta ulteriori parametri alla resolution.
-     * 
+     *
      * @param resolution
      */
     protected void addCustomParams(RedirectResolution resolution) {
@@ -231,9 +233,9 @@ public abstract class BaseAction implements ActionBean {
 
     /**
      * @param updateResult
-     * 
+     *
      * @return
-     * 
+     *
      * @throws SQLException
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -259,7 +261,7 @@ public abstract class BaseAction implements ActionBean {
             if (isTabEnabled(tabSuccessivo)) {
                 break;
             }
-            log.debug(String.format("Il tab %d non è abilitato", tabSuccessivo));
+            log.debug("Il tab {} non è abilitato", tabSuccessivo);
             tabSuccessivo++;
         }
 
@@ -282,7 +284,6 @@ public abstract class BaseAction implements ActionBean {
         String idComponente = context.getRequest().getParameter("idComponente");
         if (idComponente != null && checkPermission(idComponente)) {
             ParComponenteVO parComponenteVO = new ParComponenteVO();
-            // String where = "IDCOMPONENTE = " + idComponente + " and IDUNITADOC = " + idrecord;
             List<ParComponente> componenteList = parComponenteVO.getParComponentesByIdcomponenteIdunitadocNoBlob(
                     Long.parseLong(idComponente), idrecord, getConnection());
             if (componenteList != null && componenteList.size() > 0) {
@@ -328,10 +329,9 @@ public abstract class BaseAction implements ActionBean {
         String idComponente = context.getRequest().getParameter("idComponente");
         if (idComponente != null && checkPermission(idComponente)) {
             ParComponenteVO parComponenteVO = new ParComponenteVO();
-            // String where = "IDCOMPONENTE = " + idComponente + " and IDUNITADOC = " + idrecord;
             List<ParComponente> componenteList = parComponenteVO.getParComponentesByIdcomponenteIdunitadocNoBlob(
                     Long.parseLong(idComponente), idrecord, getConnection());
-            if (componenteList != null && componenteList.size() > 0) {
+            if (componenteList != null && !componenteList.isEmpty()) {
                 if (componenteList.size() == 1) {
                     ParComponente componente = componenteList.get(0);
                     String codAllegato = componente.getCodallegato();
@@ -355,13 +355,13 @@ public abstract class BaseAction implements ActionBean {
                     String err = "Errore nel recupero dell'allegato: più allegati con lo stesso codiceallegato";
                     log.error(err);
                     SessionMessages.addErrorMessage(err);
-                    throw new Exception(err);
+                    throw new VersoException(err, VersoErrorCategory.INTERNAL_ERROR);
                 }
             } else {
                 String err = "Errore nel recupero dell'allegato: allegato non presente";
                 log.error(err);
                 SessionMessages.addErrorMessage(err);
-                throw new Exception(err);
+                throw new VersoException(err, VersoErrorCategory.INTERNAL_ERROR);
             }
         }
         return sr;

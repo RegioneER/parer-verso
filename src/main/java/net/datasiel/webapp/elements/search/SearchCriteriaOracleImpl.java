@@ -39,7 +39,7 @@ public class SearchCriteriaOracleImpl implements Criteria {
     private static FastDateFormat df = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
 
     /**
-     * 
+     *
      */
     private void appendCondition(String condizione) {
         if (strWhereCondition.length() > 0) {
@@ -328,9 +328,9 @@ public class SearchCriteriaOracleImpl implements Criteria {
     }
 
     /**
-     * 
+     *
      * @param ts
-     * 
+     *
      * @return
      */
     public static String formatTimeStamp(Timestamp ts) {

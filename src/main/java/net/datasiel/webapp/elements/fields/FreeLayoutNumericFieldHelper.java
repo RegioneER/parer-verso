@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  */
 package net.datasiel.webapp.elements.fields;
 
@@ -33,13 +33,13 @@ import com.manydesigns.elements.util.Util;
 
 /**
  * @author reisoli
- * 
+ *
  */
 public class FreeLayoutNumericFieldHelper implements FieldHelper {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.manydesigns.elements.fields.helpers.FieldHelper#tryToInstantiateField
      * (com.manydesigns.elements.reflection.ClassAccessor, com.manydesigns.elements.reflection.PropertyAccessor,
      * com.manydesigns.elements.Mode, java.lang.String)
@@ -56,7 +56,7 @@ public class FreeLayoutNumericFieldHelper implements FieldHelper {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @seecom.manydesigns.elements.fields.helpers.FieldHelper# tryToInstantiateSearchField
      * (com.manydesigns.elements.reflection.ClassAccessor, com.manydesigns.elements.reflection.PropertyAccessor,
      * java.lang.String)

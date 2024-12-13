@@ -180,7 +180,7 @@ public class SimparerLoginLog {
 
     /*
      * Estrae utenti dalla USR_USER per username case insensitive
-     * 
+     *
      * Introdotto per l'itegrazione con SPID Puglia dove a fronte del codice fiscale arrivato da SPID andiamo a cercare
      * sulla usruser un utente avente come username il codice fiscale ignorando il case.
      */

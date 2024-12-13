@@ -95,7 +95,7 @@ public class GestionePassword extends HomePrivata {
          * azione.contains("gestione")) { // ForwardResolution resolution = new ForwardResolution( //
          * HomePrivata.class); redirectResolution = new RedirectResolution("/pro/strut/" + idStrut); //
          * resolution.addParameter("idStrut", idStrut);//pro/strut/ result = redirectResolution; } else {
-         * 
+         *
          * String redirectUrl = "/pro/editud/" + idrecord + "?daHome=1&verifica="; if (StringUtils.isNotBlank(azione) &&
          * azione.contains("versa")) { redirectUrl = "/pro/editud/" + idrecord + "?daHome=1&versa="; }
          * redirectResolution = new RedirectResolution(redirectUrl); redirectResolution.addParameter("idrecord",

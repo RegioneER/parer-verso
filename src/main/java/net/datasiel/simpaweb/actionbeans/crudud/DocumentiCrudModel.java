@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  */
 package net.datasiel.simpaweb.actionbeans.crudud;
 
@@ -37,7 +37,7 @@ public class DocumentiCrudModel implements CrudModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.CrudModel#getIntestazioneRO()
      */
     @Override
@@ -47,7 +47,7 @@ public class DocumentiCrudModel implements CrudModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.CrudModel#getIntestazioneRW()
      */
     @Override
@@ -58,7 +58,7 @@ public class DocumentiCrudModel implements CrudModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.CrudModel#getRighe()
      */
     @Override

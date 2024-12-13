@@ -26,6 +26,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -223,7 +224,6 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
                     index++;
                 }
             } catch (NoSuchFieldException e) {
-                // TODO Auto-generated catch block
                 log.error("Generic error", e);
             }
         }
@@ -233,7 +233,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
     /**
      * @param strTiDOC
      * @param strTipoTab
-     * 
+     *
      * @return
      */
     protected String getValoreTiDoc(String strTipoTab) {
@@ -256,7 +256,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
      *
      * @param idrecord
      * @param connection
-     * 
+     *
      * @throws SQLException
      */
     protected void inizializzaDocPrincipale(Long idrecord, Connection connection) throws SQLException {
@@ -271,7 +271,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#goHome()
      */
     @Override
@@ -283,7 +283,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareIntestazioneUiRO()
      */
     @Override
@@ -296,7 +296,6 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
                         "cdVersioneXSD") // ,"idTipoStrutDoc"
                 .configFieldSetNames("Unita Documentaria")
                 .configSelectionProvider(selTipoUnitaDoc, "idTipoUnitaDoc", "idRegistroUnitaDoc");
-        // .configSelectionProvider(seltipoStruttura, "idTipoStrutDoc");
         if ("PRINC".equals(getTipoTab())) {
             formBuilder = formBuilder.configSelectionProvider(selCDVersione, "cdVersioneXSD");
         }
@@ -308,7 +307,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareIntestazioneUiRW(com.manydesigns.elements.Mode)
      */
     @Override
@@ -319,7 +318,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareElRiga(java.lang.String, com.manydesigns.elements.Mode)
      */
     @Override
@@ -331,7 +330,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareEltafoDettaglio1(java.lang.String, int,
      * com.manydesigns.elements.Mode)
      */
@@ -348,7 +347,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareEltafoDettaglio2(java.lang.String, int,
      * com.manydesigns.elements.Mode)
      */
@@ -373,7 +372,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareElDettaglio1(java.lang.String,
      * com.manydesigns.elements.Mode)
      */
@@ -416,7 +415,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareElDettaglio2(java.lang.String,
      * com.manydesigns.elements.Mode)
      */
@@ -454,7 +453,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#loadCrudModel()
      */
     @Override
@@ -513,7 +512,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#businessValidate()
      */
     @Override
@@ -524,7 +523,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#rigaValidate(net.datasiel.webapp.crud.RigaModel)
      */
     @Override
@@ -537,7 +536,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#dettaglio1Validate(java.lang.Object)
      */
     @Override
@@ -555,7 +554,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#dettaglio2Validate(java.lang.Object)
      */
     @Override
@@ -566,7 +565,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#deleteRiga(int)
      */
     @Override
@@ -596,7 +595,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#updateCrudModel()
      */
     @Override
@@ -676,7 +675,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#insertRigaModel(net.datasiel.webapp.crud.RigaModel)
      */
     @Override
@@ -703,12 +702,12 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
         // datiDocAllegato.setIdTipoStrutDoc(idTipoStrutDoc);
         // }
         parDocVO.insertPrepared(datiDocAllegato, getConnection());
-        log.debug(getClass().getName() + " - Inserita riga: " + datiDocAllegato.getIddocumento());
+        log.debug("{} - Inserita riga: {}", getClass().getName(), datiDocAllegato.getIddocumento());
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#createRigaModel()
      */
     @Override
@@ -724,18 +723,18 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#insertDettaglio1Model(int, java.lang.Object)
      */
     @Override
     public void insertDettaglio1Model(int indiceRiga, Object dettaglio) throws Exception {
         Connection con = getConnection();
-        Long idDocumento = ((DocumentiRigaModel) crudModel.getRighe().get(indiceRiga)).riga.getIddocumento();
+        Long idDoc = ((DocumentiRigaModel) crudModel.getRighe().get(indiceRiga)).riga.getIddocumento();
         ParComponenteDAO parCompDAO = new ParComponenteDAO();
         ParComponente objToInsert = (ParComponente) dettaglio;
         objToInsert.setId(0L);
         objToInsert.setIdunitadoc(idrecord);
-        objToInsert.setIddocumento(idDocumento);
+        objToInsert.setIddocumento(idDoc);
         objToInsert.setIdcomponente(DbUtil.getSequenceValue("PAR_SEQ_IDCOMPONENTE", con));
         objToInsert.setPgm("Documenti");
         objToInsert.setFlgstato(0L);
@@ -743,8 +742,9 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
             throw new IllegalArgumentException("Non è stato inserito il file!!");
         }
         Blob blob = getBlobFromFileSystem(objToInsert.getCodallegato());
-
-        blob.loadMetaProperties();
+        if (Objects.nonNull(blob)) {
+            blob.loadMetaProperties();
+        }
         parCompDAO.insertPrepared(objToInsert, blob, con);
         cleanBlobFiles(objToInsert.getCodallegato());
 
@@ -752,7 +752,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#createDettaglio1Model()
      */
     @Override
@@ -762,7 +762,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#deleteDettaglio1Model(int, int)
      */
     @Override
@@ -780,7 +780,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#insertDettaglio2Model(int, java.lang.Object)
      */
     @Override
@@ -821,7 +821,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
                     parDsDAO.updateByIndex(objToInsUpdOrDel, connection);
                 }
             } else {
-                if (!(currentIdValoreDS.compareTo(0L) == 0)) {
+                if (currentIdValoreDS.compareTo(0L) != 0) {
                     objToInsUpdOrDel.setIdvaloredatispecifici(currentIdValoreDS);
                     parDsDAO.deleteByIndex(objToInsUpdOrDel, connection);
                 }
@@ -841,7 +841,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#createDettaglio2Model()
      */
     @Override
@@ -856,7 +856,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#deleteDettaglio2Model(int, int)
      */
     @Override
@@ -868,7 +868,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#commitTransaction()
      */
     @Override
@@ -879,7 +879,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#beginTransaction()
      */
     @Override
@@ -889,7 +889,7 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#endTransaction()
      */
     @Override

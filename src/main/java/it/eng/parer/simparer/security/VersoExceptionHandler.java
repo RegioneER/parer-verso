@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  */
 package it.eng.parer.simparer.security;
 
@@ -47,7 +47,7 @@ public class VersoExceptionHandler extends DefaultExceptionHandler {
     private final Logger log = LoggerFactory.getLogger(VersoExceptionHandler.class);
 
     /**
-     * 
+     *
      */
     public VersoExceptionHandler() {
         // TODO Auto-generated constructor stub

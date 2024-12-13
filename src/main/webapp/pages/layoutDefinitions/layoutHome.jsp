@@ -36,7 +36,7 @@ String favIconRelative = ConfigSingleton.getInstance().getStringValue("FAV_ICON_
 		<meta name="_csrf_header" content="${_csrf.headerName}"/>
 		<meta name="_csrf" content="${_csrf.token}"/>
 		
-		<link rel="stylesheet" media="screen" type="text/css" href="<c:url value="/css/custom-theme/jquery-ui-1.13.1.min.css"/>"/>
+		<link rel="stylesheet" media="screen" type="text/css" href="<c:url value="/css/custom-theme/jquery-ui-1.13.3.min.css"/>"/>
 		<link rel="stylesheet" media="screen" type="text/css" href="<c:url value="/css/jquery.jgrowl.css"/>"/>
 		<link rel="stylesheet" media="screen" type="text/css"	href="<c:url value="/css/bootstrap.min.css"/>" />
 		<link rel="stylesheet" media="screen" type="text/css" href="<c:url value="/css/bootstrap-tooltip.min.css"/>" />
@@ -53,7 +53,7 @@ String favIconRelative = ConfigSingleton.getInstance().getStringValue("FAV_ICON_
 		<link rel="Shortcut Icon" type="image/icon" href="<c:url value="<%=favIconRelative%>" />"/>
 		
 		
-		<script type="text/javascript" src="<c:url value="/webjars/jquery/3.6.4/jquery.min.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/webjars/jquery/3.7.1/jquery.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/js/elementsStripes.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/js/jquery.countdown.pack-it.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/js/collapsiblefieldset.js"/>"></script>
@@ -64,7 +64,7 @@ String favIconRelative = ConfigSingleton.getInstance().getStringValue("FAV_ICON_
 		<script type="text/javascript" src="<c:url value="/js/jquery.dirtyform.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/js/jquery.blockUI.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/js/jquery.cookie.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/webjars/jquery-ui/1.13.2/jquery-ui.min.js"/>"></script>		
+		<script type="text/javascript" src="<c:url value="/webjars/jquery-ui/1.13.3/jquery-ui.min.js"/>"></script>		
 		<script type="text/javascript" src="<c:url value="/js/layoutscripts.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/js/menuscripts.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/js/layoutDefinitions/layout.js"/>"></script>

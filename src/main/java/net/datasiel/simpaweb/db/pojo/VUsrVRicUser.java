@@ -32,10 +32,10 @@ public class VUsrVRicUser implements Serializable {
     /*
      * ID_USER, NM_COGNOME_USER, NM_NOME_USER, FL_ATTIVO, NM_USERID, ID_APPLIC, ID_RUOLO, NM_RUOLO, ID_AMBIENTE,
      * ID_ENTE, ID_STRUT, NM_STRUT, CD_PSW, DT_SCAD_PSW
-     * 
+     *
      * ID_USER_IAM, NM_COGNOME_USER, NM_NOME_USER, FL_ATTIVO, NM_USERID, CD_PWD, CD_SALT, NM_AMBIENTE, NM_ENTE,
      * ID_STRUT, NM_STRUT
-     * 
+     *
      */
 
     private static final long serialVersionUID = 1L;

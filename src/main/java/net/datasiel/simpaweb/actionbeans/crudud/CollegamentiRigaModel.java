@@ -17,6 +17,7 @@
 
 package net.datasiel.simpaweb.actionbeans.crudud;
 
+import java.util.Collections;
 import java.util.List;
 
 import net.datasiel.simpaweb.db.pojo.ParCollegamento;
@@ -37,7 +38,7 @@ public class CollegamentiRigaModel implements RigaModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.RigaModel#getRiga()
      */
     @Override
@@ -47,30 +48,30 @@ public class CollegamentiRigaModel implements RigaModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.RigaModel#getDettagli1()
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public List getDettagli1() {
         // Non ci sono dettagli 1
-        return null;
+        return Collections.emptyList();
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.RigaModel#getDettagli2()
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public List getDettagli2() {
         // Non ci sono dettagli 2
-        return null;
+        return Collections.emptyList();
     }
 
     public List<String> getListaCodiciAllegati() {
-        return null;
+        return Collections.emptyList();
     }
 
 }

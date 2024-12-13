@@ -30,7 +30,7 @@ public class VorgAmbienteDAO extends VOrgAmbiente {
     }
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
 

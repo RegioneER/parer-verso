@@ -75,7 +75,7 @@ import net.sourceforge.stripes.action.ErrorResolution;
 
 /**
  * @author reisoli
- * 
+ *
  */
 @UrlBinding("/pro/editud/{idrecord}")
 @InfoToolbar(titolo = "Unità documentaria", accelerator = "U", breadcrumbs = "Home")
@@ -206,7 +206,7 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.monocrud.MonoCrudAction#prepareUiRO()
      */
     @Override
@@ -217,7 +217,7 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.monocrud.MonoCrudAction#prepareUiRW(com.manydesigns .elements.Mode)
      */
     @Override
@@ -251,7 +251,7 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.monocrud.MonoCrudAction#loadModel()
      */
     @Override
@@ -262,7 +262,7 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.monocrud.MonoCrudAction#updateModel()
      */
     @Override
@@ -279,7 +279,7 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.monocrud.MonoCrudAction#createModel()
      */
     @Override
@@ -289,7 +289,7 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.monocrud.MonoCrudAction#saveModel()
      */
     @Override
@@ -318,7 +318,7 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.monocrud.MonoCrudAction#businessValidate()
      */
     @Override
@@ -330,7 +330,7 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#commitTransaction()
      */
     @Override
@@ -341,7 +341,7 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#beginTransaction()
      */
     @Override
@@ -351,7 +351,7 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#endTransaction()
      */
     @Override
@@ -361,7 +361,7 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.monocrud.MonoCrudAction#getCreatedPath()
      */
     @Override
@@ -508,7 +508,7 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
 
     /**
      * Hook per la restituzione della jsp da usare per la creazione di una riga del primo dettaglio.
-     * 
+     *
      * @return
      */
     public String getDatiSpecificiView() {
@@ -518,7 +518,7 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
     /**
      * Hook per la restituzione della jsp da usare per la creazione di una riga del primo dettaglio nel caso JS
      * disabilitato.
-     * 
+     *
      * @return
      */
     public String getDettaglio1CreatoNoJSView() {
@@ -625,7 +625,7 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#insertDettaglio2Model(int, java.lang.Object)
      */
 

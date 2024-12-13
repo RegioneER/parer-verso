@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  */
 package it.eng.parer.simparer.common;
 
@@ -32,7 +32,7 @@ public class SpringContext implements ApplicationContextAware {
     private static ApplicationContext context;
 
     /**
-     * 
+     *
      */
     @SuppressWarnings("static-access")
     public void setApplicationContext(ApplicationContext context) throws BeansException {

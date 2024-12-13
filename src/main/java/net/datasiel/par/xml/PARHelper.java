@@ -132,13 +132,13 @@ import net.datasiel.simpaweb.db.dao.ParComponenteDAO;
  * Classe di utilità per la generazione del file xml secondo la specifica richiesta dal servizio di versamento. Consente
  * di generare l'xml sia per il servizio di versamento di una nuova unita documentaria sia per il servizio di aggiunta
  * documenti a unità documentarie già versate.
- * 
+ *
  * @author reisoli
- * 
+ *
  */
 public class PARHelper implements Serializable {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -1241721718022885875L;
     private static final Logger log = LoggerFactory.getLogger(PARHelper.class);
@@ -158,7 +158,7 @@ public class PARHelper implements Serializable {
 
     /**
      * Costruttore da usare nelle situazioni in cui non ci sono dati specifici da aggiungere. Imposta l'encoding a UTF-8
-     * 
+     *
      * @throws JAXBException
      * @throws ConfigurationException
      */
@@ -168,10 +168,10 @@ public class PARHelper implements Serializable {
 
     /**
      * Costruttore che consente di impostare l'encoding.
-     * 
+     *
      * @param strEncoding
      *            Encoding dei dati che verranno inviati.
-     * 
+     *
      * @throws JAXBException
      */
     public PARHelper(String strEncoding) throws JAXBException, IllegalCharsetNameException {
@@ -183,27 +183,27 @@ public class PARHelper implements Serializable {
 
     /**
      * Invoca il servizio VersamentoSync restituendo l'xml della risposta.
-     * 
+     *
      * @param unitaDoc
      *            Dati unità documentaria da versare.
-     * 
+     *
      * @return L'xml della risposta in formato stringa
-     * 
+     *
+     * @throws VersoException
+     * @throws IOException
+     *
      * @throws Exception
      */
-    public String invocaVersamentoSync(DatiUnitaDocumentaria unitaDoc) throws Exception {
-
-        String strXml = creaRequestVersamento(unitaDoc);
-        // TODO sostituire costanti con proprietà lette da config
-        String userName = "Versatore RL";
-        String password = "perlomeno8Car#";
-        String uploadUrl = "https://par-test.regione.liguria.it/sacer/VersamentoSync";
-
+    public String invocaVersamentoSync(DatiUnitaDocumentaria unitaDoc) throws VersoException, IOException {
         InputStream is = null;
         // new lib
-        CloseableHttpClient httpclient = null;
-        try {
-            httpclient = HttpClientBuilder.create().build();
+        try (CloseableHttpClient httpclient = HttpClientBuilder.create().build();) {
+
+            String strXml = creaRequestVersamento(unitaDoc);
+            // TODO sostituire costanti con proprietà lette da config
+            String userName = "Versatore RL";
+            String password = "perlomeno8Car#";
+            String uploadUrl = "https://par-test.regione.liguria.it/sacer/VersamentoSync";
 
             HttpPost httppost = new HttpPost(uploadUrl);
 
@@ -288,27 +288,21 @@ public class PARHelper implements Serializable {
             if (is != null) {
                 is.close();
             }
-            if (httpclient != null) {
-                httpclient.close();
-            }
         }
     }
 
     public String invocaVersamentoSync(DatiUnitaDocumentaria unitaDoc, String uploadUrl,
-            List<Map<String, String>> listaCookie) throws Exception {
-
-        PARHelper parHelper = new PARHelper(StandardCharsets.UTF_8.name());
-        String strXml = parHelper.creaRequestVersamento(unitaDoc);
-        // TODO sostituire costanti con proprietà lette da config
-        String userName = "CFFILSEPAR";
-        String password = "password";
+            List<Map<String, String>> listaCookie) throws VersoException, IOException {
 
         InputStream is = null;
         // new lib
-        CloseableHttpClient httpclient = null;
-        try {
-            // OLD HttpClient httpclient = new DefaultHttpClient();
-            httpclient = HttpClientBuilder.create().build();
+        try (CloseableHttpClient httpclient = HttpClientBuilder.create().build();) {
+
+            PARHelper parHelper = new PARHelper(StandardCharsets.UTF_8.name());
+            String strXml = parHelper.creaRequestVersamento(unitaDoc);
+            // TODO sostituire costanti con proprietà lette da config
+            String userName = "CFFILSEPAR";
+            String password = "password";
 
             HttpPost httppost = new HttpPost(uploadUrl);
 
@@ -408,16 +402,14 @@ public class PARHelper implements Serializable {
             if (is != null) {
                 is.close();
             }
-            if (httpclient != null) {
-                httpclient.close();
-            }
         }
     }
 
     // versione con autenticazione
     public String invocaVersamentoSync(String username, String password, DatiUnitaDocumentaria unitaDoc, URI uploadUrl,
             List<Map<String, String>> listaCookie, String strXml)
-            throws AuthenticationException, IllegalCharsetNameException, IOException, VersoException {
+            throws AuthenticationException, VersoException, IOException {
+
         if (username == null || password == null) {
             throw new AuthenticationException("username e/o password non valorizzati");
         }
@@ -431,9 +423,7 @@ public class PARHelper implements Serializable {
 
         InputStream is = null;
         // new lib
-        CloseableHttpClient httpclient = null;
-        try {
-            httpclient = HttpClientBuilder.create().build();
+        try (CloseableHttpClient httpclient = HttpClientBuilder.create().build();) {
 
             HttpPost httppost = new HttpPost(uploadUrl);
 
@@ -537,23 +527,27 @@ public class PARHelper implements Serializable {
             if (is != null) {
                 is.close();
             }
-            if (httpclient != null) {
-                httpclient.close();
-            }
         }
     }
 
     /**
      * Crea la stringa xml della richiesta
-     * 
+     *
      * @param unitaDoc
      *            Bean contenente i dati da usare per la costruzione della richiesta
-     * 
-     * @return
-     * 
-     * @throws Exception
+     *
+     * @return XML con metadati di versamento
+     *
+     * @throws JAXBException
+     *             errore marshalling
+     * @throws IOException
+     *             errore generico
+     * @throws DatatypeConfigurationException
+     *             errore generico
+     *
      */
-    public String creaRequestVersamento(DatiUnitaDocumentaria unitaDoc) throws Exception {
+    public String creaRequestVersamento(DatiUnitaDocumentaria unitaDoc)
+            throws JAXBException, IOException, DatatypeConfigurationException {
 
         log.info("Inizio creazione xml per versamento.");
         log.info("Encoding usato {}", encoding);
@@ -572,15 +566,22 @@ public class PARHelper implements Serializable {
 
     /**
      * Crea la stringa xml della richiesta
-     * 
+     *
      * @param datiUnitaDocAll
      *            Bean contenente i dati da usare per la costruzione della richiesta
-     * 
-     * @return
-     * 
-     * @throws Exception
+     *
+     * @return XML metadati aggiunta documento
+     *
+     * @throws JAXBException
+     *             errore marshalling
+     * @throws DatatypeConfigurationException
+     *             errore generico
+     * @throws IOException
+     *             errore generico
+     *
      */
-    public String creaRequestAggiuntaAllegati(DatiUnitaDocAggAllegati datiUnitaDocAll) throws Exception {
+    public String creaRequestAggiuntaAllegati(DatiUnitaDocAggAllegati datiUnitaDocAll)
+            throws JAXBException, DatatypeConfigurationException, IOException {
         log.info("Inizio creazione xml per aggiunta allegati.");
         log.info("Encoding usato {}", encoding);
         Marshaller marshaller = jaxbContext.createMarshaller();
@@ -596,7 +597,7 @@ public class PARHelper implements Serializable {
     }
 
     private UnitaDocAggAllegati creaUnitaDocAggAllegati(DatiUnitaDocAggAllegati datiUnitaDocAll,
-            ObjectFactory objectFactory) throws DatatypeConfigurationException, JAXBException {
+            ObjectFactory objectFactory) throws DatatypeConfigurationException {
         UnitaDocAggAllegati unitaDocAll = objectFactory.createUnitaDocAggAllegati();
         Intestazione intestazione = datiUnitaDocAll.getIntestazione();
         if (intestazione != null) {
@@ -659,7 +660,7 @@ public class PARHelper implements Serializable {
     }
 
     private UnitaDocumentaria creaUnitaDocumentaria(DatiUnitaDocumentaria datiUnitaDoc, ObjectFactory objectFactory)
-            throws DatatypeConfigurationException, JAXBException {
+            throws DatatypeConfigurationException {
         UnitaDocumentaria unitaDoc = objectFactory.createUnitaDocumentaria();
         if (datiUnitaDoc.getIntestazione() != null) {
             IntestazioneType intestazione = creaIntestazione(datiUnitaDoc.getIntestazione(), objectFactory);
@@ -728,7 +729,7 @@ public class PARHelper implements Serializable {
     }
 
     private Allegati creaListaAllegati(List<Documento> allegati, ObjectFactory objectFactory)
-            throws DatatypeConfigurationException, JAXBException {
+            throws DatatypeConfigurationException {
         Allegati returnValue = objectFactory.createUnitaDocumentariaAllegati();
         if (returnValue.getAllegato() == null)
             return null;
@@ -737,22 +738,22 @@ public class PARHelper implements Serializable {
     }
 
     private Annessi creaListaAnnessi(List<Documento> annessi, ObjectFactory objectFactory)
-            throws DatatypeConfigurationException, JAXBException {
+            throws DatatypeConfigurationException {
         Annessi returnValue = objectFactory.createUnitaDocumentariaAnnessi();
         returnValue.getAnnesso().addAll(creaListaDocument(annessi, objectFactory));
         return returnValue;
     }
 
     private Annotazioni creaListaAnnotazioni(List<Documento> annotazioni, ObjectFactory objectFactory)
-            throws DatatypeConfigurationException, JAXBException {
+            throws DatatypeConfigurationException {
         Annotazioni returnValue = objectFactory.createUnitaDocumentariaAnnotazioni();
         returnValue.getAnnotazione().addAll(creaListaDocument(annotazioni, objectFactory));
         return returnValue;
     }
 
     private Collection<DocumentoType> creaListaDocument(List<Documento> allegati, ObjectFactory objectFactory)
-            throws DatatypeConfigurationException, JAXBException {
-        Collection<DocumentoType> listaDoc = new ArrayList<DocumentoType>();
+            throws DatatypeConfigurationException {
+        Collection<DocumentoType> listaDoc = new ArrayList<>();
         for (Documento documento : allegati) {
             DocumentoType doc = creaDocumento(documento, objectFactory);
             listaDoc.add(doc);
@@ -761,7 +762,7 @@ public class PARHelper implements Serializable {
     }
 
     private DocumentoCollegatoType creaDocumentiCollegati(List<DocumentoCollegato> parCollegamenti,
-            ObjectFactory objectFactory) throws JAXBException {
+            ObjectFactory objectFactory) {
         DocumentoCollegatoType docs = objectFactory.createDocumentoCollegatoType();
         List<net.datasiel.par.jaxb.versamento.DocumentoCollegatoType.DocumentoCollegato> lista = creaListaDocumentiCollegati(
                 parCollegamenti);
@@ -1102,12 +1103,12 @@ public class PARHelper implements Serializable {
 
     /**
      * Restituisce un XMLGregorianCalendare che risulterà, nell'xml, in una data nel formato YYYY-MM-DD
-     * 
+     *
      * @param date
      *            La data da convertire
      * @param datatypeFactory
      *            DatatypeFactory da usare per creare l'oggetto XMLGregorianCalendar
-     * 
+     *
      * @return Oggetto XMLGregorianCalendar corrispondente alla data ricevuta
      */
     private XMLGregorianCalendar dateConversion2XsdDateTime(DateTime date, DatatypeFactory datatypeFactory) {
@@ -1161,26 +1162,14 @@ public class PARHelper implements Serializable {
     }
 
     private InputStream getBlobInputStreamForIdComponente(String codAllegato) {
-        Connection conn = null;
         InputStream ret = null;
         if (codAllegato != null) {
             DataSource datasource = SpringContext.getApplicationContext().getBean("dataSource", DataSource.class);
-            if (datasource != null) {
-                try {
-                    conn = datasource.getConnection();
-                    ParComponenteDAO parCompDao = new ParComponenteDAO();
-                    ret = parCompDao.getBlobWhereByCodAllegato(codAllegato, conn);
-                } catch (SQLException e) {
-                    log.error("Generic error", e);
-                } finally {
-                    if (conn != null)
-                        try {
-                            conn.close();
-                        } catch (SQLException e) {
-                            log.error("Generic error", e);
-                        }
-                }
-
+            try (Connection conn = datasource.getConnection()) {
+                ParComponenteDAO parCompDao = new ParComponenteDAO();
+                ret = parCompDao.getBlobWhereByCodAllegato(codAllegato, conn);
+            } catch (SQLException e) {
+                log.error("Generic error", e);
             }
         }
         return ret;

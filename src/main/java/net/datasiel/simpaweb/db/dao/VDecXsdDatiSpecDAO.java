@@ -133,11 +133,11 @@ public class VDecXsdDatiSpecDAO extends VDecXsdDatiSpec {
         }
 
         try {
-            log.debug(prepQuery);
+            log.debug("{}", prepQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + prepQuery);
+            log.error("Failed query: {}", prepQuery, e);
             throw e;
         } finally {
             if (pst != null) {

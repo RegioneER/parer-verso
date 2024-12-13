@@ -58,9 +58,9 @@ public class VDecXsdDatiSpecVO extends VDecXsdDatiSpecDAO {
      *            Identificativo della tipologia di UD
      * @param con
      *            Connessione al db
-     * 
+     *
      * @return True se devono essere gestiti dati specifici di UD, false altrimenti.
-     * 
+     *
      * @throws SQLException
      */
     public static boolean sonoPresentiDatiSpecificiUD(Long idStrut, Long idTipoUnitaDoc, Connection con)

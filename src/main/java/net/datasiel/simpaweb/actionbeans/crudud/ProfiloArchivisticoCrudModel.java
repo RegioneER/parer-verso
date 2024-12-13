@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  */
 package net.datasiel.simpaweb.actionbeans.crudud;
 
@@ -32,7 +32,7 @@ import net.datasiel.webapp.crud.RigaModel;
  * Sarà composto così: intestazioneRO: intestazione (cambiando solo il tipo da FormUnitaDoc a quello vero
  * intestazioneRW: oggetto corrispondente a fascicolo principale (ParFascicolo) righe: lista di fascicoli secondari
  * (List<RigaModel>).
- * 
+ *
  * @author reisoli
  *
  */
@@ -43,7 +43,7 @@ public class ProfiloArchivisticoCrudModel implements CrudModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.CrudModel#getIntestazioneRO()
      */
     @Override
@@ -53,7 +53,7 @@ public class ProfiloArchivisticoCrudModel implements CrudModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.CrudModel#getIntestazioneRW()
      */
     @Override
@@ -63,7 +63,7 @@ public class ProfiloArchivisticoCrudModel implements CrudModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.CrudModel#getRighe()
      */
     @Override

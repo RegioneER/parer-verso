@@ -24,7 +24,7 @@ import com.manydesigns.elements.annotations.Required;
 public class VOrgAmbiente implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
 

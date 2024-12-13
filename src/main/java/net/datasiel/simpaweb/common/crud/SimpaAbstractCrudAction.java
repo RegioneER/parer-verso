@@ -146,9 +146,9 @@ public class SimpaAbstractCrudAction extends AbstractCrudAction {
 
     /**
      * TODO da capire come unificare con quello in SimpaMonoCrudAction che è uguale...
-     * 
+     *
      * @see net.datasiel.webapp.BaseAction#isTabEnabled(int)
-     * 
+     *
      * @Override public boolean isTabEnabled(int indiceTab) throws SQLException { int indiceInTipoDoc = 0; //
      *           corrisponde al doc principale che qui non è // gestito switch (indiceTab) { case 4: case 5: case 6: //
      *           Tab allegati, annessi e annotazioni // Calcolare indiceInTipoDoc e recuperare EnumTipodocumento

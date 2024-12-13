@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  */
 package net.datasiel.webapp.crud;
 
@@ -29,21 +29,21 @@ import java.util.List;
 public interface CrudModel {
     /**
      * Restituisce la parte read only di intestazione della form.
-     * 
+     *
      * @return L'intestazione di sola lettura
      */
     Object getIntestazioneRO();
 
     /**
      * Restituisce la parte read write di intestazione della form.
-     * 
+     *
      * @return L'intestazione modificabile
      */
     Object getIntestazioneRW();
 
     /**
      * Restituisce la parte di detail della form.
-     * 
+     *
      * @return Le righe
      */
     List<RigaModel> getRighe();

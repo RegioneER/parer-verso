@@ -18,7 +18,7 @@
 package net.datasiel.par.beans;
 
 /**
- * 
+ *
  * @author reisoli
  *
  */

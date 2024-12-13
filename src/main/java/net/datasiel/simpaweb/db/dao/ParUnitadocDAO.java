@@ -169,15 +169,12 @@ public class ParUnitadocDAO extends ParUnitadoc {
      */
     public ParUnitadoc retrieveByKey(Long idunitadoc, Connection con) throws SQLException {
 
-        // String query = "select * from PAR_UNITADOC"+" where IDUNITADOC="+idunitadoc;
         String query = "select * from PAR_UNITADOC" + " where IDUNITADOC=?";
-        // java.sql.Statement st = con.createStatement();
         java.sql.PreparedStatement st = con.prepareStatement(query);
         st.setLong(1, idunitadoc);
         ResultSet r = null;
         try {
-            log.info(query + " - [" + idunitadoc + "]");
-            // ResultSet r = st.executeQuery(query);
+            log.info("{} - [{}]", query, idunitadoc);
             r = st.executeQuery();
             ParUnitadoc obj = null;
             if (r.next()) {
@@ -212,7 +209,7 @@ public class ParUnitadocDAO extends ParUnitadoc {
         java.sql.Statement st = con.createStatement();
         ResultSet r = null;
         try {
-            log.debug(query);
+            log.debug("{}", query);
             r = st.executeQuery(query);
             while (r.next()) {
                 curRow = new ParUnitadoc();
@@ -245,7 +242,7 @@ public class ParUnitadocDAO extends ParUnitadoc {
         java.sql.Statement st = con.createStatement();
         ResultSet r = null;
         try {
-            log.debug(query);
+            log.debug("{}", query);
             r = st.executeQuery(query);
             while (r.next()) {
                 curRow = new ParUnitadoc();
@@ -410,11 +407,11 @@ public class ParUnitadocDAO extends ParUnitadoc {
         pst.setLong(indice++, obj.getIdunitadoc());
 
         try {
-            log.debug(preparedQuery);
+            log.debug("{}", preparedQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + preparedQuery);
+            log.error("Failed query: {}", preparedQuery, e);
             throw e;
         } finally {
             if (pst != null) {
@@ -567,11 +564,11 @@ public class ParUnitadocDAO extends ParUnitadoc {
         pst.setString(indice++, obj.getCdVersioneXSD());
 
         try {
-            log.debug(preparedQuery);
+            log.debug("{}", preparedQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + preparedQuery);
+            log.error("Failed query: {}", preparedQuery, e);
             throw e;
         } finally {
             if (pst != null) {
@@ -587,7 +584,7 @@ public class ParUnitadocDAO extends ParUnitadoc {
         String query = "delete from PAR_UNITADOC where IDUNITADOC=?";
         java.sql.PreparedStatement st = con.prepareStatement(query);
         try {
-            log.debug(query);
+            log.debug("{}", query);
             st.setLong(1, obj.getIdunitadoc());
             int updates = st.executeUpdate();
             return updates;
@@ -605,7 +602,7 @@ public class ParUnitadocDAO extends ParUnitadoc {
         String query = "delete from PAR_UNITADOC where IDUNITADOC = ?";
         java.sql.PreparedStatement st = con.prepareStatement(query);
         try {
-            log.debug(query);
+            log.debug("{}", query);
             st.setLong(1, idUd);
             int updates = st.executeUpdate();
             return updates;
@@ -632,7 +629,7 @@ public class ParUnitadocDAO extends ParUnitadoc {
         java.sql.Statement st = con.createStatement();
         ResultSet r = null;
         try {
-            log.debug(query);
+            log.debug("{}", query);
             r = st.executeQuery(query);
             while (r.next()) {
                 curRow = new ParUnitadoc();
@@ -667,7 +664,7 @@ public class ParUnitadocDAO extends ParUnitadoc {
         java.sql.Statement st = con.createStatement();
         ResultSet r = null;
         try {
-            log.debug(query);
+            log.debug("{}", query);
             r = st.executeQuery(query);
             while (r.next()) {
                 curRow = new ParUnitadoc();
@@ -727,10 +724,7 @@ public class ParUnitadocDAO extends ParUnitadoc {
     public ParUnitadoc retrieveByIndex(Long idunitadoc, Long idutente, Long idStrut, Connection con)
             throws SQLException {
 
-        // String query = "select * from PAR_UNITADOC"+" where IDUNITADOC="+idunitadoc+" and IDUTENTE="+idutente+" and
-        // ID_STRUT="+idStrut;
         String query = "select * from PAR_UNITADOC" + " where IDUNITADOC=?" + " and IDUTENTE=?" + " and ID_STRUT=?";
-        // java.sql.Statement st = con.createStatement();
         java.sql.PreparedStatement st = con.prepareStatement(query);
         st.setLong(1, idunitadoc);
         st.setLong(2, idutente);
@@ -738,7 +732,6 @@ public class ParUnitadocDAO extends ParUnitadoc {
         ResultSet r = null;
         try {
             log.debug(query);
-            // ResultSet r = st.executeQuery(query);
             r = st.executeQuery();
             ParUnitadoc obj = null;
             if (r.next()) {
@@ -1058,11 +1051,11 @@ public class ParUnitadocDAO extends ParUnitadoc {
         }
 
         try {
-            log.debug(prepQuery);
+            log.debug("{}", prepQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + prepQuery);
+            log.error("Failed query: {}", prepQuery, e);
             throw e;
         } finally {
             if (pst != null) {

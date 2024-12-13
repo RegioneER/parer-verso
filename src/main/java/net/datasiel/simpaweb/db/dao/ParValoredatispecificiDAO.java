@@ -99,15 +99,12 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
      */
     public ParValoredatispecifici retrieveByKey(Long idvaloredatispecifici, Connection con) throws SQLException {
 
-        // String query = "select * from PAR_VALOREDATISPECIFICI"+" where IDVALOREDATISPECIFICI="+idvaloredatispecifici;
         String query = "select * from PAR_VALOREDATISPECIFICI" + " where IDVALOREDATISPECIFICI=?";
-        // java.sql.Statement st = con.createStatement();
         java.sql.PreparedStatement st = con.prepareStatement(query);
         st.setLong(1, idvaloredatispecifici);
         ResultSet r = null;
         try {
-            log.info(query + "[" + idvaloredatispecifici + "]");
-            // ResultSet r = st.executeQuery(query);
+            log.info("{} [{}]", query, idvaloredatispecifici);
             r = st.executeQuery();
             ParValoredatispecifici obj = null;
             if (r.next()) {
@@ -142,7 +139,7 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
         java.sql.Statement st = con.createStatement();
         ResultSet r = null;
         try {
-            log.debug(query);
+            log.debug("{}", query);
             r = st.executeQuery(query);
             while (r.next()) {
                 curRow = new ParValoredatispecifici();
@@ -175,7 +172,7 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
         java.sql.Statement st = con.createStatement();
         ResultSet r = null;
         try {
-            log.debug(query);
+            log.debug("{}", query);
             r = st.executeQuery(query);
             while (r.next()) {
                 curRow = new ParValoredatispecifici();
@@ -244,11 +241,11 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
         pst.setLong(indice++, obj.getIdvaloredatispecifici());
 
         try {
-            log.info(preparedQuery);
+            log.info("{}", preparedQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + preparedQuery);
+            log.error("Failed query: {}", preparedQuery, e);
             throw e;
         } finally {
             if (pst != null) {
@@ -309,11 +306,11 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
         }
 
         try {
-            log.debug(preparedQuery);
+            log.debug("{}", preparedQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + preparedQuery);
+            log.error("Failed query: {}", preparedQuery, e);
             throw e;
         } finally {
             if (pst != null) {
@@ -329,7 +326,7 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
         String query = "delete from PAR_VALOREDATISPECIFICI where IDVALOREDATISPECIFICI=?";
         java.sql.PreparedStatement st = con.prepareStatement(query);
         try {
-            log.info(query);
+            log.info("{}", query);
             st.setLong(1, obj.getIdvaloredatispecifici());
             int updates = st.executeUpdate();
             return updates;
@@ -347,7 +344,7 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
         String query = "delete from PAR_VALOREDATISPECIFICI where IDDATISPECIFICI=?";
         java.sql.PreparedStatement st = con.prepareStatement(query);
         try {
-            log.debug(query);
+            log.debug("{}", query);
             st.setLong(1, idDatiSpec);
             int updates = st.executeUpdate();
             return updates;
@@ -380,7 +377,7 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
         java.sql.PreparedStatement st = con.prepareStatement(query);
         ResultSet r = null;
         try {
-            log.debug(query);
+            log.debug("{}", query);
             st.setLong(1, iddatispecifici);
             r = st.executeQuery();
             while (r.next()) {
@@ -416,7 +413,7 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
         java.sql.Statement st = con.createStatement();
         ResultSet r = null;
         try {
-            log.debug(query);
+            log.debug("{}", query);
             r = st.executeQuery(query);
             while (r.next()) {
                 curRow = new ParValoredatispecifici();
@@ -440,18 +437,14 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
     public ParValoredatispecifici retrieveByIndex(Long idvaloredatispecifici, Long iddatispecifici, Connection con)
             throws SQLException {
 
-        // String query = "select * from PAR_VALOREDATISPECIFICI"+" where
-        // IDVALOREDATISPECIFICI="+idvaloredatispecifici+" and IDDATISPECIFICI="+iddatispecifici;
         String query = "select * from PAR_VALOREDATISPECIFICI" + " where IDVALOREDATISPECIFICI=?"
                 + " and IDDATISPECIFICI=?";
-        // java.sql.Statement st = con.createStatement();
         java.sql.PreparedStatement st = con.prepareStatement(query);
         st.setLong(1, idvaloredatispecifici);
         st.setLong(2, iddatispecifici);
         ResultSet r = null;
         try {
-            log.debug(query);
-            // ResultSet r = st.executeQuery(query);
+            log.debug("{}", query);
             r = st.executeQuery();
             ParValoredatispecifici obj = null;
             if (r.next()) {
@@ -520,11 +513,11 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
         pst.setLong(indice++, obj.getIddatispecifici());
 
         try {
-            log.info(preparedQuery);
+            log.info("{}", preparedQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + preparedQuery);
+            log.error("Failed query: {}", preparedQuery, e);
             throw e;
         } finally {
             if (pst != null) {
@@ -597,11 +590,11 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
             pst.setString(indice++, obj.getCdVersioneXSD());
         }
         try {
-            log.debug(prepQuery);
+            log.debug("{}", prepQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
-            log.error("Failed query:" + prepQuery);
+            log.error("Failed query: {}", prepQuery);
             throw e;
         } finally {
             if (pst != null) {

@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  */
 package net.datasiel.simpaweb.actionbeans.crudud;
 
@@ -68,8 +68,8 @@ public class Collegamenti extends SimpaAbstractCrudAction {
         setTitoloPagina(getTitoloFromAnnotation());
     }
 
-    public DefaultSelectionProvider selTipoUnitaDoc = null;
-    public DefaultSelectionProvider selRegistroUnitaDoc = null;
+    private DefaultSelectionProvider selTipoUnitaDoc = null;
+    private DefaultSelectionProvider selRegistroUnitaDoc = null;
 
     protected void initListeSelectionProv(Long idStrut, Long idutente, Connection con) throws SQLException {
         selTipoUnitaDoc = ElementsHelper.getTipiRegUniDoc(idStrut, idutente, con);
@@ -95,7 +95,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#goHome()
      */
     @Override
@@ -107,7 +107,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareIntestazioneUiRO()
      */
     @Override
@@ -122,7 +122,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareElRiga(java.lang.String, com.manydesigns.elements.Mode)
      */
     @Override
@@ -133,7 +133,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareEltafoDettaglio1(java.lang.String, int,
      * com.manydesigns.elements.Mode)
      */
@@ -145,7 +145,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareEltafoDettaglio2(java.lang.String, int,
      * com.manydesigns.elements.Mode)
      */
@@ -157,7 +157,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareElDettaglio1(java.lang.String,
      * com.manydesigns.elements.Mode)
      */
@@ -169,7 +169,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareElDettaglio2(java.lang.String,
      * com.manydesigns.elements.Mode)
      */
@@ -181,7 +181,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#loadCrudModel()
      */
     @Override
@@ -201,7 +201,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#businessValidate()
      */
     @Override
@@ -223,7 +223,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#rigaValidate(net.datasiel.webapp.crud.RigaModel)
      */
     @Override
@@ -240,7 +240,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#dettaglio1Validate(java.lang.Object)
      */
     @Override
@@ -251,7 +251,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#dettaglio2Validate(java.lang.Object)
      */
     @Override
@@ -262,7 +262,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#deleteRiga(int)
      */
     @Override
@@ -271,12 +271,12 @@ public class Collegamenti extends SimpaAbstractCrudAction {
         ParCollegamento rigaDaCancellare = (ParCollegamento) crudModel.getRighe().get(indiceRiga).getRiga();
         ParCollegamentoVO parCollegamentoVO = new ParCollegamentoVO();
         parCollegamentoVO.delete(rigaDaCancellare, getConnection());
-        log.debug(getClass().getName() + " - Cancellato Collegamento: " + rigaDaCancellare.getIdcollegamento());
+        log.debug("{} - Cancellato Collegamento: {}", getClass().getName(), rigaDaCancellare.getIdcollegamento());
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#updateCrudModel()
      */
     @Override
@@ -292,7 +292,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
             collegamento.setPgm(pgm);
             collegamento.setId(RandomUtils.nextLong());
             parCollegamentoVO.updateByIndex(collegamento, connection);
-            log.debug(getClass().getName() + " - Aggiornato Collegamento: " + collegamento.getIdcollegamento());
+            log.debug("{} - Aggiornato Collegamento: {}", getClass().getName(), collegamento.getIdcollegamento());
         }
         // Aggiornamento dati unità documentaria
         ParUnitadocVO parUDDao = new ParUnitadocVO();
@@ -306,7 +306,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#insertRigaModel(net.datasiel.webapp.crud.RigaModel)
      */
     @Override
@@ -319,7 +319,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
         collegamento.setIdStrut(datiUnitaDoc.getIdStrut());
         collegamento.setIdcollegamento(DbUtil.getSequenceValue("PAR_SEQ_IDGENERALI ", getConnection()));
         parCollegamentoVO.insertPrepared(collegamento, getConnection());
-        log.debug(getClass().getName() + " - Inserito collegamento: " + collegamento.getIdcollegamento());
+        log.debug("{} - Inserito collegamento: {}", getClass().getName(), collegamento.getIdcollegamento());
     }
 
     @Override
@@ -329,7 +329,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#createRigaModel()
      */
     @Override
@@ -341,7 +341,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#insertDettaglio1Model(int, java.lang.Object)
      */
     @Override
@@ -352,7 +352,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#createDettaglio1Model()
      */
     @Override
@@ -363,7 +363,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#deleteDettaglio1Model(int, int)
      */
     @Override
@@ -374,7 +374,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#insertDettaglio2Model(int, java.lang.Object)
      */
     @Override
@@ -385,7 +385,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#createDettaglio2Model()
      */
     @Override
@@ -396,7 +396,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#deleteDettaglio2Model(int, int)
      */
     @Override
@@ -407,7 +407,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#commitTransaction()
      */
     @Override
@@ -417,7 +417,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#beginTransaction()
      */
     @Override
@@ -427,7 +427,7 @@ public class Collegamenti extends SimpaAbstractCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.crud.AbstractCrudAction#endTransaction()
      */
     @Override

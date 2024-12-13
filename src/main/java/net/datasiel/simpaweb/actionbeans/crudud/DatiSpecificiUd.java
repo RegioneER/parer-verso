@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  */
 package net.datasiel.simpaweb.actionbeans.crudud;
 
@@ -138,7 +138,7 @@ public class DatiSpecificiUd extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.monocrud.MonoCrudAction#prepareUiROInsert()
      */
     @Override
@@ -149,7 +149,7 @@ public class DatiSpecificiUd extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.monocrud.MonoCrudAction#prepareUiRWInsert(com.manydesigns.elements.Mode)
      */
     @Override
@@ -159,7 +159,7 @@ public class DatiSpecificiUd extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.monocrud.MonoCrudAction#prepareUiROEdit()
      */
     @Override
@@ -180,7 +180,7 @@ public class DatiSpecificiUd extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.monocrud.MonoCrudAction#prepareUiRWEdit(com.manydesigns.elements.Mode)
      */
     @Override
@@ -210,7 +210,7 @@ public class DatiSpecificiUd extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.monocrud.MonoCrudAction#loadModel()
      */
     @Override
@@ -234,7 +234,7 @@ public class DatiSpecificiUd extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.monocrud.MonoCrudAction#updateModel()
      */
     @Override
@@ -291,7 +291,7 @@ public class DatiSpecificiUd extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.monocrud.MonoCrudAction#createModel()
      */
     @Override
@@ -302,7 +302,7 @@ public class DatiSpecificiUd extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.monocrud.MonoCrudAction#saveModel()
      */
     @Override
@@ -313,7 +313,7 @@ public class DatiSpecificiUd extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.monocrud.MonoCrudAction#businessValidate()
      */
     @Override
@@ -323,7 +323,7 @@ public class DatiSpecificiUd extends SimpaMonoCrudAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see net.datasiel.webapp.monocrud.MonoCrudAction#getCreatedPath()
      */
     @Override

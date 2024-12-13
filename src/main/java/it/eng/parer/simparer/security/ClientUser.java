@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  */
 package it.eng.parer.simparer.security;
 
@@ -31,7 +31,7 @@ import it.eng.spagoLite.security.User;
  */
 public class ClientUser extends User {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
     private UtenteStrutture utenteStrutture;
@@ -48,7 +48,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * 
+     *
      */
     public ClientUser() {
         // TODO Auto-generated constructor stub

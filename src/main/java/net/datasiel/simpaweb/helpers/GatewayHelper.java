@@ -104,9 +104,9 @@ public class GatewayHelper {
      * @param simulaDb
      * @param connection
      * @param username
-     * 
+     *
      * @return null se mancano dei dati essenziali (e aggiunge il messaggio d'errore in sessione).
-     * 
+     *
      * @throws SQLException
      * @throws IOException
      */
@@ -242,7 +242,6 @@ public class GatewayHelper {
             try {
                 retValue.setDocDatiSpecifici(outputter.output(xmlDocDatiSpecifici));
             } catch (JDOMException e) {
-                // TODO Auto-generated catch block
                 log.error("Errore nella generazione della stringa xml", e);
             }
         }
@@ -321,9 +320,9 @@ public class GatewayHelper {
      *            "PRINC", "ALLE", "ANNE", "ANNO"
      * @param datiDocumento
      * @param connection
-     * 
+     *
      * @return
-     * 
+     *
      * @throws SQLException
      * @throws IOException
      */

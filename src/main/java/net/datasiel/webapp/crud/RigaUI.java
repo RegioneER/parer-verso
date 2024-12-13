@@ -21,7 +21,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.util.Assert;
 
 import com.manydesigns.elements.Element;
 import com.manydesigns.elements.forms.TableForm;
@@ -45,6 +46,9 @@ public class RigaUI implements Element {
         if (obj != null && elRiga == null) {
             throw new IllegalStateException("Ti sei dimenticato di implementare prepareElRiga di AbstractCrudAction?");
         }
+        //
+        Assert.notNull(rigaModel, "RigaModel cannot be null!");
+
         elRiga.readFromObject(rigaModel.getRiga());
         List<Object> dettagli1 = rigaModel.getDettagli1();
         if (CollectionUtils.isNotEmpty(dettagli1)) {
