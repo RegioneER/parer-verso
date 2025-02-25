@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>verso-jboss</artifactId>
-    <version>3.1.1-SNAPSHOT</version>
+    <version>3.2.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <parent>
         <groupId>it.eng.parer</groupId>
@@ -31,10 +31,12 @@
         <jstl-api.version>1.2</jstl-api.version>
         <jaxen.version>1.2.0</jaxen.version>
         <jaxws-rt.version>2.3.5</jaxws-rt.version>
-        <json.verion>20240303</json.verion>          
+        <json.verion>20240303</json.verion>      
+        <!-- jaxp-jdk11 -->
+        <jaxp-jdk11.version>0.0.3</jaxp-jdk11.version>
         <!-- resource filter -->
         <web.session-config.cookie-config.http-only>true</web.session-config.cookie-config.http-only>
-		<web.session-config.cookie-config.secure>true</web.session-config.cookie-config.secure>
+		<web.session-config.cookie-config.secure>true</web.session-config.cookie-config.secure>        
     </properties>
 
 <distributionManagement>
@@ -292,35 +294,16 @@
             <artifactId>jaxen</artifactId>
             <version>${jaxen.version}</version>
         </dependency>
-		<!-- Xerces & co -->
-		<dependency>
-			<groupId>xerces</groupId>
-			<artifactId>xercesImpl</artifactId>
-			<version>${xerces.version}</version>
-			<scope>runtime</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>xml-apis</groupId>
-					<artifactId>xml-apis</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>xalan</groupId>
-			<artifactId>xalan</artifactId>
-			<version>${xalan.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>xalan</groupId>
-			<artifactId>serializer</artifactId>
-			<version>${xalan.version}</version>
-			<scope>runtime</scope>
-		</dependency>
         <dependency>
             <groupId>org.reactivestreams</groupId>
             <artifactId>reactive-streams</artifactId>
-        </dependency>    
+        </dependency>
+        <dependency>
+            <groupId>jaxp.jdk</groupId>
+            <artifactId>jaxp-jdk11</artifactId>
+            <version>${jaxp-jdk11.version}</version>
+            <scope>runtime</scope>
+        </dependency>  
     </dependencies>
 
     <build>
