@@ -192,9 +192,6 @@ Requisiti minimi per installazione:
 |org.springframework|spring-tx|5.3.30|
 |org.springframework|spring-web|5.3.30|
 |org.springframework|spring-webmvc|5.3.30|
-|xalan|serializer|2.7.2|
-|xalan|xalan|2.7.2|
-|xerces|xercesImpl|2.12.0|
 |xml-apis|xml-apis|1.4.01|
 
 
