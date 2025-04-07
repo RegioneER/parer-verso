@@ -335,22 +335,28 @@ public abstract class BaseAction implements ActionBean {
                 if (componenteList.size() == 1) {
                     ParComponente componente = componenteList.get(0);
                     String codAllegato = componente.getCodallegato();
-                    BlobManager blManager = BlobManager.createDefaultBlobManager();
-                    Blob blobAll = null;
                     try {
-                        blobAll = blManager.loadBlob(codAllegato);
+                        BlobManager blManager = BlobManager.createDefaultBlobManager();
+                        Blob blobAll = blManager.loadBlob(codAllegato);
                         File fileAll = blobAll.getDataFile();
-                        FileInputStream fis = new FileInputStream(fileAll);
-                        sr = new StreamingResolution(blobAll.getContentType(), fis);
-                        sr.setFilename(blobAll.getFilename());
-                        sr.setLength(blobAll.getSize());
-                        sr.setLastModified(blobAll.getCreateTimestamp().getMillis());
-                    } catch (Exception e) {
+                        try (FileInputStream fis = new FileInputStream(fileAll)) {
+                            sr = new StreamingResolution(blobAll.getContentType(), fis);
+                            sr.setFilename(blobAll.getFilename());
+                            sr.setLength(blobAll.getSize());
+                            sr.setLastModified(blobAll.getCreateTimestamp().getMillis());
+                        } catch (Exception e) {
+                            Throwable rootCause = ExceptionUtils.getRootCause(e);
+                            log.error("Generic error {}", rootCause, e);
+                            SessionMessages.addErrorMessage("Si è verificato un errore durante l'apertura del file");
+                            throw e;
+                        }
+                    }  catch (Exception e) {
                         Throwable rootCause = ExceptionUtils.getRootCause(e);
                         log.error("Generic error {}", rootCause, e);
                         SessionMessages.addErrorMessage("Si è verificato un errore durante l'apertura del file");
                         throw e;
                     }
+                    
                 } else {
                     String err = "Errore nel recupero dell'allegato: più allegati con lo stesso codiceallegato";
                     log.error(err);
