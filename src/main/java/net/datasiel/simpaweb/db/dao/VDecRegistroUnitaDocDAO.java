@@ -25,6 +25,7 @@ package net.datasiel.simpaweb.db.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,42 +77,38 @@ public class VDecRegistroUnitaDocDAO extends VDecRegistroUnitaDoc {
         String prepQuery = "INSERT INTO V_DEC_REGISTRO_UNITA_DOC (" + "ID_REGISTRO_UNITA_DOC, " + "ID_STRUT, "
                 + "CD_REGISTRO_UNITA_DOC, " + "DS_REGISTRO_UNITA_DOC, " + "DT_ISTITUZ,DT_SOPPRES, " + "ID_USER_IAM"
                 + ") values (?, ?, ?, ?, ?, ?, ?)";
-        java.sql.PreparedStatement pst = con.prepareStatement(prepQuery);
-        if (obj.getIdRegistroUnitaDoc() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdRegistroUnitaDoc());
-        }
-        if (obj.getIdStrut() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdStrut());
-        }
-        pst.setString(indice++, obj.getCdRegistroUnitaDoc());
-        pst.setString(indice++, obj.getDsRegistroUnitaDoc());
-        if (obj.getDtIstituz() != null) {
-            pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getDtIstituz()).getTime()));
-        } else {
-            pst.setObject(indice++, null);
-        }
-        if (obj.getDtSoppres() != null) {
-            pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getDtSoppres()).getTime()));
-        } else {
-            pst.setObject(indice++, null);
-        }
-        pst.setLong(indice++, obj.getIdUserIam());
-
-        try {
+        
+                
+        try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
+            if (obj.getIdRegistroUnitaDoc() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdRegistroUnitaDoc());
+            }
+            if (obj.getIdStrut() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdStrut());
+            }
+            pst.setString(indice++, obj.getCdRegistroUnitaDoc());
+            pst.setString(indice++, obj.getDsRegistroUnitaDoc());
+            if (obj.getDtIstituz() != null) {
+                pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getDtIstituz()).getTime()));
+            } else {
+                pst.setObject(indice++, null);
+            }
+            if (obj.getDtSoppres() != null) {
+                pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getDtSoppres()).getTime()));
+            } else {
+                pst.setObject(indice++, null);
+            }
+            pst.setLong(indice++, obj.getIdUserIam());
             log.debug("{}", prepQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
         }
     }
 }

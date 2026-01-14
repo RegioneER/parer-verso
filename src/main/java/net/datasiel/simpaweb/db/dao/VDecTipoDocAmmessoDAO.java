@@ -26,6 +26,7 @@ package net.datasiel.simpaweb.db.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,36 +77,32 @@ public class VDecTipoDocAmmessoDAO extends VDecTipoDocAmmesso {
     public int insertPrepared(VDecTipoDocAmmesso obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into V_DEC_TIPO_DOC_AMMESSO ( ID_TIPO_DOC_AMMESSO,ID_TIPO_STRUT_UNITA_DOC,ID_TIPO_DOC,TI_DOC,FL_OBBL ) values (? ,? ,? ,? ,?   )";
-        java.sql.PreparedStatement pst = con.prepareStatement(prepQuery);
-        if (obj.getIdTipoDocAmmesso() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdTipoDocAmmesso());
-        }
-        if (obj.getIdTipoStrutUnitaDoc() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdTipoStrutUnitaDoc());
-        }
-        if (obj.getIdTipoDoc() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdTipoDoc());
-        }
-        pst.setString(indice++, obj.getTiDoc());
-        pst.setString(indice++, obj.getFlObbl());
-
-        try {
+        
+        
+        try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
+            if (obj.getIdTipoDocAmmesso() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdTipoDocAmmesso());
+            }
+            if (obj.getIdTipoStrutUnitaDoc() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdTipoStrutUnitaDoc());
+            }
+            if (obj.getIdTipoDoc() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdTipoDoc());
+            }
+            pst.setString(indice++, obj.getTiDoc());
+            pst.setString(indice++, obj.getFlObbl());
             log.debug("{}", prepQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
-        }
+        } 
     }
 }

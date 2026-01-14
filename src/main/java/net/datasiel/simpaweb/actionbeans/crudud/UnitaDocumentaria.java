@@ -746,7 +746,7 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
 
     @Override
     public boolean isReadOnly() {
-        if (datiUnitaDoc != null && datiUnitaDoc.getStato() == EnumStatoUD.VERSATA.getValore()) {
+        if (datiUnitaDoc != null && datiUnitaDoc.getStato().equals(EnumStatoUD.VERSATA.getValore())) {
             return true;
         } else {
             return false;

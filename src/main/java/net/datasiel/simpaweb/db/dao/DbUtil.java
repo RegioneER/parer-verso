@@ -69,10 +69,9 @@ public class DbUtil {
      * @throws SQLException
      */
     public static long getSequenceValue(String sequenceName, Connection con) throws SQLException {
-        try {
+        try (Statement st = con.createStatement();) {
 
             long nextValue = -1;
-            Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT " + sequenceName + ".NEXTVAL FROM DUAL");
             rs.next();
             nextValue = rs.getLong(1);

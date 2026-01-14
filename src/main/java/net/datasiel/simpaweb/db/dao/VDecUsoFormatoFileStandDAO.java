@@ -26,6 +26,7 @@ package net.datasiel.simpaweb.db.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,39 +81,35 @@ public class VDecUsoFormatoFileStandDAO extends VDecUsoFormatoFileStand {
     public int insertPrepared(VDecUsoFormatoFileStand obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into V_DEC_USO_FORMATO_FILE_STAND ( ID_USO_FORMATO_FILE_AMMESSO,ID_FORMATO_FILE_DOC,NI_ORD_USO,ID_FORMATO_FILE_STANDARD ) values (? ,? ,? ,?   )";
-        java.sql.PreparedStatement pst = con.prepareStatement(prepQuery);
-        if (obj.getIdUsoFormatoFileAmmesso() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdUsoFormatoFileAmmesso());
-        }
-        if (obj.getIdFormatoFileDoc() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdFormatoFileDoc());
-        }
-        if (obj.getNiOrdUso() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getNiOrdUso());
-        }
-        if (obj.getIdFormatoFileStandard() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdFormatoFileStandard());
-        }
-
-        try {
+        
+        
+        try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
+            if (obj.getIdUsoFormatoFileAmmesso() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdUsoFormatoFileAmmesso());
+            }
+            if (obj.getIdFormatoFileDoc() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdFormatoFileDoc());
+            }
+            if (obj.getNiOrdUso() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getNiOrdUso());
+            }
+            if (obj.getIdFormatoFileStandard() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdFormatoFileStandard());
+            }
             log.debug(prepQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
             log.error("Failed query:" + prepQuery);
             throw e;
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
         }
     }
 }

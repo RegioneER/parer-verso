@@ -55,10 +55,9 @@ public class Utils {
         prepQuery.append(" from V_USR_IAM e ");
         prepQuery.append(" where e.ID_STRUT = ? ");
 
-        PreparedStatement pst = null;
         ResultSet rs = null;
-        try {
-            pst = con.prepareStatement(prepQuery.toString());
+        try (PreparedStatement pst = con.prepareStatement(prepQuery.toString())) {
+            
             pst.setLong(1, idStrut);
             rs = pst.executeQuery();
             if (rs.next()) {
@@ -67,9 +66,6 @@ public class Utils {
         } finally {
             if (rs != null) {
                 rs.close();
-            }
-            if (pst != null) {
-                pst.close();
             }
         }
         return label;
@@ -232,7 +228,9 @@ public class Utils {
         }
 
         infoEsito.setMessaggio(messaggio);
-        infoEsito.setStato(codice.ordinal());
+        if (codice != null) {
+            infoEsito.setStato(codice.ordinal());
+        }
         return infoEsito;
     }
 

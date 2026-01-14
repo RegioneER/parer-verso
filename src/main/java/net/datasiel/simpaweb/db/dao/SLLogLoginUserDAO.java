@@ -24,6 +24,7 @@ package net.datasiel.simpaweb.db.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,30 +57,26 @@ public class SLLogLoginUserDAO extends SLLogLoginUser {
         String prepQuery = "Insert into sacer_log.LOG_LOGIN_USER (" + "ID_LOGIN_USER,ID_APPLIC,NM_USERID,"
                 + "CD_IND_IP_CLIENT,CD_IND_SERVER,DT_EVENTO,TIPO_EVENTO, CD_ID_ESTERNO, TIPO_UTENTE_AUTH)"
                 + "values (?,?,?,?,?,sysdate,?,?,?)";
-        java.sql.PreparedStatement pst = con.prepareStatement(prepQuery);
-        // campo obbligatorio, inutile gestire il caso in cui questo valore è null
-        pst.setLong(indice++, obj.getIdLoginUser());
-        // campo obbligatorio, inutile gestire il caso in cui questo valore è null
-        pst.setLong(indice++, obj.getIdApplic());
-        pst.setString(indice++, obj.getNmUserid());
-        pst.setString(indice++, obj.getCdIndIpClient());
-        pst.setString(indice++, obj.getCdIndServer());
-        pst.setString(indice++, obj.getTipoEvento());
-        pst.setString(indice++, obj.getCdIdEsterno());
-        pst.setString(indice++, obj.getTipoUtenteAuth());
-
-        try {
+        
+                
+        try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
+            // campo obbligatorio, inutile gestire il caso in cui questo valore è null
+            pst.setLong(indice++, obj.getIdLoginUser());
+            // campo obbligatorio, inutile gestire il caso in cui questo valore è null
+            pst.setLong(indice++, obj.getIdApplic());
+            pst.setString(indice++, obj.getNmUserid());
+            pst.setString(indice++, obj.getCdIndIpClient());
+            pst.setString(indice++, obj.getCdIndServer());
+            pst.setString(indice++, obj.getTipoEvento());
+            pst.setString(indice++, obj.getCdIdEsterno());
+            pst.setString(indice++, obj.getTipoUtenteAuth());
             log.debug("{}", prepQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
-        }
+        } 
     }
 
 }

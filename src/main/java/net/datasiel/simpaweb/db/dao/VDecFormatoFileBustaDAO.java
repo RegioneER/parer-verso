@@ -24,6 +24,7 @@ package net.datasiel.simpaweb.db.dao;
  */
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -70,31 +71,27 @@ public class VDecFormatoFileBustaDAO extends VDecFormatoFileBusta {
     public int insertPrepared(VDecFormatoFileBusta obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into V_DEC_FORMATO_FILE_BUSTA ( ID_FORMATO_FILE_BUSTA,ID_FORMATO_FILE_STANDARD,TI_FORMATO_FIRMA_MARCA ) values (? ,? ,?   )";
-        java.sql.PreparedStatement pst = con.prepareStatement(prepQuery);
-        if (obj.getIdFormatoFileBusta() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdFormatoFileBusta());
-        }
-        if (obj.getIdFormatoFileStandard() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdFormatoFileStandard());
-        }
-        pst.setString(indice++, obj.getTiFormatoFirmaMarca());
-
-        try {
+        
+        
+        try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
+            if (obj.getIdFormatoFileBusta() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdFormatoFileBusta());
+            }
+            if (obj.getIdFormatoFileStandard() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdFormatoFileStandard());
+            }
+            pst.setString(indice++, obj.getTiFormatoFirmaMarca());
             log.debug("{}", prepQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
-        }
+        } 
     }
 
 }

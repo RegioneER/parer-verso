@@ -23,6 +23,7 @@ package net.datasiel.simpaweb.db.dao;
  * WARNING! Automatically generated file! Do not edit!
  */
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import net.datasiel.simpaweb.db.pojo.VDecFormatoFileStandard;
@@ -69,31 +70,27 @@ public class VDecFormatoFileStandardDAO extends VDecFormatoFileStandard {
     public int insertPrepared(VDecFormatoFileStandard obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into V_DEC_FORMATO_FILE_STANDARD ( ID_FORMATO_FILE_STANDARD,NM_FORMATO_FILE_STANDARD,DS_FORMATO_FILE_STANDARD,CD_VERSIONE,DS_COPYRIGHT,NM_MIMETYPE_FILE,TI_ESITO_CONTR_FORMATO,FL_FORMATO_CONCAT ) values (? ,? ,? ,? ,? ,? ,? ,?   )";
-        java.sql.PreparedStatement pst = con.prepareStatement(prepQuery);
-        if (obj.getIdFormatoFileStandard() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdFormatoFileStandard());
-        }
-        pst.setString(indice++, obj.getNmFormatoFileStandard());
-        pst.setString(indice++, obj.getDsFormatoFileStandard());
-        pst.setString(indice++, obj.getCdVersione());
-        pst.setString(indice++, obj.getDsCopyright());
-        pst.setString(indice++, obj.getNmMimetypeFile());
-        pst.setString(indice++, obj.getTiEsitoContrFormato());
-        pst.setString(indice++, obj.getFlFormatoConcat());
-
-        try {
+        
+        
+        try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
+            if (obj.getIdFormatoFileStandard() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdFormatoFileStandard());
+            }
+            pst.setString(indice++, obj.getNmFormatoFileStandard());
+            pst.setString(indice++, obj.getDsFormatoFileStandard());
+            pst.setString(indice++, obj.getCdVersione());
+            pst.setString(indice++, obj.getDsCopyright());
+            pst.setString(indice++, obj.getNmMimetypeFile());
+            pst.setString(indice++, obj.getTiEsitoContrFormato());
+            pst.setString(indice++, obj.getFlFormatoConcat());
             log.debug("{}", prepQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
-        }
+        } 
     }
 }

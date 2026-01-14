@@ -81,10 +81,10 @@ public class CustomRealm {
         query.append("order by upper(NM_AMBIENTE), upper(NM_ENTE), upper(NM_STRUT)");
         log.info("username = " + strCodFiscale);
 
-        PreparedStatement pst = con.prepareStatement(query.toString());
+        
         ResultSet r = null;
-        pst.setString(1, strCodFiscale.toUpperCase());
-        try {
+        try (PreparedStatement pst = con.prepareStatement(query.toString())) {
+            pst.setString(1, strCodFiscale.toUpperCase());
             log.debug("{}", query);
             r = pst.executeQuery();
             VUsrIAMUserDAO dao = new VUsrIAMUserDAO();
@@ -109,8 +109,6 @@ public class CustomRealm {
         } finally {
             if (r != null)
                 r.close();
-            if (pst != null)
-                pst.close();
         }
         return null;
     }
@@ -139,7 +137,7 @@ public class CustomRealm {
             boolean udVisibileUtentiStruttura = false;
             ParUnitadocVO parUnitadocVO = new ParUnitadocVO();
             ParUnitadoc ud = parUnitadocVO.retrieveByKey(idUnitaDoc, con);
-            if (ud.getStato() == EnumStatoUD.VERSATA.getValore()) {
+            if (ud.getStato().equals(EnumStatoUD.VERSATA.getValore())) {
                 String strutPermission = String.format(CustomRealm.PERMESSO_PER_STRUTTURA_LEGGI_D, ud.getIdStrut());
                 if (u.getStringPermissions().contains(strutPermission)) {
                     udVisibileUtentiStruttura = true;

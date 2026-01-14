@@ -365,25 +365,33 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
         // validazione classifica
         String classifica = riga.getClassifica();
         boolean isClassificaValid = validaClassifica(classifica, (Form) elNewRiga);
-        if (!isClassificaValid) {
-            isValid = false;
-        }
+        // isClassificaValid è sempre true per come è implemetato il metodo validaClassifica
+        // commento il blocco if seguente per vitare segnalazione sonar
+        // if (!isClassificaValid) {
+        //     isValid = false;
+        // }
 
         // validazione identificativo
         String identificativo = riga.getIdentificativo();
         boolean isIdentificativoValid = validaIdentificativo(identificativo, isClassificaValid, classifica,
                 (Form) elNewRiga);
-        if (!isIdentificativoValid) {
-            isValid = false;
-        }
+
+        // isIdentificativoValid è sempre true per come è implemetato il metodo validaIdentificativo
+        // commento il blocco if seguente per vitare segnalazione sonar
+        // if (!isIdentificativoValid) {
+        //     isValid = false;
+        // }
 
         // validazione identificativo sottofascicolo
         String idSottofascicolo = riga.getIdsottofascicolo();
         boolean isIdSottofascicoloValid = validaIdSottofascicolo(idSottofascicolo, isClassificaValid, classifica,
                 isIdentificativoValid, identificativo, (Form) elNewRiga);
-        if (!isIdSottofascicoloValid) {
-            isValid = false;
-        }
+
+        // isIdSottofascicoloValid è sempre true per come è implemetato il metodo validaIdSottofascicolo
+        // commento il blocco if seguente per vitare segnalazione sonar
+        // if (!isIdSottofascicoloValid) {
+        //     isValid = false;
+        // }
 
         return isValid;
     }

@@ -24,6 +24,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.sql.PreparedStatement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -137,12 +138,12 @@ public class ParComponenteDAO extends ParComponente {
 
         String query = "select * from PAR_COMPONENTE" + " where IDUNITADOC=?" + " and IDDOCUMENTO=?"
                 + " and IDCOMPONENTE=?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
+        
         ResultSet r = null;
-        st.setLong(1, idunitadoc);
-        st.setLong(2, iddocumento);
-        st.setLong(3, idcomponente);
-        try {
+        try (PreparedStatement st = con.prepareStatement(query)) {
+            st.setLong(1, idunitadoc);
+            st.setLong(2, iddocumento);
+            st.setLong(3, idcomponente);
             log.info("{} - [{} ,{} , {}]", query, idunitadoc, iddocumento, idcomponente);
             r = st.executeQuery();
             ParComponente obj = null;
@@ -154,9 +155,6 @@ public class ParComponenteDAO extends ParComponente {
         } finally {
             if (r != null) {
                 r.close();
-            }
-            if (st != null) {
-                st.close();
             }
         }
     }
@@ -170,9 +168,9 @@ public class ParComponenteDAO extends ParComponente {
         ParComponente curRow;
 
         String query = "select * from PAR_COMPONENTE" + " where iddocumento = ?  order by idcomponente";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
+        
         ResultSet r = null;
-        try {
+        try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, idDocumento);
             log.debug("{} - [{}]", query, idDocumento);
 
@@ -187,9 +185,6 @@ public class ParComponenteDAO extends ParComponente {
             if (r != null) {
                 r.close();
             }
-            if (st != null) {
-                st.close();
-            }
         }
     }
 
@@ -202,9 +197,8 @@ public class ParComponenteDAO extends ParComponente {
 
         String query = "SELECT * " + "FROM PAR_COMPONENTE " + " where CODALLEGATO=?";
 
-        java.sql.PreparedStatement st = con.prepareStatement(query);
         ResultSet r = null;
-        try {
+        try (PreparedStatement st = con.prepareStatement(query)) {
             st.setString(1, code);
             log.debug("{} - [{}]", query, code);
 
@@ -218,9 +212,6 @@ public class ParComponenteDAO extends ParComponente {
         } finally {
             if (r != null) {
                 r.close();
-            }
-            if (st != null) {
-                st.close();
             }
         }
     }
@@ -236,136 +227,132 @@ public class ParComponenteDAO extends ParComponente {
                 + " FLGUTFIRMARIFERIMENTOTEMP=?," + " DATARIFERIMENTOTEMP=?,  " + " DESCRIFERIMENTOTEMP=?, "
                 + " DS_HASH_FILE_VERS=? " + " where IDUNITADOC=?" + " and IDDOCUMENTO=?" + " and IDCOMPONENTE=?";
 
-        java.sql.PreparedStatement pst = con.prepareStatement(preparedQuery);
+        
         int indice = 1;
         StringBuilder log_s = new StringBuilder(preparedQuery);
 
-        if (obj.getIddocumento() == null) {
-            pst.setNull(indice++, 3);
-            log_s.append(" - [3");
-        } else {
-            pst.setLong(indice++, obj.getIddocumento());
-            log_s.append(" - [").append(obj.getIddocumento());
-        }
-
-        if (obj.getIdunitadoc() == null) {
-            pst.setNull(indice++, 3);
-            log_s.append(",3");
-        } else {
+        
+        try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
+            if (obj.getIddocumento() == null) {
+                pst.setNull(indice++, 3);
+                log_s.append(" - [3");
+            } else {
+                pst.setLong(indice++, obj.getIddocumento());
+                log_s.append(" - [").append(obj.getIddocumento());
+            }
+    
+            if (obj.getIdunitadoc() == null) {
+                pst.setNull(indice++, 3);
+                log_s.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getIdunitadoc());
+                log_s.append(",").append(obj.getIdunitadoc());
+            }
+    
+            if (obj.getIdcomponente() == null) {
+                pst.setNull(indice++, 3);
+                log_s.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getIdcomponente());
+                log_s.append(",").append(obj.getIdcomponente());
+            }
+    
+            pst.setString(indice++, obj.getUrnfile());
+            log_s.append(",").append(obj.getUrnfile());
+    
+            pst.setString(indice++, obj.getNome());
+            log_s.append(",").append(obj.getNome());
+    
+            pst.setString(indice++, obj.getRifnumero());
+            log_s.append(",").append(obj.getRifnumero());
+    
+            if (obj.getRifanno() == null) {
+                pst.setNull(indice++, 3);
+                log_s.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getRifanno());
+                log_s.append(",").append(obj.getRifanno());
+            }
+    
+            if (obj.getRiftiporegistro() == null) {
+                pst.setNull(indice++, 3);
+                log_s.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getRiftiporegistro());
+                log_s.append(",").append(obj.getRiftiporegistro());
+            }
+    
+            pst.setString(indice++, obj.getCodallegato());
+            if (obj.getFlgstato() == null) {
+                pst.setNull(indice++, 3);
+                log_s.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getFlgstato());
+                log_s.append(",").append(obj.getFlgstato());
+            }
+    
+            pst.setString(indice++, obj.getPgm());
+            log_s.append(",").append(obj.getPgm());
+    
+            if (obj.getId() == null) {
+                pst.setNull(indice++, 3);
+                log_s.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getId());
+                log_s.append(",").append(obj.getId());
+            }
+    
+            if (obj.getIdFormatoFileDoc() == null) {
+                pst.setNull(indice++, 3);
+                log_s.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getIdFormatoFileDoc());
+                log_s.append(",").append(obj.getIdFormatoFileDoc());
+            }
+    
+            if (obj.getIdTipoCompDoc() == null) {
+                pst.setNull(indice++, 3);
+                log_s.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getIdTipoCompDoc());
+                log_s.append(",").append(obj.getIdTipoCompDoc());
+            }
+    
+            if (obj.getFlgFirmaPerRifTemp() == null) {
+                pst.setNull(indice++, 3);
+                log_s.append(",3");
+            } else {
+                pst.setBoolean(indice++, obj.getFlgFirmaPerRifTemp());
+                log_s.append(",").append(obj.getFlgFirmaPerRifTemp());
+            }
+            if (obj.getDataRifTemp() == null) {
+                pst.setNull(indice++, Types.DATE);
+                log_s.append(",3");
+            } else {
+                pst.setDate(indice++, new java.sql.Date(((java.util.Date) obj.getDataRifTemp()).getTime()));
+                log_s.append(",").append(new java.sql.Date(((java.util.Date) obj.getDataRifTemp()).getTime()).toString());
+            }
+            pst.setString(indice++, obj.getDescRifTemp());
+            log_s.append(",").append(obj.getDescRifTemp());
+    
+            pst.setString(indice++, obj.getDsHashFileVers());
+            log_s.append(",").append(obj.getDsHashFileVers());
+    
             pst.setLong(indice++, obj.getIdunitadoc());
             log_s.append(",").append(obj.getIdunitadoc());
-        }
-
-        if (obj.getIdcomponente() == null) {
-            pst.setNull(indice++, 3);
-            log_s.append(",3");
-        } else {
+    
+            pst.setLong(indice++, obj.getIddocumento());
+            log_s.append(",").append(obj.getIddocumento());
+    
             pst.setLong(indice++, obj.getIdcomponente());
-            log_s.append(",").append(obj.getIdcomponente());
-        }
-
-        pst.setString(indice++, obj.getUrnfile());
-        log_s.append(",").append(obj.getUrnfile());
-
-        pst.setString(indice++, obj.getNome());
-        log_s.append(",").append(obj.getNome());
-
-        pst.setString(indice++, obj.getRifnumero());
-        log_s.append(",").append(obj.getRifnumero());
-
-        if (obj.getRifanno() == null) {
-            pst.setNull(indice++, 3);
-            log_s.append(",3");
-        } else {
-            pst.setLong(indice++, obj.getRifanno());
-            log_s.append(",").append(obj.getRifanno());
-        }
-
-        if (obj.getRiftiporegistro() == null) {
-            pst.setNull(indice++, 3);
-            log_s.append(",3");
-        } else {
-            pst.setLong(indice++, obj.getRiftiporegistro());
-            log_s.append(",").append(obj.getRiftiporegistro());
-        }
-
-        pst.setString(indice++, obj.getCodallegato());
-        if (obj.getFlgstato() == null) {
-            pst.setNull(indice++, 3);
-            log_s.append(",3");
-        } else {
-            pst.setLong(indice++, obj.getFlgstato());
-            log_s.append(",").append(obj.getFlgstato());
-        }
-
-        pst.setString(indice++, obj.getPgm());
-        log_s.append(",").append(obj.getPgm());
-
-        if (obj.getId() == null) {
-            pst.setNull(indice++, 3);
-            log_s.append(",3");
-        } else {
-            pst.setLong(indice++, obj.getId());
-            log_s.append(",").append(obj.getId());
-        }
-
-        if (obj.getIdFormatoFileDoc() == null) {
-            pst.setNull(indice++, 3);
-            log_s.append(",3");
-        } else {
-            pst.setLong(indice++, obj.getIdFormatoFileDoc());
-            log_s.append(",").append(obj.getIdFormatoFileDoc());
-        }
-
-        if (obj.getIdTipoCompDoc() == null) {
-            pst.setNull(indice++, 3);
-            log_s.append(",3");
-        } else {
-            pst.setLong(indice++, obj.getIdTipoCompDoc());
-            log_s.append(",").append(obj.getIdTipoCompDoc());
-        }
-
-        if (obj.getFlgFirmaPerRifTemp() == null) {
-            pst.setNull(indice++, 3);
-            log_s.append(",3");
-        } else {
-            pst.setBoolean(indice++, obj.getFlgFirmaPerRifTemp());
-            log_s.append(",").append(obj.getFlgFirmaPerRifTemp());
-        }
-        if (obj.getDataRifTemp() == null) {
-            pst.setNull(indice++, Types.DATE);
-            log_s.append(",3");
-        } else {
-            pst.setDate(indice++, new java.sql.Date(((java.util.Date) obj.getDataRifTemp()).getTime()));
-            log_s.append(",").append(new java.sql.Date(((java.util.Date) obj.getDataRifTemp()).getTime()).toString());
-        }
-        pst.setString(indice++, obj.getDescRifTemp());
-        log_s.append(",").append(obj.getDescRifTemp());
-
-        pst.setString(indice++, obj.getDsHashFileVers());
-        log_s.append(",").append(obj.getDsHashFileVers());
-
-        pst.setLong(indice++, obj.getIdunitadoc());
-        log_s.append(",").append(obj.getIdunitadoc());
-
-        pst.setLong(indice++, obj.getIddocumento());
-        log_s.append(",").append(obj.getIddocumento());
-
-        pst.setLong(indice++, obj.getIdcomponente());
-        log_s.append(",").append(obj.getIdcomponente()).append("]");
-
-        try {
+            log_s.append(",").append(obj.getIdcomponente()).append("]");
             int updates = pst.executeUpdate();
             log.info("{}", log_s);
             return updates;
         } catch (SQLException e) {
             log.error("Failed query: {}", preparedQuery, e);
             throw e;
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
-        }
+        } 
     }
 
     /**
@@ -379,78 +366,73 @@ public class ParComponenteDAO extends ParComponente {
         String preparedQuery = "update PAR_COMPONENTE set IDDOCUMENTO= ?  , IDUNITADOC= ?  , IDCOMPONENTE= ?  , URNFILE= ?  , NOME= ?  , RIFNUMERO= ?  , RIFANNO= ?  , RIFTIPOREGISTRO= ?  , CODALLEGATO= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?  , ID_FORMATO_FILE_DOC= ?, ID_TIPO_COMP_DOC=?   where "
                 + where;
 
-        java.sql.PreparedStatement pst = con.prepareStatement(preparedQuery);
-        int indice = 1;
-        if (obj.getIddocumento() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIddocumento());
-        }
-
-        if (obj.getIdunitadoc() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdunitadoc());
-        }
-
-        if (obj.getIdcomponente() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdcomponente());
-        }
-
-        pst.setString(indice++, obj.getUrnfile());
-        pst.setString(indice++, obj.getNome());
-        pst.setString(indice++, obj.getRifnumero());
-        if (obj.getRifanno() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getRifanno());
-        }
-
-        if (obj.getRiftiporegistro() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getRiftiporegistro());
-        }
-
-        pst.setString(indice++, obj.getCodallegato());
-        if (obj.getFlgstato() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getFlgstato());
-        }
-
-        pst.setString(indice++, obj.getPgm());
-        if (obj.getId() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getId());
-        }
-
-        if (obj.getIdFormatoFileDoc() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdFormatoFileDoc());
-        }
-
-        if (obj.getIdTipoCompDoc() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdTipoCompDoc());
-        }
-
-        try {
+                
+        try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
+            int indice = 1;
+            if (obj.getIddocumento() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIddocumento());
+            }
+    
+            if (obj.getIdunitadoc() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdunitadoc());
+            }
+    
+            if (obj.getIdcomponente() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdcomponente());
+            }
+    
+            pst.setString(indice++, obj.getUrnfile());
+            pst.setString(indice++, obj.getNome());
+            pst.setString(indice++, obj.getRifnumero());
+            if (obj.getRifanno() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getRifanno());
+            }
+    
+            if (obj.getRiftiporegistro() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getRiftiporegistro());
+            }
+    
+            pst.setString(indice++, obj.getCodallegato());
+            if (obj.getFlgstato() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getFlgstato());
+            }
+    
+            pst.setString(indice++, obj.getPgm());
+            if (obj.getId() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getId());
+            }
+    
+            if (obj.getIdFormatoFileDoc() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdFormatoFileDoc());
+            }
+    
+            if (obj.getIdTipoCompDoc() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdTipoCompDoc());
+            }
             log.debug(preparedQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
             log.error("Failed query: {}", preparedQuery, e);
             throw e;
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
         }
     }
 
@@ -459,18 +441,14 @@ public class ParComponenteDAO extends ParComponente {
      */
     public int delete(ParComponente obj, Connection con) throws SQLException {
         String query = "delete from PAR_COMPONENTE where IDUNITADOC=? and IDDOCUMENTO=? and IDCOMPONENTE=?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
-        try {
+        
+        try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, obj.getIdunitadoc());
             st.setLong(2, obj.getIddocumento());
             st.setLong(3, obj.getIdcomponente());
             log.info("{} - [{}, {}, {}]", query, obj.getIdunitadoc(), obj.getIddocumento(), obj.getIdcomponente());
             int updates = st.executeUpdate();
             return updates;
-        } finally {
-            if (st != null) {
-                st.close();
-            }
         }
     }
 
@@ -514,9 +492,9 @@ public class ParComponenteDAO extends ParComponente {
         ParComponente curRow;
 
         String query = "select * from PAR_COMPONENTE" + " where IDDOCUMENTO=?  and IDUNITADOC=?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
+        
         ResultSet r = null;
-        try {
+        try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, iddocumento);
             st.setLong(2, idunitadoc);
 
@@ -531,9 +509,6 @@ public class ParComponenteDAO extends ParComponente {
         } finally {
             if (r != null) {
                 r.close();
-            }
-            if (st != null) {
-                st.close();
             }
         }
     }
@@ -551,9 +526,9 @@ public class ParComponenteDAO extends ParComponente {
                 + "  DTINS, " + "  DTAGG, " + "  PGM, " + "  ID, " + "  ID_FORMATO_FILE_DOC, " + "  ID_TIPO_COMP_DOC, "
                 + "  FLGUTFIRMARIFERIMENTOTEMP, " + "  DATARIFERIMENTOTEMP, " + "  DESCRIFERIMENTOTEMP, "
                 + "  DS_HASH_FILE_VERS from PAR_COMPONENTE" + " where IDDOCUMENTO=?  and IDUNITADOC=?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
+        
         ResultSet r = null;
-        try {
+        try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, iddocumento);
             st.setLong(2, idunitadoc);
 
@@ -569,9 +544,6 @@ public class ParComponenteDAO extends ParComponente {
             if (r != null) {
                 r.close();
             }
-            if (st != null) {
-                st.close();
-            }
         }
     }
 
@@ -585,9 +557,9 @@ public class ParComponenteDAO extends ParComponente {
                 + "  DTINS, " + "  DTAGG, " + "  PGM, " + "  ID, " + "  ID_FORMATO_FILE_DOC, " + "  ID_TIPO_COMP_DOC, "
                 + "  FLGUTFIRMARIFERIMENTOTEMP, " + "  DATARIFERIMENTOTEMP, " + "  DESCRIFERIMENTOTEMP, "
                 + "  DS_HASH_FILE_VERS from PAR_COMPONENTE" + " where IDCOMPONENTE=?  and IDUNITADOC=?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
+        
         ResultSet r = null;
-        try {
+        try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, idcomponente);
             st.setLong(2, idunitadoc);
             log.info("{} - [{}, {}]", query, idcomponente, idunitadoc);
@@ -602,9 +574,6 @@ public class ParComponenteDAO extends ParComponente {
             if (r != null) {
                 r.close();
             }
-            if (st != null) {
-                st.close();
-            }
         }
     }
 
@@ -618,9 +587,9 @@ public class ParComponenteDAO extends ParComponente {
                 + "  DTINS, " + "  DTAGG, " + "  PGM, " + "  ID, " + "  ID_FORMATO_FILE_DOC, " + "  ID_TIPO_COMP_DOC, "
                 + "  FLGUTFIRMARIFERIMENTOTEMP, " + "  DATARIFERIMENTOTEMP, " + "  DESCRIFERIMENTOTEMP, "
                 + "  DS_HASH_FILE_VERS from PAR_COMPONENTE" + " where IDUNITADOC=?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
+        
         ResultSet r = null;
-        try {
+        try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, idunitadoc);
             log.info("{} - [{}]", query, idunitadoc);
             r = st.executeQuery();
@@ -633,9 +602,6 @@ public class ParComponenteDAO extends ParComponente {
         } finally {
             if (r != null) {
                 r.close();
-            }
-            if (st != null) {
-                st.close();
             }
         }
     }
@@ -650,9 +616,9 @@ public class ParComponenteDAO extends ParComponente {
 
         String query = "select * from PAR_COMPONENTE" + " where IDDOCUMENTO=? and IDUNITADOC=? ";
         query += " order by idcomponente";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
+        
         ResultSet r = null;
-        try {
+        try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, iddocumento);
             st.setLong(2, idunitadoc);
             log.debug("{} - [{}, {}]", query, iddocumento, idunitadoc);
@@ -668,9 +634,6 @@ public class ParComponenteDAO extends ParComponente {
         } finally {
             if (r != null) {
                 r.close();
-            }
-            if (st != null) {
-                st.close();
             }
         }
         return retRows;
@@ -693,12 +656,12 @@ public class ParComponenteDAO extends ParComponente {
 
         String query = "select * from PAR_COMPONENTE" + " where IDDOCUMENTO=?" + " and IDUNITADOC=?"
                 + " and IDCOMPONENTE=?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
+        
         ResultSet r = null;
-        st.setLong(1, iddocumento);
-        st.setLong(2, idunitadoc);
-        st.setLong(3, idcomponente);
-        try {
+        try (PreparedStatement st = con.prepareStatement(query)) {
+            st.setLong(1, iddocumento);
+            st.setLong(2, idunitadoc);
+            st.setLong(3, idcomponente);
             log.debug("{} - [{}, {}, {}]", query, iddocumento, idunitadoc, idcomponente);
             r = st.executeQuery();
             ParComponente obj = null;
@@ -710,9 +673,6 @@ public class ParComponenteDAO extends ParComponente {
         } finally {
             if (r != null) {
                 r.close();
-            }
-            if (st != null) {
-                st.close();
             }
         }
     }
@@ -728,136 +688,131 @@ public class ParComponenteDAO extends ParComponente {
                 + "DATARIFERIMENTOTEMP=?, " + "DESCRIFERIMENTOTEMP=?, " + "DS_HASH_FILE_VERS=? "
                 + " where IDDOCUMENTO=? and IDUNITADOC=? and IDCOMPONENTE=?";
         StringBuilder logStr = new StringBuilder(preparedQuery);
-        java.sql.PreparedStatement pst = con.prepareStatement(preparedQuery);
         int indice = 1;
 
-        if (obj.getIddocumento() == null) {
-            pst.setNull(indice++, 3);
-            logStr.append(" - [3");
-        } else {
+        
+        try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
+            if (obj.getIddocumento() == null) {
+                pst.setNull(indice++, 3);
+                logStr.append(" - [3");
+            } else {
+                pst.setLong(indice++, obj.getIddocumento());
+                logStr.append(" - [" + obj.getIddocumento());
+            }
+    
+            if (obj.getIdunitadoc() == null) {
+                pst.setNull(indice++, 3);
+                logStr.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getIdunitadoc());
+                logStr.append(",").append(obj.getIdunitadoc());
+            }
+    
+            if (obj.getIdcomponente() == null) {
+                pst.setNull(indice++, 3);
+                logStr.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getIdcomponente());
+                logStr.append(",").append(obj.getIdcomponente());
+            }
+    
+            pst.setString(indice++, obj.getUrnfile());
+            logStr.append(",").append(obj.getUrnfile());
+    
+            pst.setString(indice++, obj.getNome());
+            logStr.append(",").append(obj.getNome());
+    
+            pst.setString(indice++, obj.getRifnumero());
+            logStr.append(",").append(obj.getRifnumero());
+    
+            if (obj.getRifanno() == null) {
+                pst.setNull(indice++, 3);
+                logStr.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getRifanno());
+                logStr.append(",").append(obj.getRifanno());
+            }
+    
+            if (obj.getRiftiporegistro() == null) {
+                pst.setNull(indice++, 3);
+                logStr.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getRiftiporegistro());
+                logStr.append(",").append(obj.getRiftiporegistro());
+            }
+    
+            pst.setString(indice++, obj.getCodallegato());
+            logStr.append(",").append(obj.getCodallegato());
+    
+            if (obj.getFlgstato() == null) {
+                pst.setNull(indice++, 3);
+                logStr.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getFlgstato());
+                logStr.append(",").append(obj.getFlgstato());
+            }
+    
+            pst.setString(indice++, obj.getPgm());
+            logStr.append(",").append(obj.getPgm());
+    
+            if (obj.getId() == null) {
+                pst.setNull(indice++, 3);
+                logStr.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getId());
+                logStr.append(",").append(obj.getId());
+            }
+    
+            if (obj.getIdFormatoFileDoc() == null) {
+                pst.setNull(indice++, 3);
+                logStr.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getIdFormatoFileDoc());
+                logStr.append(",").append(obj.getIdFormatoFileDoc());
+            }
+    
+            if (obj.getIdTipoCompDoc() == null) {
+                pst.setNull(indice++, 3);
+                logStr.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getIdTipoCompDoc());
+                logStr.append(",").append(obj.getIdTipoCompDoc());
+            }
+    
+            if (obj.getFlgFirmaPerRifTemp() == null) {
+                pst.setNull(indice++, 3);
+                logStr.append(",3");
+            } else {
+                pst.setBoolean(indice++, obj.getFlgFirmaPerRifTemp());
+                logStr.append(",").append(obj.getFlgFirmaPerRifTemp());
+            }
+            if (obj.getDataRifTemp() == null) {
+                pst.setNull(indice++, Types.DATE);
+                logStr.append(",3");
+            } else {
+                pst.setDate(indice++, new java.sql.Date((obj.getDataRifTemp()).getTime()));
+                logStr.append(",").append(new java.sql.Date((obj.getDataRifTemp()).getTime()));
+            }
+            pst.setString(indice++, obj.getDescRifTemp());
+            logStr.append(",").append(obj.getDescRifTemp());
+    
+            pst.setString(indice++, obj.getDsHashFileVers());
+            logStr.append(",").append(obj.getDsHashFileVers());
+    
             pst.setLong(indice++, obj.getIddocumento());
-            logStr.append(" - [" + obj.getIddocumento());
-        }
-
-        if (obj.getIdunitadoc() == null) {
-            pst.setNull(indice++, 3);
-            logStr.append(",3");
-        } else {
+            logStr.append(",").append(obj.getIddocumento());
+    
             pst.setLong(indice++, obj.getIdunitadoc());
             logStr.append(",").append(obj.getIdunitadoc());
-        }
-
-        if (obj.getIdcomponente() == null) {
-            pst.setNull(indice++, 3);
-            logStr.append(",3");
-        } else {
+    
             pst.setLong(indice++, obj.getIdcomponente());
-            logStr.append(",").append(obj.getIdcomponente());
-        }
-
-        pst.setString(indice++, obj.getUrnfile());
-        logStr.append(",").append(obj.getUrnfile());
-
-        pst.setString(indice++, obj.getNome());
-        logStr.append(",").append(obj.getNome());
-
-        pst.setString(indice++, obj.getRifnumero());
-        logStr.append(",").append(obj.getRifnumero());
-
-        if (obj.getRifanno() == null) {
-            pst.setNull(indice++, 3);
-            logStr.append(",3");
-        } else {
-            pst.setLong(indice++, obj.getRifanno());
-            logStr.append(",").append(obj.getRifanno());
-        }
-
-        if (obj.getRiftiporegistro() == null) {
-            pst.setNull(indice++, 3);
-            logStr.append(",3");
-        } else {
-            pst.setLong(indice++, obj.getRiftiporegistro());
-            logStr.append(",").append(obj.getRiftiporegistro());
-        }
-
-        pst.setString(indice++, obj.getCodallegato());
-        logStr.append(",").append(obj.getCodallegato());
-
-        if (obj.getFlgstato() == null) {
-            pst.setNull(indice++, 3);
-            logStr.append(",3");
-        } else {
-            pst.setLong(indice++, obj.getFlgstato());
-            logStr.append(",").append(obj.getFlgstato());
-        }
-
-        pst.setString(indice++, obj.getPgm());
-        logStr.append(",").append(obj.getPgm());
-
-        if (obj.getId() == null) {
-            pst.setNull(indice++, 3);
-            logStr.append(",3");
-        } else {
-            pst.setLong(indice++, obj.getId());
-            logStr.append(",").append(obj.getId());
-        }
-
-        if (obj.getIdFormatoFileDoc() == null) {
-            pst.setNull(indice++, 3);
-            logStr.append(",3");
-        } else {
-            pst.setLong(indice++, obj.getIdFormatoFileDoc());
-            logStr.append(",").append(obj.getIdFormatoFileDoc());
-        }
-
-        if (obj.getIdTipoCompDoc() == null) {
-            pst.setNull(indice++, 3);
-            logStr.append(",3");
-        } else {
-            pst.setLong(indice++, obj.getIdTipoCompDoc());
-            logStr.append(",").append(obj.getIdTipoCompDoc());
-        }
-
-        if (obj.getFlgFirmaPerRifTemp() == null) {
-            pst.setNull(indice++, 3);
-            logStr.append(",3");
-        } else {
-            pst.setBoolean(indice++, obj.getFlgFirmaPerRifTemp());
-            logStr.append(",").append(obj.getFlgFirmaPerRifTemp());
-        }
-        if (obj.getDataRifTemp() == null) {
-            pst.setNull(indice++, Types.DATE);
-            logStr.append(",3");
-        } else {
-            pst.setDate(indice++, new java.sql.Date((obj.getDataRifTemp()).getTime()));
-            logStr.append(",").append(new java.sql.Date((obj.getDataRifTemp()).getTime()));
-        }
-        pst.setString(indice++, obj.getDescRifTemp());
-        logStr.append(",").append(obj.getDescRifTemp());
-
-        pst.setString(indice++, obj.getDsHashFileVers());
-        logStr.append(",").append(obj.getDsHashFileVers());
-
-        pst.setLong(indice++, obj.getIddocumento());
-        logStr.append(",").append(obj.getIddocumento());
-
-        pst.setLong(indice++, obj.getIdunitadoc());
-        logStr.append(",").append(obj.getIdunitadoc());
-
-        pst.setLong(indice++, obj.getIdcomponente());
-        logStr.append(",").append(obj.getIdcomponente()).append("]");
-
-        try {
+            logStr.append(",").append(obj.getIdcomponente()).append("]");
             int updates = pst.executeUpdate();
             log.debug("{}", logStr);
             return updates;
         } catch (SQLException e) {
             log.error("Failed query: {}", preparedQuery, e);
             throw e;
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
         }
     }
 
@@ -866,8 +821,8 @@ public class ParComponenteDAO extends ParComponente {
      */
     public int deleteByIndex(ParComponente obj, Connection con) throws SQLException {
         String query = "delete from PAR_COMPONENTE where IDDOCUMENTO=? and IDUNITADOC=?  and IDCOMPONENTE=?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
-        try {
+        
+        try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, obj.getIddocumento());
             st.setLong(2, obj.getIdunitadoc());
             st.setLong(3, obj.getIdcomponente());
@@ -875,11 +830,7 @@ public class ParComponenteDAO extends ParComponente {
             log.debug("{} - [{}, {}, {}]", query, obj.getIddocumento(), obj.getIdunitadoc(), obj.getIdcomponente());
             int updates = st.executeUpdate();
             return updates;
-        } finally {
-            if (st != null) {
-                st.close();
-            }
-        }
+        } 
     }
 
     /**
@@ -898,132 +849,132 @@ public class ParComponenteDAO extends ParComponente {
                 + " DESCRIFERIMENTOTEMP," + " DS_HASH_FILE_VERS" + ") values (" + "? ," + "? ," + "? ," + "? ," + "? ,"
                 + "? ," + "? ," + "? ," + "? ," + " current_timestamp ," + " current_timestamp ," + "? ," + "? ,"
                 + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? )";
-        java.sql.PreparedStatement pst = con.prepareStatement(prepQuery);
+        
         StringBuilder log_s = new StringBuilder(prepQuery);
         FileInputStream fileDati = null;
 
-        if (obj.getIddocumento() == null) {
-            pst.setNull(indice++, 3);
-            log_s.append(" - [3");
-        } else {
-            pst.setLong(indice++, obj.getIddocumento());
-            log_s.append(" - [" + obj.getIddocumento());
-        }
-
-        if (obj.getIdunitadoc() == null) {
-            pst.setNull(indice++, 3);
-            log_s.append(",3");
-        } else {
-            pst.setLong(indice++, obj.getIdunitadoc());
-            log_s.append("," + obj.getIdunitadoc());
-        }
-
-        if (obj.getIdcomponente() == null) {
-            pst.setNull(indice++, 3);
-            log_s.append(",3");
-        } else {
-            pst.setLong(indice++, obj.getIdcomponente());
-            log_s.append("," + obj.getIdcomponente());
-        }
-
-        pst.setString(indice++, obj.getUrnfile());
-        log_s.append("," + obj.getUrnfile());
-
-        pst.setString(indice++, obj.getRifnumero());
-        log_s.append("," + obj.getRifnumero());
-
-        if (obj.getRifanno() == null) {
-            pst.setNull(indice++, 3);
-            log_s.append(",3");
-        } else {
-            pst.setLong(indice++, obj.getRifanno());
-            log_s.append("," + obj.getRifanno());
-        }
-
-        if (obj.getRiftiporegistro() == null) {
-            pst.setNull(indice++, 3);
-            log_s.append(",3");
-        } else {
-            pst.setLong(indice++, obj.getRiftiporegistro());
-            log_s.append("," + obj.getRiftiporegistro());
-        }
-
-        pst.setString(indice++, obj.getCodallegato());
-        log_s.append("," + obj.getCodallegato());
-
-        if (obj.getFlgstato() == null) {
-            pst.setNull(indice++, 3);
-            log_s.append(",3");
-        } else {
-            pst.setLong(indice++, obj.getFlgstato());
-            log_s.append("," + obj.getFlgstato());
-        }
-
-        pst.setString(indice++, obj.getPgm());
-        log_s.append("," + obj.getPgm());
-
-        if (obj.getId() == null) {
-            pst.setNull(indice++, 3);
-            log_s.append(",3");
-        } else {
-            pst.setLong(indice++, obj.getId());
-            log_s.append("," + obj.getId());
-        }
-
-        if (obj.getIdFormatoFileDoc() == null) {
-            pst.setNull(indice++, 3);
-            log_s.append(",3");
-        } else {
-            pst.setLong(indice++, obj.getIdFormatoFileDoc());
-            log_s.append("," + obj.getIdFormatoFileDoc());
-        }
-
-        if (obj.getIdTipoCompDoc() == null) {
-            pst.setNull(indice++, 3);
-            log_s.append(",3");
-        } else {
-            pst.setLong(indice++, obj.getIdTipoCompDoc());
-            log_s.append("," + obj.getIdTipoCompDoc());
-        }
-
-        if (obj.getFlgFirmaPerRifTemp() == null) {
-            pst.setNull(indice++, 3);
-            log_s.append(",3");
-        } else {
-            pst.setBoolean(indice++, obj.getFlgFirmaPerRifTemp());
-            log_s.append("," + obj.getFlgFirmaPerRifTemp());
-        }
-
-        if (obj.getDataRifTemp() == null) {
-            pst.setNull(indice++, Types.DATE);
-            log_s.append(",").append(Types.DATE);
-        } else {
-            pst.setDate(indice++, new java.sql.Date((obj.getDataRifTemp()).getTime()));
-            log_s.append("," + new java.sql.Date((obj.getDataRifTemp()).getTime()));
-        }
-
-        if (blob != null && blob.getDataFile() != null) {
-            File dataFile = blob.getDataFile();
-            pst.setString(indice++, blob.getFilename());
-            log_s.append(",").append(blob.getFilename());
-
-            fileDati = new FileInputStream(dataFile);
-            pst.setBinaryStream(indice++, fileDati, (int) dataFile.length());
-            log_s.append(",BYNARYSTREAM");
-        } else {
-            pst.setNull(indice++, 3);
-            log_s.append(",3");
-
-            pst.setNull(indice++, 3);
-            log_s.append(",3");
-        }
-        pst.setString(indice++, obj.getDescRifTemp());
-        log_s.append(",").append(obj.getDescRifTemp());
-
-        pst.setString(indice++, obj.getDsHashFileVers());
-        log_s.append(",").append(obj.getDsHashFileVers()).append("]");
-
-        try {
+        
+        try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
+            if (obj.getIddocumento() == null) {
+                pst.setNull(indice++, 3);
+                log_s.append(" - [3");
+            } else {
+                pst.setLong(indice++, obj.getIddocumento());
+                log_s.append(" - [" + obj.getIddocumento());
+            }
+    
+            if (obj.getIdunitadoc() == null) {
+                pst.setNull(indice++, 3);
+                log_s.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getIdunitadoc());
+                log_s.append("," + obj.getIdunitadoc());
+            }
+    
+            if (obj.getIdcomponente() == null) {
+                pst.setNull(indice++, 3);
+                log_s.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getIdcomponente());
+                log_s.append("," + obj.getIdcomponente());
+            }
+    
+            pst.setString(indice++, obj.getUrnfile());
+            log_s.append("," + obj.getUrnfile());
+    
+            pst.setString(indice++, obj.getRifnumero());
+            log_s.append("," + obj.getRifnumero());
+    
+            if (obj.getRifanno() == null) {
+                pst.setNull(indice++, 3);
+                log_s.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getRifanno());
+                log_s.append("," + obj.getRifanno());
+            }
+    
+            if (obj.getRiftiporegistro() == null) {
+                pst.setNull(indice++, 3);
+                log_s.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getRiftiporegistro());
+                log_s.append("," + obj.getRiftiporegistro());
+            }
+    
+            pst.setString(indice++, obj.getCodallegato());
+            log_s.append("," + obj.getCodallegato());
+    
+            if (obj.getFlgstato() == null) {
+                pst.setNull(indice++, 3);
+                log_s.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getFlgstato());
+                log_s.append("," + obj.getFlgstato());
+            }
+    
+            pst.setString(indice++, obj.getPgm());
+            log_s.append("," + obj.getPgm());
+    
+            if (obj.getId() == null) {
+                pst.setNull(indice++, 3);
+                log_s.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getId());
+                log_s.append("," + obj.getId());
+            }
+    
+            if (obj.getIdFormatoFileDoc() == null) {
+                pst.setNull(indice++, 3);
+                log_s.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getIdFormatoFileDoc());
+                log_s.append("," + obj.getIdFormatoFileDoc());
+            }
+    
+            if (obj.getIdTipoCompDoc() == null) {
+                pst.setNull(indice++, 3);
+                log_s.append(",3");
+            } else {
+                pst.setLong(indice++, obj.getIdTipoCompDoc());
+                log_s.append("," + obj.getIdTipoCompDoc());
+            }
+    
+            if (obj.getFlgFirmaPerRifTemp() == null) {
+                pst.setNull(indice++, 3);
+                log_s.append(",3");
+            } else {
+                pst.setBoolean(indice++, obj.getFlgFirmaPerRifTemp());
+                log_s.append("," + obj.getFlgFirmaPerRifTemp());
+            }
+    
+            if (obj.getDataRifTemp() == null) {
+                pst.setNull(indice++, Types.DATE);
+                log_s.append(",").append(Types.DATE);
+            } else {
+                pst.setDate(indice++, new java.sql.Date((obj.getDataRifTemp()).getTime()));
+                log_s.append("," + new java.sql.Date((obj.getDataRifTemp()).getTime()));
+            }
+    
+            if (blob != null && blob.getDataFile() != null) {
+                File dataFile = blob.getDataFile();
+                pst.setString(indice++, blob.getFilename());
+                log_s.append(",").append(blob.getFilename());
+    
+                fileDati = new FileInputStream(dataFile);
+                pst.setBinaryStream(indice++, fileDati, (int) dataFile.length());
+                log_s.append(",BYNARYSTREAM");
+            } else {
+                pst.setNull(indice++, 3);
+                log_s.append(",3");
+    
+                pst.setNull(indice++, 3);
+                log_s.append(",3");
+            }
+            pst.setString(indice++, obj.getDescRifTemp());
+            log_s.append(",").append(obj.getDescRifTemp());
+    
+            pst.setString(indice++, obj.getDsHashFileVers());
+            log_s.append(",").append(obj.getDsHashFileVers()).append("]");
             int updates = pst.executeUpdate();
             log.info("{}", log_s);
 
@@ -1034,20 +985,15 @@ public class ParComponenteDAO extends ParComponente {
         } catch (Exception e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
-
-        }
+        } 
     }
 
     public InputStream getBlobWhereByCodAllegato(String codAllegato, Connection con) throws SQLException {
         String query = "select BL_FILE_COMP from PAR_COMPONENTE  where CODALLEGATO = ?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
+        
         InputStream ret = null;
         ResultSet r = null;
-        try {
+        try (PreparedStatement st = con.prepareStatement(query)) {
             log.debug(query);
             st.setString(1, codAllegato);
             r = st.executeQuery();
@@ -1059,19 +1005,16 @@ public class ParComponenteDAO extends ParComponente {
             if (r != null) {
                 r.close();
             }
-            if (st != null) {
-                st.close();
-            }
         }
         return ret;
     }
 
     public InputStream getBlobWhereByIdCompIdUD(Long idComp, Long idUd, Connection con) throws SQLException {
         String query = "select BL_FILE_COMP from PAR_COMPONENTE  where IDCOMPONENTE = ? and IDUNITADOC = ?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
+        
         InputStream ret = null;
         ResultSet r = null;
-        try {
+        try (PreparedStatement st = con.prepareStatement(query)) {
             log.debug(query);
             st.setLong(1, idComp);
             st.setLong(2, idUd);
@@ -1083,9 +1026,6 @@ public class ParComponenteDAO extends ParComponente {
         } finally {
             if (r != null) {
                 r.close();
-            }
-            if (st != null) {
-                st.close();
             }
         }
         return ret;

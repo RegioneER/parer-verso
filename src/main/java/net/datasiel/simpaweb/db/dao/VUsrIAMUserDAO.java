@@ -20,6 +20,7 @@ package net.datasiel.simpaweb.db.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,10 +59,10 @@ public class VUsrIAMUserDAO extends VUsrVRicUser {
 
         String sQuery = "SELECT DISTINCT CD_PWD, CD_SALT " + "FROM V_USR_IAM " + "WHERE NM_USERID=? "
                 + "AND FL_ATTIVO='1'";
-        java.sql.PreparedStatement st = con.prepareStatement(sQuery);
-        st.setString(1, nmUserId);
+        
         ResultSet r = null;
-        try {
+        try (PreparedStatement st = con.prepareStatement(sQuery)) {
+            st.setString(1, nmUserId);
             log.debug(sQuery + " - [" + nmUserId + "]");
             r = st.executeQuery();
             ParUnitadoc obj = null;
@@ -81,9 +82,6 @@ public class VUsrIAMUserDAO extends VUsrVRicUser {
         } finally {
             if (r != null) {
                 r.close();
-            }
-            if (st != null) {
-                st.close();
             }
         }
 
