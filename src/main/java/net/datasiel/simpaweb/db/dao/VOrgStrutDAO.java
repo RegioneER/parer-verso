@@ -24,6 +24,7 @@ package net.datasiel.simpaweb.db.dao;
  */
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -113,67 +114,63 @@ public class VOrgStrutDAO extends VOrgStrut {
     public int insertPrepared(VOrgStrut obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into V_ORG_STRUT ( ID_STRUT,ID_ENTE,NM_STRUT,DS_STRUT,TI_SCAD_CHIUS_VOLUME,TI_TEMPO_SCAD_CHIUS,NI_TEMPO_SCAD_CHIUS,TI_TEMPO_SCAD_CHIUS_FIRME,NI_TEMPO_SCAD_CHIUS_FIRME,FL_ABILITA_CONTR_CRITTOG_VERS,FL_ABILITA_CONTR_TRUST_VERS,FL_ABILITA_CONTR_CERTIF_VERS,FL_ABILITA_CONTR_CRL_VERS,FL_ACCETTA_FIRMA_NOCONOS,FL_ACCETTA_FIRMA_NOCONF,FL_ACCETTA_FIRMA_GIUGNO_2011,FL_ACCETTA_CONTR_CRITTOG_NEG,FL_ACCETTA_CONTR_TRUST_NEG,FL_ACCETTA_CONTR_CERTIF_SCAD,FL_ACCETTA_CONTR_CERTIF_NOVAL,FL_ACCETTA_CONTR_CERTIF_NOCERT,FL_ACCETTA_CONTR_CRL_NEG,FL_ACCETTA_CONTR_CRL_SCAD,FL_ACCETTA_CONTR_CRL_NOVAL,FL_ACCETTA_CONTR_CRL_NOSCAR,FL_ABILITA_SERV_MODIFICA,FL_ABILITA_SERV_INTEGR,FL_ABILITA_VERS_COMP_META,FL_ABILITA_CONTR_FMT,FL_ACCETTA_MARCA_NOCONOS,FL_ACCETTA_CONTR_FMT_NEG ) values (? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,?   )";
-        java.sql.PreparedStatement pst = con.prepareStatement(prepQuery);
-        if (obj.getIdStrut() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdStrut());
-        }
-        if (obj.getIdEnte() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdEnte());
-        }
-        pst.setString(indice++, obj.getNmStrut());
-        pst.setString(indice++, obj.getDsStrut());
-        pst.setString(indice++, obj.getTiScadChiusVolume());
-        pst.setString(indice++, obj.getTiTempoScadChius());
-        if (obj.getNiTempoScadChius() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getNiTempoScadChius());
-        }
-        pst.setString(indice++, obj.getTiTempoScadChiusFirme());
-        if (obj.getNiTempoScadChiusFirme() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getNiTempoScadChiusFirme());
-        }
-        pst.setString(indice++, obj.getFlAbilitaContrCrittogVers());
-        pst.setString(indice++, obj.getFlAbilitaContrTrustVers());
-        pst.setString(indice++, obj.getFlAbilitaContrCertifVers());
-        pst.setString(indice++, obj.getFlAbilitaContrCrlVers());
-        pst.setString(indice++, obj.getFlAccettaFirmaNoconos());
-        pst.setString(indice++, obj.getFlAccettaFirmaNoconf());
-        pst.setString(indice++, obj.getFlAccettaFirmaGiugno2011());
-        pst.setString(indice++, obj.getFlAccettaContrCrittogNeg());
-        pst.setString(indice++, obj.getFlAccettaContrTrustNeg());
-        pst.setString(indice++, obj.getFlAccettaContrCertifScad());
-        pst.setString(indice++, obj.getFlAccettaContrCertifNoval());
-        pst.setString(indice++, obj.getFlAccettaContrCertifNocert());
-        pst.setString(indice++, obj.getFlAccettaContrCrlNeg());
-        pst.setString(indice++, obj.getFlAccettaContrCrlScad());
-        pst.setString(indice++, obj.getFlAccettaContrCrlNoval());
-        pst.setString(indice++, obj.getFlAccettaContrCrlNoscar());
-        pst.setString(indice++, obj.getFlAbilitaServModifica());
-        pst.setString(indice++, obj.getFlAbilitaServIntegr());
-        pst.setString(indice++, obj.getFlAbilitaVersCompMeta());
-        pst.setString(indice++, obj.getFlAbilitaContrFmt());
-        pst.setString(indice++, obj.getFlAccettaMarcaNoconos());
-        pst.setString(indice++, obj.getFlAccettaContrFmtNeg());
-
-        try {
+        
+        
+        try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
+            if (obj.getIdStrut() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdStrut());
+            }
+            if (obj.getIdEnte() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdEnte());
+            }
+            pst.setString(indice++, obj.getNmStrut());
+            pst.setString(indice++, obj.getDsStrut());
+            pst.setString(indice++, obj.getTiScadChiusVolume());
+            pst.setString(indice++, obj.getTiTempoScadChius());
+            if (obj.getNiTempoScadChius() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getNiTempoScadChius());
+            }
+            pst.setString(indice++, obj.getTiTempoScadChiusFirme());
+            if (obj.getNiTempoScadChiusFirme() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getNiTempoScadChiusFirme());
+            }
+            pst.setString(indice++, obj.getFlAbilitaContrCrittogVers());
+            pst.setString(indice++, obj.getFlAbilitaContrTrustVers());
+            pst.setString(indice++, obj.getFlAbilitaContrCertifVers());
+            pst.setString(indice++, obj.getFlAbilitaContrCrlVers());
+            pst.setString(indice++, obj.getFlAccettaFirmaNoconos());
+            pst.setString(indice++, obj.getFlAccettaFirmaNoconf());
+            pst.setString(indice++, obj.getFlAccettaFirmaGiugno2011());
+            pst.setString(indice++, obj.getFlAccettaContrCrittogNeg());
+            pst.setString(indice++, obj.getFlAccettaContrTrustNeg());
+            pst.setString(indice++, obj.getFlAccettaContrCertifScad());
+            pst.setString(indice++, obj.getFlAccettaContrCertifNoval());
+            pst.setString(indice++, obj.getFlAccettaContrCertifNocert());
+            pst.setString(indice++, obj.getFlAccettaContrCrlNeg());
+            pst.setString(indice++, obj.getFlAccettaContrCrlScad());
+            pst.setString(indice++, obj.getFlAccettaContrCrlNoval());
+            pst.setString(indice++, obj.getFlAccettaContrCrlNoscar());
+            pst.setString(indice++, obj.getFlAbilitaServModifica());
+            pst.setString(indice++, obj.getFlAbilitaServIntegr());
+            pst.setString(indice++, obj.getFlAbilitaVersCompMeta());
+            pst.setString(indice++, obj.getFlAbilitaContrFmt());
+            pst.setString(indice++, obj.getFlAccettaMarcaNoconos());
+            pst.setString(indice++, obj.getFlAccettaContrFmtNeg());
             log.debug("{}", prepQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
-        }
+        } 
     }
 
 }

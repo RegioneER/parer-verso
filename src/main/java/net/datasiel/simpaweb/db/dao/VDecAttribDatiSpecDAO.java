@@ -24,6 +24,7 @@ package net.datasiel.simpaweb.db.dao;
  */
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import net.datasiel.simpaweb.db.pojo.VDecAttribDatiSpec;
@@ -91,59 +92,55 @@ public class VDecAttribDatiSpecDAO extends VDecAttribDatiSpec {
     public int insertPrepared(VDecAttribDatiSpec obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into V_DEC_ATTRIB_DATI_SPEC ( ID_ATTRIB_DATI_SPEC,ID_STRUT,TI_USO_ATTRIB,TI_ENTITA_SACER,ID_TIPO_UNITA_DOC,ID_TIPO_DOC,ID_TIPO_COMP_DOC,NM_SISTEMA_MIGRAZ,NM_ATTRIB_DATI_SPEC,DS_ATTRIB_DATI_SPEC,DT_ISTITUZ,DT_SOPPRES ) values (? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,?   )";
-        java.sql.PreparedStatement pst = con.prepareStatement(prepQuery);
-        if (obj.getIdAttribDatiSpec() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdAttribDatiSpec());
-        }
-        if (obj.getIdStrut() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdStrut());
-        }
-        pst.setString(indice++, obj.getTiUsoAttrib());
-        pst.setString(indice++, obj.getTiEntitaSacer());
-        if (obj.getIdTipoUnitaDoc() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdTipoUnitaDoc());
-        }
-        if (obj.getIdTipoDoc() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdTipoDoc());
-        }
-        if (obj.getIdTipoCompDoc() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdTipoCompDoc());
-        }
-        pst.setString(indice++, obj.getNmSistemaMigraz());
-        pst.setString(indice++, obj.getNmAttribDatiSpec());
-        pst.setString(indice++, obj.getDsAttribDatiSpec());
-        if (obj.getDtIstituz() != null) {
-            pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getDtIstituz()).getTime()));
-        } else {
-            pst.setObject(indice++, null);
-        }
-        if (obj.getDtSoppres() != null) {
-            pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getDtSoppres()).getTime()));
-        } else {
-            pst.setObject(indice++, null);
-        }
-
-        try {
+        
+        
+        try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
+            if (obj.getIdAttribDatiSpec() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdAttribDatiSpec());
+            }
+            if (obj.getIdStrut() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdStrut());
+            }
+            pst.setString(indice++, obj.getTiUsoAttrib());
+            pst.setString(indice++, obj.getTiEntitaSacer());
+            if (obj.getIdTipoUnitaDoc() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdTipoUnitaDoc());
+            }
+            if (obj.getIdTipoDoc() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdTipoDoc());
+            }
+            if (obj.getIdTipoCompDoc() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdTipoCompDoc());
+            }
+            pst.setString(indice++, obj.getNmSistemaMigraz());
+            pst.setString(indice++, obj.getNmAttribDatiSpec());
+            pst.setString(indice++, obj.getDsAttribDatiSpec());
+            if (obj.getDtIstituz() != null) {
+                pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getDtIstituz()).getTime()));
+            } else {
+                pst.setObject(indice++, null);
+            }
+            if (obj.getDtSoppres() != null) {
+                pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getDtSoppres()).getTime()));
+            } else {
+                pst.setObject(indice++, null);
+            }
             log.debug("{}", prepQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
-        }
+        } 
     }
 }

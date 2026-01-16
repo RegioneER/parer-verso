@@ -24,6 +24,7 @@ package net.datasiel.simpaweb.db.dao;
  */
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -74,34 +75,30 @@ public class VDecTipoUnitaDocAmmessoDAO extends VDecTipoUnitaDocAmmesso {
     public int insertPrepared(VDecTipoUnitaDocAmmesso obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into V_DEC_TIPO_UNITA_DOC_AMMESSO ( ID_TIPO_UNITA_DOC_AMMESSO,ID_TIPO_UNITA_DOC,ID_REGISTRO_UNITA_DOC ) values (? ,? ,?   )";
-        java.sql.PreparedStatement pst = con.prepareStatement(prepQuery);
-        if (obj.getIdTipoUnitaDocAmmesso() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdTipoUnitaDocAmmesso());
-        }
-        if (obj.getIdTipoUnitaDoc() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdTipoUnitaDoc());
-        }
-        if (obj.getIdRegistroUnitaDoc() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdRegistroUnitaDoc());
-        }
-
-        try {
+        
+        
+        try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
+            if (obj.getIdTipoUnitaDocAmmesso() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdTipoUnitaDocAmmesso());
+            }
+            if (obj.getIdTipoUnitaDoc() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdTipoUnitaDoc());
+            }
+            if (obj.getIdRegistroUnitaDoc() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdRegistroUnitaDoc());
+            }
             log.debug("{}", prepQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
-        }
+        } 
     }
 }

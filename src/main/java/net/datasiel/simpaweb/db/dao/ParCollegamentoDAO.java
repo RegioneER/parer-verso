@@ -23,6 +23,7 @@ package net.datasiel.simpaweb.db.dao;
  * WARNING! Automatically generated file! Do not edit!
  */
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -102,10 +103,10 @@ public class ParCollegamentoDAO extends ParCollegamento {
     public ParCollegamento retrieveByKey(Long idcollegamento, Connection con) throws SQLException {
 
         String query = "select * from PAR_COLLEGAMENTO" + " where IDCOLLEGAMENTO=?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
+        
         ResultSet r = null;
-        st.setLong(1, idcollegamento);
-        try {
+        try (PreparedStatement st = con.prepareStatement(query)) {
+            st.setLong(1, idcollegamento);
             log.debug(query);
             r = st.executeQuery();
             ParCollegamento obj = null;
@@ -117,9 +118,6 @@ public class ParCollegamentoDAO extends ParCollegamento {
         } finally {
             if (r != null) {
                 r.close();
-            }
-            if (st != null) {
-                st.close();
             }
         }
     }
@@ -133,9 +131,8 @@ public class ParCollegamentoDAO extends ParCollegamento {
         ParCollegamento curRow;
 
         String query = "select * from PAR_COLLEGAMENTO  where idunitadoc = ? order by idcollegamento";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
         ResultSet r = null;
-        try {
+        try (PreparedStatement st = con.prepareStatement(query)) {
             log.debug(query);
             st.setLong(1, idUnitadoc);
             r = st.executeQuery();
@@ -148,9 +145,6 @@ public class ParCollegamentoDAO extends ParCollegamento {
         } finally {
             if (r != null) {
                 r.close();
-            }
-            if (st != null) {
-                st.close();
             }
         }
     }
@@ -195,65 +189,60 @@ public class ParCollegamentoDAO extends ParCollegamento {
         String preparedQuery = "update PAR_COLLEGAMENTO set IDCOLLEGAMENTO= ?  , IDUNITADOC= ?  , ID_STRUT= ?  , NUMERO= ?  , ANNO= ?  , ID_REGISTRO_UNITA_DOC= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?  , DESCRIZIONE= ?  "
                 + " where IDCOLLEGAMENTO=?";
 
-        java.sql.PreparedStatement pst = con.prepareStatement(preparedQuery);
-        int indice = 1;
-        if (obj.getIdcollegamento() == null) {
-            pst.setNull(indice++, 3);
-        } else {
+        try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
+            int indice = 1;
+            if (obj.getIdcollegamento() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdcollegamento());
+            }
+    
+            if (obj.getIdunitadoc() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdunitadoc());
+            }
+    
+            if (obj.getIdStrut() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdStrut());
+            }
+    
+            pst.setString(indice++, obj.getNumero());
+            if (obj.getAnno() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getAnno());
+            }
+    
+            if (obj.getIdRegistroUnitaDoc() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdRegistroUnitaDoc());
+            }
+    
+            if (obj.getFlgstato() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getFlgstato());
+            }
+    
+            pst.setString(indice++, obj.getPgm());
+            if (obj.getId() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getId());
+            }
+    
+            pst.setString(indice++, obj.getDescrizione());
             pst.setLong(indice++, obj.getIdcollegamento());
-        }
-
-        if (obj.getIdunitadoc() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdunitadoc());
-        }
-
-        if (obj.getIdStrut() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdStrut());
-        }
-
-        pst.setString(indice++, obj.getNumero());
-        if (obj.getAnno() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getAnno());
-        }
-
-        if (obj.getIdRegistroUnitaDoc() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdRegistroUnitaDoc());
-        }
-
-        if (obj.getFlgstato() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getFlgstato());
-        }
-
-        pst.setString(indice++, obj.getPgm());
-        if (obj.getId() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getId());
-        }
-
-        pst.setString(indice++, obj.getDescrizione());
-        pst.setLong(indice++, obj.getIdcollegamento());
-        try {
             log.debug(preparedQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
             log.error("Failed query: {}", preparedQuery, e);
             throw e;
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
         }
     }
 
@@ -268,64 +257,59 @@ public class ParCollegamentoDAO extends ParCollegamento {
         String preparedQuery = "update PAR_COLLEGAMENTO set IDCOLLEGAMENTO= ?  , IDUNITADOC= ?  , ID_STRUT= ?  , NUMERO= ?  , ANNO= ?  , ID_REGISTRO_UNITA_DOC= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?  , DESCRIZIONE= ?   where "
                 + where;
 
-        java.sql.PreparedStatement pst = con.prepareStatement(preparedQuery);
-        int indice = 1;
-        if (obj.getIdcollegamento() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdcollegamento());
-        }
-
-        if (obj.getIdunitadoc() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdunitadoc());
-        }
-
-        if (obj.getIdStrut() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdStrut());
-        }
-
-        pst.setString(indice++, obj.getNumero());
-        if (obj.getAnno() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getAnno());
-        }
-
-        if (obj.getIdRegistroUnitaDoc() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdRegistroUnitaDoc());
-        }
-
-        if (obj.getFlgstato() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getFlgstato());
-        }
-
-        pst.setString(indice++, obj.getPgm());
-        if (obj.getId() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getId());
-        }
-
-        pst.setString(indice++, obj.getDescrizione());
-        try {
+        try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
+            int indice = 1;
+            if (obj.getIdcollegamento() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdcollegamento());
+            }
+    
+            if (obj.getIdunitadoc() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdunitadoc());
+            }
+    
+            if (obj.getIdStrut() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdStrut());
+            }
+    
+            pst.setString(indice++, obj.getNumero());
+            if (obj.getAnno() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getAnno());
+            }
+    
+            if (obj.getIdRegistroUnitaDoc() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdRegistroUnitaDoc());
+            }
+    
+            if (obj.getFlgstato() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getFlgstato());
+            }
+    
+            pst.setString(indice++, obj.getPgm());
+            if (obj.getId() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getId());
+            }
+    
+            pst.setString(indice++, obj.getDescrizione());
             log.debug(preparedQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
             log.error("Failed query: {}", preparedQuery, e);
             throw e;
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
         }
     }
 
@@ -334,16 +318,12 @@ public class ParCollegamentoDAO extends ParCollegamento {
      */
     public int delete(ParCollegamento obj, Connection con) throws SQLException {
         String query = "delete from PAR_COLLEGAMENTO where IDCOLLEGAMENTO=?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
-        try {
+        
+        try (PreparedStatement st = con.prepareStatement(query)) {
             log.debug(query);
             st.setLong(1, obj.getIdcollegamento());
             int updates = st.executeUpdate();
             return updates;
-        } finally {
-            if (st != null) {
-                st.close();
-            }
         }
     }
 
@@ -352,16 +332,11 @@ public class ParCollegamentoDAO extends ParCollegamento {
      */
     public int deleteByIdUd(Long idUd, Connection con) throws SQLException {
         String query = "delete from PAR_COLLEGAMENTO where IDUNITADOC = ?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
-        try {
+        try (PreparedStatement st = con.prepareStatement(query)) {
             log.debug(query);
             st.setLong(1, idUd);
             int updates = st.executeUpdate();
             return updates;
-        } finally {
-            if (st != null) {
-                st.close();
-            }
         }
     }
 
@@ -384,9 +359,8 @@ public class ParCollegamentoDAO extends ParCollegamento {
         ParCollegamento curRow;
 
         String query = "select * from PAR_COLLEGAMENTO" + " where IDUNITADOC= ?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
         ResultSet r = null;
-        try {
+        try (PreparedStatement st = con.prepareStatement(query)) {
             log.debug(query);
             st.setLong(1, idunitadoc);
             r = st.executeQuery();
@@ -399,9 +373,6 @@ public class ParCollegamentoDAO extends ParCollegamento {
         } finally {
             if (r != null) {
                 r.close();
-            }
-            if (st != null) {
-                st.close();
             }
         }
     }
@@ -420,9 +391,8 @@ public class ParCollegamentoDAO extends ParCollegamento {
 
         String query = "select * from PAR_COLLEGAMENTO  where IDUNITADOC= ? ";
         query += " order by " + orderByClause;
-        java.sql.PreparedStatement st = con.prepareStatement(query);
         ResultSet r = null;
-        try {
+        try (PreparedStatement st = con.prepareStatement(query)) {
             log.debug(query);
             st.setLong(1, idunitadoc);
             r = st.executeQuery(query);
@@ -436,9 +406,6 @@ public class ParCollegamentoDAO extends ParCollegamento {
             if (r != null) {
                 r.close();
             }
-            if (st != null) {
-                st.close();
-            }
         }
     }
 
@@ -448,11 +415,10 @@ public class ParCollegamentoDAO extends ParCollegamento {
     public ParCollegamento retrieveByIndex(Long idcollegamento, Long idunitadoc, Connection con) throws SQLException {
 
         String query = "select * from PAR_COLLEGAMENTO" + " where IDCOLLEGAMENTO=?" + " and IDUNITADOC=?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
         ResultSet r = null;
-        st.setLong(1, idcollegamento);
-        st.setLong(2, idunitadoc);
-        try {
+        try (PreparedStatement st = con.prepareStatement(query);) {
+            st.setLong(1, idcollegamento);
+            st.setLong(2, idunitadoc);
             log.debug(query);
             r = st.executeQuery();
             ParCollegamento obj = null;
@@ -465,9 +431,6 @@ public class ParCollegamentoDAO extends ParCollegamento {
             if (r != null) {
                 r.close();
             }
-            if (st != null) {
-                st.close();
-            }
         }
     }
 
@@ -479,67 +442,62 @@ public class ParCollegamentoDAO extends ParCollegamento {
                 + "NUMERO= ?  , ANNO= ?  , ID_REGISTRO_UNITA_DOC= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , "
                 + "PGM= ?  , ID= ?  , DESCRIZIONE= ?   where IDCOLLEGAMENTO=?  and IDUNITADOC=?";
 
-        java.sql.PreparedStatement pst = con.prepareStatement(preparedQuery);
-        int indice = 1;
-        if (obj.getIdcollegamento() == null) {
-            pst.setNull(indice++, 3);
-        } else {
+                
+        try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
+            int indice = 1;
+            if (obj.getIdcollegamento() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdcollegamento());
+            }
+    
+            if (obj.getIdunitadoc() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdunitadoc());
+            }
+    
+            if (obj.getIdStrut() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdStrut());
+            }
+    
+            pst.setString(indice++, obj.getNumero());
+            if (obj.getAnno() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getAnno());
+            }
+    
+            if (obj.getIdRegistroUnitaDoc() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdRegistroUnitaDoc());
+            }
+    
+            if (obj.getFlgstato() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getFlgstato());
+            }
+    
+            pst.setString(indice++, obj.getPgm());
+            if (obj.getId() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getId());
+            }
+    
+            pst.setString(indice++, obj.getDescrizione());
             pst.setLong(indice++, obj.getIdcollegamento());
-        }
-
-        if (obj.getIdunitadoc() == null) {
-            pst.setNull(indice++, 3);
-        } else {
             pst.setLong(indice++, obj.getIdunitadoc());
-        }
-
-        if (obj.getIdStrut() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdStrut());
-        }
-
-        pst.setString(indice++, obj.getNumero());
-        if (obj.getAnno() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getAnno());
-        }
-
-        if (obj.getIdRegistroUnitaDoc() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdRegistroUnitaDoc());
-        }
-
-        if (obj.getFlgstato() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getFlgstato());
-        }
-
-        pst.setString(indice++, obj.getPgm());
-        if (obj.getId() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getId());
-        }
-
-        pst.setString(indice++, obj.getDescrizione());
-        pst.setLong(indice++, obj.getIdcollegamento());
-        pst.setLong(indice++, obj.getIdunitadoc());
-
-        try {
             log.debug(preparedQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
             log.error("Failed query: {}", preparedQuery, e);
             throw e;
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
         }
     }
 
@@ -548,17 +506,12 @@ public class ParCollegamentoDAO extends ParCollegamento {
      */
     public int deleteByIndex(ParCollegamento obj, Connection con) throws SQLException {
         String query = "delete from PAR_COLLEGAMENTO where IDCOLLEGAMENTO=? and IDUNITADOC=?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
-        try {
+        try (PreparedStatement st = con.prepareStatement(query)) {
             log.debug(query);
             st.setLong(1, obj.getIdcollegamento());
             st.setLong(2, obj.getIdunitadoc());
             int updates = st.executeUpdate();
             return updates;
-        } finally {
-            if (st != null) {
-                st.close();
-            }
         }
     }
 
@@ -568,57 +521,53 @@ public class ParCollegamentoDAO extends ParCollegamento {
     public int insertPrepared(ParCollegamento obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into PAR_COLLEGAMENTO ( IDCOLLEGAMENTO,IDUNITADOC,ID_STRUT,NUMERO,ANNO,ID_REGISTRO_UNITA_DOC,FLGSTATO,DTINS,DTAGG,PGM,ID,DESCRIZIONE ) values (? ,? ,? ,? ,? ,? ,? , current_timestamp , current_timestamp ,? ,? ,?   )";
-        java.sql.PreparedStatement pst = con.prepareStatement(prepQuery);
-        if (obj.getIdcollegamento() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdcollegamento());
-        }
-        if (obj.getIdunitadoc() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdunitadoc());
-        }
-        if (obj.getIdStrut() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdStrut());
-        }
-        pst.setString(indice++, obj.getNumero());
-        if (obj.getAnno() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getAnno());
-        }
-        if (obj.getIdRegistroUnitaDoc() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdRegistroUnitaDoc());
-        }
-        if (obj.getFlgstato() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getFlgstato());
-        }
-        pst.setString(indice++, obj.getPgm());
-        if (obj.getId() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getId());
-        }
-        pst.setString(indice++, obj.getDescrizione());
-
-        try {
+        
+        
+        try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
+            if (obj.getIdcollegamento() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdcollegamento());
+            }
+            if (obj.getIdunitadoc() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdunitadoc());
+            }
+            if (obj.getIdStrut() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdStrut());
+            }
+            pst.setString(indice++, obj.getNumero());
+            if (obj.getAnno() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getAnno());
+            }
+            if (obj.getIdRegistroUnitaDoc() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdRegistroUnitaDoc());
+            }
+            if (obj.getFlgstato() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getFlgstato());
+            }
+            pst.setString(indice++, obj.getPgm());
+            if (obj.getId() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getId());
+            }
+            pst.setString(indice++, obj.getDescrizione());
             log.debug(prepQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
         }
     }
 

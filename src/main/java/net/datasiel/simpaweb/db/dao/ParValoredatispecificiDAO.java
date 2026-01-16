@@ -26,6 +26,7 @@ package net.datasiel.simpaweb.db.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,10 +101,10 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
     public ParValoredatispecifici retrieveByKey(Long idvaloredatispecifici, Connection con) throws SQLException {
 
         String query = "select * from PAR_VALOREDATISPECIFICI" + " where IDVALOREDATISPECIFICI=?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
-        st.setLong(1, idvaloredatispecifici);
+        
         ResultSet r = null;
-        try {
+        try (PreparedStatement st = con.prepareStatement(query)) {
+            st.setLong(1, idvaloredatispecifici);
             log.info("{} [{}]", query, idvaloredatispecifici);
             r = st.executeQuery();
             ParValoredatispecifici obj = null;
@@ -115,9 +116,6 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
         } finally {
             if (r != null) {
                 r.close();
-            }
-            if (st != null) {
-                st.close();
             }
         }
     }
@@ -197,60 +195,56 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
         String preparedQuery = "update PAR_VALOREDATISPECIFICI set IDVALOREDATISPECIFICI= ?  , IDDATISPECIFICI= ?  , VALORE= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?  , ID_STRUT= ?  , "
                 + "ID_ATTRIB_DATI_SPEC= ?, ,CD_VERSIONE_XSD=? " + " where IDVALOREDATISPECIFICI=?";
 
-        java.sql.PreparedStatement pst = con.prepareStatement(preparedQuery);
-        int indice = 1;
-        if (obj.getIdvaloredatispecifici() == null) {
-            pst.setNull(indice++, 3);
-        } else {
+        
+                
+        try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
+            int indice = 1;
+            if (obj.getIdvaloredatispecifici() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdvaloredatispecifici());
+            }
+    
+            if (obj.getIddatispecifici() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIddatispecifici());
+            }
+    
+            pst.setString(indice++, obj.getValore());
+            if (obj.getFlgstato() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getFlgstato());
+            }
+    
+            pst.setString(indice++, obj.getPgm());
+            if (obj.getId() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getId());
+            }
+    
+            if (obj.getIdStrut() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdStrut());
+            }
+    
+            if (obj.getIdAttribDatiSpec() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdAttribDatiSpec());
+            }
+            pst.setString(indice, obj.getCdVersioneXSD());
+    
             pst.setLong(indice++, obj.getIdvaloredatispecifici());
-        }
-
-        if (obj.getIddatispecifici() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIddatispecifici());
-        }
-
-        pst.setString(indice++, obj.getValore());
-        if (obj.getFlgstato() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getFlgstato());
-        }
-
-        pst.setString(indice++, obj.getPgm());
-        if (obj.getId() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getId());
-        }
-
-        if (obj.getIdStrut() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdStrut());
-        }
-
-        if (obj.getIdAttribDatiSpec() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdAttribDatiSpec());
-        }
-        pst.setString(indice, obj.getCdVersioneXSD());
-
-        pst.setLong(indice++, obj.getIdvaloredatispecifici());
-
-        try {
             log.info("{}", preparedQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
             log.error("Failed query: {}", preparedQuery, e);
             throw e;
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
         }
     }
 
@@ -265,7 +259,7 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
         String preparedQuery = "update PAR_VALOREDATISPECIFICI set IDVALOREDATISPECIFICI= ?  , IDDATISPECIFICI= ?  , VALORE= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?  , ID_STRUT= ?  , ID_ATTRIB_DATI_SPEC= ?   where "
                 + where;
 
-        java.sql.PreparedStatement pst = con.prepareStatement(preparedQuery);
+        PreparedStatement pst = con.prepareStatement(preparedQuery);
         int indice = 1;
         if (obj.getIdvaloredatispecifici() == null) {
             pst.setNull(indice++, 3);
@@ -324,7 +318,7 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
      */
     public int delete(ParValoredatispecifici obj, Connection con) throws SQLException {
         String query = "delete from PAR_VALOREDATISPECIFICI where IDVALOREDATISPECIFICI=?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
+        PreparedStatement st = con.prepareStatement(query);
         try {
             log.info("{}", query);
             st.setLong(1, obj.getIdvaloredatispecifici());
@@ -342,7 +336,7 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
      */
     public int deleteByIdDatiSpec(Long idDatiSpec, Connection con) throws SQLException {
         String query = "delete from PAR_VALOREDATISPECIFICI where IDDATISPECIFICI=?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
+        PreparedStatement st = con.prepareStatement(query);
         try {
             log.debug("{}", query);
             st.setLong(1, idDatiSpec);
@@ -374,9 +368,9 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
         ParValoredatispecifici curRow;
 
         String query = "select * from PAR_VALOREDATISPECIFICI where IDDATISPECIFICI=?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
+        
         ResultSet r = null;
-        try {
+        try (PreparedStatement st = con.prepareStatement(query)) {
             log.debug("{}", query);
             st.setLong(1, iddatispecifici);
             r = st.executeQuery();
@@ -389,9 +383,6 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
         } finally {
             if (r != null) {
                 r.close();
-            }
-            if (st != null) {
-                st.close();
             }
         }
     }
@@ -439,11 +430,11 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
 
         String query = "select * from PAR_VALOREDATISPECIFICI" + " where IDVALOREDATISPECIFICI=?"
                 + " and IDDATISPECIFICI=?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
-        st.setLong(1, idvaloredatispecifici);
-        st.setLong(2, iddatispecifici);
-        ResultSet r = null;
-        try {
+        
+                ResultSet r = null;
+        try (PreparedStatement st = con.prepareStatement(query)) {
+            st.setLong(1, idvaloredatispecifici);
+            st.setLong(2, iddatispecifici);
             log.debug("{}", query);
             r = st.executeQuery();
             ParValoredatispecifici obj = null;
@@ -456,9 +447,6 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
             if (r != null) {
                 r.close();
             }
-            if (st != null) {
-                st.close();
-            }
         }
     }
 
@@ -469,7 +457,7 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
         String preparedQuery = "update PAR_VALOREDATISPECIFICI set IDVALOREDATISPECIFICI= ?  , IDDATISPECIFICI= ?  , VALORE= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?  , ID_STRUT= ?  , ID_ATTRIB_DATI_SPEC= ?  "
                 + " where IDVALOREDATISPECIFICI=? and IDDATISPECIFICI= ? ";
 
-        java.sql.PreparedStatement pst = con.prepareStatement(preparedQuery);
+        PreparedStatement pst = con.prepareStatement(preparedQuery);
         int indice = 1;
         if (obj.getIdvaloredatispecifici() == null) {
             pst.setNull(indice++, 3);
@@ -531,7 +519,7 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
      */
     public int deleteByIndex(ParValoredatispecifici obj, Connection con) throws SQLException {
         String query = "delete from PAR_VALOREDATISPECIFICI where IDVALOREDATISPECIFICI=? and IDDATISPECIFICI=?";
-        java.sql.PreparedStatement st = con.prepareStatement(query);
+        PreparedStatement st = con.prepareStatement(query);
         try {
             log.debug(query);
             st.setLong(1, obj.getIdvaloredatispecifici());
@@ -551,55 +539,51 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
     public int insertPrepared(ParValoredatispecifici obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into PAR_VALOREDATISPECIFICI ( IDVALOREDATISPECIFICI,IDDATISPECIFICI,VALORE,FLGSTATO,DTINS,DTAGG,PGM,ID,ID_STRUT,ID_ATTRIB_DATI_SPEC,CD_VERSIONE_XSD ) values (? ,? ,? ,? , current_timestamp , current_timestamp ,? ,? ,? ,?,?   )";
-        java.sql.PreparedStatement pst = con.prepareStatement(prepQuery);
-        if (obj.getIdvaloredatispecifici() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdvaloredatispecifici());
-        }
-        if (obj.getIddatispecifici() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIddatispecifici());
-        }
-        pst.setString(indice++, obj.getValore());
-        if (obj.getFlgstato() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getFlgstato());
-        }
-        pst.setString(indice++, obj.getPgm());
-        if (obj.getId() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getId());
-        }
-        if (obj.getIdStrut() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdStrut());
-        }
-        if (obj.getIdAttribDatiSpec() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdAttribDatiSpec());
-        }
-        if (obj.getCdVersioneXSD() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setString(indice++, obj.getCdVersioneXSD());
-        }
-        try {
+        
+        try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
+            if (obj.getIdvaloredatispecifici() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdvaloredatispecifici());
+            }
+            if (obj.getIddatispecifici() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIddatispecifici());
+            }
+            pst.setString(indice++, obj.getValore());
+            if (obj.getFlgstato() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getFlgstato());
+            }
+            pst.setString(indice++, obj.getPgm());
+            if (obj.getId() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getId());
+            }
+            if (obj.getIdStrut() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdStrut());
+            }
+            if (obj.getIdAttribDatiSpec() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdAttribDatiSpec());
+            }
+            if (obj.getCdVersioneXSD() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setString(indice++, obj.getCdVersioneXSD());
+            }
             log.debug("{}", prepQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery);
             throw e;
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
-        }
+        } 
     }
 }

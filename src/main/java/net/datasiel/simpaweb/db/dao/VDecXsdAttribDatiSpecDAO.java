@@ -26,6 +26,7 @@ package net.datasiel.simpaweb.db.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,39 +80,35 @@ public class VDecXsdAttribDatiSpecDAO extends VDecXsdAttribDatiSpec {
     public int insertPrepared(VDecXsdAttribDatiSpec obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into V_DEC_XSD_ATTRIB_DATI_SPEC ( ID_XSD_ATTRIB_DATI_SPEC,ID_XSD_DATI_SPEC,ID_ATTRIB_DATI_SPEC,NI_ORD_ATTRIB ) values (? ,? ,? ,?   )";
-        java.sql.PreparedStatement pst = con.prepareStatement(prepQuery);
-        if (obj.getIdXsdAttribDatiSpec() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdXsdAttribDatiSpec());
-        }
-        if (obj.getIdXsdDatiSpec() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdXsdDatiSpec());
-        }
-        if (obj.getIdAttribDatiSpec() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getIdAttribDatiSpec());
-        }
-        if (obj.getNiOrdAttrib() == null) {
-            pst.setNull(indice++, 3);
-        } else {
-            pst.setLong(indice++, obj.getNiOrdAttrib());
-        }
-
-        try {
+        
+        
+        try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
+            if (obj.getIdXsdAttribDatiSpec() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdXsdAttribDatiSpec());
+            }
+            if (obj.getIdXsdDatiSpec() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdXsdDatiSpec());
+            }
+            if (obj.getIdAttribDatiSpec() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getIdAttribDatiSpec());
+            }
+            if (obj.getNiOrdAttrib() == null) {
+                pst.setNull(indice++, 3);
+            } else {
+                pst.setLong(indice++, obj.getNiOrdAttrib());
+            }
             log.debug("{}", prepQuery);
             int updates = pst.executeUpdate();
             return updates;
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
-        }
+        } 
     }
 }

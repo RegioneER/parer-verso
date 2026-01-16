@@ -57,9 +57,8 @@ public class VUsrAbilApplicDAO extends VUsrAbilApplic {
         String query = "SELECT u.NM_USERID " + "FROM SACER_IAM.USR_V_ABIL_APPLIC u "
                 + "WHERE u.NM_USERID = ? AND u.NM_APPLIC = ?";
 
-        PreparedStatement st = conn.prepareStatement(query);
         ResultSet r = null;
-        try {
+        try (PreparedStatement st = conn.prepareStatement(query)) {
             logger.debug(query);
             st.setString(1, username);
             st.setString(2, appName);
@@ -81,9 +80,6 @@ public class VUsrAbilApplicDAO extends VUsrAbilApplic {
         } finally {
             if (r != null) {
                 r.close();
-            }
-            if (st != null) {
-                st.close();
             }
         }
     }
