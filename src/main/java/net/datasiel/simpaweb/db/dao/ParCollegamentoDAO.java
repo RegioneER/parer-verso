@@ -103,7 +103,7 @@ public class ParCollegamentoDAO extends ParCollegamento {
     public ParCollegamento retrieveByKey(Long idcollegamento, Connection con) throws SQLException {
 
         String query = "select * from PAR_COLLEGAMENTO" + " where IDCOLLEGAMENTO=?";
-        
+
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, idcollegamento);
@@ -196,45 +196,45 @@ public class ParCollegamentoDAO extends ParCollegamento {
             } else {
                 pst.setLong(indice++, obj.getIdcollegamento());
             }
-    
+
             if (obj.getIdunitadoc() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdunitadoc());
             }
-    
+
             if (obj.getIdStrut() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdStrut());
             }
-    
+
             pst.setString(indice++, obj.getNumero());
             if (obj.getAnno() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getAnno());
             }
-    
+
             if (obj.getIdRegistroUnitaDoc() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdRegistroUnitaDoc());
             }
-    
+
             if (obj.getFlgstato() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getFlgstato());
             }
-    
+
             pst.setString(indice++, obj.getPgm());
             if (obj.getId() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getId());
             }
-    
+
             pst.setString(indice++, obj.getDescrizione());
             pst.setLong(indice++, obj.getIdcollegamento());
             log.debug(preparedQuery);
@@ -264,45 +264,45 @@ public class ParCollegamentoDAO extends ParCollegamento {
             } else {
                 pst.setLong(indice++, obj.getIdcollegamento());
             }
-    
+
             if (obj.getIdunitadoc() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdunitadoc());
             }
-    
+
             if (obj.getIdStrut() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdStrut());
             }
-    
+
             pst.setString(indice++, obj.getNumero());
             if (obj.getAnno() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getAnno());
             }
-    
+
             if (obj.getIdRegistroUnitaDoc() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdRegistroUnitaDoc());
             }
-    
+
             if (obj.getFlgstato() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getFlgstato());
             }
-    
+
             pst.setString(indice++, obj.getPgm());
             if (obj.getId() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getId());
             }
-    
+
             pst.setString(indice++, obj.getDescrizione());
             log.debug(preparedQuery);
             int updates = pst.executeUpdate();
@@ -318,7 +318,7 @@ public class ParCollegamentoDAO extends ParCollegamento {
      */
     public int delete(ParCollegamento obj, Connection con) throws SQLException {
         String query = "delete from PAR_COLLEGAMENTO where IDCOLLEGAMENTO=?";
-        
+
         try (PreparedStatement st = con.prepareStatement(query)) {
             log.debug(query);
             st.setLong(1, obj.getIdcollegamento());
@@ -442,7 +442,6 @@ public class ParCollegamentoDAO extends ParCollegamento {
                 + "NUMERO= ?  , ANNO= ?  , ID_REGISTRO_UNITA_DOC= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , "
                 + "PGM= ?  , ID= ?  , DESCRIZIONE= ?   where IDCOLLEGAMENTO=?  and IDUNITADOC=?";
 
-                
         try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
             int indice = 1;
             if (obj.getIdcollegamento() == null) {
@@ -450,45 +449,45 @@ public class ParCollegamentoDAO extends ParCollegamento {
             } else {
                 pst.setLong(indice++, obj.getIdcollegamento());
             }
-    
+
             if (obj.getIdunitadoc() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdunitadoc());
             }
-    
+
             if (obj.getIdStrut() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdStrut());
             }
-    
+
             pst.setString(indice++, obj.getNumero());
             if (obj.getAnno() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getAnno());
             }
-    
+
             if (obj.getIdRegistroUnitaDoc() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdRegistroUnitaDoc());
             }
-    
+
             if (obj.getFlgstato() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getFlgstato());
             }
-    
+
             pst.setString(indice++, obj.getPgm());
             if (obj.getId() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getId());
             }
-    
+
             pst.setString(indice++, obj.getDescrizione());
             pst.setLong(indice++, obj.getIdcollegamento());
             pst.setLong(indice++, obj.getIdunitadoc());
@@ -521,8 +520,7 @@ public class ParCollegamentoDAO extends ParCollegamento {
     public int insertPrepared(ParCollegamento obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into PAR_COLLEGAMENTO ( IDCOLLEGAMENTO,IDUNITADOC,ID_STRUT,NUMERO,ANNO,ID_REGISTRO_UNITA_DOC,FLGSTATO,DTINS,DTAGG,PGM,ID,DESCRIZIONE ) values (? ,? ,? ,? ,? ,? ,? , current_timestamp , current_timestamp ,? ,? ,?   )";
-        
-        
+
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIdcollegamento() == null) {
                 pst.setNull(indice++, 3);

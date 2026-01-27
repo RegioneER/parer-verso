@@ -69,7 +69,7 @@ public class Versatore {
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } 
+        }
     }
 
     public static void testUpload(String myUploadUrl, String filename) throws Exception {
@@ -97,20 +97,20 @@ public class Versatore {
             String xmlSip = FileUtils.readFileToString(xmlFile, "UTF-8");
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             Document doc = null;
-    
+
             InputSource inputSource = new InputSource(IOUtils.toInputStream(xmlSip, "UTF-8"));
-    
+
             doc = documentBuilder.parse(inputSource);
             String encoding = "UTF-8";
             JAXBContext jaxbContext = JAXBContext.newInstance("net.datasiel.par.jaxb.versamento");
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-    
+
             // JAXBElement<UnitaDocumentaria> jaxbElement =
             // (JAXBElement<UnitaDocumentaria>)unmarshaller.unmarshal(doc);
             UnitaDocumentaria unitaDoc = (UnitaDocumentaria) unmarshaller.unmarshal(doc);
             numeroChiave++;
             unitaDoc.getIntestazione().getChiave().setNumero(numeroChiave.toString());
-    
+
             StringWriter writer = new StringWriter();
             Marshaller marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty("jaxb.encoding", encoding);
@@ -120,7 +120,7 @@ public class Versatore {
             encoding = "UTF-8";
             String versamentoXml = new String(writer.getBuffer().toString().getBytes(encoding));
             writer.close();
-    
+
             /*
              */
             // aggiunge alla request il campo testuale XMLSIP, con il documento XML dei metadati
@@ -130,7 +130,7 @@ public class Versatore {
             // aggiunge alla request il il campo binario(file), con il file appena caricato.
             // il nome del campo _deve_ coincidere con uno degli ID indicati nell'XML
             reqEntity.addPart("ID1", bin);
-    
+
             // imposta la chiamata del metodo POST con i dati appena caricati
             httppost.setEntity(reqEntity);
             System.out.println("eseguo la richiesta... " + httppost.getRequestLine());

@@ -80,8 +80,7 @@ public class VDecTipoDocDAO extends VDecTipoDoc {
                 + "DS_TIPO_DOC, " + "FL_TIPO_DOC_PRINCIPALE, " + "FL_TIPO_DOC_FISC, " + "CD_PERIODO_FISC_INI_VERS, "
                 + "CD_REGISTRO_FISC_INI_VERS, " + "NI_PROGR_FISC_INI_VERS, " + "DT_ISTITUZ,DT_SOPPRES, " + "ID_USER_IAM"
                 + ") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
-                
+
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIdTipoDoc() == null) {
                 pst.setNull(indice++, 3);
@@ -113,6 +112,6 @@ public class VDecTipoDocDAO extends VDecTipoDoc {
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery);
             throw e;
-        } 
+        }
     }
 }

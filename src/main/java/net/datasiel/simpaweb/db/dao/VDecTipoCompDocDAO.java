@@ -76,8 +76,7 @@ public class VDecTipoCompDocDAO extends VDecTipoCompDoc {
     public int insertPrepared(VDecTipoCompDoc obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into V_DEC_TIPO_COMP_DOC ( ID_TIPO_COMP_DOC,ID_TIPO_STRUT_DOC,NM_TIPO_COMP_DOC,DS_TIPO_COMP_DOC,TI_USO_COMP_DOC,DT_ISTITUZ,DT_SOPPRES ) values (? ,? ,? ,? ,? ,? ,?   )";
-        
-        
+
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIdTipoCompDoc() == null) {
                 pst.setNull(indice++, 3);
@@ -108,6 +107,6 @@ public class VDecTipoCompDocDAO extends VDecTipoCompDoc {
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } 
+        }
     }
 }

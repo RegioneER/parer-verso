@@ -77,8 +77,7 @@ public class VDecRegistroUnitaDocDAO extends VDecRegistroUnitaDoc {
         String prepQuery = "INSERT INTO V_DEC_REGISTRO_UNITA_DOC (" + "ID_REGISTRO_UNITA_DOC, " + "ID_STRUT, "
                 + "CD_REGISTRO_UNITA_DOC, " + "DS_REGISTRO_UNITA_DOC, " + "DT_ISTITUZ,DT_SOPPRES, " + "ID_USER_IAM"
                 + ") values (?, ?, ?, ?, ?, ?, ?)";
-        
-                
+
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIdRegistroUnitaDoc() == null) {
                 pst.setNull(indice++, 3);

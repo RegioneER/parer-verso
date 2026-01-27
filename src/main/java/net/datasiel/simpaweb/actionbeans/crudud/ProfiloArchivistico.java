@@ -368,7 +368,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
         // isClassificaValid è sempre true per come è implemetato il metodo validaClassifica
         // commento il blocco if seguente per vitare segnalazione sonar
         // if (!isClassificaValid) {
-        //     isValid = false;
+        // isValid = false;
         // }
 
         // validazione identificativo
@@ -379,7 +379,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
         // isIdentificativoValid è sempre true per come è implemetato il metodo validaIdentificativo
         // commento il blocco if seguente per vitare segnalazione sonar
         // if (!isIdentificativoValid) {
-        //     isValid = false;
+        // isValid = false;
         // }
 
         // validazione identificativo sottofascicolo
@@ -390,7 +390,7 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
         // isIdSottofascicoloValid è sempre true per come è implemetato il metodo validaIdSottofascicolo
         // commento il blocco if seguente per vitare segnalazione sonar
         // if (!isIdSottofascicoloValid) {
-        //     isValid = false;
+        // isValid = false;
         // }
 
         return isValid;

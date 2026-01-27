@@ -101,7 +101,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
     public ParDatispecifici retrieveByKey(Long iddatispecifici, Connection con) throws SQLException {
 
         String query = "select * from PAR_DATISPECIFICI" + " where IDDATISPECIFICI=?";
-        
+
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, iddatispecifici);
@@ -195,10 +195,9 @@ public class ParDatispecificiDAO extends ParDatispecifici {
         String preparedQuery = "update PAR_DATISPECIFICI set IDDATISPECIFICI= ?  , IDUNITADOC= ?  , IDDOCUMENTO= ?  , ENTITASACER= ?  , IDCOMPONENTE= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?  "
                 + " where IDDATISPECIFICI=?";
         StringBuilder log_s = new StringBuilder(preparedQuery);
-        
+
         int indice = 1;
 
-        
         try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
             if (obj.getIddatispecifici() == null) {
                 pst.setNull(indice++, 3);
@@ -207,7 +206,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
                 pst.setLong(indice++, obj.getIddatispecifici());
                 log_s.append("[" + obj.getIddatispecifici());
             }
-    
+
             if (obj.getIdunitadoc() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -215,7 +214,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
                 pst.setLong(indice++, obj.getIdunitadoc());
                 log_s.append("," + obj.getIdunitadoc());
             }
-    
+
             if (obj.getIddocumento() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -223,10 +222,10 @@ public class ParDatispecificiDAO extends ParDatispecifici {
                 pst.setLong(indice++, obj.getIddocumento());
                 log_s.append("," + obj.getIddocumento());
             }
-    
+
             pst.setString(indice++, obj.getEntitasacer());
             log_s.append("," + obj.getEntitasacer());
-    
+
             if (obj.getIdcomponente() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -234,7 +233,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
                 pst.setLong(indice++, obj.getIdcomponente());
                 log_s.append("," + obj.getIdcomponente());
             }
-    
+
             if (obj.getFlgstato() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -242,10 +241,10 @@ public class ParDatispecificiDAO extends ParDatispecifici {
                 pst.setLong(indice++, obj.getFlgstato());
                 log_s.append("," + obj.getFlgstato());
             }
-    
+
             pst.setString(indice++, obj.getPgm());
             log_s.append("," + obj.getPgm());
-    
+
             if (obj.getId() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -253,7 +252,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
                 pst.setLong(indice++, obj.getId());
                 log_s.append("," + obj.getId());
             }
-    
+
             pst.setLong(indice++, obj.getIddatispecifici());
             log_s.append("," + obj.getIddatispecifici() + "]");
             log.info("{}", log_s);
@@ -276,8 +275,6 @@ public class ParDatispecificiDAO extends ParDatispecifici {
         String preparedQuery = "update PAR_DATISPECIFICI set IDDATISPECIFICI= ?  , IDUNITADOC= ?  , IDDOCUMENTO= ?  , ENTITASACER= ?  , IDCOMPONENTE= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?   where "
                 + where;
 
-        
-                
         try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
             int indice = 1;
             if (obj.getIddatispecifici() == null) {
@@ -285,32 +282,32 @@ public class ParDatispecificiDAO extends ParDatispecifici {
             } else {
                 pst.setLong(indice++, obj.getIddatispecifici());
             }
-    
+
             if (obj.getIdunitadoc() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdunitadoc());
             }
-    
+
             if (obj.getIddocumento() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIddocumento());
             }
-    
+
             pst.setString(indice++, obj.getEntitasacer());
             if (obj.getIdcomponente() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdcomponente());
             }
-    
+
             if (obj.getFlgstato() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getFlgstato());
             }
-    
+
             pst.setString(indice++, obj.getPgm());
             if (obj.getId() == null) {
                 pst.setNull(indice++, 3);
@@ -323,7 +320,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
         } catch (SQLException e) {
             log.error("Failed query: {}", preparedQuery, e);
             throw e;
-        } 
+        }
     }
 
     /**
@@ -331,7 +328,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
      */
     public int delete(ParDatispecifici obj, Connection con) throws SQLException {
         String query = "delete from PAR_DATISPECIFICI where IDDATISPECIFICI=?";
-        
+
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, obj.getIddatispecifici());
             log.info("{} [{}]", query, obj.getIddatispecifici());
@@ -380,7 +377,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
         ParDatispecifici curRow;
 
         String query = "select * from PAR_DATISPECIFICI  where IDDOCUMENTO=? and IDUNITADOC=? and IDCOMPONENTE=? ";
-        
+
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, iddocumento);
@@ -456,7 +453,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
         ParDatispecifici curRow;
 
         String query = "select * from PAR_DATISPECIFICI" + " where IDDOCUMENTO=? and IDUNITADOC=?";
-        
+
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, iddocumento);
@@ -532,7 +529,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
         ParDatispecifici curRow;
 
         String query = "select * from PAR_DATISPECIFICI where IDUNITADOC=?";
-        
+
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, idunitadoc);
@@ -604,7 +601,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
 
         String query = "select * from PAR_DATISPECIFICI" + " where IDDATISPECIFICI=?" + " and IDUNITADOC=?"
                 + " and IDDOCUMENTO=?" + " and IDCOMPONENTE=?";
-                ResultSet r = null;
+        ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, iddatispecifici);
             st.setLong(2, idunitadoc);
@@ -633,10 +630,9 @@ public class ParDatispecificiDAO extends ParDatispecifici {
                 + "DTAGG= current_timestamp  , PGM= ?  , ID= ?  "
                 + " where IDDATISPECIFICI=?  and IDUNITADOC=?  and IDDOCUMENTO=?  and IDCOMPONENTE=?";
         StringBuilder log_s = new StringBuilder(preparedQuery);
-        
+
         int indice = 1;
 
-        
         try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
             if (obj.getIddatispecifici() == null) {
                 pst.setNull(indice++, 3);
@@ -645,7 +641,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
                 pst.setLong(indice++, obj.getIddatispecifici());
                 log_s.append(" - [" + obj.getIddatispecifici());
             }
-    
+
             if (obj.getIdunitadoc() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -653,7 +649,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
                 pst.setLong(indice++, obj.getIdunitadoc());
                 log_s.append("," + obj.getIdunitadoc());
             }
-    
+
             if (obj.getIddocumento() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -661,10 +657,10 @@ public class ParDatispecificiDAO extends ParDatispecifici {
                 pst.setLong(indice++, obj.getIddocumento());
                 log_s.append("," + obj.getIddocumento());
             }
-    
+
             pst.setString(indice++, obj.getEntitasacer());
             log_s.append("," + obj.getEntitasacer());
-    
+
             if (obj.getIdcomponente() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -672,7 +668,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
                 pst.setLong(indice++, obj.getIdcomponente());
                 log_s.append("," + obj.getIdcomponente());
             }
-    
+
             if (obj.getFlgstato() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -680,10 +676,10 @@ public class ParDatispecificiDAO extends ParDatispecifici {
                 pst.setLong(indice++, obj.getFlgstato());
                 log_s.append("," + obj.getFlgstato());
             }
-    
+
             pst.setString(indice++, obj.getPgm());
             log_s.append("," + obj.getPgm());
-    
+
             if (obj.getId() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -693,13 +689,13 @@ public class ParDatispecificiDAO extends ParDatispecifici {
             }
             pst.setLong(indice++, obj.getIddatispecifici());
             log_s.append("," + obj.getIddatispecifici());
-    
+
             pst.setLong(indice++, obj.getIdunitadoc());
             log_s.append("," + obj.getIdunitadoc());
-    
+
             pst.setLong(indice++, obj.getIddocumento());
             log_s.append("," + obj.getIddocumento());
-    
+
             pst.setLong(indice++, obj.getIdcomponente());
             log_s.append("," + obj.getIdcomponente() + "]");
             int updates = pst.executeUpdate();
@@ -717,7 +713,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
     public int deleteByIndex(ParDatispecifici obj, Connection con) throws SQLException {
         String query = "delete from PAR_DATISPECIFICI where IDDATISPECIFICI=? and IDUNITADOC=? "
                 + " and IDDOCUMENTO=? and IDCOMPONENTE=?";
-        
+
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, obj.getIddatispecifici());
             st.setLong(2, obj.getIdunitadoc());
@@ -728,7 +724,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
                     obj.getIddocumento(), obj.getIdcomponente());
             int updates = st.executeUpdate();
             return updates;
-        } 
+        }
     }
 
     /**
@@ -737,10 +733,9 @@ public class ParDatispecificiDAO extends ParDatispecifici {
     public int insertPrepared(ParDatispecifici obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into PAR_DATISPECIFICI ( IDDATISPECIFICI,IDUNITADOC,IDDOCUMENTO,ENTITASACER,IDCOMPONENTE,FLGSTATO,DTINS,DTAGG,PGM,ID ) values (? ,? ,? ,? ,? ,? , current_timestamp , current_timestamp ,? ,?   )";
-        
+
         StringBuilder logStr = new StringBuilder(prepQuery);
 
-        
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIddatispecifici() == null) {
                 pst.setNull(indice++, 3);
@@ -749,7 +744,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
                 pst.setLong(indice++, obj.getIddatispecifici());
                 logStr.append(" - [").append(obj.getIddatispecifici());
             }
-    
+
             if (obj.getIdunitadoc() == null) {
                 pst.setNull(indice++, 3);
                 logStr.append(",3");
@@ -757,7 +752,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
                 pst.setLong(indice++, obj.getIdunitadoc());
                 logStr.append(",").append(obj.getIdunitadoc());
             }
-    
+
             if (obj.getIddocumento() == null) {
                 pst.setNull(indice++, 3);
                 logStr.append(",3");
@@ -765,10 +760,10 @@ public class ParDatispecificiDAO extends ParDatispecifici {
                 pst.setLong(indice++, obj.getIddocumento());
                 logStr.append(",").append(obj.getIddocumento());
             }
-    
+
             pst.setString(indice++, obj.getEntitasacer());
             logStr.append(",").append(obj.getEntitasacer());
-    
+
             if (obj.getIdcomponente() == null) {
                 pst.setNull(indice++, 3);
                 logStr.append(",3");
@@ -776,7 +771,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
                 pst.setLong(indice++, obj.getIdcomponente());
                 logStr.append(",").append(obj.getIdcomponente());
             }
-    
+
             if (obj.getFlgstato() == null) {
                 pst.setNull(indice++, 3);
                 logStr.append(",3");
@@ -784,10 +779,10 @@ public class ParDatispecificiDAO extends ParDatispecifici {
                 pst.setLong(indice++, obj.getFlgstato());
                 logStr.append(",").append(obj.getFlgstato());
             }
-    
+
             pst.setString(indice++, obj.getPgm());
             logStr.append(",").append(obj.getPgm());
-    
+
             if (obj.getId() == null) {
                 pst.setNull(indice++, 3);
                 logStr.append(",3");
@@ -801,7 +796,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } 
+        }
     }
 
     public Object getParObjectByIdDatiSpecificiAndEntitaSacer(Long idDatiSpecifici, String entita, Connection con)
@@ -821,7 +816,7 @@ public class ParDatispecificiDAO extends ParDatispecifici {
         SQL.append(" FROM PAR_DATISPECIFICI");
         SQL.append(" WHERE IDDATISPECIFICI=?");
         SQL.append(" AND ENTITASACER      =?");
-        
+
         ResultSet r = null;
         try (PreparedStatement pst = con.prepareStatement(SQL.toString())) {
             pst.setLong(1, idDatiSpecifici);

@@ -138,7 +138,7 @@ public class ParComponenteDAO extends ParComponente {
 
         String query = "select * from PAR_COMPONENTE" + " where IDUNITADOC=?" + " and IDDOCUMENTO=?"
                 + " and IDCOMPONENTE=?";
-        
+
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, idunitadoc);
@@ -168,7 +168,7 @@ public class ParComponenteDAO extends ParComponente {
         ParComponente curRow;
 
         String query = "select * from PAR_COMPONENTE" + " where iddocumento = ?  order by idcomponente";
-        
+
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, idDocumento);
@@ -227,11 +227,9 @@ public class ParComponenteDAO extends ParComponente {
                 + " FLGUTFIRMARIFERIMENTOTEMP=?," + " DATARIFERIMENTOTEMP=?,  " + " DESCRIFERIMENTOTEMP=?, "
                 + " DS_HASH_FILE_VERS=? " + " where IDUNITADOC=?" + " and IDDOCUMENTO=?" + " and IDCOMPONENTE=?";
 
-        
         int indice = 1;
         StringBuilder log_s = new StringBuilder(preparedQuery);
 
-        
         try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
             if (obj.getIddocumento() == null) {
                 pst.setNull(indice++, 3);
@@ -240,7 +238,7 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getIddocumento());
                 log_s.append(" - [").append(obj.getIddocumento());
             }
-    
+
             if (obj.getIdunitadoc() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -248,7 +246,7 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getIdunitadoc());
                 log_s.append(",").append(obj.getIdunitadoc());
             }
-    
+
             if (obj.getIdcomponente() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -256,16 +254,16 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getIdcomponente());
                 log_s.append(",").append(obj.getIdcomponente());
             }
-    
+
             pst.setString(indice++, obj.getUrnfile());
             log_s.append(",").append(obj.getUrnfile());
-    
+
             pst.setString(indice++, obj.getNome());
             log_s.append(",").append(obj.getNome());
-    
+
             pst.setString(indice++, obj.getRifnumero());
             log_s.append(",").append(obj.getRifnumero());
-    
+
             if (obj.getRifanno() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -273,7 +271,7 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getRifanno());
                 log_s.append(",").append(obj.getRifanno());
             }
-    
+
             if (obj.getRiftiporegistro() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -281,7 +279,7 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getRiftiporegistro());
                 log_s.append(",").append(obj.getRiftiporegistro());
             }
-    
+
             pst.setString(indice++, obj.getCodallegato());
             if (obj.getFlgstato() == null) {
                 pst.setNull(indice++, 3);
@@ -290,10 +288,10 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getFlgstato());
                 log_s.append(",").append(obj.getFlgstato());
             }
-    
+
             pst.setString(indice++, obj.getPgm());
             log_s.append(",").append(obj.getPgm());
-    
+
             if (obj.getId() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -301,7 +299,7 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getId());
                 log_s.append(",").append(obj.getId());
             }
-    
+
             if (obj.getIdFormatoFileDoc() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -309,7 +307,7 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getIdFormatoFileDoc());
                 log_s.append(",").append(obj.getIdFormatoFileDoc());
             }
-    
+
             if (obj.getIdTipoCompDoc() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -317,7 +315,7 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getIdTipoCompDoc());
                 log_s.append(",").append(obj.getIdTipoCompDoc());
             }
-    
+
             if (obj.getFlgFirmaPerRifTemp() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -330,20 +328,21 @@ public class ParComponenteDAO extends ParComponente {
                 log_s.append(",3");
             } else {
                 pst.setDate(indice++, new java.sql.Date(((java.util.Date) obj.getDataRifTemp()).getTime()));
-                log_s.append(",").append(new java.sql.Date(((java.util.Date) obj.getDataRifTemp()).getTime()).toString());
+                log_s.append(",")
+                        .append(new java.sql.Date(((java.util.Date) obj.getDataRifTemp()).getTime()).toString());
             }
             pst.setString(indice++, obj.getDescRifTemp());
             log_s.append(",").append(obj.getDescRifTemp());
-    
+
             pst.setString(indice++, obj.getDsHashFileVers());
             log_s.append(",").append(obj.getDsHashFileVers());
-    
+
             pst.setLong(indice++, obj.getIdunitadoc());
             log_s.append(",").append(obj.getIdunitadoc());
-    
+
             pst.setLong(indice++, obj.getIddocumento());
             log_s.append(",").append(obj.getIddocumento());
-    
+
             pst.setLong(indice++, obj.getIdcomponente());
             log_s.append(",").append(obj.getIdcomponente()).append("]");
             int updates = pst.executeUpdate();
@@ -352,7 +351,7 @@ public class ParComponenteDAO extends ParComponente {
         } catch (SQLException e) {
             log.error("Failed query: {}", preparedQuery, e);
             throw e;
-        } 
+        }
     }
 
     /**
@@ -366,7 +365,6 @@ public class ParComponenteDAO extends ParComponente {
         String preparedQuery = "update PAR_COMPONENTE set IDDOCUMENTO= ?  , IDUNITADOC= ?  , IDCOMPONENTE= ?  , URNFILE= ?  , NOME= ?  , RIFNUMERO= ?  , RIFANNO= ?  , RIFTIPOREGISTRO= ?  , CODALLEGATO= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?  , ID_FORMATO_FILE_DOC= ?, ID_TIPO_COMP_DOC=?   where "
                 + where;
 
-                
         try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
             int indice = 1;
             if (obj.getIddocumento() == null) {
@@ -374,19 +372,19 @@ public class ParComponenteDAO extends ParComponente {
             } else {
                 pst.setLong(indice++, obj.getIddocumento());
             }
-    
+
             if (obj.getIdunitadoc() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdunitadoc());
             }
-    
+
             if (obj.getIdcomponente() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdcomponente());
             }
-    
+
             pst.setString(indice++, obj.getUrnfile());
             pst.setString(indice++, obj.getNome());
             pst.setString(indice++, obj.getRifnumero());
@@ -395,33 +393,33 @@ public class ParComponenteDAO extends ParComponente {
             } else {
                 pst.setLong(indice++, obj.getRifanno());
             }
-    
+
             if (obj.getRiftiporegistro() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getRiftiporegistro());
             }
-    
+
             pst.setString(indice++, obj.getCodallegato());
             if (obj.getFlgstato() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getFlgstato());
             }
-    
+
             pst.setString(indice++, obj.getPgm());
             if (obj.getId() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getId());
             }
-    
+
             if (obj.getIdFormatoFileDoc() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdFormatoFileDoc());
             }
-    
+
             if (obj.getIdTipoCompDoc() == null) {
                 pst.setNull(indice++, 3);
             } else {
@@ -441,7 +439,7 @@ public class ParComponenteDAO extends ParComponente {
      */
     public int delete(ParComponente obj, Connection con) throws SQLException {
         String query = "delete from PAR_COMPONENTE where IDUNITADOC=? and IDDOCUMENTO=? and IDCOMPONENTE=?";
-        
+
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, obj.getIdunitadoc());
             st.setLong(2, obj.getIddocumento());
@@ -492,7 +490,7 @@ public class ParComponenteDAO extends ParComponente {
         ParComponente curRow;
 
         String query = "select * from PAR_COMPONENTE" + " where IDDOCUMENTO=?  and IDUNITADOC=?";
-        
+
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, iddocumento);
@@ -526,7 +524,7 @@ public class ParComponenteDAO extends ParComponente {
                 + "  DTINS, " + "  DTAGG, " + "  PGM, " + "  ID, " + "  ID_FORMATO_FILE_DOC, " + "  ID_TIPO_COMP_DOC, "
                 + "  FLGUTFIRMARIFERIMENTOTEMP, " + "  DATARIFERIMENTOTEMP, " + "  DESCRIFERIMENTOTEMP, "
                 + "  DS_HASH_FILE_VERS from PAR_COMPONENTE" + " where IDDOCUMENTO=?  and IDUNITADOC=?";
-        
+
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, iddocumento);
@@ -557,7 +555,7 @@ public class ParComponenteDAO extends ParComponente {
                 + "  DTINS, " + "  DTAGG, " + "  PGM, " + "  ID, " + "  ID_FORMATO_FILE_DOC, " + "  ID_TIPO_COMP_DOC, "
                 + "  FLGUTFIRMARIFERIMENTOTEMP, " + "  DATARIFERIMENTOTEMP, " + "  DESCRIFERIMENTOTEMP, "
                 + "  DS_HASH_FILE_VERS from PAR_COMPONENTE" + " where IDCOMPONENTE=?  and IDUNITADOC=?";
-        
+
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, idcomponente);
@@ -587,7 +585,7 @@ public class ParComponenteDAO extends ParComponente {
                 + "  DTINS, " + "  DTAGG, " + "  PGM, " + "  ID, " + "  ID_FORMATO_FILE_DOC, " + "  ID_TIPO_COMP_DOC, "
                 + "  FLGUTFIRMARIFERIMENTOTEMP, " + "  DATARIFERIMENTOTEMP, " + "  DESCRIFERIMENTOTEMP, "
                 + "  DS_HASH_FILE_VERS from PAR_COMPONENTE" + " where IDUNITADOC=?";
-        
+
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, idunitadoc);
@@ -616,7 +614,7 @@ public class ParComponenteDAO extends ParComponente {
 
         String query = "select * from PAR_COMPONENTE" + " where IDDOCUMENTO=? and IDUNITADOC=? ";
         query += " order by idcomponente";
-        
+
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, iddocumento);
@@ -656,7 +654,7 @@ public class ParComponenteDAO extends ParComponente {
 
         String query = "select * from PAR_COMPONENTE" + " where IDDOCUMENTO=?" + " and IDUNITADOC=?"
                 + " and IDCOMPONENTE=?";
-        
+
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, iddocumento);
@@ -690,7 +688,6 @@ public class ParComponenteDAO extends ParComponente {
         StringBuilder logStr = new StringBuilder(preparedQuery);
         int indice = 1;
 
-        
         try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
             if (obj.getIddocumento() == null) {
                 pst.setNull(indice++, 3);
@@ -699,7 +696,7 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getIddocumento());
                 logStr.append(" - [" + obj.getIddocumento());
             }
-    
+
             if (obj.getIdunitadoc() == null) {
                 pst.setNull(indice++, 3);
                 logStr.append(",3");
@@ -707,7 +704,7 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getIdunitadoc());
                 logStr.append(",").append(obj.getIdunitadoc());
             }
-    
+
             if (obj.getIdcomponente() == null) {
                 pst.setNull(indice++, 3);
                 logStr.append(",3");
@@ -715,16 +712,16 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getIdcomponente());
                 logStr.append(",").append(obj.getIdcomponente());
             }
-    
+
             pst.setString(indice++, obj.getUrnfile());
             logStr.append(",").append(obj.getUrnfile());
-    
+
             pst.setString(indice++, obj.getNome());
             logStr.append(",").append(obj.getNome());
-    
+
             pst.setString(indice++, obj.getRifnumero());
             logStr.append(",").append(obj.getRifnumero());
-    
+
             if (obj.getRifanno() == null) {
                 pst.setNull(indice++, 3);
                 logStr.append(",3");
@@ -732,7 +729,7 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getRifanno());
                 logStr.append(",").append(obj.getRifanno());
             }
-    
+
             if (obj.getRiftiporegistro() == null) {
                 pst.setNull(indice++, 3);
                 logStr.append(",3");
@@ -740,10 +737,10 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getRiftiporegistro());
                 logStr.append(",").append(obj.getRiftiporegistro());
             }
-    
+
             pst.setString(indice++, obj.getCodallegato());
             logStr.append(",").append(obj.getCodallegato());
-    
+
             if (obj.getFlgstato() == null) {
                 pst.setNull(indice++, 3);
                 logStr.append(",3");
@@ -751,10 +748,10 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getFlgstato());
                 logStr.append(",").append(obj.getFlgstato());
             }
-    
+
             pst.setString(indice++, obj.getPgm());
             logStr.append(",").append(obj.getPgm());
-    
+
             if (obj.getId() == null) {
                 pst.setNull(indice++, 3);
                 logStr.append(",3");
@@ -762,7 +759,7 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getId());
                 logStr.append(",").append(obj.getId());
             }
-    
+
             if (obj.getIdFormatoFileDoc() == null) {
                 pst.setNull(indice++, 3);
                 logStr.append(",3");
@@ -770,7 +767,7 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getIdFormatoFileDoc());
                 logStr.append(",").append(obj.getIdFormatoFileDoc());
             }
-    
+
             if (obj.getIdTipoCompDoc() == null) {
                 pst.setNull(indice++, 3);
                 logStr.append(",3");
@@ -778,7 +775,7 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getIdTipoCompDoc());
                 logStr.append(",").append(obj.getIdTipoCompDoc());
             }
-    
+
             if (obj.getFlgFirmaPerRifTemp() == null) {
                 pst.setNull(indice++, 3);
                 logStr.append(",3");
@@ -795,16 +792,16 @@ public class ParComponenteDAO extends ParComponente {
             }
             pst.setString(indice++, obj.getDescRifTemp());
             logStr.append(",").append(obj.getDescRifTemp());
-    
+
             pst.setString(indice++, obj.getDsHashFileVers());
             logStr.append(",").append(obj.getDsHashFileVers());
-    
+
             pst.setLong(indice++, obj.getIddocumento());
             logStr.append(",").append(obj.getIddocumento());
-    
+
             pst.setLong(indice++, obj.getIdunitadoc());
             logStr.append(",").append(obj.getIdunitadoc());
-    
+
             pst.setLong(indice++, obj.getIdcomponente());
             logStr.append(",").append(obj.getIdcomponente()).append("]");
             int updates = pst.executeUpdate();
@@ -821,7 +818,7 @@ public class ParComponenteDAO extends ParComponente {
      */
     public int deleteByIndex(ParComponente obj, Connection con) throws SQLException {
         String query = "delete from PAR_COMPONENTE where IDDOCUMENTO=? and IDUNITADOC=?  and IDCOMPONENTE=?";
-        
+
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, obj.getIddocumento());
             st.setLong(2, obj.getIdunitadoc());
@@ -830,7 +827,7 @@ public class ParComponenteDAO extends ParComponente {
             log.debug("{} - [{}, {}, {}]", query, obj.getIddocumento(), obj.getIdunitadoc(), obj.getIdcomponente());
             int updates = st.executeUpdate();
             return updates;
-        } 
+        }
     }
 
     /**
@@ -849,11 +846,10 @@ public class ParComponenteDAO extends ParComponente {
                 + " DESCRIFERIMENTOTEMP," + " DS_HASH_FILE_VERS" + ") values (" + "? ," + "? ," + "? ," + "? ," + "? ,"
                 + "? ," + "? ," + "? ," + "? ," + " current_timestamp ," + " current_timestamp ," + "? ," + "? ,"
                 + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? )";
-        
+
         StringBuilder log_s = new StringBuilder(prepQuery);
         FileInputStream fileDati = null;
 
-        
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIddocumento() == null) {
                 pst.setNull(indice++, 3);
@@ -862,7 +858,7 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getIddocumento());
                 log_s.append(" - [" + obj.getIddocumento());
             }
-    
+
             if (obj.getIdunitadoc() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -870,7 +866,7 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getIdunitadoc());
                 log_s.append("," + obj.getIdunitadoc());
             }
-    
+
             if (obj.getIdcomponente() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -878,13 +874,13 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getIdcomponente());
                 log_s.append("," + obj.getIdcomponente());
             }
-    
+
             pst.setString(indice++, obj.getUrnfile());
             log_s.append("," + obj.getUrnfile());
-    
+
             pst.setString(indice++, obj.getRifnumero());
             log_s.append("," + obj.getRifnumero());
-    
+
             if (obj.getRifanno() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -892,7 +888,7 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getRifanno());
                 log_s.append("," + obj.getRifanno());
             }
-    
+
             if (obj.getRiftiporegistro() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -900,10 +896,10 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getRiftiporegistro());
                 log_s.append("," + obj.getRiftiporegistro());
             }
-    
+
             pst.setString(indice++, obj.getCodallegato());
             log_s.append("," + obj.getCodallegato());
-    
+
             if (obj.getFlgstato() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -911,10 +907,10 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getFlgstato());
                 log_s.append("," + obj.getFlgstato());
             }
-    
+
             pst.setString(indice++, obj.getPgm());
             log_s.append("," + obj.getPgm());
-    
+
             if (obj.getId() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -922,7 +918,7 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getId());
                 log_s.append("," + obj.getId());
             }
-    
+
             if (obj.getIdFormatoFileDoc() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -930,7 +926,7 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getIdFormatoFileDoc());
                 log_s.append("," + obj.getIdFormatoFileDoc());
             }
-    
+
             if (obj.getIdTipoCompDoc() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -938,7 +934,7 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setLong(indice++, obj.getIdTipoCompDoc());
                 log_s.append("," + obj.getIdTipoCompDoc());
             }
-    
+
             if (obj.getFlgFirmaPerRifTemp() == null) {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
@@ -946,7 +942,7 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setBoolean(indice++, obj.getFlgFirmaPerRifTemp());
                 log_s.append("," + obj.getFlgFirmaPerRifTemp());
             }
-    
+
             if (obj.getDataRifTemp() == null) {
                 pst.setNull(indice++, Types.DATE);
                 log_s.append(",").append(Types.DATE);
@@ -954,25 +950,25 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setDate(indice++, new java.sql.Date((obj.getDataRifTemp()).getTime()));
                 log_s.append("," + new java.sql.Date((obj.getDataRifTemp()).getTime()));
             }
-    
+
             if (blob != null && blob.getDataFile() != null) {
                 File dataFile = blob.getDataFile();
                 pst.setString(indice++, blob.getFilename());
                 log_s.append(",").append(blob.getFilename());
-    
+
                 fileDati = new FileInputStream(dataFile);
                 pst.setBinaryStream(indice++, fileDati, (int) dataFile.length());
                 log_s.append(",BYNARYSTREAM");
             } else {
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
-    
+
                 pst.setNull(indice++, 3);
                 log_s.append(",3");
             }
             pst.setString(indice++, obj.getDescRifTemp());
             log_s.append(",").append(obj.getDescRifTemp());
-    
+
             pst.setString(indice++, obj.getDsHashFileVers());
             log_s.append(",").append(obj.getDsHashFileVers()).append("]");
             int updates = pst.executeUpdate();
@@ -985,12 +981,12 @@ public class ParComponenteDAO extends ParComponente {
         } catch (Exception e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } 
+        }
     }
 
     public InputStream getBlobWhereByCodAllegato(String codAllegato, Connection con) throws SQLException {
         String query = "select BL_FILE_COMP from PAR_COMPONENTE  where CODALLEGATO = ?";
-        
+
         InputStream ret = null;
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
@@ -1011,7 +1007,7 @@ public class ParComponenteDAO extends ParComponente {
 
     public InputStream getBlobWhereByIdCompIdUD(Long idComp, Long idUd, Connection con) throws SQLException {
         String query = "select BL_FILE_COMP from PAR_COMPONENTE  where IDCOMPONENTE = ? and IDUNITADOC = ?";
-        
+
         InputStream ret = null;
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {

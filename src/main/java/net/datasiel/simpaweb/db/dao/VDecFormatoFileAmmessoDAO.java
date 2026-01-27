@@ -75,8 +75,7 @@ public class VDecFormatoFileAmmessoDAO extends VDecFormatoFileAmmesso {
     public int insertPrepared(VDecFormatoFileAmmesso obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into V_DEC_FORMATO_FILE_AMMESSO ( ID_FORMATO_FILE_AMMESSO,ID_TIPO_COMP_DOC,ID_FORMATO_FILE_DOC ) values (? ,? ,?   )";
-        
-        
+
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIdFormatoFileAmmesso() == null) {
                 pst.setNull(indice++, 3);
@@ -99,7 +98,7 @@ public class VDecFormatoFileAmmessoDAO extends VDecFormatoFileAmmesso {
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } 
+        }
     }
 
 }

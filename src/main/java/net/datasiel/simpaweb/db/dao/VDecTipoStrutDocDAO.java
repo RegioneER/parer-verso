@@ -75,8 +75,7 @@ public class VDecTipoStrutDocDAO extends VDecTipoStrutDoc {
     public int insertPrepared(VDecTipoStrutDoc obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into V_DEC_TIPO_STRUT_DOC ( ID_TIPO_STRUT_DOC,ID_STRUT,NM_TIPO_STRUT_DOC,DS_TIPO_STRUT_DOC,DT_ISTITUZ,DT_SOPPRES ) values (? ,? ,? ,? ,? ,?   )";
-        
-        
+
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIdTipoStrutDoc() == null) {
                 pst.setNull(indice++, 3);
@@ -106,6 +105,6 @@ public class VDecTipoStrutDocDAO extends VDecTipoStrutDoc {
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } 
+        }
     }
 }

@@ -76,8 +76,7 @@ public class VDecFormatoFileDocDAO extends VDecFormatoFileDoc {
     public int insertPrepared(VDecFormatoFileDoc obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into V_DEC_FORMATO_FILE_DOC ( ID_FORMATO_FILE_DOC,ID_STRUT,NM_FORMATO_FILE_DOC,DS_FORMATO_FILE_DOC,CD_VERSIONE,DT_ISTITUZ,DT_SOPPRES ) values (? ,? ,? ,? ,? ,? ,?   )";
-        
-        
+
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIdFormatoFileDoc() == null) {
                 pst.setNull(indice++, 3);
