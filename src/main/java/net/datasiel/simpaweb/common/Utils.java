@@ -57,7 +57,7 @@ public class Utils {
 
         ResultSet rs = null;
         try (PreparedStatement pst = con.prepareStatement(prepQuery.toString())) {
-            
+
             pst.setLong(1, idStrut);
             rs = pst.executeQuery();
             if (rs.next()) {

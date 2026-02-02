@@ -350,13 +350,13 @@ public abstract class BaseAction implements ActionBean {
                             SessionMessages.addErrorMessage("Si è verificato un errore durante l'apertura del file");
                             throw e;
                         }
-                    }  catch (Exception e) {
+                    } catch (Exception e) {
                         Throwable rootCause = ExceptionUtils.getRootCause(e);
                         log.error("Generic error {}", rootCause, e);
                         SessionMessages.addErrorMessage("Si è verificato un errore durante l'apertura del file");
                         throw e;
                     }
-                    
+
                 } else {
                     String err = "Errore nel recupero dell'allegato: più allegati con lo stesso codiceallegato";
                     log.error(err);

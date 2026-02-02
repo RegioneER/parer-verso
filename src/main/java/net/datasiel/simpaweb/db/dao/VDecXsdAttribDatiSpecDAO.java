@@ -80,8 +80,7 @@ public class VDecXsdAttribDatiSpecDAO extends VDecXsdAttribDatiSpec {
     public int insertPrepared(VDecXsdAttribDatiSpec obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into V_DEC_XSD_ATTRIB_DATI_SPEC ( ID_XSD_ATTRIB_DATI_SPEC,ID_XSD_DATI_SPEC,ID_ATTRIB_DATI_SPEC,NI_ORD_ATTRIB ) values (? ,? ,? ,?   )";
-        
-        
+
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIdXsdAttribDatiSpec() == null) {
                 pst.setNull(indice++, 3);
@@ -109,6 +108,6 @@ public class VDecXsdAttribDatiSpecDAO extends VDecXsdAttribDatiSpec {
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } 
+        }
     }
 }

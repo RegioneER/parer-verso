@@ -75,8 +75,7 @@ public class VDecTipoRapprCompDAO extends VDecTipoRapprComp {
     public int insertPrepared(VDecTipoRapprComp obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into V_DEC_TIPO_RAPPR_COMP ( ID_TIPO_RAPPR_COMP,ID_STRUT,NM_TIPO_RAPPR_COMP,DS_TIPO_RAPPR_COMP,DT_ISTITUZ,DT_SOPPRES ) values (? ,? ,? ,? ,? ,?   )";
-        
-        
+
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIdTipoRapprComp() == null) {
                 pst.setNull(indice++, 3);
@@ -106,6 +105,6 @@ public class VDecTipoRapprCompDAO extends VDecTipoRapprComp {
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } 
+        }
     }
 }

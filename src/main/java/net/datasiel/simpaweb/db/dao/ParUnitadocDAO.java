@@ -171,7 +171,7 @@ public class ParUnitadocDAO extends ParUnitadoc {
     public ParUnitadoc retrieveByKey(Long idunitadoc, Connection con) throws SQLException {
 
         String query = "select * from PAR_UNITADOC" + " where IDUNITADOC=?";
-        
+
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, idunitadoc);
@@ -271,7 +271,6 @@ public class ParUnitadocDAO extends ParUnitadoc {
                 + " ID_TIPO_UNITA_DOC= ?  ," + " ID_REGISTRO_UNITA_DOC= ?  ," + " STATO= ?," + " CD_VERSIONE_XSD=? "
                 + "where IDUNITADOC=? ";
 
-                
         try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
             int indice = 1;
             if (obj.getIdunitadoc() == null) {
@@ -279,7 +278,7 @@ public class ParUnitadocDAO extends ParUnitadoc {
             } else {
                 pst.setLong(indice++, obj.getIdunitadoc());
             }
-    
+
             pst.setString(indice++, obj.getNumero());
             pst.setString(indice++, obj.getVersione());
             if (obj.getAnno() == null) {
@@ -287,121 +286,121 @@ public class ParUnitadocDAO extends ParUnitadoc {
             } else {
                 pst.setLong(indice++, obj.getAnno());
             }
-    
+
             pst.setString(indice++, obj.getTipoconservazione());
             if (obj.getFlgstato() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getFlgstato());
             }
-    
+
             pst.setString(indice++, obj.getPgm());
             if (obj.getId() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getId());
             }
-    
+
             if (obj.getFlgforzaconservazione() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setBoolean(indice++, obj.getFlgforzaconservazione());
             }
-    
+
             if (obj.getFlgforzaaccettazione() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setBoolean(indice++, obj.getFlgforzaaccettazione());
             }
-    
+
             if (obj.getFlgforzacollegamento() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setBoolean(indice++, obj.getFlgforzacollegamento());
             }
-    
+
             pst.setString(indice++, obj.getOggetto());
             if (obj.getData() != null) {
                 pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getData()).getTime()));
             } else {
                 pst.setObject(indice++, null);
             }
-    
+
             if (obj.getFlgcartaceo() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getFlgcartaceo());
             }
-    
+
             /* La colonna CLOB viene valorizzata con la stringa di appoggio */
             if (obj.getStrappoxmlrichiesta() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setString(indice++, obj.getStrappoxmlrichiesta());
             }
-    
+
             /* La colonna CLOB viene valorizzata con la stringa di appoggio */
             if (obj.getStrappoxmlrisposta() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setString(indice++, obj.getStrappoxmlrisposta());
             }
-    
+
             if (obj.getDataversamento() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setTimestamp(indice++, obj.getDataversamento());
             }
-    
+
             if (obj.getEsitoversamento() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setString(indice++, obj.getEsitoversamento());
             }
-    
+
             if (obj.getFlgerrorerevisionato() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getFlgerrorerevisionato());
             }
-    
+
             /* La colonna CLOB viene valorizzata con la stringa di appoggio */
             if (obj.getStrapponote() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setString(indice++, obj.getStrapponote());
             }
-    
+
             if (obj.getIdutente() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdutente());
             }
-    
+
             if (obj.getIdStrut() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdStrut());
             }
-    
+
             if (obj.getIdTipoUnitaDoc() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdTipoUnitaDoc());
             }
-    
+
             if (obj.getIdRegistroUnitaDoc() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdRegistroUnitaDoc());
             }
-    
+
             if (obj.getStato() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getStato());
             }
-    
+
             pst.setString(indice++, obj.getCdVersioneXSD());
             pst.setLong(indice++, obj.getIdunitadoc());
             log.debug("{}", preparedQuery);
@@ -410,7 +409,7 @@ public class ParUnitadocDAO extends ParUnitadoc {
         } catch (SQLException e) {
             log.error("Failed query: {}", preparedQuery, e);
             throw e;
-        } 
+        }
     }
 
     /**
@@ -424,8 +423,6 @@ public class ParUnitadocDAO extends ParUnitadoc {
         String preparedQuery = "update PAR_UNITADOC set IDUNITADOC= ?  , NUMERO= ?  , VERSIONE= ?  , ANNO= ?  , TIPOCONSERVAZIONE= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?  , FLGFORZACONSERVAZIONE= ?  , FLGFORZAACCETTAZIONE= ?  , FLGFORZACOLLEGAMENTO= ?  , OGGETTO= ?  , DATA= ?  , FLGCARTACEO= ?  , XMLRICHIESTA= ?  , XMLRISPOSTA= ?  , DATAVERSAMENTO= ?  , ESITOVERSAMENTO= ?  , FLGERROREREVISIONATO= ?  , NOTE= ?  , IDUTENTE= ?  , ID_STRUT= ?  , ID_TIPO_UNITA_DOC= ?  , ID_REGISTRO_UNITA_DOC= ?  , STATO= ?, CD_VERSIONE_XSD=?   where "
                 + where;
 
-        
-                
         try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
             int indice = 1;
             if (obj.getIdunitadoc() == null) {
@@ -433,7 +430,7 @@ public class ParUnitadocDAO extends ParUnitadoc {
             } else {
                 pst.setLong(indice++, obj.getIdunitadoc());
             }
-    
+
             pst.setString(indice++, obj.getNumero());
             pst.setString(indice++, obj.getVersione());
             if (obj.getAnno() == null) {
@@ -441,121 +438,121 @@ public class ParUnitadocDAO extends ParUnitadoc {
             } else {
                 pst.setLong(indice++, obj.getAnno());
             }
-    
+
             pst.setString(indice++, obj.getTipoconservazione());
             if (obj.getFlgstato() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getFlgstato());
             }
-    
+
             pst.setString(indice++, obj.getPgm());
             if (obj.getId() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getId());
             }
-    
+
             if (obj.getFlgforzaconservazione() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setBoolean(indice++, obj.getFlgforzaconservazione());
             }
-    
+
             if (obj.getFlgforzaaccettazione() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setBoolean(indice++, obj.getFlgforzaaccettazione());
             }
-    
+
             if (obj.getFlgforzacollegamento() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setBoolean(indice++, obj.getFlgforzacollegamento());
             }
-    
+
             pst.setString(indice++, obj.getOggetto());
             if (obj.getData() != null) {
                 pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getData()).getTime()));
             } else {
                 pst.setObject(indice++, null);
             }
-    
+
             if (obj.getFlgcartaceo() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getFlgcartaceo());
             }
-    
+
             /* La colonna CLOB viene valorizzata con la stringa di appoggio */
             if (obj.getStrappoxmlrichiesta() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setString(indice++, obj.getStrappoxmlrichiesta());
             }
-    
+
             /* La colonna CLOB viene valorizzata con la stringa di appoggio */
             if (obj.getStrappoxmlrisposta() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setString(indice++, obj.getStrappoxmlrisposta());
             }
-    
+
             if (obj.getDataversamento() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setTimestamp(indice++, obj.getDataversamento());
             }
-    
+
             if (obj.getEsitoversamento() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setString(indice++, obj.getEsitoversamento());
             }
-    
+
             if (obj.getFlgerrorerevisionato() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getFlgerrorerevisionato());
             }
-    
+
             /* La colonna CLOB viene valorizzata con la stringa di appoggio */
             if (obj.getStrapponote() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setString(indice++, obj.getStrapponote());
             }
-    
+
             if (obj.getIdutente() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdutente());
             }
-    
+
             if (obj.getIdStrut() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdStrut());
             }
-    
+
             if (obj.getIdTipoUnitaDoc() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdTipoUnitaDoc());
             }
-    
+
             if (obj.getIdRegistroUnitaDoc() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdRegistroUnitaDoc());
             }
-    
+
             if (obj.getStato() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getStato());
             }
-    
+
             pst.setString(indice++, obj.getCdVersioneXSD());
             log.debug("{}", preparedQuery);
             int updates = pst.executeUpdate();
@@ -563,7 +560,7 @@ public class ParUnitadocDAO extends ParUnitadoc {
         } catch (SQLException e) {
             log.error("Failed query: {}", preparedQuery, e);
             throw e;
-        } 
+        }
     }
 
     /**
@@ -571,13 +568,13 @@ public class ParUnitadocDAO extends ParUnitadoc {
      */
     public int delete(ParUnitadoc obj, Connection con) throws SQLException {
         String query = "delete from PAR_UNITADOC where IDUNITADOC=?";
-        
+
         try (PreparedStatement st = con.prepareStatement(query)) {
             log.debug("{}", query);
             st.setLong(1, obj.getIdunitadoc());
             int updates = st.executeUpdate();
             return updates;
-        } 
+        }
     }
 
     /**
@@ -585,13 +582,13 @@ public class ParUnitadocDAO extends ParUnitadoc {
      */
     public int deleteByIdUd(Long idUd, Connection con) throws SQLException {
         String query = "delete from PAR_UNITADOC where IDUNITADOC = ?";
-        
+
         try (PreparedStatement st = con.prepareStatement(query)) {
             log.debug("{}", query);
             st.setLong(1, idUd);
             int updates = st.executeUpdate();
             return updates;
-        } 
+        }
     }
 
     /**
@@ -706,9 +703,9 @@ public class ParUnitadocDAO extends ParUnitadoc {
             throws SQLException {
 
         String query = "select * from PAR_UNITADOC" + " where IDUNITADOC=?" + " and IDUTENTE=?" + " and ID_STRUT=?";
-        
+
         ResultSet r = null;
-        try (PreparedStatement st = con.prepareStatement(query)){
+        try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, idunitadoc);
             st.setLong(2, idutente);
             st.setLong(3, idStrut);
@@ -736,8 +733,6 @@ public class ParUnitadocDAO extends ParUnitadoc {
                 + "DATAVERSAMENTO= ?  , ESITOVERSAMENTO= ?  , FLGERROREREVISIONATO= ?  , NOTE= ?  , IDUTENTE= ?  , ID_STRUT= ?  , ID_TIPO_UNITA_DOC= ?  , ID_REGISTRO_UNITA_DOC= ?  , "
                 + "STATO= ?, CD_VERSIONE_XSD=?  " + " where IDUNITADOC=?  and IDUTENTE=?  and ID_STRUT=? ";
 
-        
-                
         try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
             int indice = 1;
             if (obj.getIdunitadoc() == null) {
@@ -745,7 +740,7 @@ public class ParUnitadocDAO extends ParUnitadoc {
             } else {
                 pst.setLong(indice++, obj.getIdunitadoc());
             }
-    
+
             pst.setString(indice++, obj.getNumero());
             pst.setString(indice++, obj.getVersione());
             if (obj.getAnno() == null) {
@@ -753,122 +748,122 @@ public class ParUnitadocDAO extends ParUnitadoc {
             } else {
                 pst.setLong(indice++, obj.getAnno());
             }
-    
+
             pst.setString(indice++, obj.getTipoconservazione());
             if (obj.getFlgstato() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getFlgstato());
             }
-    
+
             pst.setString(indice++, obj.getPgm());
             if (obj.getId() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getId());
             }
-    
+
             if (obj.getFlgforzaconservazione() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setBoolean(indice++, obj.getFlgforzaconservazione());
             }
-    
+
             if (obj.getFlgforzaaccettazione() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setBoolean(indice++, obj.getFlgforzaaccettazione());
             }
-    
+
             if (obj.getFlgforzacollegamento() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setBoolean(indice++, obj.getFlgforzacollegamento());
             }
-    
+
             pst.setString(indice++, obj.getOggetto());
             if (obj.getData() != null) {
                 pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getData()).getTime()));
             } else {
                 pst.setObject(indice++, null);
             }
-    
+
             if (obj.getFlgcartaceo() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getFlgcartaceo());
             }
-    
+
             /* La colonna CLOB viene valorizzata con la stringa di appoggio */
             if (obj.getStrappoxmlrichiesta() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setString(indice++, obj.getStrappoxmlrichiesta());
             }
-    
+
             /* La colonna CLOB viene valorizzata con la stringa di appoggio */
             if (obj.getStrappoxmlrisposta() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setString(indice++, obj.getStrappoxmlrisposta());
             }
-    
+
             if (obj.getDataversamento() == null) {
                 pst.setNull(indice++, Types.TIMESTAMP);
             } else {
                 pst.setTimestamp(indice++, obj.getDataversamento());
             }
-    
+
             if (obj.getEsitoversamento() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setString(indice++, obj.getEsitoversamento());
             }
-    
+
             if (obj.getFlgerrorerevisionato() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getFlgerrorerevisionato());
             }
-    
+
             /* La colonna CLOB viene valorizzata con la stringa di appoggio */
             if (obj.getStrapponote() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setString(indice++, obj.getStrapponote());
             }
-    
+
             if (obj.getIdutente() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdutente());
             }
-    
+
             if (obj.getIdStrut() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdStrut());
             }
-    
+
             if (obj.getIdTipoUnitaDoc() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdTipoUnitaDoc());
             }
-    
+
             if (obj.getIdRegistroUnitaDoc() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdRegistroUnitaDoc());
             }
-    
+
             if (obj.getStato() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getStato());
             }
             pst.setString(indice++, obj.getCdVersioneXSD());
-    
+
             pst.setLong(indice++, obj.getIdunitadoc());
             pst.setLong(indice++, obj.getIdutente());
             pst.setLong(indice++, obj.getIdStrut());
@@ -886,7 +881,7 @@ public class ParUnitadocDAO extends ParUnitadoc {
      */
     public int deleteByIndex(ParUnitadoc obj, Connection con) throws SQLException {
         String query = "delete from PAR_UNITADOC where IDUNITADOC=? and IDUTENTE=? and ID_STRUT= ? ";
-        
+
         try (PreparedStatement st = con.prepareStatement(query)) {
             log.debug(query);
             st.setLong(1, obj.getIdunitadoc());
@@ -910,8 +905,7 @@ public class ParUnitadocDAO extends ParUnitadoc {
                 + "STATO) values (? ," + "? ," + "? ," + "? ," + "? ," + "? ," + " current_timestamp ,"
                 + " current_timestamp ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ,"
                 + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? )";
-        
-                
+
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIdunitadoc() == null) {
                 pst.setNull(indice++, 3);
@@ -1027,6 +1021,6 @@ public class ParUnitadocDAO extends ParUnitadoc {
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } 
+        }
     }
 }

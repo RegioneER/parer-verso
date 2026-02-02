@@ -70,8 +70,7 @@ public class VDecFormatoFileStandardDAO extends VDecFormatoFileStandard {
     public int insertPrepared(VDecFormatoFileStandard obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into V_DEC_FORMATO_FILE_STANDARD ( ID_FORMATO_FILE_STANDARD,NM_FORMATO_FILE_STANDARD,DS_FORMATO_FILE_STANDARD,CD_VERSIONE,DS_COPYRIGHT,NM_MIMETYPE_FILE,TI_ESITO_CONTR_FORMATO,FL_FORMATO_CONCAT ) values (? ,? ,? ,? ,? ,? ,? ,?   )";
-        
-        
+
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIdFormatoFileStandard() == null) {
                 pst.setNull(indice++, 3);
@@ -91,6 +90,6 @@ public class VDecFormatoFileStandardDAO extends VDecFormatoFileStandard {
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } 
+        }
     }
 }

@@ -92,8 +92,7 @@ public class VDecAttribDatiSpecDAO extends VDecAttribDatiSpec {
     public int insertPrepared(VDecAttribDatiSpec obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into V_DEC_ATTRIB_DATI_SPEC ( ID_ATTRIB_DATI_SPEC,ID_STRUT,TI_USO_ATTRIB,TI_ENTITA_SACER,ID_TIPO_UNITA_DOC,ID_TIPO_DOC,ID_TIPO_COMP_DOC,NM_SISTEMA_MIGRAZ,NM_ATTRIB_DATI_SPEC,DS_ATTRIB_DATI_SPEC,DT_ISTITUZ,DT_SOPPRES ) values (? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,?   )";
-        
-        
+
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIdAttribDatiSpec() == null) {
                 pst.setNull(indice++, 3);
@@ -141,6 +140,6 @@ public class VDecAttribDatiSpecDAO extends VDecAttribDatiSpec {
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } 
+        }
     }
 }

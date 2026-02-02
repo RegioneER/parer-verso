@@ -101,7 +101,7 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
     public ParValoredatispecifici retrieveByKey(Long idvaloredatispecifici, Connection con) throws SQLException {
 
         String query = "select * from PAR_VALOREDATISPECIFICI" + " where IDVALOREDATISPECIFICI=?";
-        
+
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, idvaloredatispecifici);
@@ -195,8 +195,6 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
         String preparedQuery = "update PAR_VALOREDATISPECIFICI set IDVALOREDATISPECIFICI= ?  , IDDATISPECIFICI= ?  , VALORE= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?  , ID_STRUT= ?  , "
                 + "ID_ATTRIB_DATI_SPEC= ?, ,CD_VERSIONE_XSD=? " + " where IDVALOREDATISPECIFICI=?";
 
-        
-                
         try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
             int indice = 1;
             if (obj.getIdvaloredatispecifici() == null) {
@@ -204,40 +202,40 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
             } else {
                 pst.setLong(indice++, obj.getIdvaloredatispecifici());
             }
-    
+
             if (obj.getIddatispecifici() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIddatispecifici());
             }
-    
+
             pst.setString(indice++, obj.getValore());
             if (obj.getFlgstato() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getFlgstato());
             }
-    
+
             pst.setString(indice++, obj.getPgm());
             if (obj.getId() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getId());
             }
-    
+
             if (obj.getIdStrut() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdStrut());
             }
-    
+
             if (obj.getIdAttribDatiSpec() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdAttribDatiSpec());
             }
             pst.setString(indice, obj.getCdVersioneXSD());
-    
+
             pst.setLong(indice++, obj.getIdvaloredatispecifici());
             log.info("{}", preparedQuery);
             int updates = pst.executeUpdate();
@@ -368,7 +366,7 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
         ParValoredatispecifici curRow;
 
         String query = "select * from PAR_VALOREDATISPECIFICI where IDDATISPECIFICI=?";
-        
+
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             log.debug("{}", query);
@@ -430,8 +428,8 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
 
         String query = "select * from PAR_VALOREDATISPECIFICI" + " where IDVALOREDATISPECIFICI=?"
                 + " and IDDATISPECIFICI=?";
-        
-                ResultSet r = null;
+
+        ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, idvaloredatispecifici);
             st.setLong(2, iddatispecifici);
@@ -539,7 +537,7 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
     public int insertPrepared(ParValoredatispecifici obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into PAR_VALOREDATISPECIFICI ( IDVALOREDATISPECIFICI,IDDATISPECIFICI,VALORE,FLGSTATO,DTINS,DTAGG,PGM,ID,ID_STRUT,ID_ATTRIB_DATI_SPEC,CD_VERSIONE_XSD ) values (? ,? ,? ,? , current_timestamp , current_timestamp ,? ,? ,? ,?,?   )";
-        
+
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIdvaloredatispecifici() == null) {
                 pst.setNull(indice++, 3);
@@ -584,6 +582,6 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery);
             throw e;
-        } 
+        }
     }
 }

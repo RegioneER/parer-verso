@@ -92,7 +92,7 @@ public class ParFascicoloDAO extends ParFascicolo {
     public ParFascicolo retrieveByKey(Long idunitadoc, Long idfascicolo, Connection con) throws SQLException {
 
         String query = "select * from PAR_FASCICOLO" + " where IDUNITADOC=?" + " and IDFASCICOLO=?";
-        
+
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, idunitadoc);
@@ -212,7 +212,6 @@ public class ParFascicoloDAO extends ParFascicolo {
                 + "FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?  "
                 + " where IDUNITADOC=? and IDFASCICOLO=?";
 
-                
         try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
             int indice = 1;
             if (obj.getIdfascicolo() == null) {
@@ -220,13 +219,13 @@ public class ParFascicoloDAO extends ParFascicolo {
             } else {
                 pst.setLong(indice++, obj.getIdfascicolo());
             }
-    
+
             if (obj.getIdunitadoc() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdunitadoc());
             }
-    
+
             pst.setString(indice++, obj.getCodtipofascicolo());
             pst.setString(indice++, obj.getIdentificativo());
             pst.setString(indice++, obj.getOggetto());
@@ -238,14 +237,14 @@ public class ParFascicoloDAO extends ParFascicolo {
             } else {
                 pst.setLong(indice++, obj.getFlgstato());
             }
-    
+
             pst.setString(indice++, obj.getPgm());
             if (obj.getId() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getId());
             }
-    
+
             pst.setLong(indice++, obj.getIdunitadoc());
             pst.setLong(indice++, obj.getIdfascicolo());
             log.debug("{}", preparedQuery);
@@ -268,7 +267,6 @@ public class ParFascicoloDAO extends ParFascicolo {
         String preparedQuery = "update PAR_FASCICOLO set IDFASCICOLO= ?  , IDUNITADOC= ?  , CODTIPOFASCICOLO= ?  , IDENTIFICATIVO= ?  , OGGETTO= ?  , IDSOTTOFASCICOLO= ?  , OGGETTOSOTTOFASCICOLO= ?  , CLASSIFICA= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?   where "
                 + where;
 
-                
         try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
             int indice = 1;
             if (obj.getIdfascicolo() == null) {
@@ -276,13 +274,13 @@ public class ParFascicoloDAO extends ParFascicolo {
             } else {
                 pst.setLong(indice++, obj.getIdfascicolo());
             }
-    
+
             if (obj.getIdunitadoc() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdunitadoc());
             }
-    
+
             pst.setString(indice++, obj.getCodtipofascicolo());
             pst.setString(indice++, obj.getIdentificativo());
             pst.setString(indice++, obj.getOggetto());
@@ -294,7 +292,7 @@ public class ParFascicoloDAO extends ParFascicolo {
             } else {
                 pst.setLong(indice++, obj.getFlgstato());
             }
-    
+
             pst.setString(indice++, obj.getPgm());
             if (obj.getId() == null) {
                 pst.setNull(indice++, 3);
@@ -307,7 +305,7 @@ public class ParFascicoloDAO extends ParFascicolo {
         } catch (SQLException e) {
             log.error("Failed query:" + preparedQuery);
             throw e;
-        } 
+        }
     }
 
     /**
@@ -315,14 +313,14 @@ public class ParFascicoloDAO extends ParFascicolo {
      */
     public int delete(ParFascicolo obj, Connection con) throws SQLException {
         String query = "delete from PAR_FASCICOLO where IDUNITADOC=? and IDFASCICOLO=?";
-        
+
         try (PreparedStatement st = con.prepareStatement(query)) {
             log.debug("{}", query);
             st.setLong(1, obj.getIdunitadoc());
             st.setLong(2, obj.getIdfascicolo());
             int updates = st.executeUpdate();
             return updates;
-        } 
+        }
     }
 
     /**
@@ -330,7 +328,7 @@ public class ParFascicoloDAO extends ParFascicolo {
      */
     public int deleteByIdUd(Long idUd, Connection con) throws SQLException {
         String query = "delete from PAR_FASCICOLO where IDUNITADOC = ?";
-        
+
         try (PreparedStatement st = con.prepareStatement(query)) {
             log.debug("{}", query);
             st.setLong(1, idUd);
@@ -358,7 +356,7 @@ public class ParFascicoloDAO extends ParFascicolo {
         ParFascicolo curRow;
 
         String query = "select * from PAR_FASCICOLO" + " where IDUNITADOC=?";
-        
+
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             log.debug("{}", query);
@@ -420,7 +418,7 @@ public class ParFascicoloDAO extends ParFascicolo {
         // String query = "select * from PAR_FASCICOLO"+" where IDFASCICOLO="+idfascicolo+" and IDUNITADOC="+idunitadoc;
         String query = "select * from PAR_FASCICOLO" + " where IDFASCICOLO=?" + " and IDUNITADOC=?";
         // java.sql.Statement st = con.createStatement();
-        
+
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, idfascicolo);
@@ -449,7 +447,6 @@ public class ParFascicoloDAO extends ParFascicolo {
                 + "CLASSIFICA= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?  "
                 + " where IDFASCICOLO=?  and IDUNITADOC=?";
 
-                
         try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
             int indice = 1;
             if (obj.getIdfascicolo() == null) {
@@ -457,13 +454,13 @@ public class ParFascicoloDAO extends ParFascicolo {
             } else {
                 pst.setLong(indice++, obj.getIdfascicolo());
             }
-    
+
             if (obj.getIdunitadoc() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getIdunitadoc());
             }
-    
+
             pst.setString(indice++, obj.getCodtipofascicolo());
             pst.setString(indice++, obj.getIdentificativo());
             pst.setString(indice++, obj.getOggetto());
@@ -475,14 +472,14 @@ public class ParFascicoloDAO extends ParFascicolo {
             } else {
                 pst.setLong(indice++, obj.getFlgstato());
             }
-    
+
             pst.setString(indice++, obj.getPgm());
             if (obj.getId() == null) {
                 pst.setNull(indice++, 3);
             } else {
                 pst.setLong(indice++, obj.getId());
             }
-    
+
             pst.setLong(indice++, obj.getIdfascicolo());
             pst.setLong(indice++, obj.getIdunitadoc());
             log.debug("{}", preparedQuery);
@@ -491,7 +488,7 @@ public class ParFascicoloDAO extends ParFascicolo {
         } catch (SQLException e) {
             log.error("Failed query: {}", preparedQuery, e);
             throw e;
-        } 
+        }
     }
 
     /**
@@ -499,14 +496,14 @@ public class ParFascicoloDAO extends ParFascicolo {
      */
     public int deleteByIndex(ParFascicolo obj, Connection con) throws SQLException {
         String query = "delete from PAR_FASCICOLO where IDFASCICOLO=? and IDUNITADOC=? ";
-        
+
         try (PreparedStatement st = con.prepareStatement(query)) {
             log.debug("{}", query);
             st.setLong(1, obj.getIdfascicolo());
             st.setLong(2, obj.getIdunitadoc());
             int updates = st.executeUpdate();
             return updates;
-        } 
+        }
     }
 
     /**
@@ -515,8 +512,7 @@ public class ParFascicoloDAO extends ParFascicolo {
     public int insertPrepared(ParFascicolo obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into PAR_FASCICOLO ( IDFASCICOLO,IDUNITADOC,CODTIPOFASCICOLO,IDENTIFICATIVO,OGGETTO,IDSOTTOFASCICOLO,OGGETTOSOTTOFASCICOLO,CLASSIFICA,FLGSTATO,DTINS,DTAGG,PGM,ID ) values (? ,? ,? ,? ,? ,? ,? ,? ,? , current_timestamp , current_timestamp ,? ,?   )";
-        
-        
+
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIdfascicolo() == null) {
                 pst.setNull(indice++, 3);
@@ -551,6 +547,6 @@ public class ParFascicoloDAO extends ParFascicolo {
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } 
+        }
     }
 }

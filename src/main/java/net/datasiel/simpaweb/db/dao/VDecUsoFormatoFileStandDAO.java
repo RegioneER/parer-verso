@@ -81,8 +81,7 @@ public class VDecUsoFormatoFileStandDAO extends VDecUsoFormatoFileStand {
     public int insertPrepared(VDecUsoFormatoFileStand obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into V_DEC_USO_FORMATO_FILE_STAND ( ID_USO_FORMATO_FILE_AMMESSO,ID_FORMATO_FILE_DOC,NI_ORD_USO,ID_FORMATO_FILE_STANDARD ) values (? ,? ,? ,?   )";
-        
-        
+
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIdUsoFormatoFileAmmesso() == null) {
                 pst.setNull(indice++, 3);

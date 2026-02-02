@@ -81,8 +81,7 @@ public class VDecTipoUnitaDocDAO extends VDecTipoUnitaDoc {
                 + "NM_TIPO_UNITA_DOC, " + "DS_TIPO_UNITA_DOC, " + "CD_SERIE, " + "FL_FORZA_COLLEGAMENTO, "
                 + "TI_CALC_ORD, " + "DT_ISTITUZ,DT_SOPPRES, " + "ID_USER_IAM"
                 + ") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
-                
+
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIdTipoUnitaDoc() == null) {
                 pst.setNull(indice++, 3);
@@ -116,6 +115,6 @@ public class VDecTipoUnitaDocDAO extends VDecTipoUnitaDoc {
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } 
+        }
     }
 }

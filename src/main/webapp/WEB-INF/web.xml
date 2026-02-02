@@ -55,6 +55,7 @@
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>ERROR</dispatcher> 
     </filter-mapping>
     <filter>
         <filter-name>DynamicMappingFilter</filter-name>
@@ -99,4 +100,10 @@
         <error-code>403</error-code>
         <location>/pages/NotAuthorized.jsp</location>
     </error-page>
+ 	<error-page>
+        <error-code>500</error-code>
+        <location>/pages/error.jsp</location>
+    </error-page>
+
+  
 </web-app>

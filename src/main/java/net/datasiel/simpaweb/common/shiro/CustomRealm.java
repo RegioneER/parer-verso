@@ -81,7 +81,6 @@ public class CustomRealm {
         query.append("order by upper(NM_AMBIENTE), upper(NM_ENTE), upper(NM_STRUT)");
         log.info("username = " + strCodFiscale);
 
-        
         ResultSet r = null;
         try (PreparedStatement pst = con.prepareStatement(query.toString())) {
             pst.setString(1, strCodFiscale.toUpperCase());

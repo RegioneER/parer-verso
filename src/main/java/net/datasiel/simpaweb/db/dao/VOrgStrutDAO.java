@@ -114,8 +114,7 @@ public class VOrgStrutDAO extends VOrgStrut {
     public int insertPrepared(VOrgStrut obj, Connection con) throws SQLException {
         int indice = 1;
         String prepQuery = "insert into V_ORG_STRUT ( ID_STRUT,ID_ENTE,NM_STRUT,DS_STRUT,TI_SCAD_CHIUS_VOLUME,TI_TEMPO_SCAD_CHIUS,NI_TEMPO_SCAD_CHIUS,TI_TEMPO_SCAD_CHIUS_FIRME,NI_TEMPO_SCAD_CHIUS_FIRME,FL_ABILITA_CONTR_CRITTOG_VERS,FL_ABILITA_CONTR_TRUST_VERS,FL_ABILITA_CONTR_CERTIF_VERS,FL_ABILITA_CONTR_CRL_VERS,FL_ACCETTA_FIRMA_NOCONOS,FL_ACCETTA_FIRMA_NOCONF,FL_ACCETTA_FIRMA_GIUGNO_2011,FL_ACCETTA_CONTR_CRITTOG_NEG,FL_ACCETTA_CONTR_TRUST_NEG,FL_ACCETTA_CONTR_CERTIF_SCAD,FL_ACCETTA_CONTR_CERTIF_NOVAL,FL_ACCETTA_CONTR_CERTIF_NOCERT,FL_ACCETTA_CONTR_CRL_NEG,FL_ACCETTA_CONTR_CRL_SCAD,FL_ACCETTA_CONTR_CRL_NOVAL,FL_ACCETTA_CONTR_CRL_NOSCAR,FL_ABILITA_SERV_MODIFICA,FL_ABILITA_SERV_INTEGR,FL_ABILITA_VERS_COMP_META,FL_ABILITA_CONTR_FMT,FL_ACCETTA_MARCA_NOCONOS,FL_ACCETTA_CONTR_FMT_NEG ) values (? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,?   )";
-        
-        
+
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIdStrut() == null) {
                 pst.setNull(indice++, 3);
@@ -170,7 +169,7 @@ public class VOrgStrutDAO extends VOrgStrut {
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } 
+        }
     }
 
 }

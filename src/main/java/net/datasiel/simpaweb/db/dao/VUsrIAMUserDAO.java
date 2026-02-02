@@ -59,7 +59,7 @@ public class VUsrIAMUserDAO extends VUsrVRicUser {
 
         String sQuery = "SELECT DISTINCT CD_PWD, CD_SALT " + "FROM V_USR_IAM " + "WHERE NM_USERID=? "
                 + "AND FL_ATTIVO='1'";
-        
+
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(sQuery)) {
             st.setString(1, nmUserId);

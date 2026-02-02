@@ -57,8 +57,7 @@ public class SLLogLoginUserDAO extends SLLogLoginUser {
         String prepQuery = "Insert into sacer_log.LOG_LOGIN_USER (" + "ID_LOGIN_USER,ID_APPLIC,NM_USERID,"
                 + "CD_IND_IP_CLIENT,CD_IND_SERVER,DT_EVENTO,TIPO_EVENTO, CD_ID_ESTERNO, TIPO_UTENTE_AUTH)"
                 + "values (?,?,?,?,?,sysdate,?,?,?)";
-        
-                
+
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             // campo obbligatorio, inutile gestire il caso in cui questo valore è null
             pst.setLong(indice++, obj.getIdLoginUser());
@@ -76,7 +75,7 @@ public class SLLogLoginUserDAO extends SLLogLoginUser {
         } catch (SQLException e) {
             log.error("Failed query: {}", prepQuery, e);
             throw e;
-        } 
+        }
     }
 
 }
