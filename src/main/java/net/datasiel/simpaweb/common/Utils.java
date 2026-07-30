@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.common;
@@ -51,7 +47,8 @@ public class Utils {
         String label = "";
         StringBuffer prepQuery = new StringBuffer();
 
-        prepQuery.append("select distinct e.NM_AMBIENTE || ' - ' || e.NM_ENTE || ' - ' || e.NM_STRUT label ");
+        prepQuery.append(
+                "select distinct e.NM_AMBIENTE || ' - ' || e.NM_ENTE || ' - ' || e.NM_STRUT label ");
         prepQuery.append(" from V_USR_IAM e ");
         prepQuery.append(" where e.ID_STRUT = ? ");
 
@@ -72,9 +69,8 @@ public class Utils {
     }
 
     /**
-     * @param docEsito
-     *            (xml di cui effettuare il parsing) verifica ("true" se si tratta di una verifica, false se si tratta
-     *            di un versamento) log
+     * @param docEsito (xml di cui effettuare il parsing) verifica ("true" se si tratta di una
+     *                 verifica, false se si tratta di un versamento) log
      */
     public static EnumStatoUD getNuovoStato(Document docEsito, boolean verifica, Logger log) {
 
@@ -82,8 +78,8 @@ public class Utils {
         EnumStatoUD codice = null;
         String messaggio = "";
 
-        XPathExpression<org.jdom2.Element> xpathEsito = XPathFactory.instance().compile(PATH_NODO_ESITO,
-                Filters.element());
+        XPathExpression<org.jdom2.Element> xpathEsito = XPathFactory.instance()
+                .compile(PATH_NODO_ESITO, Filters.element());
         org.jdom2.Element emtEsito = xpathEsito.evaluateFirst(docEsito);
         if (emtEsito != null) {
             org.jdom2.Element codiceEl = emtEsito.getChild(NODO_CODICE_ESITO);
@@ -134,14 +130,13 @@ public class Utils {
     }
 
     /**
-     * Effettua il parsing del Document contenente l'xml di risposta da cui estrarre le info da restituire sotto forma
-     * di un oggetto di tipo InfoEsito contenente - l'esito (POSITIVO, NEGATIVO o WARNING) - il codice rappresentante lo
-     * stato successivo all'operazione svolta (VERIFICATAKO, VERIFICATAOK o VERSATA) - un messaggio (rappresentato da
-     * una stringa)
+     * Effettua il parsing del Document contenente l'xml di risposta da cui estrarre le info da
+     * restituire sotto forma di un oggetto di tipo InfoEsito contenente - l'esito (POSITIVO,
+     * NEGATIVO o WARNING) - il codice rappresentante lo stato successivo all'operazione svolta
+     * (VERIFICATAKO, VERIFICATAOK o VERSATA) - un messaggio (rappresentato da una stringa)
      *
-     * @param docEsito
-     *            (xml di cui effettuare il parsing) verifica ("true" se si tratta di una verifica, "false" se si tratta
-     *            di un versamento)
+     * @param docEsito (xml di cui effettuare il parsing) verifica ("true" se si tratta di una
+     *                 verifica, "false" se si tratta di un versamento)
      *
      * @return infoEsito
      */
@@ -153,8 +148,8 @@ public class Utils {
         EnumStatoUD codice = null;
         String messaggio = "";
         String errorCode = "";
-        XPathExpression<org.jdom2.Element> xpathEsito = XPathFactory.instance().compile(PATH_NODO_ESITO,
-                Filters.element());
+        XPathExpression<org.jdom2.Element> xpathEsito = XPathFactory.instance()
+                .compile(PATH_NODO_ESITO, Filters.element());
         org.jdom2.Element emtEsito = xpathEsito.evaluateFirst(docEsito);
         log.info("Esito :" + emtEsito);
         if (emtEsito != null) {
@@ -204,8 +199,8 @@ public class Utils {
 
         }
         /*
-         * <ErroriUlteriori> <Errore> <CodiceErrore>string</CodiceErrore> <MessaggioErrore>string</MessaggioErrore>
-         * </Errore> </ErroriUlteriori>
+         * <ErroriUlteriori> <Errore> <CodiceErrore>string</CodiceErrore>
+         * <MessaggioErrore>string</MessaggioErrore> </Errore> </ErroriUlteriori>
          */
 
         XPathExpression<org.jdom2.Element> xpathErrorUlteriori = XPathFactory.instance()
@@ -234,7 +229,8 @@ public class Utils {
         return infoEsito;
     }
 
-    public static void VisualizzaMessaggioEsito(ECEsitoExtType esito, String messaggio, EnumOperazione operazione) {
+    public static void VisualizzaMessaggioEsito(ECEsitoExtType esito, String messaggio,
+            EnumOperazione operazione) {
         String opVal = "Esito " + StringUtils.capitalize(operazione.name());
 
         switch (esito) {

@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.parer.simparer.common;
@@ -45,9 +41,9 @@ public class Utils {
         String decrypted = Utils.decrypt(key, encrypted);
         System.out.println("'password' encrypted : " + encrypted + " decrypted : " + decrypted);
         /*
-         * String passphrase = "The quick brown fox jumped over the lazy brown dog"; String plaintext = "hello world";
-         * byte [] ciphertext = encrypt(passphrase, plaintext); String recoveredPlaintext = decrypt(passphrase,
-         * ciphertext);
+         * String passphrase = "The quick brown fox jumped over the lazy brown dog"; String
+         * plaintext = "hello world"; byte [] ciphertext = encrypt(passphrase, plaintext); String
+         * recoveredPlaintext = decrypt(passphrase, ciphertext);
          *
          * System.out.println(recoveredPlaintext);
          */
@@ -70,8 +66,10 @@ public class Utils {
     }
 
     private static SecretKey generateKey(String passphrase) throws Exception {
-        PBEKeySpec keySpec = new PBEKeySpec(passphrase.toCharArray(), salt.getBytes("UTF-8"), iterations, keyLength);
-        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("PBEWITHSHA256AND128BITAES-CBC-BC");
+        PBEKeySpec keySpec = new PBEKeySpec(passphrase.toCharArray(), salt.getBytes("UTF-8"),
+                iterations, keyLength);
+        SecretKeyFactory keyFactory = SecretKeyFactory
+                .getInstance("PBEWITHSHA256AND128BITAES-CBC-BC");
         return keyFactory.generateSecret(keySpec);
     }
 
@@ -118,7 +116,8 @@ public class Utils {
         int len = s.length();
         byte[] data = new byte[len / 2];
         for (int i = 0; i < len; i += 2) {
-            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4) + Character.digit(s.charAt(i + 1), 16));
+            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
+                    + Character.digit(s.charAt(i + 1), 16));
         }
         return data;
     }

@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.webapp.crud;
@@ -35,7 +31,8 @@ public class RigaUI implements Element {
     // ****************************************************
 
     /**
-     * Immaginamo che siano sufficienti per gestire una riga considerando che gestiremo la chiave per via posizionale.
+     * Immaginamo che siano sufficienti per gestire una riga considerando che gestiremo la chiave
+     * per via posizionale.
      */
     Element elRiga;
     TableForm eltafoDettaglio1;
@@ -44,7 +41,8 @@ public class RigaUI implements Element {
     public void readFromObject(Object obj) {
         RigaModel rigaModel = (RigaModel) obj;
         if (obj != null && elRiga == null) {
-            throw new IllegalStateException("Ti sei dimenticato di implementare prepareElRiga di AbstractCrudAction?");
+            throw new IllegalStateException(
+                    "Ti sei dimenticato di implementare prepareElRiga di AbstractCrudAction?");
         }
         //
         Assert.notNull(rigaModel, "RigaModel cannot be null!");
@@ -75,8 +73,9 @@ public class RigaUI implements Element {
     public void readFromRequest(HttpServletRequest req) {
         elRiga.readFromRequest(req);
         /**
-         * Blindatura più leggera rispetta a readFromObject perchè la AbstractCrudAction farà sempre prima la
-         * readFromObject individuando subito i problemi dati da non implementazione dei metodi.
+         * Blindatura più leggera rispetta a readFromObject perchè la AbstractCrudAction farà sempre
+         * prima la readFromObject individuando subito i problemi dati da non implementazione dei
+         * metodi.
          */
         if (eltafoDettaglio1 != null) {
             eltafoDettaglio1.readFromRequest(req);
@@ -116,7 +115,8 @@ public class RigaUI implements Element {
 
     }
 
-    public void toXhtml(XhtmlBuffer xb, int index, boolean readOnly, boolean deletable, String titoloRiga) {
+    public void toXhtml(XhtmlBuffer xb, int index, boolean readOnly, boolean deletable,
+            String titoloRiga) {
         elRiga.toXhtml(xb);
         if (!readOnly && deletable) {
             xb.openElement("input");

@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 /**
@@ -40,8 +36,9 @@ public class DocumentiRigaModel implements RigaModel {
     private final List<DatoSpecifico> listaDatiSpecifici;
     private boolean isPrincipale = false;
 
-    public DocumentiRigaModel(ParDocumento riga, List<ParComponente> fileAllegati, List<String> codiciAllegati,
-            List<DatoSpecifico> listaDatiSpecifici, boolean isPrincipale) {
+    public DocumentiRigaModel(ParDocumento riga, List<ParComponente> fileAllegati,
+            List<String> codiciAllegati, List<DatoSpecifico> listaDatiSpecifici,
+            boolean isPrincipale) {
         super();
         this.riga = riga;
         this.fileAllegati = fileAllegati;
@@ -65,7 +62,8 @@ public class DocumentiRigaModel implements RigaModel {
      *
      * @see net.datasiel.webapp.crud.RigaModel#getDettagli1()
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({
+            "rawtypes", "unchecked" })
     @Override
     public List getDettagli1() {
         return fileAllegati;
@@ -76,7 +74,8 @@ public class DocumentiRigaModel implements RigaModel {
      *
      * @see net.datasiel.webapp.crud.RigaModel#getDettagli2()
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({
+            "rawtypes", "unchecked" })
     @Override
     public List getDettagli2() {
         // Non ci sono dettagli 2

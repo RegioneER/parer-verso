@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.webapp.elements.search;
@@ -89,10 +85,8 @@ public class SearchCriteriaOracleImpl implements Criteria {
     }
 
     /**
-     * @param tablePrefix
-     *            prefisso assegnato alla tavola nella clausola form
-     * @param caseSensitive
-     *            true se la query deve essere case sensitive
+     * @param tablePrefix   prefisso assegnato alla tavola nella clausola form
+     * @param caseSensitive true se la query deve essere case sensitive
      */
     public SearchCriteriaOracleImpl(String tablePrefix, Boolean caseSensitive) {
         if (tablePrefix.endsWith(".")) {
@@ -104,12 +98,13 @@ public class SearchCriteriaOracleImpl implements Criteria {
     }
 
     public Criteria between(PropertyAccessor accessor, Object min, Object max) {
-        appendCondition(String.format(" %s%s  between ? and ? ", tablePrefix, getColumnName(accessor)));
+        appendCondition(
+                String.format(" %s%s  between ? and ? ", tablePrefix, getColumnName(accessor)));
         lstParametri.add(min);
         lstParametri.add(max);
 
-        appendConditionValorizzata(String.format(" %s%s  between %s and %s ", tablePrefix, getColumnName(accessor),
-                formatObject(min), formatObject(max)));
+        appendConditionValorizzata(String.format(" %s%s  between %s and %s ", tablePrefix,
+                getColumnName(accessor), formatObject(min), formatObject(max)));
 
         return this;
     }
@@ -118,8 +113,8 @@ public class SearchCriteriaOracleImpl implements Criteria {
         appendCondition(String.format(" %s%s = ? ", tablePrefix, getColumnName(accessor)));
         lstParametri.add(value);
 
-        appendConditionValorizzata(
-                String.format(" %s%s = %s ", tablePrefix, getColumnName(accessor), formatObject(value)));
+        appendConditionValorizzata(String.format(" %s%s = %s ", tablePrefix,
+                getColumnName(accessor), formatObject(value)));
 
         return this;
     }
@@ -128,8 +123,8 @@ public class SearchCriteriaOracleImpl implements Criteria {
         appendCondition(String.format(" %s%s  >= ? ", tablePrefix, getColumnName(accessor)));
         lstParametri.add(value);
 
-        appendConditionValorizzata(
-                String.format(" %s%s >= %s ", tablePrefix, getColumnName(accessor), formatObject(value)));
+        appendConditionValorizzata(String.format(" %s%s >= %s ", tablePrefix,
+                getColumnName(accessor), formatObject(value)));
 
         return this;
     }
@@ -166,14 +161,15 @@ public class SearchCriteriaOracleImpl implements Criteria {
         lstParametri.add(pattern);
 
         if (isCaseSensitive()) {
-            appendCondition(String.format(" %s%s %s ? ", tablePrefix, getColumnName(accessor), strOperatore));
-            appendConditionValorizzata(String.format(" %s%s %s %s ", tablePrefix, getColumnName(accessor), strOperatore,
-                    formatObject(value)));
+            appendCondition(String.format(" %s%s %s ? ", tablePrefix, getColumnName(accessor),
+                    strOperatore));
+            appendConditionValorizzata(String.format(" %s%s %s %s ", tablePrefix,
+                    getColumnName(accessor), strOperatore, formatObject(value)));
         } else {
-            appendCondition(
-                    String.format(" lower(%s%s) %s lower(?) ", tablePrefix, getColumnName(accessor), strOperatore));
-            appendConditionValorizzata(String.format(" lower(%s%s) %s lower(%s) ", tablePrefix, getColumnName(accessor),
-                    strOperatore, formatObject(value)));
+            appendCondition(String.format(" lower(%s%s) %s lower(?) ", tablePrefix,
+                    getColumnName(accessor), strOperatore));
+            appendConditionValorizzata(String.format(" lower(%s%s) %s lower(%s) ", tablePrefix,
+                    getColumnName(accessor), strOperatore, formatObject(value)));
         }
 
         return this;
@@ -181,21 +177,23 @@ public class SearchCriteriaOracleImpl implements Criteria {
 
     public Criteria isNotNull(PropertyAccessor accessor) {
         appendCondition(String.format(" %s%s is not null ", tablePrefix, getColumnName(accessor)));
-        appendConditionValorizzata(String.format(" %s%s is not null ", tablePrefix, getColumnName(accessor)));
+        appendConditionValorizzata(
+                String.format(" %s%s is not null ", tablePrefix, getColumnName(accessor)));
         return this;
     }
 
     public Criteria isNull(PropertyAccessor accessor) {
         appendCondition(String.format(" %s%s is null ", tablePrefix, getColumnName(accessor)));
-        appendConditionValorizzata(String.format(" %s%s is null ", tablePrefix, getColumnName(accessor)));
+        appendConditionValorizzata(
+                String.format(" %s%s is null ", tablePrefix, getColumnName(accessor)));
         return this;
     }
 
     public Criteria le(PropertyAccessor accessor, Object value) {
         appendCondition(String.format(" %s%s  <= ? ", tablePrefix, getColumnName(accessor)));
         lstParametri.add(value);
-        appendConditionValorizzata(
-                String.format(" %s%s <= %s ", tablePrefix, getColumnName(accessor), formatObject(value)));
+        appendConditionValorizzata(String.format(" %s%s <= %s ", tablePrefix,
+                getColumnName(accessor), formatObject(value)));
         return this;
     }
 
@@ -209,8 +207,8 @@ public class SearchCriteriaOracleImpl implements Criteria {
             lstParametri.add(parametri[0]);
 
             appendCondition(String.format(" %s%s = ? ", tablePrefix, getColumnName(accessor)));
-            appendConditionValorizzata(
-                    String.format(" %s%s = %s ", tablePrefix, getColumnName(accessor), formatObject(parametri[0])));
+            appendConditionValorizzata(String.format(" %s%s = %s ", tablePrefix,
+                    getColumnName(accessor), formatObject(parametri[0])));
             return this;
 
         } else {
@@ -224,16 +222,19 @@ public class SearchCriteriaOracleImpl implements Criteria {
                     valori.append(String.format(" %s ", formatObject(elemento)));
                 }
             }
-            appendCondition(String.format(" %s%s IN (%s) ", tablePrefix, getColumnName(accessor), segnaposti));
-            appendConditionValorizzata(String.format(" ( %s%s IN (%s)", tablePrefix, getColumnName(accessor), valori));
+            appendCondition(String.format(" %s%s IN (%s) ", tablePrefix, getColumnName(accessor),
+                    segnaposti));
+            appendConditionValorizzata(
+                    String.format(" ( %s%s IN (%s)", tablePrefix, getColumnName(accessor), valori));
             return this;
         }
     }
 
     /*
-     * Restituisce il nome reale della colonna della tabella anzichè quello desunto dal nome della relativa proprietà
-     * all'interno del pojo qualora i due nomi fossero differenti (ad es. ID_TIPO_UNITA_DOC tradotto da TableGen come
-     * idTipoUnitaDoc). Il nome della colonna deve essere specificato tramite l'annotation ColumnName.
+     * Restituisce il nome reale della colonna della tabella anzichè quello desunto dal nome della
+     * relativa proprietà all'interno del pojo qualora i due nomi fossero differenti (ad es.
+     * ID_TIPO_UNITA_DOC tradotto da TableGen come idTipoUnitaDoc). Il nome della colonna deve
+     * essere specificato tramite l'annotation ColumnName.
      */
     private String getColumnName(PropertyAccessor accessor) {
         String columnName = accessor.getName();

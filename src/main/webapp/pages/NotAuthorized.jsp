@@ -96,7 +96,9 @@
 	                 
                         <%
                             String messaggio=(String)request.getAttribute("javax.servlet.error.message");
-                            messaggio=messaggio.substring(messaggio.indexOf(":")+1);
+                            if (messaggio != null && messaggio.indexOf(":") >= 0) {
+                                messaggio=messaggio.substring(messaggio.indexOf(":")+1);
+                            }
                         %>
 	                 
                         <c:if test="${ not (messaggio eq null) }">

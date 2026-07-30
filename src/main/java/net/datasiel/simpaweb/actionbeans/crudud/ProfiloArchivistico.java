@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 /**
@@ -73,7 +69,8 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
     public DefaultSelectionProvider selTipoUnitaDoc = null;
 
-    protected void initListaTipoUnitaDoc(Long idStrut, Long idUtente, Connection con) throws SQLException {
+    protected void initListaTipoUnitaDoc(Long idStrut, Long idUtente, Connection con)
+            throws SQLException {
         selTipoUnitaDoc = ElementsHelper.getTipiRegUniDoc(idStrut, idUtente, con);
     }
 
@@ -83,8 +80,10 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
         leggiDatiUnitaDoc(idrecord, getConnection());
         idStrut = datiUnitaDoc.getIdStrut();
         String permission = String.format(CustomRealm.PERMESSO_PER_UD_LEGGI_D, idrecord);
-        if (!CustomRealm.isPermitted(permission, idStrut, getContext().getRequest().getSession(), getConnection())) {
-            return new ErrorResolution(HttpServletResponse.SC_FORBIDDEN, CustomRealm.CUSTOM_FORBIDDEN_MESSAGE);
+        if (!CustomRealm.isPermitted(permission, idStrut, getContext().getRequest().getSession(),
+                getConnection())) {
+            return new ErrorResolution(HttpServletResponse.SC_FORBIDDEN,
+                    CustomRealm.CUSTOM_FORBIDDEN_MESSAGE);
         }
 
         initListaTipoUnitaDoc(idStrut, datiUnitaDoc.getIdutente(), getConnection());
@@ -113,7 +112,8 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
         reloadElementsThreadLocals();
 
         Form intestazioneForm = new FormBuilder(ParUnitadoc.class).configPrefix("datiUnitaDoc_")
-                .configFields("idTipoUnitaDoc", "idRegistroUnitaDoc", "anno", "numero", "oggetto", "data")
+                .configFields("idTipoUnitaDoc", "idRegistroUnitaDoc", "anno", "numero", "oggetto",
+                        "data")
                 .configSelectionProvider(selTipoUnitaDoc, "idTipoUnitaDoc", "idRegistroUnitaDoc")
                 .configFieldSetNames("Unita Documentaria").configMode(Mode.PREVIEW).build();
         return intestazioneForm;
@@ -122,7 +122,9 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
     /*
      * (non-Javadoc)
      *
-     * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareIntestazioneUiRW(com.manydesigns.elements.Mode)
+     * @see
+     * net.datasiel.webapp.crud.AbstractCrudAction#prepareIntestazioneUiRW(com.manydesigns.elements.
+     * Mode)
      */
     @Override
     public Element prepareIntestazioneUiRW(Mode mode) {
@@ -135,7 +137,8 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
     /*
      * (non-Javadoc)
      *
-     * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareElRiga(java.lang.String, com.manydesigns.elements.Mode)
+     * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareElRiga(java.lang.String,
+     * com.manydesigns.elements.Mode)
      */
     @Override
     public Element prepareElRiga(String prefix, Mode mode) {
@@ -147,8 +150,8 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
     /*
      * (non-Javadoc)
      *
-     * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareEltafoDettaglio1(java.lang.String, int,
-     * com.manydesigns.elements.Mode)
+     * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareEltafoDettaglio1(java.lang.String,
+     * int, com.manydesigns.elements.Mode)
      */
     @Override
     public TableForm prepareEltafoDettaglio1(String prefix, int nRows, Mode mode) {
@@ -159,8 +162,8 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
     /*
      * (non-Javadoc)
      *
-     * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareEltafoDettaglio2(java.lang.String, int,
-     * com.manydesigns.elements.Mode)
+     * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareEltafoDettaglio2(java.lang.String,
+     * int, com.manydesigns.elements.Mode)
      */
     @Override
     public TableForm prepareEltafoDettaglio2(String prefix, int nRows, Mode mode) {
@@ -214,8 +217,10 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
             fascicoloPrincipale = fascicoloPrincipaleList.get(0);
         } else {
 
-            // in caso di nuovo fascicolo l'id viene impostato a 1 per superare la validazione del form;
-            // in fase di salvataggio su db tale id conterrà il valore del sequence PAR_SEQ_IDFASCICOLO
+            // in caso di nuovo fascicolo l'id viene impostato a 1 per superare la validazione del
+            // form;
+            // in fase di salvataggio su db tale id conterrà il valore del sequence
+            // PAR_SEQ_IDFASCICOLO
             fascicoloPrincipale.setIdfascicolo(-1L);
 
         }
@@ -254,24 +259,27 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
         // validazione identificativo
         String identificativo = datiFascicolo.getIdentificativo();
-        boolean isIdentificativoValid = validaIdentificativo(identificativo, isClassificaValid, classifica, elfoRW);
+        boolean isIdentificativoValid = validaIdentificativo(identificativo, isClassificaValid,
+                classifica, elfoRW);
         if (!isIdentificativoValid) {
             isValid = false;
         }
 
         // validazione identificativo sottofascicolo
         String idSottofascicolo = datiFascicolo.getIdsottofascicolo();
-        boolean isIdSottofascicoloValid = validaIdSottofascicolo(idSottofascicolo, isClassificaValid, classifica,
-                isIdentificativoValid, identificativo, elfoRW);
+        boolean isIdSottofascicoloValid = validaIdSottofascicolo(idSottofascicolo,
+                isClassificaValid, classifica, isIdentificativoValid, identificativo, elfoRW);
         if (!isIdSottofascicoloValid) {
             isValid = false;
         }
 
         // i campi identificativo ed oggetto devono essere entrambi compilati oppure entrambi vuoti
-        boolean identificativoInserito = StringUtils.isNotEmpty(datiFascicolo.getIdentificativo()) ? true : false;
+        boolean identificativoInserito = StringUtils.isNotEmpty(datiFascicolo.getIdentificativo())
+                ? true
+                : false;
         boolean oggettoInserito = StringUtils.isNotEmpty(datiFascicolo.getOggetto()) ? true : false;
-        boolean isIdentificativoOggettoValid = validaIdentificativoOggetto(elfoRW, identificativoInserito,
-                oggettoInserito);
+        boolean isIdentificativoOggettoValid = validaIdentificativoOggetto(elfoRW,
+                identificativoInserito, oggettoInserito);
         if (!isIdentificativoOggettoValid) {
             isValid = false;
         }
@@ -295,24 +303,27 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
             // validazione identificativo
             String identificativoSF = sottofascicolo.getIdentificativo();
-            boolean isIdentificativoSFValid = validaIdentificativo(identificativoSF, isClassificaSFValid, classificaSF,
-                    elfoSottofascicolo);
+            boolean isIdentificativoSFValid = validaIdentificativo(identificativoSF,
+                    isClassificaSFValid, classificaSF, elfoSottofascicolo);
             if (!isIdentificativoSFValid) {
                 isValid = false;
             }
 
             // validazione identificativo sottofascicolo
             String idSottofascicoloSF = sottofascicolo.getIdsottofascicolo();
-            boolean isIdSottofascicoloSFValid = validaIdSottofascicolo(idSottofascicoloSF, isClassificaSFValid,
-                    classificaSF, isIdentificativoSFValid, identificativoSF, elfoSottofascicolo);
+            boolean isIdSottofascicoloSFValid = validaIdSottofascicolo(idSottofascicoloSF,
+                    isClassificaSFValid, classificaSF, isIdentificativoSFValid, identificativoSF,
+                    elfoSottofascicolo);
             if (!isIdSottofascicoloSFValid) {
                 isValid = false;
             }
 
-            // i campi identificativo ed oggetto devono essere entrambi compilati oppure entrambi vuoti
-            boolean identificativoSFInserito = StringUtils.isNotEmpty(sottofascicolo.getIdentificativo()) ? true
+            // i campi identificativo ed oggetto devono essere entrambi compilati oppure entrambi
+            // vuoti
+            boolean identificativoSFInserito = StringUtils
+                    .isNotEmpty(sottofascicolo.getIdentificativo()) ? true : false;
+            boolean oggettoSFInserito = StringUtils.isNotEmpty(sottofascicolo.getOggetto()) ? true
                     : false;
-            boolean oggettoSFInserito = StringUtils.isNotEmpty(sottofascicolo.getOggetto()) ? true : false;
             boolean isIdentificativoOggettoSFValid = validaIdentificativoOggetto(elfoSottofascicolo,
                     identificativoSFInserito, oggettoSFInserito);
             if (!isIdentificativoOggettoSFValid) {
@@ -334,17 +345,19 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
      *
      * @return
      */
-    protected boolean validaIdentificativoOggetto(Form elfo, boolean identificativoInserito, boolean oggettoInserito) {
+    protected boolean validaIdentificativoOggetto(Form elfo, boolean identificativoInserito,
+            boolean oggettoInserito) {
         boolean isValid = true;
-        if ((identificativoInserito && !oggettoInserito) || (!identificativoInserito && oggettoInserito)) {
+        if ((identificativoInserito && !oggettoInserito)
+                || (!identificativoInserito && oggettoInserito)) {
             isValid = false;
             if (!oggettoInserito) {
-                elfo.findFieldByPropertyName("oggetto").getErrors()
-                        .add("campo 'Oggetto' obbligatorio se si inserisce il campo 'Identificativo'");
+                elfo.findFieldByPropertyName("oggetto").getErrors().add(
+                        "campo 'Oggetto' obbligatorio se si inserisce il campo 'Identificativo'");
             }
             if (!identificativoInserito) {
-                elfo.findFieldByPropertyName("identificativo").getErrors()
-                        .add("campo 'Identificativo' obbligatorio se si inserisce il campo 'Oggetto'");
+                elfo.findFieldByPropertyName("identificativo").getErrors().add(
+                        "campo 'Identificativo' obbligatorio se si inserisce il campo 'Oggetto'");
             }
         }
         return isValid;
@@ -353,7 +366,8 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
     /*
      * (non-Javadoc)
      *
-     * @see net.datasiel.webapp.crud.AbstractCrudAction#rigaValidate(net.datasiel.webapp.crud.RigaModel)
+     * @see
+     * net.datasiel.webapp.crud.AbstractCrudAction#rigaValidate(net.datasiel.webapp.crud.RigaModel)
      */
     @Override
     public boolean rigaValidate(RigaModel rigaModel) {
@@ -373,8 +387,8 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
         // validazione identificativo
         String identificativo = riga.getIdentificativo();
-        boolean isIdentificativoValid = validaIdentificativo(identificativo, isClassificaValid, classifica,
-                (Form) elNewRiga);
+        boolean isIdentificativoValid = validaIdentificativo(identificativo, isClassificaValid,
+                classifica, (Form) elNewRiga);
 
         // isIdentificativoValid è sempre true per come è implemetato il metodo validaIdentificativo
         // commento il blocco if seguente per vitare segnalazione sonar
@@ -384,10 +398,12 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
 
         // validazione identificativo sottofascicolo
         String idSottofascicolo = riga.getIdsottofascicolo();
-        boolean isIdSottofascicoloValid = validaIdSottofascicolo(idSottofascicolo, isClassificaValid, classifica,
-                isIdentificativoValid, identificativo, (Form) elNewRiga);
+        boolean isIdSottofascicoloValid = validaIdSottofascicolo(idSottofascicolo,
+                isClassificaValid, classifica, isIdentificativoValid, identificativo,
+                (Form) elNewRiga);
 
-        // isIdSottofascicoloValid è sempre true per come è implemetato il metodo validaIdSottofascicolo
+        // isIdSottofascicoloValid è sempre true per come è implemetato il metodo
+        // validaIdSottofascicolo
         // commento il blocco if seguente per vitare segnalazione sonar
         // if (!isIdSottofascicoloValid) {
         // isValid = false;
@@ -426,10 +442,12 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
     @Override
     public void deleteRiga(int indiceRiga) throws Exception {
         loadCrudModel();
-        ParFascicolo rigaDaCancellare = (ParFascicolo) crudModel.getRighe().get(indiceRiga).getRiga();
+        ParFascicolo rigaDaCancellare = (ParFascicolo) crudModel.getRighe().get(indiceRiga)
+                .getRiga();
         ParFascicoloVO parFascicoloVO = new ParFascicoloVO();
         parFascicoloVO.delete(rigaDaCancellare, getConnection());
-        log.debug(getClass().getName() + " - Cancellato Sottofascicolo: " + rigaDaCancellare.getIdfascicolo());
+        log.debug(getClass().getName() + " - Cancellato Sottofascicolo: "
+                + rigaDaCancellare.getIdfascicolo());
     }
 
     /*
@@ -448,17 +466,20 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
         // se idunitadoc è null si tratta di un nuovo fascicolo principale da inserire
         Connection connection = getConnection();
         if (datiFascicolo.getIdunitadoc() == null) {
-            datiFascicolo.setIdfascicolo(DbUtil.getSequenceValue("PAR_SEQ_IDFASCICOLO", connection));
+            datiFascicolo
+                    .setIdfascicolo(DbUtil.getSequenceValue("PAR_SEQ_IDFASCICOLO", connection));
             datiFascicolo.setIdunitadoc(datiUnitaDoc.getIdunitadoc());
             datiFascicolo.setCodtipofascicolo("P");
             datiFascicolo.setId(0L);
             parFascicoloVO.insertPrepared(datiFascicolo, connection);
-            log.debug(getClass().getName() + " - Inserito Fascicolo: " + datiFascicolo.getIdfascicolo());
+            log.debug(getClass().getName() + " - Inserito Fascicolo: "
+                    + datiFascicolo.getIdfascicolo());
         } else {
 
             datiFascicolo.setId(RandomUtils.nextLong());
             parFascicoloVO.updateByIndex(datiFascicolo, connection);
-            log.debug(getClass().getName() + " - Aggiornato Fascicolo: " + datiFascicolo.getIdfascicolo());
+            log.debug(getClass().getName() + " - Aggiornato Fascicolo: "
+                    + datiFascicolo.getIdfascicolo());
 
             List<RigaModel> righe = crudModel.getRighe();
             for (RigaModel riga : righe) {
@@ -468,13 +489,14 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
                 sottoFascicolo.setPgm(pgm);
                 sottoFascicolo.setId(RandomUtils.nextLong());
                 parFascicoloVO.updateByIndex(sottoFascicolo, connection);
-                log.debug(getClass().getName() + " - Aggiornato Sottofascicolo: " + sottoFascicolo.getIdfascicolo());
+                log.debug(getClass().getName() + " - Aggiornato Sottofascicolo: "
+                        + sottoFascicolo.getIdfascicolo());
             }
 
             // Aggiornamento dati unità documentaria
             ParUnitadocVO parUDDao = new ParUnitadocVO();
-            int righeAggiornate = parUDDao.aggiornaUnitaDoc(EnumStatoUD.BOZZA.ordinal(), null, null, idrecord, null,
-                    connection);
+            int righeAggiornate = parUDDao.aggiornaUnitaDoc(EnumStatoUD.BOZZA.ordinal(), null, null,
+                    idrecord, null, connection);
             if (righeAggiornate == 0) {
                 log.debug("Nessuna riga aggiornata: problema di concorrenza");
                 endTransaction();
@@ -487,7 +509,8 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
     /*
      * (non-Javadoc)
      *
-     * @see net.datasiel.webapp.crud.AbstractCrudAction#insertRigaModel(net.datasiel.webapp.crud.RigaModel)
+     * @see net.datasiel.webapp.crud.AbstractCrudAction#insertRigaModel(net.datasiel.webapp.crud.
+     * RigaModel)
      */
     @Override
     public void insertRigaModel(RigaModel rigaModel) throws Exception {
@@ -496,7 +519,8 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
         sottoFascicolo.setFlgstato(0L);
         sottoFascicolo.setPgm(pgm);
         sottoFascicolo.setId(0L);
-        sottoFascicolo.setIdfascicolo(DbUtil.getSequenceValue("PAR_SEQ_IDFASCICOLO", getConnection()));
+        sottoFascicolo
+                .setIdfascicolo(DbUtil.getSequenceValue("PAR_SEQ_IDFASCICOLO", getConnection()));
         parFascicoloVO.insertPrepared(sottoFascicolo, getConnection());
     }
 
@@ -626,56 +650,63 @@ public class ProfiloArchivistico extends SimpaAbstractCrudAction {
     private boolean validaClassifica(String classifica, Form elfo) {
         boolean isValid = true;
         /*
-         * String errorMsg = "formato non valido; formato corretto: categoria.classe.sottoclasse"; if
-         * (StringUtils.isNotEmpty(classifica) && !classifica.matches(".+\\..+\\..+")) {
+         * String errorMsg = "formato non valido; formato corretto: categoria.classe.sottoclasse";
+         * if (StringUtils.isNotEmpty(classifica) && !classifica.matches(".+\\..+\\..+")) {
          * elfo.findFieldByPropertyName("classifica").getErrors().add(errorMsg); isValid = false; }
          */
         return isValid;
     }
 
     /*
-     * verifica la validità del campo "identificativo" rispetto alla relativa regular expression e la sua coerenza con
-     * l'eventuale valore del campo 'classifica'
+     * verifica la validità del campo "identificativo" rispetto alla relativa regular expression e
+     * la sua coerenza con l'eventuale valore del campo 'classifica'
      */
-    private boolean validaIdentificativo(String identificativo, boolean isClassificaValid, String classifica,
-            Form elfoRW) {
+    private boolean validaIdentificativo(String identificativo, boolean isClassificaValid,
+            String classifica, Form elfoRW) {
         boolean isValid = true;
         /*
          * String errorMsg = new String(); if (StringUtils.isNotEmpty(identificativo)) { if
          * (!identificativo.matches(".+\\/[0-9]{4}\\/[0-9]+")) { isValid = false; errorMsg =
-         * "formato non valido; formato corretto: categoria.classe.sottoclasse/anno/numero"; } else { // se è stato
-         * valorizzato anche il campo classifica occorre verificare che il suo valore sia stato riportato nella prima
-         * parte del campo identificativo if (StringUtils.isNotEmpty(classifica) && isClassificaValid) { int slashIdx =
-         * identificativo.indexOf("/"); String classificaSub = identificativo.substring(0, slashIdx); if
-         * (!classificaSub.equals(classifica)) { isValid = false; errorMsg =
+         * "formato non valido; formato corretto: categoria.classe.sottoclasse/anno/numero"; } else
+         * { // se è stato valorizzato anche il campo classifica occorre verificare che il suo
+         * valore sia stato riportato nella prima parte del campo identificativo if
+         * (StringUtils.isNotEmpty(classifica) && isClassificaValid) { int slashIdx =
+         * identificativo.indexOf("/"); String classificaSub = identificativo.substring(0,
+         * slashIdx); if (!classificaSub.equals(classifica)) { isValid = false; errorMsg =
          * "valore incoerente con quanto inserito nel campo 'Classifica'"; } } } } if (!isValid) {
-         * elfoRW.findFieldByPropertyName("identificativo").getErrors().add(errorMsg); isValid = false; }
+         * elfoRW.findFieldByPropertyName("identificativo").getErrors().add(errorMsg); isValid =
+         * false; }
          */
         return isValid;
     }
 
-    private boolean validaIdSottofascicolo(String idSottofascicolo, boolean isClassificaValid, String classifica,
-            boolean isIdentificativoValid, String identificativo, Form elfoRW) {
+    private boolean validaIdSottofascicolo(String idSottofascicolo, boolean isClassificaValid,
+            String classifica, boolean isIdentificativoValid, String identificativo, Form elfoRW) {
         boolean isValid = true;
         /*
          * String errorMsg = new String(); if (StringUtils.isNotEmpty(idSottofascicolo)) { if
-         * (!idSottofascicolo.matches(".+\\/[0-9]{4}\\/[0-9]+\\/[0-9]+")) { isValid = false; errorMsg =
-         * "formato non valido; formato corretto: categoria.classe.sottoclasse/anno/numero/numero"; } else {
+         * (!idSottofascicolo.matches(".+\\/[0-9]{4}\\/[0-9]+\\/[0-9]+")) { isValid = false;
+         * errorMsg =
+         * "formato non valido; formato corretto: categoria.classe.sottoclasse/anno/numero/numero";
+         * } else {
          *
-         * // se è stato valorizzato anche il campo identificativo occorre verificare che il suo valore sia stato
-         * riportato nella prima parte del campo identificativo sottofascicolo if
+         * // se è stato valorizzato anche il campo identificativo occorre verificare che il suo
+         * valore sia stato riportato nella prima parte del campo identificativo sottofascicolo if
          * (StringUtils.isNotEmpty(identificativo) && isIdentificativoValid) { int slashIdx =
-         * idSottofascicolo.lastIndexOf("/"); String identificativoSub = idSottofascicolo.substring(0, slashIdx); if
-         * (!identificativoSub.equals(identificativo)) { isValid = false; errorMsg =
+         * idSottofascicolo.lastIndexOf("/"); String identificativoSub =
+         * idSottofascicolo.substring(0, slashIdx); if (!identificativoSub.equals(identificativo)) {
+         * isValid = false; errorMsg =
          * "valore incoerente con quanto inserito nel campo 'Identificativo'"; } }
          *
-         * // se è stato valorizzato anche il campo classifica occorre verificare che il suo valore sia stato riportato
-         * nella prima parte del campo identificativo sottofascicolo if (StringUtils.isNotEmpty(classifica) &&
-         * isClassificaValid) { int slashIdx = idSottofascicolo.indexOf("/"); String classificaSub =
-         * idSottofascicolo.substring(0, slashIdx); if (!classificaSub.equals(classifica)) { isValid = false; errorMsg =
+         * // se è stato valorizzato anche il campo classifica occorre verificare che il suo valore
+         * sia stato riportato nella prima parte del campo identificativo sottofascicolo if
+         * (StringUtils.isNotEmpty(classifica) && isClassificaValid) { int slashIdx =
+         * idSottofascicolo.indexOf("/"); String classificaSub = idSottofascicolo.substring(0,
+         * slashIdx); if (!classificaSub.equals(classifica)) { isValid = false; errorMsg =
          * "valore incoerente con quanto inserito nel campo 'Classifica'"; } }
          *
-         * } } if (!isValid) { elfoRW.findFieldByPropertyName("idsottofascicolo").getErrors().add(errorMsg); isValid =
+         * } } if (!isValid) {
+         * elfoRW.findFieldByPropertyName("idsottofascicolo").getErrors().add(errorMsg); isValid =
          * false; }
          */
         return isValid;

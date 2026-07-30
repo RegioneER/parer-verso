@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 /**
@@ -61,8 +57,8 @@ public class CustomRealm {
     DataSource dataSource;
     public static final String CUSTOM_FORBIDDEN_MESSAGE = "Dati non accessibili dall'utente.";
 
-    public UtenteStrutture retrieveUtenteStrutture(String strCodFiscale, Connection con, boolean isUtenteSpid)
-            throws SQLException {
+    public UtenteStrutture retrieveUtenteStrutture(String strCodFiscale, Connection con,
+            boolean isUtenteSpid) throws SQLException {
 
         VUsrVRicUser utente = null;
         List<StrutturaInfo> strutture = new ArrayList<StrutturaInfo>();
@@ -72,8 +68,9 @@ public class CustomRealm {
         query.append("from V_USR_IAM ");
         query.append("where upper(NM_USERID) = upper(?) ");
         /*
-         * Nel caso di utente entrato con lo SPID bypassa il controllo sul FLAG_ATTIVO e quindi anche se un utente non è
-         * attivo entra o stesso, altrimenti si comporta alla vecchia maniera controlando che l'utente sia attivo.
+         * Nel caso di utente entrato con lo SPID bypassa il controllo sul FLAG_ATTIVO e quindi
+         * anche se un utente non è attivo entra o stesso, altrimenti si comporta alla vecchia
+         * maniera controlando che l'utente sia attivo.
          */
         if (!isUtenteSpid) {
             query.append("and FL_ATTIVO = '1' ");
@@ -96,8 +93,8 @@ public class CustomRealm {
                 if (r.getObject("ID_STRUT") != null) {
                     idStrut = r.getLong("ID_STRUT");
                 }
-                StrutturaInfo struttura = new StrutturaInfo(
-                        utente.getNmAmbiente() + " - " + utente.getNmEnte() + " - " + utente.getNmStrut(), idStrut);
+                StrutturaInfo struttura = new StrutturaInfo(utente.getNmAmbiente() + " - "
+                        + utente.getNmEnte() + " - " + utente.getNmStrut(), idStrut);
                 strutture.add(struttura);
                 i++;
             }
@@ -112,8 +109,8 @@ public class CustomRealm {
         return null;
     }
 
-    public static boolean isPermitted(String permission, Long idStrut, HttpSession session, Connection con)
-            throws AuthorizationException {
+    public static boolean isPermitted(String permission, Long idStrut, HttpSession session,
+            Connection con) throws AuthorizationException {
         ClientUser u = (ClientUser) SessionManager.getUser(session);
         if (u == null) {
             throw new AuthorizationException("Utente non autorizzato");
@@ -124,20 +121,24 @@ public class CustomRealm {
         }
         Matcher matcher = UD_LEGGI_PATTERN.matcher(permission);
         if (!matcher.matches()) {
-            log.error(String.format("Pattern del permesso %s non gestito: Permesso negato", permission));
+            log.error(String.format("Pattern del permesso %s non gestito: Permesso negato",
+                    permission));
             return false;
         }
         String strIdUnitaDoc = matcher.group(1);
         Long idUnitaDoc = Long.parseLong(strIdUnitaDoc);
         Long idUtente = u.getIdUtente();
         try {
-            log.debug(String.format("Utente %d - struttura %d chiede permesso %s", idUtente, idStrut, permission));
-            // in caso di UD già versata l'accesso è consentito anche agli altri utenti della stessa struttura
+            log.debug(String.format("Utente %d - struttura %d chiede permesso %s", idUtente,
+                    idStrut, permission));
+            // in caso di UD già versata l'accesso è consentito anche agli altri utenti della stessa
+            // struttura
             boolean udVisibileUtentiStruttura = false;
             ParUnitadocVO parUnitadocVO = new ParUnitadocVO();
             ParUnitadoc ud = parUnitadocVO.retrieveByKey(idUnitaDoc, con);
             if (ud.getStato().equals(EnumStatoUD.VERSATA.getValore())) {
-                String strutPermission = String.format(CustomRealm.PERMESSO_PER_STRUTTURA_LEGGI_D, ud.getIdStrut());
+                String strutPermission = String.format(CustomRealm.PERMESSO_PER_STRUTTURA_LEGGI_D,
+                        ud.getIdStrut());
                 if (u.getStringPermissions().contains(strutPermission)) {
                     udVisibileUtentiStruttura = true;
                 }

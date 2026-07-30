@@ -6,4 +6,3 @@ Build-Jdk: 1.7.0_79
 App-BuildDate: 19-11-2015 12:53
 App-Name: Verso
 App-Version: 1.0.19-SNAPSHOT
-

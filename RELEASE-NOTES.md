@@ -1,4 +1,7 @@
-## 3.4.1 (27-01-2026)
+## 3.5.0 (30-07-2026)
 
 ### Bugfix: 1
-- [#39730](https://parermine.regione.emilia-romagna.it/issues/39730) Correzione gestione errori (error handling) libreria Stripes
+- [#38035](https://parermine.regione.emilia-romagna.it/issues/38035) Inserire i default corretti per le security policy
+
+### Novità: 1
+- [#40894](https://parermine.regione.emilia-romagna.it/issues/40894) Migrazione di Verso alla nuova versione del framework

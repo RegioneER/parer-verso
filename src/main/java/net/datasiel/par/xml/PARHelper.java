@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.par.xml;
@@ -129,9 +125,9 @@ import net.datasiel.simpaweb.common.Constants;
 import net.datasiel.simpaweb.db.dao.ParComponenteDAO;
 
 /**
- * Classe di utilità per la generazione del file xml secondo la specifica richiesta dal servizio di versamento. Consente
- * di generare l'xml sia per il servizio di versamento di una nuova unita documentaria sia per il servizio di aggiunta
- * documenti a unità documentarie già versate.
+ * Classe di utilità per la generazione del file xml secondo la specifica richiesta dal servizio di
+ * versamento. Consente di generare l'xml sia per il servizio di versamento di una nuova unita
+ * documentaria sia per il servizio di aggiunta documenti a unità documentarie già versate.
  *
  * @author reisoli
  *
@@ -157,7 +153,8 @@ public class PARHelper implements Serializable {
     private String endpoint;
 
     /**
-     * Costruttore da usare nelle situazioni in cui non ci sono dati specifici da aggiungere. Imposta l'encoding a UTF-8
+     * Costruttore da usare nelle situazioni in cui non ci sono dati specifici da aggiungere.
+     * Imposta l'encoding a UTF-8
      *
      * @throws JAXBException
      * @throws ConfigurationException
@@ -169,8 +166,7 @@ public class PARHelper implements Serializable {
     /**
      * Costruttore che consente di impostare l'encoding.
      *
-     * @param strEncoding
-     *            Encoding dei dati che verranno inviati.
+     * @param strEncoding Encoding dei dati che verranno inviati.
      *
      * @throws JAXBException
      */
@@ -184,8 +180,7 @@ public class PARHelper implements Serializable {
     /**
      * Invoca il servizio VersamentoSync restituendo l'xml della risposta.
      *
-     * @param unitaDoc
-     *            Dati unità documentaria da versare.
+     * @param unitaDoc Dati unità documentaria da versare.
      *
      * @return L'xml della risposta in formato stringa
      *
@@ -194,7 +189,8 @@ public class PARHelper implements Serializable {
      *
      * @throws Exception
      */
-    public String invocaVersamentoSync(DatiUnitaDocumentaria unitaDoc) throws VersoException, IOException {
+    public String invocaVersamentoSync(DatiUnitaDocumentaria unitaDoc)
+            throws VersoException, IOException {
         InputStream is = null;
         // new lib
         try (CloseableHttpClient httpclient = HttpClientBuilder.create().build();) {
@@ -380,7 +376,8 @@ public class PARHelper implements Serializable {
             // istanzio un context http con i cookie impostati da NAM
             CookieStore cookieStore = new BasicCookieStore();
             for (Map<String, String> cookieMap : listaCookie) {
-                BasicClientCookie cookie = new BasicClientCookie(cookieMap.get("name"), cookieMap.get("value"));
+                BasicClientCookie cookie = new BasicClientCookie(cookieMap.get("name"),
+                        cookieMap.get("value"));
                 cookieStore.addCookie(cookie);
             }
             HttpContext localContext = new BasicHttpContext();
@@ -406,9 +403,9 @@ public class PARHelper implements Serializable {
     }
 
     // versione con autenticazione
-    public String invocaVersamentoSync(String username, String password, DatiUnitaDocumentaria unitaDoc, URI uploadUrl,
-            List<Map<String, String>> listaCookie, String strXml)
-            throws AuthenticationException, VersoException, IOException {
+    public String invocaVersamentoSync(String username, String password,
+            DatiUnitaDocumentaria unitaDoc, URI uploadUrl, List<Map<String, String>> listaCookie,
+            String strXml) throws AuthenticationException, VersoException, IOException {
 
         if (username == null || password == null) {
             throw new AuthenticationException("username e/o password non valorizzati");
@@ -437,7 +434,8 @@ public class PARHelper implements Serializable {
             // aggiunge alla request il campo testuale LOGINNAME
             mpEntityBuilder.addPart("VERSIONE", new StringBody(versione, ContentType.TEXT_PLAIN));
             // aggiunge alla request il campo testuale LOGINNAME
-            mpEntityBuilder.addPart("LOGINNAME ", new StringBody(usernameWebService, ContentType.TEXT_PLAIN));
+            mpEntityBuilder.addPart("LOGINNAME ",
+                    new StringBody(usernameWebService, ContentType.TEXT_PLAIN));
             // aggiunge alla request il campo testuale PASSWORD
             mpEntityBuilder.addPart("PASSWORD ", new StringBody(password, ContentType.TEXT_PLAIN));
             // aggiunge alla request il campo testuale XMLSIP, con il documento XML dei
@@ -504,7 +502,8 @@ public class PARHelper implements Serializable {
             CookieStore cookieStore = new BasicCookieStore();
             if (listaCookie != null) {
                 for (Map<String, String> cookieMap : listaCookie) {
-                    BasicClientCookie cookie = new BasicClientCookie(cookieMap.get("name"), cookieMap.get("value"));
+                    BasicClientCookie cookie = new BasicClientCookie(cookieMap.get("name"),
+                            cookieMap.get("value"));
                     cookieStore.addCookie(cookie);
                 }
             }
@@ -533,17 +532,13 @@ public class PARHelper implements Serializable {
     /**
      * Crea la stringa xml della richiesta
      *
-     * @param unitaDoc
-     *            Bean contenente i dati da usare per la costruzione della richiesta
+     * @param unitaDoc Bean contenente i dati da usare per la costruzione della richiesta
      *
      * @return XML con metadati di versamento
      *
-     * @throws JAXBException
-     *             errore marshalling
-     * @throws IOException
-     *             errore generico
-     * @throws DatatypeConfigurationException
-     *             errore generico
+     * @throws JAXBException                  errore marshalling
+     * @throws IOException                    errore generico
+     * @throws DatatypeConfigurationException errore generico
      *
      */
     public String creaRequestVersamento(DatiUnitaDocumentaria unitaDoc)
@@ -567,17 +562,13 @@ public class PARHelper implements Serializable {
     /**
      * Crea la stringa xml della richiesta
      *
-     * @param datiUnitaDocAll
-     *            Bean contenente i dati da usare per la costruzione della richiesta
+     * @param datiUnitaDocAll Bean contenente i dati da usare per la costruzione della richiesta
      *
      * @return XML metadati aggiunta documento
      *
-     * @throws JAXBException
-     *             errore marshalling
-     * @throws DatatypeConfigurationException
-     *             errore generico
-     * @throws IOException
-     *             errore generico
+     * @throws JAXBException                  errore marshalling
+     * @throws DatatypeConfigurationException errore generico
+     * @throws IOException                    errore generico
      *
      */
     public String creaRequestAggiuntaAllegati(DatiUnitaDocAggAllegati datiUnitaDocAll)
@@ -601,12 +592,14 @@ public class PARHelper implements Serializable {
         UnitaDocAggAllegati unitaDocAll = objectFactory.createUnitaDocAggAllegati();
         Intestazione intestazione = datiUnitaDocAll.getIntestazione();
         if (intestazione != null) {
-            IntestazioneAggAllType intestazioneAggAll = creaIntestazioneAggAll(intestazione, objectFactory);
+            IntestazioneAggAllType intestazioneAggAll = creaIntestazioneAggAll(intestazione,
+                    objectFactory);
             unitaDocAll.setIntestazione(intestazioneAggAll);
         }
         Configurazione configurazione = datiUnitaDocAll.getConfigurazione();
         if (configurazione != null) {
-            ConfigAggAllType configurazioneAggAll = creaConfigurazioneAggAll(configurazione, objectFactory);
+            ConfigAggAllType configurazioneAggAll = creaConfigurazioneAggAll(configurazione,
+                    objectFactory);
             unitaDocAll.setConfigurazione(configurazioneAggAll);
         }
         Documento datiDocumento = datiUnitaDocAll.getDatiDocumento();
@@ -628,7 +621,8 @@ public class PARHelper implements Serializable {
         return unitaDocAll;
     }
 
-    private ConfigAggAllType creaConfigurazioneAggAll(Configurazione configurazione, ObjectFactory objectFactory) {
+    private ConfigAggAllType creaConfigurazioneAggAll(Configurazione configurazione,
+            ObjectFactory objectFactory) {
         ConfigAggAllType config = objectFactory.createConfigAggAllType();
         config.setForzaAccettazione(configurazione.isForzaAccettazione());
         config.setForzaConservazione(configurazione.isForzaConservazione());
@@ -649,7 +643,8 @@ public class PARHelper implements Serializable {
         return config;
     }
 
-    private IntestazioneAggAllType creaIntestazioneAggAll(Intestazione datiIntestazione, ObjectFactory objectFactory) {
+    private IntestazioneAggAllType creaIntestazioneAggAll(Intestazione datiIntestazione,
+            ObjectFactory objectFactory) {
         IntestazioneAggAllType intestazione = objectFactory.createIntestazioneAggAllType();
         intestazione.setVersione(datiIntestazione.getVersione());
         VersatoreType versatore = creaVersatore(datiIntestazione, objectFactory);
@@ -659,39 +654,43 @@ public class PARHelper implements Serializable {
         return intestazione;
     }
 
-    private UnitaDocumentaria creaUnitaDocumentaria(DatiUnitaDocumentaria datiUnitaDoc, ObjectFactory objectFactory)
-            throws DatatypeConfigurationException {
+    private UnitaDocumentaria creaUnitaDocumentaria(DatiUnitaDocumentaria datiUnitaDoc,
+            ObjectFactory objectFactory) throws DatatypeConfigurationException {
         UnitaDocumentaria unitaDoc = objectFactory.createUnitaDocumentaria();
         if (datiUnitaDoc.getIntestazione() != null) {
-            IntestazioneType intestazione = creaIntestazione(datiUnitaDoc.getIntestazione(), objectFactory);
+            IntestazioneType intestazione = creaIntestazione(datiUnitaDoc.getIntestazione(),
+                    objectFactory);
             unitaDoc.setIntestazione(intestazione);
         }
         if (datiUnitaDoc.getConfigurazione() != null) {
-            ConfigType configurazione = creaConfigurazione(datiUnitaDoc.getConfigurazione(), objectFactory);
+            ConfigType configurazione = creaConfigurazione(datiUnitaDoc.getConfigurazione(),
+                    objectFactory);
             unitaDoc.setConfigurazione(configurazione);
         }
 
         if (datiUnitaDoc.getFascicoloPrincipale() != null) {
-            ProfiloArchivisticoType profiloArchivistico = creaProfiloArchivistico(datiUnitaDoc.getFascicoloPrincipale(),
-                    datiUnitaDoc.getFascicoliSecondari(), objectFactory);
+            ProfiloArchivisticoType profiloArchivistico = creaProfiloArchivistico(
+                    datiUnitaDoc.getFascicoloPrincipale(), datiUnitaDoc.getFascicoliSecondari(),
+                    objectFactory);
             unitaDoc.setProfiloArchivistico(profiloArchivistico);
         }
 
         if (datiUnitaDoc.getOggetto() != null) {
-            ProfiloUnitaDocumentariaType profiloUnitaDoc = creaProfiloUnitaDoc(datiUnitaDoc, objectFactory);
+            ProfiloUnitaDocumentariaType profiloUnitaDoc = creaProfiloUnitaDoc(datiUnitaDoc,
+                    objectFactory);
             unitaDoc.setProfiloUnitaDocumentaria(profiloUnitaDoc);
 
         }
 
         if (datiUnitaDoc.getDatiSpecifici() != null) {
-            JAXBElement<DatiSpecificiType> datiSpecifici = creaDatiSpecifici(datiUnitaDoc.getDatiSpecifici(),
-                    objectFactory);
+            JAXBElement<DatiSpecificiType> datiSpecifici = creaDatiSpecifici(
+                    datiUnitaDoc.getDatiSpecifici(), objectFactory);
             unitaDoc.setDatiSpecifici(datiSpecifici);
 
         }
         if (datiUnitaDoc.getDatiSpecificiMigrazione() != null) {
-            JAXBElement<DatiSpecificiType> datiSpecifici = creaDatiSpecifici(datiUnitaDoc.getDatiSpecificiMigrazione(),
-                    objectFactory);
+            JAXBElement<DatiSpecificiType> datiSpecifici = creaDatiSpecifici(
+                    datiUnitaDoc.getDatiSpecificiMigrazione(), objectFactory);
             unitaDoc.setDatiSpecificiMigrazione(datiSpecifici);
         }
 
@@ -700,7 +699,8 @@ public class PARHelper implements Serializable {
         unitaDoc.setNumeroAnnotazioni(datiUnitaDoc.getNumeroAnnotazioni());
 
         if (datiUnitaDoc.getDocumentoPrincipale() != null) {
-            DocumentoType docPrincipale = creaDocumento(datiUnitaDoc.getDocumentoPrincipale(), objectFactory);
+            DocumentoType docPrincipale = creaDocumento(datiUnitaDoc.getDocumentoPrincipale(),
+                    objectFactory);
 
             unitaDoc.setDocumentoPrincipale(docPrincipale);
         }
@@ -716,12 +716,15 @@ public class PARHelper implements Serializable {
         }
 
         if (datiUnitaDoc.getAnnotazioni() != null && !datiUnitaDoc.getAnnotazioni().isEmpty()) {
-            Annotazioni annotazioni = creaListaAnnotazioni(datiUnitaDoc.getAnnotazioni(), objectFactory);
+            Annotazioni annotazioni = creaListaAnnotazioni(datiUnitaDoc.getAnnotazioni(),
+                    objectFactory);
             unitaDoc.setAnnotazioni(annotazioni);
         }
-        if (datiUnitaDoc.getDocumentiCollegati() != null && !datiUnitaDoc.getDocumentiCollegati().isEmpty()) {
+        if (datiUnitaDoc.getDocumentiCollegati() != null
+                && !datiUnitaDoc.getDocumentiCollegati().isEmpty()) {
 
-            unitaDoc.setDocumentiCollegati(creaDocumentiCollegati(datiUnitaDoc.getDocumentiCollegati(), objectFactory));
+            unitaDoc.setDocumentiCollegati(
+                    creaDocumentiCollegati(datiUnitaDoc.getDocumentiCollegati(), objectFactory));
 
         }
 
@@ -744,15 +747,15 @@ public class PARHelper implements Serializable {
         return returnValue;
     }
 
-    private Annotazioni creaListaAnnotazioni(List<Documento> annotazioni, ObjectFactory objectFactory)
-            throws DatatypeConfigurationException {
+    private Annotazioni creaListaAnnotazioni(List<Documento> annotazioni,
+            ObjectFactory objectFactory) throws DatatypeConfigurationException {
         Annotazioni returnValue = objectFactory.createUnitaDocumentariaAnnotazioni();
         returnValue.getAnnotazione().addAll(creaListaDocument(annotazioni, objectFactory));
         return returnValue;
     }
 
-    private Collection<DocumentoType> creaListaDocument(List<Documento> allegati, ObjectFactory objectFactory)
-            throws DatatypeConfigurationException {
+    private Collection<DocumentoType> creaListaDocument(List<Documento> allegati,
+            ObjectFactory objectFactory) throws DatatypeConfigurationException {
         Collection<DocumentoType> listaDoc = new ArrayList<>();
         for (Documento documento : allegati) {
             DocumentoType doc = creaDocumento(documento, objectFactory);
@@ -793,7 +796,8 @@ public class PARHelper implements Serializable {
         return chiaveType;
     }
 
-    private JAXBElement<DatiSpecificiType> creaDatiSpecifici(DatiSpecifici datiSpecifici, ObjectFactory objectFactory) {
+    private JAXBElement<DatiSpecificiType> creaDatiSpecifici(DatiSpecifici datiSpecifici,
+            ObjectFactory objectFactory) {
 
         DatiSpecificiType datiSpec = objectFactory.createDatiSpecificiType();
         datiSpec.setVersioneDatiSpecifici(datiSpecifici.getVersioneDatiSpecifici());
@@ -829,12 +833,13 @@ public class PARHelper implements Serializable {
             doc.setProfiloDocumento(profiloDocPrincipale);
         }
         if (datiDoc.getDatiSpecifici() != null) {
-            JAXBElement<DatiSpecificiType> datiSpecifici = creaDatiSpecifici(datiDoc.getDatiSpecifici(), objectFactory);
+            JAXBElement<DatiSpecificiType> datiSpecifici = creaDatiSpecifici(
+                    datiDoc.getDatiSpecifici(), objectFactory);
             doc.setDatiSpecifici(datiSpecifici);
         }
         if (datiDoc.getDatiSpecificiMigrazione() != null) {
-            JAXBElement<DatiSpecificiType> datiSpecifici = creaDatiSpecifici(datiDoc.getDatiSpecificiMigrazione(),
-                    objectFactory);
+            JAXBElement<DatiSpecificiType> datiSpecifici = creaDatiSpecifici(
+                    datiDoc.getDatiSpecificiMigrazione(), objectFactory);
             doc.setDatiSpecificiMigrazione(datiSpecifici);
 
         }
@@ -875,7 +880,8 @@ public class PARHelper implements Serializable {
                 chiaveRiferimento.setTipoRegistro(riferimento.getTipoRegistro());
                 componente.setRiferimento(chiaveRiferimento);
             }
-            componente.setTipoRappresentazioneComponente(fileAllegato.getTipoRappresentazioneComponente());
+            componente.setTipoRappresentazioneComponente(
+                    fileAllegato.getTipoRappresentazioneComponente());
             componente.setNomeComponente(fileAllegato.getNomeComponente());
             componente.setFormatoFileVersato(fileAllegato.getFormatoFileVersato());
             componente.setHashVersato(fileAllegato.getHashVersato());
@@ -883,8 +889,8 @@ public class PARHelper implements Serializable {
             componente.setIDComponenteVersato(fileAllegato.getIdComponenteVersato());
 
             if (fileAllegato.getDatiSpecifici() != null) {
-                JAXBElement<DatiSpecificiType> datiSpecifici = creaDatiSpecifici(fileAllegato.getDatiSpecifici(),
-                        objectFactory);
+                JAXBElement<DatiSpecificiType> datiSpecifici = creaDatiSpecifici(
+                        fileAllegato.getDatiSpecifici(), objectFactory);
                 componente.setDatiSpecifici(datiSpecifici);
             }
             if (fileAllegato.getDatiSpecificiMigrazione() != null) {
@@ -895,10 +901,11 @@ public class PARHelper implements Serializable {
 
             componente.setUtilizzoDataFirmaPerRifTemp(fileAllegato.isUtilizzoDataFirmaPerRifTemp());
 
-            XMLGregorianCalendar data = dateConversion2XsdDateTime(fileAllegato.getRiferimentoTemporale(),
-                    datatypeFactory);
+            XMLGregorianCalendar data = dateConversion2XsdDateTime(
+                    fileAllegato.getRiferimentoTemporale(), datatypeFactory);
             componente.setRiferimentoTemporale(data);
-            componente.setDescrizioneRiferimentoTemporale(fileAllegato.getDescrizioneRiferimentoTemporale());
+            componente.setDescrizioneRiferimentoTemporale(
+                    fileAllegato.getDescrizioneRiferimentoTemporale());
 
             List<FileAllegatoBase> sottoComponenti = fileAllegato.getSottoComponenti();
             if (sottoComponenti != null) {
@@ -908,9 +915,11 @@ public class PARHelper implements Serializable {
                 for (FileAllegatoBase fileAllegatoBase : sottoComponenti) {
                     SottoComponenteType sottoComponente = objectFactory.createSottoComponenteType();
                     sottoComponente.setID(fileAllegatoBase.getId());
-                    sottoComponente.setOrdinePresentazione(fileAllegatoBase.getOrdinePresentazione());
+                    sottoComponente
+                            .setOrdinePresentazione(fileAllegatoBase.getOrdinePresentazione());
                     sottoComponente.setTipoComponente(fileAllegatoBase.getTipoComponente());
-                    TipoSupporto tipoSupportoSottoComponente = fileAllegatoBase.getTipoSupportoComponente();
+                    TipoSupporto tipoSupportoSottoComponente = fileAllegatoBase
+                            .getTipoSupportoComponente();
                     if (tipoSupportoSottoComponente.equals(TipoSupporto.METADATI)) {
                         sottoComponente.setTipoSupportoComponente(TipoSupportoType.METADATI);
                     } else if (tipoSupporto.equals(TipoSupporto.RIFERIMENTO)) {
@@ -929,7 +938,8 @@ public class PARHelper implements Serializable {
                     sottoComponente.setNomeComponente(fileAllegatoBase.getNomeComponente());
                     sottoComponente.setFormatoFileVersato(fileAllegatoBase.getFormatoFileVersato());
                     sottoComponente.setUrnVersato(fileAllegatoBase.getUrnVersato());
-                    sottoComponente.setIDComponenteVersato(fileAllegatoBase.getIdComponenteVersato());
+                    sottoComponente
+                            .setIDComponenteVersato(fileAllegatoBase.getIdComponenteVersato());
 
                     if (fileAllegatoBase.getDatiSpecifici() != null) {
                         JAXBElement<DatiSpecificiType> datiSpecifici = creaDatiSpecifici(
@@ -966,7 +976,8 @@ public class PARHelper implements Serializable {
         datiFiscaliType.setCognome(datiFiscali.getCognome());
         datiFiscaliType.setCF(datiFiscali.getCF());
         datiFiscaliType.setPIVA(datiFiscali.getPIVA());
-        datiFiscaliType.setDataEmissione(dateConversion2XsdDate(datiFiscali.getDataEmissione(), datatypeFactory));
+        datiFiscaliType.setDataEmissione(
+                dateConversion2XsdDate(datiFiscali.getDataEmissione(), datatypeFactory));
 
         Long numeroProgressivo = datiFiscali.getNumeroProgressivo();
         if (numeroProgressivo != null) {
@@ -982,7 +993,8 @@ public class PARHelper implements Serializable {
 
     private ProfiloUnitaDocumentariaType creaProfiloUnitaDoc(DatiUnitaDocumentaria datiUnitaDoc,
             ObjectFactory objectFactory) throws DatatypeConfigurationException {
-        ProfiloUnitaDocumentariaType profiloUnitaDoc = objectFactory.createProfiloUnitaDocumentariaType();
+        ProfiloUnitaDocumentariaType profiloUnitaDoc = objectFactory
+                .createProfiloUnitaDocumentariaType();
         profiloUnitaDoc.setOggetto(datiUnitaDoc.getOggetto());
 
         DatatypeFactory datatypeFactory = DatatypeFactory.newInstance();
@@ -992,20 +1004,24 @@ public class PARHelper implements Serializable {
         return profiloUnitaDoc;
     }
 
-    private ProfiloArchivisticoType creaProfiloArchivistico(CamiciaFascicolo datiFascicoloPrincipale,
-            List<CamiciaFascicolo> datiFascicoliSecondari, ObjectFactory objectFactory) {
+    private ProfiloArchivisticoType creaProfiloArchivistico(
+            CamiciaFascicolo datiFascicoloPrincipale, List<CamiciaFascicolo> datiFascicoliSecondari,
+            ObjectFactory objectFactory) {
 
         ProfiloArchivisticoType profiloArch = objectFactory.createProfiloArchivisticoType();
 
-        CamiciaFascicoloType camiciaFascicoloPrincipale = objectFactory.createCamiciaFascicoloType();
+        CamiciaFascicoloType camiciaFascicoloPrincipale = objectFactory
+                .createCamiciaFascicoloType();
         camiciaFascicoloPrincipale.setClassifica(datiFascicoloPrincipale.getClassifica());
         if (datiFascicoloPrincipale.getFascicolo() != null) {
-            FascicoloType fascicolo = creaFascicolo(datiFascicoloPrincipale.getFascicolo(), objectFactory);
+            FascicoloType fascicolo = creaFascicolo(datiFascicoloPrincipale.getFascicolo(),
+                    objectFactory);
             camiciaFascicoloPrincipale.setFascicolo(fascicolo);
         }
 
         if (datiFascicoloPrincipale.getSottoFascicolo() != null) {
-            FascicoloType sottoFascicolo = creaFascicolo(datiFascicoloPrincipale.getSottoFascicolo(), objectFactory);
+            FascicoloType sottoFascicolo = creaFascicolo(
+                    datiFascicoloPrincipale.getSottoFascicolo(), objectFactory);
             camiciaFascicoloPrincipale.setSottoFascicolo(sottoFascicolo);
         }
         profiloArch.setFascicoloPrincipale(camiciaFascicoloPrincipale);
@@ -1014,15 +1030,18 @@ public class PARHelper implements Serializable {
             FascicoliSecondari listaFascicoliSecondari = objectFactory
                     .createProfiloArchivisticoTypeFascicoliSecondari();
             for (CamiciaFascicolo datiCamiciaFascicolo : datiFascicoliSecondari) {
-                CamiciaFascicoloType camiciaFascicoloSecondario = objectFactory.createCamiciaFascicoloType();
+                CamiciaFascicoloType camiciaFascicoloSecondario = objectFactory
+                        .createCamiciaFascicoloType();
                 camiciaFascicoloSecondario.setClassifica(datiCamiciaFascicolo.getClassifica());
                 Fascicolo fascicolo = datiCamiciaFascicolo.getFascicolo();
                 if (fascicolo != null) {
-                    camiciaFascicoloSecondario.setFascicolo(creaFascicolo(fascicolo, objectFactory));
+                    camiciaFascicoloSecondario
+                            .setFascicolo(creaFascicolo(fascicolo, objectFactory));
                 }
                 Fascicolo sottoFascicolo = datiCamiciaFascicolo.getSottoFascicolo();
                 if (sottoFascicolo != null) {
-                    camiciaFascicoloSecondario.setSottoFascicolo(creaFascicolo(sottoFascicolo, objectFactory));
+                    camiciaFascicoloSecondario
+                            .setSottoFascicolo(creaFascicolo(sottoFascicolo, objectFactory));
                 }
                 listaFascicoliSecondari.getFascicoloSecondario().add(camiciaFascicoloSecondario);
             }
@@ -1045,7 +1064,8 @@ public class PARHelper implements Serializable {
         }
     }
 
-    private ConfigType creaConfigurazione(Configurazione configurazione, ObjectFactory objectFactory) {
+    private ConfigType creaConfigurazione(Configurazione configurazione,
+            ObjectFactory objectFactory) {
         ConfigType config = objectFactory.createConfigType();
         config.setForzaAccettazione(configurazione.isForzaAccettazione());
         config.setForzaCollegamento(configurazione.isForzaCollegamento());
@@ -1067,7 +1087,8 @@ public class PARHelper implements Serializable {
         return config;
     }
 
-    private IntestazioneType creaIntestazione(Intestazione datiIntestazione, ObjectFactory objectFactory) {
+    private IntestazioneType creaIntestazione(Intestazione datiIntestazione,
+            ObjectFactory objectFactory) {
         IntestazioneType intestazione = objectFactory.createIntestazioneType();
         intestazione.setVersione(datiIntestazione.getVersione());
         VersatoreType versatore = creaVersatore(datiIntestazione, objectFactory);
@@ -1076,7 +1097,8 @@ public class PARHelper implements Serializable {
         ChiaveType chiave = creaChiave(datiIntestazione.getChiave(), objectFactory);
         intestazione.setChiave(chiave);
 
-        intestazione.setTipologiaUnitaDocumentaria(datiIntestazione.getTipologiaUnitaDocumentaria());
+        intestazione
+                .setTipologiaUnitaDocumentaria(datiIntestazione.getTipologiaUnitaDocumentaria());
 
         return intestazione;
     }
@@ -1091,7 +1113,8 @@ public class PARHelper implements Serializable {
         return chiave;
     }
 
-    private VersatoreType creaVersatore(Intestazione datiIntestazione, ObjectFactory objectFactory) {
+    private VersatoreType creaVersatore(Intestazione datiIntestazione,
+            ObjectFactory objectFactory) {
         VersatoreType versatore = objectFactory.createVersatoreType();
         versatore.setAmbiente(datiIntestazione.getAmbiente());
         versatore.setEnte(datiIntestazione.getEnte());
@@ -1102,16 +1125,16 @@ public class PARHelper implements Serializable {
     }
 
     /**
-     * Restituisce un XMLGregorianCalendare che risulterà, nell'xml, in una data nel formato YYYY-MM-DD
+     * Restituisce un XMLGregorianCalendare che risulterà, nell'xml, in una data nel formato
+     * YYYY-MM-DD
      *
-     * @param date
-     *            La data da convertire
-     * @param datatypeFactory
-     *            DatatypeFactory da usare per creare l'oggetto XMLGregorianCalendar
+     * @param date            La data da convertire
+     * @param datatypeFactory DatatypeFactory da usare per creare l'oggetto XMLGregorianCalendar
      *
      * @return Oggetto XMLGregorianCalendar corrispondente alla data ricevuta
      */
-    private XMLGregorianCalendar dateConversion2XsdDateTime(DateTime date, DatatypeFactory datatypeFactory) {
+    private XMLGregorianCalendar dateConversion2XsdDateTime(DateTime date,
+            DatatypeFactory datatypeFactory) {
         if (date != null) {
             GregorianCalendar dataC = date.toGregorianCalendar();
             return datatypeFactory.newXMLGregorianCalendar(dataC);
@@ -1120,10 +1143,11 @@ public class PARHelper implements Serializable {
         }
     }
 
-    private XMLGregorianCalendar dateConversion2XsdDate(DateTime date, DatatypeFactory datatypeFactory) {
+    private XMLGregorianCalendar dateConversion2XsdDate(DateTime date,
+            DatatypeFactory datatypeFactory) {
         if (date != null) {
-            return datatypeFactory.newXMLGregorianCalendarDate(date.getYear(), date.getMonthOfYear(),
-                    date.getDayOfMonth(), DatatypeConstants.FIELD_UNDEFINED);
+            return datatypeFactory.newXMLGregorianCalendarDate(date.getYear(),
+                    date.getMonthOfYear(), date.getDayOfMonth(), DatatypeConstants.FIELD_UNDEFINED);
         } else {
             return null;
         }
@@ -1164,7 +1188,8 @@ public class PARHelper implements Serializable {
     private InputStream getBlobInputStreamForIdComponente(String codAllegato) {
         InputStream ret = null;
         if (codAllegato != null) {
-            DataSource datasource = SpringContext.getApplicationContext().getBean("dataSource", DataSource.class);
+            DataSource datasource = SpringContext.getApplicationContext().getBean("dataSource",
+                    DataSource.class);
             try (Connection conn = datasource.getConnection()) {
                 ParComponenteDAO parCompDao = new ParComponenteDAO();
                 ret = parCompDao.getBlobWhereByCodAllegato(codAllegato, conn);

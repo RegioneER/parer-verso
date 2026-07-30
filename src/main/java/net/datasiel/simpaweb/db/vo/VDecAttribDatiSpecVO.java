@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.db.vo;
@@ -20,8 +16,7 @@ package net.datasiel.simpaweb.db.vo;
 /**
  * V_dec_attrib_dati_spec
  *
- * WARNING! Automatically generated file! Do not edit! Code Generator by
- * J.A.Carter
+ * WARNING! Automatically generated file! Do not edit! Code Generator by J.A.Carter
  */
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -68,8 +63,9 @@ public class VDecAttribDatiSpecVO extends VDecAttribDatiSpecDAO {
         this.valore = valore;
     }
 
-    public List<VDecAttribDatiSpecVO> getValoriSpecifici(Long idDatiSpecifici, Long idStrut, String tipoEntitaSacer,
-            Long idTipo, String cdVersioneXsd, Connection con) throws SQLException {
+    public List<VDecAttribDatiSpecVO> getValoriSpecifici(Long idDatiSpecifici, Long idStrut,
+            String tipoEntitaSacer, Long idTipo, String cdVersioneXsd, Connection con)
+            throws SQLException {
         StringBuilder sb = new StringBuilder();
         sb.append(" select A.* ,v.IDVALOREDATISPECIFICI, V.VALORE ");
         sb.append("FROM V_DEC_ATTRIB_DATI_SPEC A ");
@@ -113,8 +109,9 @@ public class VDecAttribDatiSpecVO extends VDecAttribDatiSpecDAO {
         return resultList;
     }
 
-    public List<VDecAttribDatiSpecVO> getValoriSpecifici(Long idDatiSpecifici, Long idStrut, String tipoEntitaSacer,
-            String colonna, Long id, String cdVersioneXsd, Connection con) throws SQLException {
+    public List<VDecAttribDatiSpecVO> getValoriSpecifici(Long idDatiSpecifici, Long idStrut,
+            String tipoEntitaSacer, String colonna, Long id, String cdVersioneXsd, Connection con)
+            throws SQLException {
         StringBuilder sb = new StringBuilder();
         sb.append(" select A.* ,v.IDVALOREDATISPECIFICI, V.VALORE ");
         sb.append(" from V_DEC_ATTRIB_DATI_SPEC A ");
@@ -152,8 +149,9 @@ public class VDecAttribDatiSpecVO extends VDecAttribDatiSpecDAO {
         return resultList;
     }
 
-    public List<VDecAttribDatiSpecVO> getValoriSpecificiPerVersione(Long idDatiSpecifici, Long idStrut,
-            String tipoEntitaSacer, Long idTipoUnitaDoc, String versioneXsd, Connection con) throws SQLException {
+    public List<VDecAttribDatiSpecVO> getValoriSpecificiPerVersione(Long idDatiSpecifici,
+            Long idStrut, String tipoEntitaSacer, Long idTipoUnitaDoc, String versioneXsd,
+            Connection con) throws SQLException {
         /*
          * UNI_DOC("idunitadoc"), DOC("iddocumento"), COMP("idcomponente"), SUB_COMP("idcomponente")
          */
@@ -237,8 +235,9 @@ public class VDecAttribDatiSpecVO extends VDecAttribDatiSpecDAO {
         return resultList;
     }
 
-    public List<VDecAttribDatiSpecVO> getValoriSpecificiPerVersione(Long idDatiSpecifici, Long idStrut,
-            EnumEntitaDatiSpecifici tipoEntitaSacer, Long id, String versioneXsd, Connection con) throws SQLException {
+    public List<VDecAttribDatiSpecVO> getValoriSpecificiPerVersione(Long idDatiSpecifici,
+            Long idStrut, EnumEntitaDatiSpecifici tipoEntitaSacer, Long id, String versioneXsd,
+            Connection con) throws SQLException {
         /*
          * UNI_DOC("idunitadoc"), DOC("iddocumento"), COMP("idcomponente"), SUB_COMP("idcomponente")
          */
@@ -323,8 +322,9 @@ public class VDecAttribDatiSpecVO extends VDecAttribDatiSpecDAO {
         return resultList;
     }
 
-    public Map<String, String> getMapOfValoriSpecifici(Long idDatiSpecifici, Long idstruttura, String tipoEntitaSacer,
-            Long idTipoUnitaDoc, String cdVersioneXsd, Connection connection) throws SQLException {
+    public Map<String, String> getMapOfValoriSpecifici(Long idDatiSpecifici, Long idstruttura,
+            String tipoEntitaSacer, Long idTipoUnitaDoc, String cdVersioneXsd,
+            Connection connection) throws SQLException {
         TreeMap<String, String> result = null;
         StringBuilder sb = new StringBuilder();
         sb.append(" select A.* ,v.IDVALOREDATISPECIFICI, V.VALORE ");

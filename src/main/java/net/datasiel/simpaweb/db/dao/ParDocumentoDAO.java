@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.db.dao;
@@ -44,10 +40,12 @@ public class ParDocumentoDAO extends ParDocumento {
     public static String[] fieldNames = null;
 
     static {
-        fieldNames = new String[] { "iddocumento", "idunitadoc", "idTipoDoc", "flgstato", "dtins", "dtagg", "pgm", "id",
-                "profiloautoredoc", "profilodescrizionedoc", "dfdenominazione", "dfcognome", "dfnome", "dfcodfiscale",
-                "dfpiva", "dfdtemissione", "dfprogressivo", "dfregistro", "dfperiodo", "dfdttermineemissione",
-                "tipologia", "cdVersioneXsd", "idTipoStrutDoc" };
+        fieldNames = new String[] {
+                "iddocumento", "idunitadoc", "idTipoDoc", "flgstato", "dtins", "dtagg", "pgm", "id",
+                "profiloautoredoc", "profilodescrizionedoc", "dfdenominazione", "dfcognome",
+                "dfnome", "dfcodfiscale", "dfpiva", "dfdtemissione", "dfprogressivo", "dfregistro",
+                "dfperiodo", "dfdttermineemissione", "tipologia", "cdVersioneXsd",
+                "idTipoStrutDoc" };
     }
 
     public ParDocumentoDAO() {
@@ -107,12 +105,14 @@ public class ParDocumentoDAO extends ParDocumento {
 
     }
 
-    public String[] keyNames = { "idunitadoc", "iddocumento" };
+    public String[] keyNames = {
+            "idunitadoc", "iddocumento" };
 
     /**
      * Retrieve from the database for table "PAR_DOCUMENTO"
      */
-    public ParDocumento retrieveByKey(Long idunitadoc, Long iddocumento, Connection con) throws SQLException {
+    public ParDocumento retrieveByKey(Long idunitadoc, Long iddocumento, Connection con)
+            throws SQLException {
 
         String query = "select * from PAR_DOCUMENTO" + " where IDUNITADOC=?" + " and IDDOCUMENTO=?";
         PreparedStatement st = con.prepareStatement(query);
@@ -164,10 +164,11 @@ public class ParDocumentoDAO extends ParDocumento {
      * Retrieve from the database for table "PAR_DOCUMENTO"
      */
     @Deprecated
-    public java.util.List<ParDocumento> retrieveWhere(String where, String orderByClause, Connection con)
-            throws SQLException {
+    public java.util.List<ParDocumento> retrieveWhere(String where, String orderByClause,
+            Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         java.util.List<ParDocumento> retRows = new java.util.ArrayList<ParDocumento>();
         ParDocumento curRow;
@@ -199,9 +200,11 @@ public class ParDocumentoDAO extends ParDocumento {
      * Retrieve from the database for table "PAR_DOCUMENTO"
      */
     @Deprecated
-    public java.util.List<ParDocumento> retrieveWhere(String where, Connection con) throws SQLException {
+    public java.util.List<ParDocumento> retrieveWhere(String where, Connection con)
+            throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         java.util.List<ParDocumento> retRows = new java.util.ArrayList<ParDocumento>();
         ParDocumento curRow;
@@ -292,7 +295,8 @@ public class ParDocumentoDAO extends ParDocumento {
             pst.setString(indice++, obj.getDfregistro());
             pst.setString(indice++, obj.getDfperiodo());
             if (obj.getDfdttermineemissione() != null) {
-                pst.setObject(indice++, new java.sql.Date((obj.getDfdttermineemissione()).getTime()));
+                pst.setObject(indice++,
+                        new java.sql.Date((obj.getDfdttermineemissione()).getTime()));
             } else {
                 pst.setObject(indice++, null);
             }
@@ -318,7 +322,8 @@ public class ParDocumentoDAO extends ParDocumento {
     @Deprecated
     public int updateWhere(ParDocumento obj, String where, Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         String preparedQuery = "update PAR_DOCUMENTO set IDDOCUMENTO= ?  , IDUNITADOC= ?  , ID_TIPO_DOC= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?  , PROFILOAUTOREDOC= ?  , PROFILODESCRIZIONEDOC= ?  , DFDENOMINAZIONE= ?  , DFCOGNOME= ?  , DFNOME= ?  , DFCODFISCALE= ?  , DFPIVA= ?  , DFDTEMISSIONE= ?  , DFPROGRESSIVO= ?  , DFREGISTRO= ?  , DFPERIODO= ?  , DFDTTERMINEEMISSIONE= ?  , TIPOLOGIA= ? , CD_VERSIONE_XSD=? , ID_TIPO_STRUT_DOC=?  where "
                 + where;
@@ -378,7 +383,8 @@ public class ParDocumentoDAO extends ParDocumento {
             pst.setString(indice++, obj.getDfregistro());
             pst.setString(indice++, obj.getDfperiodo());
             if (obj.getDfdttermineemissione() != null) {
-                pst.setObject(indice++, new java.sql.Date((obj.getDfdttermineemissione()).getTime()));
+                pst.setObject(indice++,
+                        new java.sql.Date((obj.getDfdttermineemissione()).getTime()));
             } else {
                 pst.setObject(indice++, null);
             }
@@ -437,8 +443,8 @@ public class ParDocumentoDAO extends ParDocumento {
     /**
      * Retrieve from the database for table "PAR_DOCUMENTO"
      */
-    public java.util.List<ParDocumento> getParDocumentosByIdunitadoc(Long idunitadoc, Connection con)
-            throws SQLException {
+    public java.util.List<ParDocumento> getParDocumentosByIdunitadoc(Long idunitadoc,
+            Connection con) throws SQLException {
         java.util.List<ParDocumento> retRows = new java.util.ArrayList<>();
         ParDocumento curRow;
 
@@ -466,10 +472,11 @@ public class ParDocumentoDAO extends ParDocumento {
      * Retrieve from the database for table "PAR_DOCUMENTO"
      */
     @Deprecated
-    public java.util.List<ParDocumento> getParDocumentosByIdunitadoc(Long idunitadoc, String orderByClause,
-            Connection con) throws SQLException {
+    public java.util.List<ParDocumento> getParDocumentosByIdunitadoc(Long idunitadoc,
+            String orderByClause, Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         java.util.List<ParDocumento> retRows = new java.util.ArrayList<ParDocumento>();
         ParDocumento curRow;
@@ -500,8 +507,8 @@ public class ParDocumentoDAO extends ParDocumento {
     /**
      * Get all related PAR_COMPONENTE which have same iddocumento, idunitadoc
      */
-    public java.util.List<ParComponente> getRelatedParComponenteByIddocumento(Long iddocumento, Long idunitadoc,
-            Connection con) throws SQLException {
+    public java.util.List<ParComponente> getRelatedParComponenteByIddocumento(Long iddocumento,
+            Long idunitadoc, Connection con) throws SQLException {
         ParComponenteVO x = new ParComponenteVO();
         return x.getParComponentesByIddocumentoIdunitadoc(iddocumento, idunitadoc, con);
     }
@@ -509,8 +516,8 @@ public class ParDocumentoDAO extends ParDocumento {
     /**
      * Get all related PAR_DATISPECIFICI which have same iddocumento, idunitadoc
      */
-    public java.util.List<ParDatispecifici> getRelatedParDatispecificiByIddocumento(Long iddocumento, Long idunitadoc,
-            Connection con) throws SQLException {
+    public java.util.List<ParDatispecifici> getRelatedParDatispecificiByIddocumento(
+            Long iddocumento, Long idunitadoc, Connection con) throws SQLException {
         ParDatispecificiVO x = new ParDatispecificiVO();
         return x.getParDatispecificisByIddocumentoIdunitadoc(iddocumento, idunitadoc, con);
     }
@@ -518,7 +525,8 @@ public class ParDocumentoDAO extends ParDocumento {
     /**
      * Retrieve from the database for table "PAR_DOCUMENTO"
      */
-    public ParDocumento retrieveByIndex(Long iddocumento, Long idunitadoc, Connection con) throws SQLException {
+    public ParDocumento retrieveByIndex(Long iddocumento, Long idunitadoc, Connection con)
+            throws SQLException {
 
         String query = "select * from PAR_DOCUMENTO" + " where IDDOCUMENTO=?" + " and IDUNITADOC=?";
 
@@ -605,7 +613,8 @@ public class ParDocumentoDAO extends ParDocumento {
             pst.setString(indice++, obj.getDfregistro());
             pst.setString(indice++, obj.getDfperiodo());
             if (obj.getDfdttermineemissione() != null) {
-                pst.setObject(indice++, new java.sql.Date((obj.getDfdttermineemissione()).getTime()));
+                pst.setObject(indice++,
+                        new java.sql.Date((obj.getDfdttermineemissione()).getTime()));
             } else {
                 pst.setObject(indice++, null);
             }
@@ -694,7 +703,8 @@ public class ParDocumentoDAO extends ParDocumento {
             pst.setString(indice++, obj.getDfregistro());
             pst.setString(indice++, obj.getDfperiodo());
             if (obj.getDfdttermineemissione() != null) {
-                pst.setObject(indice++, new java.sql.Date((obj.getDfdttermineemissione()).getTime()));
+                pst.setObject(indice++,
+                        new java.sql.Date((obj.getDfdttermineemissione()).getTime()));
             } else {
                 pst.setObject(indice++, null);
             }

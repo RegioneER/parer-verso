@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.db.dao;
@@ -40,7 +36,8 @@ public class VDecTipoUnitaDocDAO extends VDecTipoUnitaDoc {
     public static String[] fieldNames = null;
 
     static {
-        fieldNames = new String[] { "idTipoUnitaDoc", "idStrut", "nmTipoUnitaDoc", "dsTipoUnitaDoc", "cdSerie",
+        fieldNames = new String[] {
+                "idTipoUnitaDoc", "idStrut", "nmTipoUnitaDoc", "dsTipoUnitaDoc", "cdSerie",
                 "flForzaCollegamento", "tiCalcOrd", "dtIstituz", "dtSoppres", "idUserIam" };
     }
 
@@ -77,10 +74,10 @@ public class VDecTipoUnitaDocDAO extends VDecTipoUnitaDoc {
      */
     public int insertPrepared(VDecTipoUnitaDoc obj, Connection con) throws SQLException {
         int indice = 1;
-        String prepQuery = "INSERT INTO V_DEC_TIPO_UNITA_DOC (" + "ID_TIPO_UNITA_DOC, " + "ID_STRUT, "
-                + "NM_TIPO_UNITA_DOC, " + "DS_TIPO_UNITA_DOC, " + "CD_SERIE, " + "FL_FORZA_COLLEGAMENTO, "
-                + "TI_CALC_ORD, " + "DT_ISTITUZ,DT_SOPPRES, " + "ID_USER_IAM"
-                + ") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String prepQuery = "INSERT INTO V_DEC_TIPO_UNITA_DOC (" + "ID_TIPO_UNITA_DOC, "
+                + "ID_STRUT, " + "NM_TIPO_UNITA_DOC, " + "DS_TIPO_UNITA_DOC, " + "CD_SERIE, "
+                + "FL_FORZA_COLLEGAMENTO, " + "TI_CALC_ORD, " + "DT_ISTITUZ,DT_SOPPRES, "
+                + "ID_USER_IAM" + ") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIdTipoUnitaDoc() == null) {
@@ -99,12 +96,14 @@ public class VDecTipoUnitaDocDAO extends VDecTipoUnitaDoc {
             pst.setString(indice++, obj.getFlForzaCollegamento());
             pst.setString(indice++, obj.getTiCalcOrd());
             if (obj.getDtIstituz() != null) {
-                pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getDtIstituz()).getTime()));
+                pst.setObject(indice++,
+                        new java.sql.Date(((java.util.Date) obj.getDtIstituz()).getTime()));
             } else {
                 pst.setObject(indice++, null);
             }
             if (obj.getDtSoppres() != null) {
-                pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getDtSoppres()).getTime()));
+                pst.setObject(indice++,
+                        new java.sql.Date(((java.util.Date) obj.getDtSoppres()).getTime()));
             } else {
                 pst.setObject(indice++, null);
             }

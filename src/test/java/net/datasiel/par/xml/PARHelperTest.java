@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.par.xml;
@@ -46,13 +42,17 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
 import org.joda.time.DateTime;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import junit.framework.Assert;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import net.datasiel.par.beans.CamiciaFascicolo;
 import net.datasiel.par.beans.CamiciaFascicolo.Fascicolo;
 import net.datasiel.par.beans.Chiave;
@@ -70,17 +70,18 @@ import net.datasiel.par.jaxb.datispecifici.ObjectFactory;
 import net.datasiel.simpaweb.common.Constants;
 
 /**
- * Attenzione: questi test non possono funzionare. In particolare {@link PARHelper#collectCompositeConfiguration()}
- * cerca un file che è al percorso sbagliato. Marcato tutto come @Ignore
+ * Attenzione: questi test non possono funzionare. In particolare
+ * {@link PARHelper#collectCompositeConfiguration()} cerca un file che è al percorso sbagliato.
+ * Marcato tutto come @Ignore
  *
  * @author Liguria?
  */
-@Ignore
-public class testPARHelper {
+@Disabled
+public class PARHelperTest {
 
     private DatiUnitaDocumentaria datiUDTest = new DatiUnitaDocumentaria();
 
-    @Before
+    @BeforeEach
     public void creaDatiTest() {
         DatiUnitaDocumentaria datiVersamento = new DatiUnitaDocumentaria();
         Intestazione datiIntestazione = new Intestazione();
@@ -200,21 +201,23 @@ public class testPARHelper {
         datiVersamento.setAnnessi(annessi);
 
         /**
-         * Creazione sezione dati specifici. Per come è definito xs:any non è possibile usare String per rappresentare
-         * l'xml generico. Dovrà essere DOM o un oggett JAXB Vedi
+         * Creazione sezione dati specifici. Per come è definito xs:any non è possibile usare String
+         * per rappresentare l'xml generico. Dovrà essere DOM o un oggett JAXB Vedi
          * http://jaxb.java.net/2.2.5/docs/ch03.html#compiling-xml-schema-mapping-of-xs-any
          */
         /*
          * String datiSpecXML =
-         * "<Dati><ComponenteNew vers=\"2.12\"><IDNew>ID1</IDNew><OrdineNew>12</OrdineNew></ComponenteNew></Dati>";
-         * DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); DocumentBuilder documentBuilder =
-         * dbf.newDocumentBuilder(); InputStream is = new ByteArrayInputStream(datiSpecXML.getBytes("UTF-8")); Document
-         * document = documentBuilder.parse(is);
+         * "<Dati><ComponenteNew vers=\"2.12\"><IDNew>ID1</IDNew><OrdineNew>12</OrdineNew></ComponenteNew></Dati>"
+         * ; DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); DocumentBuilder
+         * documentBuilder = dbf.newDocumentBuilder(); InputStream is = new
+         * ByteArrayInputStream(datiSpecXML.getBytes("UTF-8")); Document document =
+         * documentBuilder.parse(is);
          */
         Document doc = null;
         try {
             ObjectFactory domObjFactory = new ObjectFactory();
-            net.datasiel.par.jaxb.datispecifici.DatiSpecificiType datiDomanda = domObjFactory.createDatiSpecificiType();
+            net.datasiel.par.jaxb.datispecifici.DatiSpecificiType datiDomanda = domObjFactory
+                    .createDatiSpecificiType();
             datiDomanda.setContributoRichiesto("20000");
             datiDomanda.setDenominazioneBando("Bando ???? prova");
             datiDomanda.setImportoTotaleLordo("345000");
@@ -222,13 +225,16 @@ public class testPARHelper {
             DateTime dataPres = new DateTime();
 
             DatatypeFactory datatypeFactory = DatatypeFactory.newInstance();
-            XMLGregorianCalendar xmldata = datatypeFactory.newXMLGregorianCalendarDate(dataPres.getYear(),
-                    dataPres.getMonthOfYear(), dataPres.getDayOfMonth(), DatatypeConstants.FIELD_UNDEFINED);
+            XMLGregorianCalendar xmldata = datatypeFactory.newXMLGregorianCalendarDate(
+                    dataPres.getYear(), dataPres.getMonthOfYear(), dataPres.getDayOfMonth(),
+                    DatatypeConstants.FIELD_UNDEFINED);
 
             datiDomanda.setDataPresentazione(xmldata);
 
-            // Marshal di datiDomanda su un generico Node (Document) per fare s? che creaDatiSpecifici
-            // spacchetti il Document e per ogni elemento invochi datiSpecifici.getAny().add(elemento)
+            // Marshal di datiDomanda su un generico Node (Document) per fare s? che
+            // creaDatiSpecifici
+            // spacchetti il Document e per ogni elemento invochi
+            // datiSpecifici.getAny().add(elemento)
 
             JAXBContext jc = JAXBContext.newInstance(DatiSpecificiType.class);
             Marshaller m = jc.createMarshaller();
@@ -237,8 +243,8 @@ public class testPARHelper {
             dbf.setNamespaceAware(true);
             DocumentBuilder db = dbf.newDocumentBuilder();
             doc = db.newDocument();
-            m.marshal(new JAXBElement<DatiSpecificiType>(new QName("", "DatiSpecifici"), DatiSpecificiType.class, null,
-                    datiDomanda), doc);
+            m.marshal(new JAXBElement<DatiSpecificiType>(new QName("", "DatiSpecifici"),
+                    DatiSpecificiType.class, null, datiDomanda), doc);
         } catch (Exception e) {
             System.err.print("Errore nella creazione dei dati specifici.");
             System.err.println(ExceptionUtils.getRootCause(e));
@@ -262,7 +268,7 @@ public class testPARHelper {
             PARHelper ph = new PARHelper("Cp1252");
 
             String esito = ph.invocaVersamentoSync(datiUDTest);
-            Assert.assertNotNull("Invocazione fallita", esito);
+            assertNotNull(esito, "Invocazione fallita");
 
             System.out.println(esito);
 
@@ -289,8 +295,7 @@ public class testPARHelper {
             // TODO testare versamentoXML (se c'è)
         } catch (Exception e) {
             System.err.print("Errore nella creazione xml");
-            Assert.fail("test fallito");
-            System.exit(1);
+            fail("test fallito");
         }
     }
 
@@ -357,25 +362,26 @@ public class testPARHelper {
         return datiFiscali;
     }
 
-    @Test(expected = IllegalCharsetNameException.class)
-    public void testCostruttoreEncodingNonsupportato()
-            throws UnsupportedCharsetException, JAXBException, IllegalCharsetNameException, ConfigurationException {
-        PARHelper ph = new PARHelper("encoding non esistente");
+    @Test
+    public void testCostruttoreEncodingNonsupportato() {
+        assertThrows(IllegalCharsetNameException.class,
+                () -> new PARHelper("encoding non esistente"));
     }
 
-    @Test(expected = IllegalCharsetNameException.class)
-    public void testSetterEncodingNonsupportato()
-            throws UnsupportedCharsetException, JAXBException, ConfigurationException {
-        PARHelper ph = new PARHelper();
-        ph.setEncoding("encoding non supportato");
+    @Test
+    public void testSetterEncodingNonsupportato() {
+        assertThrows(IllegalCharsetNameException.class, () -> {
+            PARHelper ph = new PARHelper();
+            ph.setEncoding("encoding non supportato");
+        });
     }
 
     @Test
     public void testCongruenzaNumeroAnnotazioni() throws ConfigurationException {
         if (datiUDTest.getAnnotazioni() == null) {
-            Assert.assertEquals(0, datiUDTest.getNumeroAnnotazioni());
+            assertEquals(0, datiUDTest.getNumeroAnnotazioni());
         } else {
-            Assert.assertEquals(datiUDTest.getNumeroAnnotazioni(), datiUDTest.getAnnotazioni().size());
+            assertEquals(datiUDTest.getNumeroAnnotazioni(), datiUDTest.getAnnotazioni().size());
 
         }
     }
@@ -384,9 +390,9 @@ public class testPARHelper {
     public void testCongruenzaNumeroAnnessi() throws ConfigurationException {
 
         if (datiUDTest.getAnnessi() == null) {
-            Assert.assertEquals(0, datiUDTest.getNumeroAnnessi());
+            assertEquals(0, datiUDTest.getNumeroAnnessi());
         } else {
-            Assert.assertEquals(datiUDTest.getNumeroAnnessi(), datiUDTest.getAnnessi().size());
+            assertEquals(datiUDTest.getNumeroAnnessi(), datiUDTest.getAnnessi().size());
 
         }
     }
@@ -395,9 +401,9 @@ public class testPARHelper {
     public void testCongruenzaNumeroAllegati() throws ConfigurationException {
 
         if (datiUDTest.getAllegati() == null) {
-            Assert.assertEquals(0, datiUDTest.getNumeroAllegati());
+            assertEquals(0, datiUDTest.getNumeroAllegati());
         } else {
-            Assert.assertEquals(datiUDTest.getNumeroAllegati(), datiUDTest.getAllegati().size());
+            assertEquals(datiUDTest.getNumeroAllegati(), datiUDTest.getAllegati().size());
 
         }
     }
@@ -405,15 +411,16 @@ public class testPARHelper {
     @Test
     public void leggiXsd() throws SAXException, JDOMException, IOException {
         SAXBuilder builder = new SAXBuilder();
-        org.jdom2.Document jdomDocument = builder.build(
-                new File("D:\\JunoWks\\sacerGateway\\src\\net\\datasiel\\par\\resources\\esempioXsdDatiSpecifici.xsd"));
+        org.jdom2.Document jdomDocument = builder.build(new File(
+                "D:\\JunoWks\\sacerGateway\\src\\net\\datasiel\\par\\resources\\esempioXsdDatiSpecifici.xsd"));
         Element root = jdomDocument.getRootElement();
         root.setNamespace(Namespace.getNamespace("xs", root.getNamespaceURI()));
         // Con questa query non si trova niente:
-        // String xpathExpr = "/xs:schema/xs:complexType/xs:sequence/xs:element/@name=\"DenominazioneBando\"";
+        // String xpathExpr =
+        // "/xs:schema/xs:complexType/xs:sequence/xs:element/@name=\"DenominazioneBando\"";
         String xpathExpr = "/xs:schema/xs:complexType/xs:sequence/xs:element";
-        XPathExpression<Element> elementPath = XPathFactory.instance().compile(xpathExpr, Filters.element(), null,
-                Namespace.getNamespace("xs", root.getNamespaceURI()));
+        XPathExpression<Element> elementPath = XPathFactory.instance().compile(xpathExpr,
+                Filters.element(), null, Namespace.getNamespace("xs", root.getNamespaceURI()));
         List<Element> elementList = elementPath.evaluate(jdomDocument);
         for (Element element : elementList) {
             if (!"VersioneDatiSpecifici".equals(element.getAttributeValue("name"))) {

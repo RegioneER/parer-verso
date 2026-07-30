@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.common.crud;
@@ -78,7 +74,8 @@ public class SimpaAbstractCrudAction extends AbstractCrudAction {
      * @throws SQLException
      * @throws AuthorizationException
      */
-    protected void leggiDatiUnitaDoc(Long idrecord, Connection con) throws SQLException, AuthorizationException {
+    protected void leggiDatiUnitaDoc(Long idrecord, Connection con)
+            throws SQLException, AuthorizationException {
         ParUnitadocVO parUnitadocVO = new ParUnitadocVO();
         datiUnitaDoc = parUnitadocVO.retrieveByKey(idrecord, con);
         if (datiUnitaDoc == null) {
@@ -97,7 +94,8 @@ public class SimpaAbstractCrudAction extends AbstractCrudAction {
         resolution.addParameter("idStrut", idStrut);
         redirect = resolution;
 
-        String isPasswordPresente = (String) context.getRequest().getSession().getAttribute(Constants.PASSWORD_ATTR);
+        String isPasswordPresente = (String) context.getRequest().getSession()
+                .getAttribute(Constants.PASSWORD_ATTR);
         if (StringUtils.isNotBlank(isPasswordPresente) && "true".equals(isPasswordPresente)) {
 
             InfoEsito infoEsitoVerifica = VerificaVersamentoUD.esegui(EnumOperazione.VERIFICA,
@@ -149,13 +147,14 @@ public class SimpaAbstractCrudAction extends AbstractCrudAction {
      *
      * @see net.datasiel.webapp.BaseAction#isTabEnabled(int)
      *
-     * @Override public boolean isTabEnabled(int indiceTab) throws SQLException { int indiceInTipoDoc = 0; //
-     *           corrisponde al doc principale che qui non è // gestito switch (indiceTab) { case 4: case 5: case 6: //
-     *           Tab allegati, annessi e annotazioni // Calcolare indiceInTipoDoc e recuperare EnumTipodocumento
-     *           indiceInTipoDoc = indiceTab - 3; int numTipiDoc =
+     * @Override public boolean isTabEnabled(int indiceTab) throws SQLException { int
+     *           indiceInTipoDoc = 0; // corrisponde al doc principale che qui non è // gestito
+     *           switch (indiceTab) { case 4: case 5: case 6: // Tab allegati, annessi e annotazioni
+     *           // Calcolare indiceInTipoDoc e recuperare EnumTipodocumento indiceInTipoDoc =
+     *           indiceTab - 3; int numTipiDoc =
      *           VDecTipoDocVO.getNumeroTipiDoc(datiUnitaDoc.getIdTipoUnitaDoc(),
-     *           EnumTipoDocumento.values()[indiceInTipoDoc].getValoreInDb(), getConnection()); if (numTipiDoc == 0) {
-     *           return false; } else { return true; } case 7: return
+     *           EnumTipoDocumento.values()[indiceInTipoDoc].getValoreInDb(), getConnection()); if
+     *           (numTipiDoc == 0) { return false; } else { return true; } case 7: return
      *           VDecXsdDatiSpecVO.sonoPresentiDatiSpecificiUD(datiUnitaDoc.getIdStrut(),
      *           datiUnitaDoc.getIdTipoUnitaDoc(), getConnection()); default: return true; } }
      */
@@ -321,7 +320,8 @@ public class SimpaAbstractCrudAction extends AbstractCrudAction {
 
     @Override
     public boolean isReadOnly() {
-        return datiUnitaDoc != null && datiUnitaDoc.getStato().compareTo(EnumStatoUD.VERSATA.getValore()) == 0;
+        return datiUnitaDoc != null
+                && datiUnitaDoc.getStato().compareTo(EnumStatoUD.VERSATA.getValore()) == 0;
     }
 
 }

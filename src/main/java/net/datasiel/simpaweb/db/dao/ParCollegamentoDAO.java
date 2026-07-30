@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.db.dao;
@@ -41,7 +37,8 @@ public class ParCollegamentoDAO extends ParCollegamento {
     public static String[] fieldNames = null;
 
     static {
-        fieldNames = new String[] { "idcollegamento", "idunitadoc", "idStrut", "numero", "anno", "idRegistroUnitaDoc",
+        fieldNames = new String[] {
+                "idcollegamento", "idunitadoc", "idStrut", "numero", "anno", "idRegistroUnitaDoc",
                 "flgstato", "dtins", "dtagg", "pgm", "id", "descrizione" };
     }
 
@@ -95,7 +92,8 @@ public class ParCollegamentoDAO extends ParCollegamento {
         obj.setDescrizione(r.getString("DESCRIZIONE"));
     }
 
-    public String[] keyNames = { "idcollegamento" };
+    public String[] keyNames = {
+            "idcollegamento" };
 
     /**
      * Retrieve from the database for table "PAR_COLLEGAMENTO"
@@ -125,8 +123,8 @@ public class ParCollegamentoDAO extends ParCollegamento {
     /**
      * Retrieve from the database for table "PAR_COLLEGAMENTO"
      */
-    public java.util.List<ParCollegamento> retrieveByIdUdOrderByIdCollegamento(Long idUnitadoc, Connection con)
-            throws SQLException {
+    public java.util.List<ParCollegamento> retrieveByIdUdOrderByIdCollegamento(Long idUnitadoc,
+            Connection con) throws SQLException {
         java.util.List<ParCollegamento> retRows = new java.util.ArrayList<ParCollegamento>();
         ParCollegamento curRow;
 
@@ -153,9 +151,11 @@ public class ParCollegamentoDAO extends ParCollegamento {
      * Retrieve from the database for table "PAR_COLLEGAMENTO"
      */
     @Deprecated
-    public java.util.List<ParCollegamento> retrieveWhere(String where, Connection con) throws SQLException {
+    public java.util.List<ParCollegamento> retrieveWhere(String where, Connection con)
+            throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         java.util.List<ParCollegamento> retRows = new java.util.ArrayList<ParCollegamento>();
         ParCollegamento curRow;
@@ -252,7 +252,8 @@ public class ParCollegamentoDAO extends ParCollegamento {
     @Deprecated
     public int updateWhere(ParCollegamento obj, String where, Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         String preparedQuery = "update PAR_COLLEGAMENTO set IDCOLLEGAMENTO= ?  , IDUNITADOC= ?  , ID_STRUT= ?  , NUMERO= ?  , ANNO= ?  , ID_REGISTRO_UNITA_DOC= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?  , DESCRIZIONE= ?   where "
                 + where;
@@ -353,8 +354,8 @@ public class ParCollegamentoDAO extends ParCollegamento {
     /**
      * Retrieve from the database for table "PAR_COLLEGAMENTO"
      */
-    public java.util.List<ParCollegamento> getParCollegamentosByIdunitadoc(Long idunitadoc, Connection con)
-            throws SQLException {
+    public java.util.List<ParCollegamento> getParCollegamentosByIdunitadoc(Long idunitadoc,
+            Connection con) throws SQLException {
         java.util.List<ParCollegamento> retRows = new java.util.ArrayList<ParCollegamento>();
         ParCollegamento curRow;
 
@@ -381,10 +382,11 @@ public class ParCollegamentoDAO extends ParCollegamento {
      * Retrieve from the database for table "PAR_COLLEGAMENTO"
      */
     @Deprecated
-    public java.util.List<ParCollegamento> getParCollegamentosByIdunitadoc(Long idunitadoc, String orderByClause,
-            Connection con) throws SQLException {
+    public java.util.List<ParCollegamento> getParCollegamentosByIdunitadoc(Long idunitadoc,
+            String orderByClause, Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         java.util.List<ParCollegamento> retRows = new java.util.ArrayList<ParCollegamento>();
         ParCollegamento curRow;
@@ -412,9 +414,11 @@ public class ParCollegamentoDAO extends ParCollegamento {
     /**
      * Retrieve from the database for table "PAR_COLLEGAMENTO"
      */
-    public ParCollegamento retrieveByIndex(Long idcollegamento, Long idunitadoc, Connection con) throws SQLException {
+    public ParCollegamento retrieveByIndex(Long idcollegamento, Long idunitadoc, Connection con)
+            throws SQLException {
 
-        String query = "select * from PAR_COLLEGAMENTO" + " where IDCOLLEGAMENTO=?" + " and IDUNITADOC=?";
+        String query = "select * from PAR_COLLEGAMENTO" + " where IDCOLLEGAMENTO=?"
+                + " and IDUNITADOC=?";
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query);) {
             st.setLong(1, idcollegamento);

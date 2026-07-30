@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.db.dao;
@@ -50,10 +46,12 @@ public class ParUnitadocDAO extends ParUnitadoc {
     public static String[] fieldNames = null;
 
     static {
-        fieldNames = new String[] { "idunitadoc", "numero", "versione", "anno", "tipoconservazione", "flgstato",
-                "dtins", "dtagg", "pgm", "id", "flgforzaconservazione", "flgforzaaccettazione", "flgforzacollegamento",
-                "oggetto", "data", "flgcartaceo", "xmlrichiesta", "xmlrisposta", "dataversamento", "esitoversamento",
-                "flgerrorerevisionato", "note", "idutente", "idStrut", "idTipoUnitaDoc", "idRegistroUnitaDoc", "stato",
+        fieldNames = new String[] {
+                "idunitadoc", "numero", "versione", "anno", "tipoconservazione", "flgstato",
+                "dtins", "dtagg", "pgm", "id", "flgforzaconservazione", "flgforzaaccettazione",
+                "flgforzacollegamento", "oggetto", "data", "flgcartaceo", "xmlrichiesta",
+                "xmlrisposta", "dataversamento", "esitoversamento", "flgerrorerevisionato", "note",
+                "idutente", "idStrut", "idTipoUnitaDoc", "idRegistroUnitaDoc", "stato",
                 "cdVersioneXsd" };
     }
 
@@ -103,14 +101,16 @@ public class ParUnitadocDAO extends ParUnitadoc {
         }
         Clob tmpXMLRICHIESTA = r.getClob("XMLRICHIESTA");
         if (tmpXMLRICHIESTA != null) {
-            obj.setStrappoxmlrichiesta(tmpXMLRICHIESTA.getSubString(1, (int) tmpXMLRICHIESTA.length()));
+            obj.setStrappoxmlrichiesta(
+                    tmpXMLRICHIESTA.getSubString(1, (int) tmpXMLRICHIESTA.length()));
         } else {
             obj.setStrappoxmlrichiesta(null);
         }
 
         Clob tmpXMLRISPOSTA = r.getClob("XMLRISPOSTA");
         if (tmpXMLRISPOSTA != null) {
-            obj.setStrappoxmlrisposta(tmpXMLRISPOSTA.getSubString(1, (int) tmpXMLRISPOSTA.length()));
+            obj.setStrappoxmlrisposta(
+                    tmpXMLRISPOSTA.getSubString(1, (int) tmpXMLRISPOSTA.length()));
         } else {
             obj.setStrappoxmlrisposta(null);
         }
@@ -163,7 +163,8 @@ public class ParUnitadocDAO extends ParUnitadoc {
         // FLGUTFIRMARIFERIMENTOTEMP
     }
 
-    public String[] keyNames = { "idunitadoc" };
+    public String[] keyNames = {
+            "idunitadoc" };
 
     /**
      * Retrieve from the database for table "PAR_UNITADOC"
@@ -194,10 +195,11 @@ public class ParUnitadocDAO extends ParUnitadoc {
      * Retrieve from the database for table "PAR_UNITADOC"
      */
     @Deprecated
-    public java.util.List<ParUnitadoc> retrieveWhere(String where, String orderByClause, Connection con)
-            throws SQLException {
+    public java.util.List<ParUnitadoc> retrieveWhere(String where, String orderByClause,
+            Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         java.util.List<ParUnitadoc> retRows = new java.util.ArrayList<ParUnitadoc>();
         ParUnitadoc curRow;
@@ -229,9 +231,11 @@ public class ParUnitadocDAO extends ParUnitadoc {
      * Retrieve from the database for table "PAR_UNITADOC"
      */
     @Deprecated
-    public java.util.List<ParUnitadoc> retrieveWhere(String where, Connection con) throws SQLException {
+    public java.util.List<ParUnitadoc> retrieveWhere(String where, Connection con)
+            throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         java.util.List<ParUnitadoc> retRows = new java.util.ArrayList<ParUnitadoc>();
         ParUnitadoc curRow;
@@ -262,13 +266,15 @@ public class ParUnitadocDAO extends ParUnitadoc {
      * Updates the current object values into the database.
      */
     public int update(ParUnitadoc obj, Connection con) throws SQLException {
-        String preparedQuery = "update PAR_UNITADOC set IDUNITADOC= ?  ," + " NUMERO= ?  ," + " VERSIONE= ?  ,"
-                + " ANNO= ?  ," + " TIPOCONSERVAZIONE= ?  ," + " FLGSTATO= ?  ," + " DTAGG= current_timestamp  ,"
-                + " PGM= ?  ," + " ID= ?  ," + " FLGFORZACONSERVAZIONE= ?  ," + " FLGFORZAACCETTAZIONE= ?  ,"
-                + " FLGFORZACOLLEGAMENTO= ?  ," + " OGGETTO= ?  ," + " DATA= ?  ," + " FLGCARTACEO= ?  ,"
-                + " XMLRICHIESTA= ?  ," + " XMLRISPOSTA= ?  ," + " DATAVERSAMENTO= ?  ," + " ESITOVERSAMENTO= ?  ,"
-                + " FLGERROREREVISIONATO= ?  ," + " NOTE= ?  ," + " IDUTENTE= ?  ," + " ID_STRUT= ?  ,"
-                + " ID_TIPO_UNITA_DOC= ?  ," + " ID_REGISTRO_UNITA_DOC= ?  ," + " STATO= ?," + " CD_VERSIONE_XSD=? "
+        String preparedQuery = "update PAR_UNITADOC set IDUNITADOC= ?  ," + " NUMERO= ?  ,"
+                + " VERSIONE= ?  ," + " ANNO= ?  ," + " TIPOCONSERVAZIONE= ?  ," + " FLGSTATO= ?  ,"
+                + " DTAGG= current_timestamp  ," + " PGM= ?  ," + " ID= ?  ,"
+                + " FLGFORZACONSERVAZIONE= ?  ," + " FLGFORZAACCETTAZIONE= ?  ,"
+                + " FLGFORZACOLLEGAMENTO= ?  ," + " OGGETTO= ?  ," + " DATA= ?  ,"
+                + " FLGCARTACEO= ?  ," + " XMLRICHIESTA= ?  ," + " XMLRISPOSTA= ?  ,"
+                + " DATAVERSAMENTO= ?  ," + " ESITOVERSAMENTO= ?  ," + " FLGERROREREVISIONATO= ?  ,"
+                + " NOTE= ?  ," + " IDUTENTE= ?  ," + " ID_STRUT= ?  ," + " ID_TIPO_UNITA_DOC= ?  ,"
+                + " ID_REGISTRO_UNITA_DOC= ?  ," + " STATO= ?," + " CD_VERSIONE_XSD=? "
                 + "where IDUNITADOC=? ";
 
         try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
@@ -321,7 +327,8 @@ public class ParUnitadocDAO extends ParUnitadoc {
 
             pst.setString(indice++, obj.getOggetto());
             if (obj.getData() != null) {
-                pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getData()).getTime()));
+                pst.setObject(indice++,
+                        new java.sql.Date(((java.util.Date) obj.getData()).getTime()));
             } else {
                 pst.setObject(indice++, null);
             }
@@ -418,7 +425,8 @@ public class ParUnitadocDAO extends ParUnitadoc {
     @Deprecated
     public int updateWhere(ParUnitadoc obj, String where, Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         String preparedQuery = "update PAR_UNITADOC set IDUNITADOC= ?  , NUMERO= ?  , VERSIONE= ?  , ANNO= ?  , TIPOCONSERVAZIONE= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?  , FLGFORZACONSERVAZIONE= ?  , FLGFORZAACCETTAZIONE= ?  , FLGFORZACOLLEGAMENTO= ?  , OGGETTO= ?  , DATA= ?  , FLGCARTACEO= ?  , XMLRICHIESTA= ?  , XMLRISPOSTA= ?  , DATAVERSAMENTO= ?  , ESITOVERSAMENTO= ?  , FLGERROREREVISIONATO= ?  , NOTE= ?  , IDUTENTE= ?  , ID_STRUT= ?  , ID_TIPO_UNITA_DOC= ?  , ID_REGISTRO_UNITA_DOC= ?  , STATO= ?, CD_VERSIONE_XSD=?   where "
                 + where;
@@ -473,7 +481,8 @@ public class ParUnitadocDAO extends ParUnitadoc {
 
             pst.setString(indice++, obj.getOggetto());
             if (obj.getData() != null) {
-                pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getData()).getTime()));
+                pst.setObject(indice++,
+                        new java.sql.Date(((java.util.Date) obj.getData()).getTime()));
             } else {
                 pst.setObject(indice++, null);
             }
@@ -595,10 +604,11 @@ public class ParUnitadocDAO extends ParUnitadoc {
      * Retrieve from the database for table "PAR_UNITADOC"
      */
     @Deprecated
-    public java.util.List<ParUnitadoc> getParUnitadocsByIdutenteIdStrut(Long idutente, Long idStrut, Connection con)
-            throws SQLException {
+    public java.util.List<ParUnitadoc> getParUnitadocsByIdutenteIdStrut(Long idutente, Long idStrut,
+            Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         java.util.List<ParUnitadoc> retRows = new java.util.ArrayList<ParUnitadoc>();
         ParUnitadoc curRow;
@@ -632,12 +642,14 @@ public class ParUnitadocDAO extends ParUnitadoc {
     public java.util.List<ParUnitadoc> getParUnitadocsByIdutenteIdStrut(Long idutente, Long idStrut,
             String orderByClause, Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         java.util.List<ParUnitadoc> retRows = new java.util.ArrayList<ParUnitadoc>();
         ParUnitadoc curRow;
 
-        String query = "select * from PAR_UNITADOC" + " where IDUTENTE=" + idutente + " and ID_STRUT=" + idStrut;
+        String query = "select * from PAR_UNITADOC" + " where IDUTENTE=" + idutente
+                + " and ID_STRUT=" + idStrut;
         query += " order by " + orderByClause;
         java.sql.Statement st = con.createStatement();
         ResultSet r = null;
@@ -663,8 +675,8 @@ public class ParUnitadocDAO extends ParUnitadoc {
     /**
      * Get all related PAR_COLLEGAMENTO which have same idunitadoc
      */
-    public java.util.List<ParCollegamento> getRelatedParCollegamentoByIdunitadoc(Long idunitadoc, Connection con)
-            throws SQLException {
+    public java.util.List<ParCollegamento> getRelatedParCollegamentoByIdunitadoc(Long idunitadoc,
+            Connection con) throws SQLException {
         ParCollegamentoVO x = new ParCollegamentoVO();
         return x.getParCollegamentosByIdunitadoc(idunitadoc, con);
     }
@@ -672,8 +684,8 @@ public class ParUnitadocDAO extends ParUnitadoc {
     /**
      * Get all related PAR_DATISPECIFICI which have same idunitadoc
      */
-    public java.util.List<ParDatispecifici> getRelatedParDatispecificiByIdunitadoc(Long idunitadoc, Connection con)
-            throws SQLException {
+    public java.util.List<ParDatispecifici> getRelatedParDatispecificiByIdunitadoc(Long idunitadoc,
+            Connection con) throws SQLException {
         ParDatispecificiVO x = new ParDatispecificiVO();
         return x.getParDatispecificisByIdunitadoc(idunitadoc, con);
     }
@@ -681,8 +693,8 @@ public class ParUnitadocDAO extends ParUnitadoc {
     /**
      * Get all related PAR_DOCUMENTO which have same idunitadoc
      */
-    public java.util.List<ParDocumento> getRelatedParDocumentoByIdunitadoc(Long idunitadoc, Connection con)
-            throws SQLException {
+    public java.util.List<ParDocumento> getRelatedParDocumentoByIdunitadoc(Long idunitadoc,
+            Connection con) throws SQLException {
         ParDocumentoVO x = new ParDocumentoVO();
         return x.getParDocumentosByIdunitadoc(idunitadoc, con);
     }
@@ -690,8 +702,8 @@ public class ParUnitadocDAO extends ParUnitadoc {
     /**
      * Get all related PAR_FASCICOLO which have same idunitadoc
      */
-    public java.util.List<ParFascicolo> getRelatedParFascicoloByIdunitadoc(Long idunitadoc, Connection con)
-            throws SQLException {
+    public java.util.List<ParFascicolo> getRelatedParFascicoloByIdunitadoc(Long idunitadoc,
+            Connection con) throws SQLException {
         ParFascicoloVO x = new ParFascicoloVO();
         return x.getParFascicolosByIdunitadoc(idunitadoc, con);
     }
@@ -702,7 +714,8 @@ public class ParUnitadocDAO extends ParUnitadoc {
     public ParUnitadoc retrieveByIndex(Long idunitadoc, Long idutente, Long idStrut, Connection con)
             throws SQLException {
 
-        String query = "select * from PAR_UNITADOC" + " where IDUNITADOC=?" + " and IDUTENTE=?" + " and ID_STRUT=?";
+        String query = "select * from PAR_UNITADOC" + " where IDUNITADOC=?" + " and IDUTENTE=?"
+                + " and ID_STRUT=?";
 
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
@@ -731,7 +744,8 @@ public class ParUnitadocDAO extends ParUnitadoc {
         String preparedQuery = "update PAR_UNITADOC set IDUNITADOC= ?  , NUMERO= ?  , VERSIONE= ?  , ANNO= ?  , TIPOCONSERVAZIONE= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?  , "
                 + "FLGFORZACONSERVAZIONE= ?  , FLGFORZAACCETTAZIONE= ?  , FLGFORZACOLLEGAMENTO= ?  , OGGETTO= ?  , DATA= ?  , FLGCARTACEO= ?  , XMLRICHIESTA= ?  , XMLRISPOSTA= ?  , "
                 + "DATAVERSAMENTO= ?  , ESITOVERSAMENTO= ?  , FLGERROREREVISIONATO= ?  , NOTE= ?  , IDUTENTE= ?  , ID_STRUT= ?  , ID_TIPO_UNITA_DOC= ?  , ID_REGISTRO_UNITA_DOC= ?  , "
-                + "STATO= ?, CD_VERSIONE_XSD=?  " + " where IDUNITADOC=?  and IDUTENTE=?  and ID_STRUT=? ";
+                + "STATO= ?, CD_VERSIONE_XSD=?  "
+                + " where IDUNITADOC=?  and IDUTENTE=?  and ID_STRUT=? ";
 
         try (PreparedStatement pst = con.prepareStatement(preparedQuery)) {
             int indice = 1;
@@ -783,7 +797,8 @@ public class ParUnitadocDAO extends ParUnitadoc {
 
             pst.setString(indice++, obj.getOggetto());
             if (obj.getData() != null) {
-                pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getData()).getTime()));
+                pst.setObject(indice++,
+                        new java.sql.Date(((java.util.Date) obj.getData()).getTime()));
             } else {
                 pst.setObject(indice++, null);
             }
@@ -897,14 +912,16 @@ public class ParUnitadocDAO extends ParUnitadoc {
      */
     public int insertPrepared(ParUnitadoc obj, Connection con) throws SQLException {
         int indice = 1;
-        String prepQuery = "insert into PAR_UNITADOC ( " + "IDUNITADOC," + "NUMERO," + "VERSIONE," + "ANNO,"
-                + "TIPOCONSERVAZIONE," + "FLGSTATO," + "DTINS," + "DTAGG," + "PGM," + "ID," + "FLGFORZACONSERVAZIONE,"
-                + "FLGFORZAACCETTAZIONE," + "FLGFORZACOLLEGAMENTO," + "OGGETTO," + "DATA," + "FLGCARTACEO,"
-                + "XMLRICHIESTA," + "XMLRISPOSTA," + "DATAVERSAMENTO," + "ESITOVERSAMENTO," + "FLGERROREREVISIONATO,"
-                + "NOTE," + "IDUTENTE," + "ID_STRUT," + "ID_TIPO_UNITA_DOC," + "ID_REGISTRO_UNITA_DOC,"
-                + "STATO) values (? ," + "? ," + "? ," + "? ," + "? ," + "? ," + " current_timestamp ,"
-                + " current_timestamp ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ,"
-                + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? )";
+        String prepQuery = "insert into PAR_UNITADOC ( " + "IDUNITADOC," + "NUMERO," + "VERSIONE,"
+                + "ANNO," + "TIPOCONSERVAZIONE," + "FLGSTATO," + "DTINS," + "DTAGG," + "PGM,"
+                + "ID," + "FLGFORZACONSERVAZIONE," + "FLGFORZAACCETTAZIONE,"
+                + "FLGFORZACOLLEGAMENTO," + "OGGETTO," + "DATA," + "FLGCARTACEO," + "XMLRICHIESTA,"
+                + "XMLRISPOSTA," + "DATAVERSAMENTO," + "ESITOVERSAMENTO," + "FLGERROREREVISIONATO,"
+                + "NOTE," + "IDUTENTE," + "ID_STRUT," + "ID_TIPO_UNITA_DOC,"
+                + "ID_REGISTRO_UNITA_DOC," + "STATO) values (? ," + "? ," + "? ," + "? ," + "? ,"
+                + "? ," + " current_timestamp ," + " current_timestamp ," + "? ," + "? ," + "? ,"
+                + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ,"
+                + "? ," + "? ," + "? ," + "? ," + "? ," + "? )";
 
         try (PreparedStatement pst = con.prepareStatement(prepQuery)) {
             if (obj.getIdunitadoc() == null) {
@@ -948,7 +965,8 @@ public class ParUnitadocDAO extends ParUnitadoc {
             }
             pst.setString(indice++, obj.getOggetto());
             if (obj.getData() != null) {
-                pst.setObject(indice++, new java.sql.Date(((java.util.Date) obj.getData()).getTime()));
+                pst.setObject(indice++,
+                        new java.sql.Date(((java.util.Date) obj.getData()).getTime()));
             } else {
                 pst.setObject(indice++, null);
             }

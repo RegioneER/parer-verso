@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.actionbeans;
@@ -91,19 +87,22 @@ public class GestionePassword extends HomePrivata {
 
         Resolution result = handleRedirect();
         /*
-         * Resolution result = null; RedirectResolution redirectResolution; if (StringUtils.isNotBlank(azione) &&
-         * azione.contains("gestione")) { // ForwardResolution resolution = new ForwardResolution( //
-         * HomePrivata.class); redirectResolution = new RedirectResolution("/pro/strut/" + idStrut); //
-         * resolution.addParameter("idStrut", idStrut);//pro/strut/ result = redirectResolution; } else {
+         * Resolution result = null; RedirectResolution redirectResolution; if
+         * (StringUtils.isNotBlank(azione) && azione.contains("gestione")) { // ForwardResolution
+         * resolution = new ForwardResolution( // HomePrivata.class); redirectResolution = new
+         * RedirectResolution("/pro/strut/" + idStrut); // resolution.addParameter("idStrut",
+         * idStrut);//pro/strut/ result = redirectResolution; } else {
          *
-         * String redirectUrl = "/pro/editud/" + idrecord + "?daHome=1&verifica="; if (StringUtils.isNotBlank(azione) &&
-         * azione.contains("versa")) { redirectUrl = "/pro/editud/" + idrecord + "?daHome=1&versa="; }
-         * redirectResolution = new RedirectResolution(redirectUrl); redirectResolution.addParameter("idrecord",
-         * idrecord); redirectResolution.addParameter("idStrut", idStrut); if (comunica != null) {
-         * redirectResolution.addParameter("comunica", comunica); } // Ricarico il csrfToken in quanto con redirect lo
-         * perderei CsrfToken csrfToken = tokenRepos.loadToken(getContext().getRequest());
-         * redirectResolution.addParameter(csrfToken.getParameterName(), csrfToken.getToken()); result =
-         * redirectResolution; }
+         * String redirectUrl = "/pro/editud/" + idrecord + "?daHome=1&verifica="; if
+         * (StringUtils.isNotBlank(azione) && azione.contains("versa")) { redirectUrl =
+         * "/pro/editud/" + idrecord + "?daHome=1&versa="; } redirectResolution = new
+         * RedirectResolution(redirectUrl); redirectResolution.addParameter("idrecord", idrecord);
+         * redirectResolution.addParameter("idStrut", idStrut); if (comunica != null) {
+         * redirectResolution.addParameter("comunica", comunica); } // Ricarico il csrfToken in
+         * quanto con redirect lo perderei CsrfToken csrfToken =
+         * tokenRepos.loadToken(getContext().getRequest());
+         * redirectResolution.addParameter(csrfToken.getParameterName(), csrfToken.getToken());
+         * result = redirectResolution; }
          */
 
         if (passwordVersatore == null || "".equals(passwordVersatore)) {
@@ -120,18 +119,21 @@ public class GestionePassword extends HomePrivata {
 
         } else {
 
-            ClientUser user = (ClientUser) SessionManager.getUser(context.getRequest().getSession());
+            ClientUser user = (ClientUser) SessionManager
+                    .getUser(context.getRequest().getSession());
             try {
                 // recupero cdPwd da IAMUSER
                 Connection con = getConnection();
                 VUsrIAMUserDAO viamUsr = new VUsrIAMUserDAO();
-                String password = viamUsr.isUserAuthenticated(user.getUsername(), passwordVersatore, con);
+                String password = viamUsr.isUserAuthenticated(user.getUsername(), passwordVersatore,
+                        con);
                 if (StringUtils.isNotBlank(password)) {
                     user.setPassword(password.getBytes());
                     context.getRequest().getSession().setAttribute(Constants.PASSWORD_ATTR, "true");
                 } else {
                     SessionMessages.addErrorMessage("Password errata!!");
-                    ForwardResolution resolution = new ForwardResolution("/pages/datiVersatore.jsp");
+                    ForwardResolution resolution = new ForwardResolution(
+                            "/pages/datiVersatore.jsp");
                     resolution.addParameter("idrecord", idrecord);
                     resolution.addParameter("idStrut", idStrut);
                     resolution.addParameter("azione", azione);

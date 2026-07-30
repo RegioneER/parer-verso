@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.db.dao;
@@ -41,8 +37,10 @@ public class ParFascicoloDAO extends ParFascicolo {
     public static String[] fieldNames = null;
 
     static {
-        fieldNames = new String[] { "idfascicolo", "idunitadoc", "codtipofascicolo", "identificativo", "oggetto",
-                "idsottofascicolo", "oggettosottofascicolo", "classifica", "flgstato", "dtins", "dtagg", "pgm", "id" };
+        fieldNames = new String[] {
+                "idfascicolo", "idunitadoc", "codtipofascicolo", "identificativo", "oggetto",
+                "idsottofascicolo", "oggettosottofascicolo", "classifica", "flgstato", "dtins",
+                "dtagg", "pgm", "id" };
     }
 
     public ParFascicoloDAO() {
@@ -84,12 +82,14 @@ public class ParFascicoloDAO extends ParFascicolo {
         }
     }
 
-    public String[] keyNames = { "idunitadoc", "idfascicolo" };
+    public String[] keyNames = {
+            "idunitadoc", "idfascicolo" };
 
     /**
      * Retrieve from the database for table "PAR_FASCICOLO"
      */
-    public ParFascicolo retrieveByKey(Long idunitadoc, Long idfascicolo, Connection con) throws SQLException {
+    public ParFascicolo retrieveByKey(Long idunitadoc, Long idfascicolo, Connection con)
+            throws SQLException {
 
         String query = "select * from PAR_FASCICOLO" + " where IDUNITADOC=?" + " and IDFASCICOLO=?";
 
@@ -116,10 +116,11 @@ public class ParFascicoloDAO extends ParFascicolo {
      * Retrieve from the database for table "PAR_FASCICOLO"
      */
     @Deprecated
-    public java.util.List<ParFascicolo> retrieveWhere(String where, String orderByClause, Connection con)
-            throws SQLException {
+    public java.util.List<ParFascicolo> retrieveWhere(String where, String orderByClause,
+            Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         java.util.List<ParFascicolo> retRows = new java.util.ArrayList<ParFascicolo>();
         ParFascicolo curRow;
@@ -150,12 +151,13 @@ public class ParFascicoloDAO extends ParFascicolo {
     /**
      * Retrieve from the database for table "PAR_FASCICOLO"
      */
-    public java.util.List<ParFascicolo> retrieveByIdUdCodTipoFascicoloP(Long idunitadoc, Connection con)
-            throws SQLException {
+    public java.util.List<ParFascicolo> retrieveByIdUdCodTipoFascicoloP(Long idunitadoc,
+            Connection con) throws SQLException {
         java.util.List<ParFascicolo> retRows = new java.util.ArrayList<ParFascicolo>();
         ParFascicolo curRow;
 
-        String query = "select * from PAR_FASCICOLO" + " where IDUNITADOC = ? and CODTIPOFASCICOLO = 'P'";
+        String query = "select * from PAR_FASCICOLO"
+                + " where IDUNITADOC = ? and CODTIPOFASCICOLO = 'P'";
 
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
@@ -178,12 +180,13 @@ public class ParFascicoloDAO extends ParFascicolo {
     /**
      * Retrieve from the database for table "PAR_FASCICOLO"
      */
-    public java.util.List<ParFascicolo> retrieveByIdUdCodTipoFascicoloS(Long idunitadoc, Connection con)
-            throws SQLException {
+    public java.util.List<ParFascicolo> retrieveByIdUdCodTipoFascicoloS(Long idunitadoc,
+            Connection con) throws SQLException {
         java.util.List<ParFascicolo> retRows = new java.util.ArrayList<ParFascicolo>();
         ParFascicolo curRow;
 
-        String query = "select * from PAR_FASCICOLO" + " where IDUNITADOC = ? and CODTIPOFASCICOLO = 'S'";
+        String query = "select * from PAR_FASCICOLO"
+                + " where IDUNITADOC = ? and CODTIPOFASCICOLO = 'S'";
 
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
@@ -262,7 +265,8 @@ public class ParFascicoloDAO extends ParFascicolo {
     @Deprecated
     public int updateWhere(ParFascicolo obj, String where, Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         String preparedQuery = "update PAR_FASCICOLO set IDFASCICOLO= ?  , IDUNITADOC= ?  , CODTIPOFASCICOLO= ?  , IDENTIFICATIVO= ?  , OGGETTO= ?  , IDSOTTOFASCICOLO= ?  , OGGETTOSOTTOFASCICOLO= ?  , CLASSIFICA= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?   where "
                 + where;
@@ -350,8 +354,8 @@ public class ParFascicoloDAO extends ParFascicolo {
     /**
      * Retrieve from the database for table "PAR_FASCICOLO"
      */
-    public java.util.List<ParFascicolo> getParFascicolosByIdunitadoc(Long idunitadoc, Connection con)
-            throws SQLException {
+    public java.util.List<ParFascicolo> getParFascicolosByIdunitadoc(Long idunitadoc,
+            Connection con) throws SQLException {
         java.util.List<ParFascicolo> retRows = new java.util.ArrayList<ParFascicolo>();
         ParFascicolo curRow;
 
@@ -379,10 +383,11 @@ public class ParFascicoloDAO extends ParFascicolo {
      * Retrieve from the database for table "PAR_FASCICOLO"
      */
     @Deprecated
-    public java.util.List<ParFascicolo> getParFascicolosByIdunitadoc(Long idunitadoc, String orderByClause,
-            Connection con) throws SQLException {
+    public java.util.List<ParFascicolo> getParFascicolosByIdunitadoc(Long idunitadoc,
+            String orderByClause, Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         java.util.List<ParFascicolo> retRows = new java.util.ArrayList<ParFascicolo>();
         ParFascicolo curRow;
@@ -413,9 +418,11 @@ public class ParFascicoloDAO extends ParFascicolo {
     /**
      * Retrieve from the database for table "PAR_FASCICOLO"
      */
-    public ParFascicolo retrieveByIndex(Long idfascicolo, Long idunitadoc, Connection con) throws SQLException {
+    public ParFascicolo retrieveByIndex(Long idfascicolo, Long idunitadoc, Connection con)
+            throws SQLException {
 
-        // String query = "select * from PAR_FASCICOLO"+" where IDFASCICOLO="+idfascicolo+" and IDUNITADOC="+idunitadoc;
+        // String query = "select * from PAR_FASCICOLO"+" where IDFASCICOLO="+idfascicolo+" and
+        // IDUNITADOC="+idunitadoc;
         String query = "select * from PAR_FASCICOLO" + " where IDFASCICOLO=?" + " and IDUNITADOC=?";
         // java.sql.Statement st = con.createStatement();
 

@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.db.dao;
@@ -44,7 +40,8 @@ public class VUsrIAMUserDAO extends VUsrVRicUser {
 
     static {
 
-        fieldNames = new String[] { "idUser", "nmCognomeUser", "nmNomeUser", "flAttivo", "nmUserid", "nmAmbiente",
+        fieldNames = new String[] {
+                "idUser", "nmCognomeUser", "nmNomeUser", "flAttivo", "nmUserid", "nmAmbiente",
                 "nmEnte", "idStrut", "nmStrut" };
     }
 
@@ -52,13 +49,14 @@ public class VUsrIAMUserDAO extends VUsrVRicUser {
         super();
     }
 
-    public String isUserAuthenticated(String nmUserId, String password, Connection con) throws SQLException {
+    public String isUserAuthenticated(String nmUserId, String password, Connection con)
+            throws SQLException {
         String result = null;
         boolean isEquals = false;
         String codedPassw = null;
 
-        String sQuery = "SELECT DISTINCT CD_PWD, CD_SALT " + "FROM V_USR_IAM " + "WHERE NM_USERID=? "
-                + "AND FL_ATTIVO='1'";
+        String sQuery = "SELECT DISTINCT CD_PWD, CD_SALT " + "FROM V_USR_IAM "
+                + "WHERE NM_USERID=? " + "AND FL_ATTIVO='1'";
 
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(sQuery)) {
@@ -93,8 +91,8 @@ public class VUsrIAMUserDAO extends VUsrVRicUser {
      */
     public void getFromResultSet(VUsrVRicUser obj, ResultSet r) throws SQLException {
         /*
-         * ID_USER_IAM, NM_COGNOME_USER, NM_NOME_USER, FL_ATTIVO, NM_USERID, CD_PWD, CD_SALT, NM_AMBIENTE, NM_ENTE,
-         * ID_STRUT, NM_STRUT
+         * ID_USER_IAM, NM_COGNOME_USER, NM_NOME_USER, FL_ATTIVO, NM_USERID, CD_PWD, CD_SALT,
+         * NM_AMBIENTE, NM_ENTE, ID_STRUT, NM_STRUT
          */
         if (r.getObject("ID_USER_IAM") == null) {
             obj.setIdUser(null);

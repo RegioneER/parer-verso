@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.actionbeans.crudud;
@@ -97,8 +93,12 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
         setTitoloPagina(getTitoloFromAnnotation());
     }
 
-    private static String[][] campiEditUnitaDoc = { { "anno", "numero", "oggetto", "data", "cdVersioneXSD" },
-            { "tipoconservazione", "flgforzaconservazione", "flgforzaaccettazione", "flgforzacollegamento" } };
+    private static String[][] campiEditUnitaDoc = {
+            {
+                    "anno", "numero", "oggetto", "data", "cdVersioneXSD" },
+            {
+                    "tipoconservazione", "flgforzaconservazione", "flgforzaaccettazione",
+                    "flgforzacollegamento" } };
     public DefaultSelectionProvider selTipoUnitaDoc = null;
     protected DefaultSelectionProvider selCDVersione = null;
     protected DatiSpecifici datiForm;
@@ -106,7 +106,8 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
     protected List<VDecAttribDatiSpecVO> listaCampi;
 
     /**
-     * Contiene i dati della riga di dettaglio da inserire (dovrebbe servire per entrambi i dettagli).
+     * Contiene i dati della riga di dettaglio da inserire (dovrebbe servire per entrambi i
+     * dettagli).
      */
     protected Object dettaglioModel;
 
@@ -138,19 +139,20 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
 
     private String createDettaglio2;
 
-    protected void initListaTipoUnitaDoc(Long idStrut, Long idTipoUnitaDoc, Long idUser, Connection con)
-            throws SQLException {
+    protected void initListaTipoUnitaDoc(Long idStrut, Long idTipoUnitaDoc, Long idUser,
+            Connection con) throws SQLException {
         selTipoUnitaDoc = ElementsHelper.getTipiRegUniDoc(idStrut, idUser, con);
         if (idTipoUnitaDoc != null) {
-            selCDVersione = ElementsHelper.getCDVersioneUniDoc(idStrut, EnumEntitaDatiSpecifici.UNI_DOC.name(),
-                    idTipoUnitaDoc, con);
+            selCDVersione = ElementsHelper.getCDVersioneUniDoc(idStrut,
+                    EnumEntitaDatiSpecifici.UNI_DOC.name(), idTipoUnitaDoc, con);
         } else {
             selCDVersione = new DefaultSelectionProvider("cdVersioneXSD");
         }
     }
 
     @Before
-    public Resolution caricaDatiUnitaDoc() throws AuthorizationException, SQLException, NoSuchFieldException {
+    public Resolution caricaDatiUnitaDoc()
+            throws AuthorizationException, SQLException, NoSuchFieldException {
         // Se sono in inserimento ho idrecord=0 e idStrut arrivato dai parametri
         // Se sono in edit ho idrecord e devo ricavare idStrut
         Connection connection = getConnection();
@@ -163,8 +165,10 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
             permission = String.format(CustomRealm.PERMESSO_PER_STRUTTURA_LEGGI_D, idStrut);
         }
 
-        if (!CustomRealm.isPermitted(permission, idStrut, getContext().getRequest().getSession(), getConnection())) {
-            return new ErrorResolution(HttpServletResponse.SC_FORBIDDEN, CustomRealm.CUSTOM_FORBIDDEN_MESSAGE);
+        if (!CustomRealm.isPermitted(permission, idStrut, getContext().getRequest().getSession(),
+                getConnection())) {
+            return new ErrorResolution(HttpServletResponse.SC_FORBIDDEN,
+                    CustomRealm.CUSTOM_FORBIDDEN_MESSAGE);
         }
         Long idTipoUnitaDoc = datiUnitaDoc == null ? null : datiUnitaDoc.getIdTipoUnitaDoc();
 
@@ -179,12 +183,13 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
          * UNI_DOC("idunitadoc"), DOC("iddocumento"), COMP("idcomponente"), SUB_COMP("idcomponente")
          */
         if (idrecord != 0) {
-            idDatiSpecifici = parDsDAO.loadOrCreateDatiSpecifici(idrecord, EnumEntitaDatiSpecifici.UNI_DOC, connection);
+            idDatiSpecifici = parDsDAO.loadOrCreateDatiSpecifici(idrecord,
+                    EnumEntitaDatiSpecifici.UNI_DOC, connection);
             String versioneXsd = datiUnitaDoc.getCdVersioneXSD();
             if (tipoDato == null)
                 tipoDato = EnumEntitaDatiSpecifici.UNI_DOC.name();
-            listaCampi = vdecAttribDAO.getValoriSpecificiPerVersione(idDatiSpecifici, idStrut, tipoDato,
-                    datiUnitaDoc.getIdTipoUnitaDoc(), versioneXsd, connection);
+            listaCampi = vdecAttribDAO.getValoriSpecificiPerVersione(idDatiSpecifici, idStrut,
+                    tipoDato, datiUnitaDoc.getIdTipoUnitaDoc(), versioneXsd, connection);
 
             datiForm = new DatiSpecifici();
             int index = 1;
@@ -223,7 +228,8 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
     @Override
     public Element prepareUiRWInsert(Mode mode) {
         return new FormBuilder(ParUnitadoc.class).configFieldSetNames("Intestazione")
-                .configFields("idTipoUnitaDoc", "idRegistroUnitaDoc", "anno", "numero", "oggetto", "data")
+                .configFields("idTipoUnitaDoc", "idRegistroUnitaDoc", "anno", "numero", "oggetto",
+                        "data")
                 .configSelectionProvider(selTipoUnitaDoc, "idTipoUnitaDoc", "idRegistroUnitaDoc")
                 .configPrefix("datiUnitaDoc_").configMode(mode).build();
     }
@@ -231,7 +237,8 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
     @Override
     public Element prepareUiROEdit() {
         Mode modo = (isReadOnly() || idrecord != 0) ? Mode.PREVIEW : Mode.EDIT;
-        Form pagina = new FormBuilder(ParUnitadoc.class).configFields("idTipoUnitaDoc", "idRegistroUnitaDoc")
+        Form pagina = new FormBuilder(ParUnitadoc.class)
+                .configFields("idTipoUnitaDoc", "idRegistroUnitaDoc")
                 .configFieldSetNames("Tipo unità documentaria")
                 .configSelectionProvider(selTipoUnitaDoc, "idTipoUnitaDoc", "idRegistroUnitaDoc")
                 .configPrefix("datiUnitaDoc_").configMode(modo).build();
@@ -242,8 +249,10 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
     @Override
     public Element prepareUiRWEdit(Mode mode) {
 
-        Form pagina = new FormBuilder(ParUnitadoc.class).configFieldSetNames("Intestazione", "Configurazione")
-                .configFields(campiEditUnitaDoc).configSelectionProvider(selCDVersione, "cdVersioneXSD")
+        Form pagina = new FormBuilder(ParUnitadoc.class)
+                .configFieldSetNames("Intestazione", "Configurazione")
+                .configFields(campiEditUnitaDoc)
+                .configSelectionProvider(selCDVersione, "cdVersioneXSD")
                 .configPrefix("datiUnitaDoc_").configMode(mode).build();
 
         return pagina;
@@ -273,7 +282,8 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
         datiUnitaDoc.setId(RandomUtils.nextLong());
         datiUnitaDoc.setStato(EnumStatoUD.BOZZA.getValore());
         parUnitadocVO.updateByIndex(datiUnitaDoc, getConnection());
-        log.info(getClass().getName() + " - Aggiornata Unità Documentaria: " + datiUnitaDoc.getIdunitadoc());
+        log.info(getClass().getName() + " - Aggiornata Unità Documentaria: "
+                + datiUnitaDoc.getIdunitadoc());
 
     }
 
@@ -311,9 +321,10 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
         datiUnitaDoc.setId(0L);
         ParUnitadocVO parUnitadocVO = new ParUnitadocVO();
         parUnitadocVO.insertPrepared(datiUnitaDoc, getConnection());
-        log.info("{} - Inserita Unita' documentaria: {}", getClass().getName(), datiUnitaDoc.getIdunitadoc());
-        SessionMessages.addInfoMessage("Unità Documentaria " + datiUnitaDoc.getAnno() + "/" + datiUnitaDoc.getNumero()
-                + " creata con successo");
+        log.info("{} - Inserita Unita' documentaria: {}", getClass().getName(),
+                datiUnitaDoc.getIdunitadoc());
+        SessionMessages.addInfoMessage("Unità Documentaria " + datiUnitaDoc.getAnno() + "/"
+                + datiUnitaDoc.getNumero() + " creata con successo");
     }
 
     /*
@@ -395,7 +406,8 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
     }
 
     /**
-     * Necessario perchè con l'url binding definito non si riesce a passare null (viene eseguita la validazione)
+     * Necessario perchè con l'url binding definito non si riesce a passare null (viene eseguita la
+     * validazione)
      */
     @Override
     protected boolean isCreate() {
@@ -432,7 +444,8 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
             }
 
             selectionProvider = selTipoUnitaDoc;
-            fieldNames = new String[] { "idTipoUnitaDoc", "idRegistroUnitaDoc" };
+            fieldNames = new String[] {
+                    "idTipoUnitaDoc", "idRegistroUnitaDoc" };
             clazz = ParUnitadoc.class;
         } else {
             log.error("Relname non trovato");
@@ -448,15 +461,15 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
         elfoForm.readFromRequest(context.getRequest());
 
         /*
-         * SelectionProviderIndex è la posizione, all'interno dell'elenco di select che voglio sincronizzare in cascata
-         * (di solito 2, ma possono essere di più) dell'elemento che devo ricaricare con i valori dipendenti dalla
-         * selezione nella select precedente
+         * SelectionProviderIndex è la posizione, all'interno dell'elenco di select che voglio
+         * sincronizzare in cascata (di solito 2, ma possono essere di più) dell'elemento che devo
+         * ricaricare con i valori dipendenti dalla selezione nella select precedente
          */
         SelectField targetField = (SelectField) elfoForm.get(0).get(getSelectionProviderIndex());
 
         /*
-         * Il parametro passato discrimina tra combo in cascata (true) e autocomplete (false) NOTA: combo sincronizzate
-         * e campo ad autocompletamento sono mutuamente esclusivi
+         * Il parametro passato discrimina tra combo in cascata (true) e autocomplete (false) NOTA:
+         * combo sincronizzate e campo ad autocompletamento sono mutuamente esclusivi
          */
         targetField.setLabelSearch(getLabelSearch());
         String text = targetField.jsonSelectFieldOptions(includeSelectPrompt);
@@ -502,7 +515,8 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
         return new ForwardResolution(getDatiSpecificiView());
 
         /*
-         * if (ajaxEnabled) { } else { return new ForwardResolution(getDettaglio1CreatoNoJSView()); }
+         * if (ajaxEnabled) { } else { return new ForwardResolution(getDettaglio1CreatoNoJSView());
+         * }
          */
     }
 
@@ -516,8 +530,8 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
     }
 
     /**
-     * Hook per la restituzione della jsp da usare per la creazione di una riga del primo dettaglio nel caso JS
-     * disabilitato.
+     * Hook per la restituzione della jsp da usare per la creazione di una riga del primo dettaglio
+     * nel caso JS disabilitato.
      *
      * @return
      */
@@ -597,7 +611,8 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
                     beginTransaction();
                     insertDettaglio2Model(indiceRiga - 1, dettaglioModel);
                     commitTransaction();
-                    SessionMessages.addInfoMessage(String.format("Dettaglio aggiunto a riga %d", indiceRiga));
+                    SessionMessages.addInfoMessage(
+                            String.format("Dettaglio aggiunto a riga %d", indiceRiga));
                     context.getResponse().setHeader(CH_DTS_ACA_RESULT, CH_INSERT_OK);
                     // Uscita fittizia, tanto la pagina viene ricaricata.
                     // Così non passo da una jsp che svuoterebbe i messaggi senza visualizzarli
@@ -606,7 +621,8 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
                 } catch (Exception e) {
                     Throwable rootCause = ExceptionUtils.getRootCause(e);
                     log.error("Generic error {}", rootCause, e);
-                    SessionMessages.addErrorMessage("Salvataggio fallito a causa di un errore generico");
+                    SessionMessages
+                            .addErrorMessage("Salvataggio fallito a causa di un errore generico");
                     context.getResponse().setHeader(CH_DTS_ACA_RESULT, CH_VALIDATION_ERROR);
                     return new ForwardResolution(getDatiSpecificiView());
                 } finally {
@@ -652,7 +668,8 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
             if (StringUtils.isNotEmpty(valDaInserire)) {
                 if (currentIdValoreDS.compareTo(0L) == 0) {
                     // inserire
-                    Long newIdValoreDS = DbUtil.getSequenceValue(DbConstants.SEQ_ID_GENERALI, connection);
+                    Long newIdValoreDS = DbUtil.getSequenceValue(DbConstants.SEQ_ID_GENERALI,
+                            connection);
                     objToInsUpdOrDel.setIdvaloredatispecifici(newIdValoreDS);
                     parDsDAO.insertPrepared(objToInsUpdOrDel, connection);
                 } else {
@@ -671,7 +688,8 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
 
         // Aggiornamento dati unità documentaria
         ParUnitadocVO parUDDao = new ParUnitadocVO();
-        int righe = parUDDao.aggiornaUnitaDoc(EnumStatoUD.BOZZA.ordinal(), null, null, idrecord, null, connection);
+        int righe = parUDDao.aggiornaUnitaDoc(EnumStatoUD.BOZZA.ordinal(), null, null, idrecord,
+                null, connection);
         if (righe == 0) {
             log.debug("Nessuna riga aggiornata: problema di concorrenza");
             endTransaction();
@@ -746,7 +764,8 @@ public class UnitaDocumentaria extends SimpaMonoCrudAction {
 
     @Override
     public boolean isReadOnly() {
-        if (datiUnitaDoc != null && datiUnitaDoc.getStato().equals(EnumStatoUD.VERSATA.getValore())) {
+        if (datiUnitaDoc != null
+                && datiUnitaDoc.getStato().equals(EnumStatoUD.VERSATA.getValore())) {
             return true;
         } else {
             return false;

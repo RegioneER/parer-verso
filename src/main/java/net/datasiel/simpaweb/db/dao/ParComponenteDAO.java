@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.db.dao;
@@ -49,9 +45,11 @@ public class ParComponenteDAO extends ParComponente {
     public static String[] fieldNames = null;
 
     static {
-        fieldNames = new String[] { "iddocumento", "idunitadoc", "idcomponente", "urnfile", "nome", "rifnumero",
-                "rifanno", "riftiporegistro", "codallegato", "flgstato", "dtins", "dtagg", "pgm", "id",
-                "idFormatoFileDoc", "idTipoCompDoc", "flgFirmaPerRifTemp", "dataRifTemp", "dsHashFileVers" };
+        fieldNames = new String[] {
+                "iddocumento", "idunitadoc", "idcomponente", "urnfile", "nome", "rifnumero",
+                "rifanno", "riftiporegistro", "codallegato", "flgstato", "dtins", "dtagg", "pgm",
+                "id", "idFormatoFileDoc", "idTipoCompDoc", "flgFirmaPerRifTemp", "dataRifTemp",
+                "dsHashFileVers" };
     }
 
     public ParComponenteDAO() {
@@ -128,13 +126,14 @@ public class ParComponenteDAO extends ParComponente {
 
     }
 
-    public String[] keyNames = { "idunitadoc", "iddocumento", "idcomponente" };
+    public String[] keyNames = {
+            "idunitadoc", "iddocumento", "idcomponente" };
 
     /**
      * Retrieve from the database for table "PAR_COMPONENTE"
      */
-    public ParComponente retrieveByKey(Long idunitadoc, Long iddocumento, Long idcomponente, Connection con)
-            throws SQLException {
+    public ParComponente retrieveByKey(Long idunitadoc, Long iddocumento, Long idcomponente,
+            Connection con) throws SQLException {
 
         String query = "select * from PAR_COMPONENTE" + " where IDUNITADOC=?" + " and IDDOCUMENTO=?"
                 + " and IDCOMPONENTE=?";
@@ -162,12 +161,13 @@ public class ParComponenteDAO extends ParComponente {
     /**
      * Retrieve from the database for table "PAR_COMPONENTE"
      */
-    public java.util.List<ParComponente> retrieveByIddocumentoOrderByIdComp(Long idDocumento, Connection con)
-            throws SQLException {
+    public java.util.List<ParComponente> retrieveByIddocumentoOrderByIdComp(Long idDocumento,
+            Connection con) throws SQLException {
         java.util.List<ParComponente> retRows = new java.util.ArrayList<ParComponente>();
         ParComponente curRow;
 
-        String query = "select * from PAR_COMPONENTE" + " where iddocumento = ?  order by idcomponente";
+        String query = "select * from PAR_COMPONENTE"
+                + " where iddocumento = ?  order by idcomponente";
 
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
@@ -191,7 +191,8 @@ public class ParComponenteDAO extends ParComponente {
     /**
      * Retrieve from the database for table "PAR_COMPONENTE"
      */
-    public java.util.List<ParComponente> retrieveByCodallegatoNoBlob(String code, Connection con) throws SQLException {
+    public java.util.List<ParComponente> retrieveByCodallegatoNoBlob(String code, Connection con)
+            throws SQLException {
         java.util.List<ParComponente> retRows = new java.util.ArrayList<ParComponente>();
         ParComponente curRow;
 
@@ -221,11 +222,13 @@ public class ParComponenteDAO extends ParComponente {
      */
     public int update(ParComponente obj, Connection con) throws SQLException {
         String preparedQuery = "update PAR_COMPONENTE set IDDOCUMENTO= ?  ," + " IDUNITADOC= ?  ,"
-                + " IDCOMPONENTE= ?  ," + " URNFILE= ?  ," + " NOME= ?  ," + " RIFNUMERO= ?  ," + " RIFANNO= ?  ,"
-                + " RIFTIPOREGISTRO= ?  ," + " CODALLEGATO= ?  ," + " FLGSTATO= ?  ," + " DTAGG= current_timestamp  ,"
-                + " PGM= ?  ," + " ID= ?  ," + " ID_FORMATO_FILE_DOC= ?," + " ID_TIPO_COMP_DOC=?,"
-                + " FLGUTFIRMARIFERIMENTOTEMP=?," + " DATARIFERIMENTOTEMP=?,  " + " DESCRIFERIMENTOTEMP=?, "
-                + " DS_HASH_FILE_VERS=? " + " where IDUNITADOC=?" + " and IDDOCUMENTO=?" + " and IDCOMPONENTE=?";
+                + " IDCOMPONENTE= ?  ," + " URNFILE= ?  ," + " NOME= ?  ," + " RIFNUMERO= ?  ,"
+                + " RIFANNO= ?  ," + " RIFTIPOREGISTRO= ?  ," + " CODALLEGATO= ?  ,"
+                + " FLGSTATO= ?  ," + " DTAGG= current_timestamp  ," + " PGM= ?  ," + " ID= ?  ,"
+                + " ID_FORMATO_FILE_DOC= ?," + " ID_TIPO_COMP_DOC=?,"
+                + " FLGUTFIRMARIFERIMENTOTEMP=?," + " DATARIFERIMENTOTEMP=?,  "
+                + " DESCRIFERIMENTOTEMP=?, " + " DS_HASH_FILE_VERS=? " + " where IDUNITADOC=?"
+                + " and IDDOCUMENTO=?" + " and IDCOMPONENTE=?";
 
         int indice = 1;
         StringBuilder log_s = new StringBuilder(preparedQuery);
@@ -327,9 +330,11 @@ public class ParComponenteDAO extends ParComponente {
                 pst.setNull(indice++, Types.DATE);
                 log_s.append(",3");
             } else {
-                pst.setDate(indice++, new java.sql.Date(((java.util.Date) obj.getDataRifTemp()).getTime()));
+                pst.setDate(indice++,
+                        new java.sql.Date(((java.util.Date) obj.getDataRifTemp()).getTime()));
                 log_s.append(",")
-                        .append(new java.sql.Date(((java.util.Date) obj.getDataRifTemp()).getTime()).toString());
+                        .append(new java.sql.Date(((java.util.Date) obj.getDataRifTemp()).getTime())
+                                .toString());
             }
             pst.setString(indice++, obj.getDescRifTemp());
             log_s.append(",").append(obj.getDescRifTemp());
@@ -360,7 +365,8 @@ public class ParComponenteDAO extends ParComponente {
     @Deprecated
     public int updateWhere(ParComponente obj, String where, Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         String preparedQuery = "update PAR_COMPONENTE set IDDOCUMENTO= ?  , IDUNITADOC= ?  , IDCOMPONENTE= ?  , URNFILE= ?  , NOME= ?  , RIFNUMERO= ?  , RIFANNO= ?  , RIFTIPOREGISTRO= ?  , CODALLEGATO= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?  , ID_FORMATO_FILE_DOC= ?, ID_TIPO_COMP_DOC=?   where "
                 + where;
@@ -444,7 +450,8 @@ public class ParComponenteDAO extends ParComponente {
             st.setLong(1, obj.getIdunitadoc());
             st.setLong(2, obj.getIddocumento());
             st.setLong(3, obj.getIdcomponente());
-            log.info("{} - [{}, {}, {}]", query, obj.getIdunitadoc(), obj.getIddocumento(), obj.getIdcomponente());
+            log.info("{} - [{}, {}, {}]", query, obj.getIdunitadoc(), obj.getIddocumento(),
+                    obj.getIdcomponente());
             int updates = st.executeUpdate();
             return updates;
         }
@@ -456,7 +463,8 @@ public class ParComponenteDAO extends ParComponente {
     @Deprecated
     public int deleteWhere(String where, Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         String query = "delete from PAR_COMPONENTE where " + where;
         java.sql.Statement st = con.createStatement();
@@ -474,8 +482,8 @@ public class ParComponenteDAO extends ParComponente {
     /**
      * Imported PAR_COMPONENTE PK:PAR_DOCUMENTO FK:PAR_COMPONENTE
      */
-    public ParDocumento getParDocumentoByIddocumentoIdunitadoc(ParComponente obj, java.sql.Connection con)
-            throws java.sql.SQLException {
+    public ParDocumento getParDocumentoByIddocumentoIdunitadoc(ParComponente obj,
+            java.sql.Connection con) throws java.sql.SQLException {
         ParDocumentoDAO x = new ParDocumentoDAO();
         ParDocumento o = x.retrieveByKey(obj.getIddocumento(), obj.getIdunitadoc(), con);
         return o;
@@ -484,8 +492,8 @@ public class ParComponenteDAO extends ParComponente {
     /**
      * Retrieve from the database for table "PAR_COMPONENTE"
      */
-    public java.util.List<ParComponente> getParComponentesByIddocumentoIdunitadoc(Long iddocumento, Long idunitadoc,
-            Connection con) throws SQLException {
+    public java.util.List<ParComponente> getParComponentesByIddocumentoIdunitadoc(Long iddocumento,
+            Long idunitadoc, Connection con) throws SQLException {
         java.util.List<ParComponente> retRows = new java.util.ArrayList<ParComponente>();
         ParComponente curRow;
 
@@ -514,16 +522,19 @@ public class ParComponenteDAO extends ParComponente {
     /**
      * Retrieve from the database for table "PAR_COMPONENTE"
      */
-    public java.util.List<ParComponente> getParComponentesByIddocumentoIdunitadocNoBlob(Long iddocumento,
-            Long idunitadoc, Connection con) throws SQLException {
+    public java.util.List<ParComponente> getParComponentesByIddocumentoIdunitadocNoBlob(
+            Long iddocumento, Long idunitadoc, Connection con) throws SQLException {
         java.util.List<ParComponente> retRows = new java.util.ArrayList<ParComponente>();
         ParComponente curRow;
 
-        String query = "select IDDOCUMENTO, " + "  IDUNITADOC, " + "  IDCOMPONENTE, " + "  URNFILE, " + "  NOME, "
-                + "  RIFNUMERO, " + "  RIFANNO, " + "  RIFTIPOREGISTRO, " + "  CODALLEGATO, " + "  FLGSTATO, "
-                + "  DTINS, " + "  DTAGG, " + "  PGM, " + "  ID, " + "  ID_FORMATO_FILE_DOC, " + "  ID_TIPO_COMP_DOC, "
-                + "  FLGUTFIRMARIFERIMENTOTEMP, " + "  DATARIFERIMENTOTEMP, " + "  DESCRIFERIMENTOTEMP, "
-                + "  DS_HASH_FILE_VERS from PAR_COMPONENTE" + " where IDDOCUMENTO=?  and IDUNITADOC=?";
+        String query = "select IDDOCUMENTO, " + "  IDUNITADOC, " + "  IDCOMPONENTE, "
+                + "  URNFILE, " + "  NOME, " + "  RIFNUMERO, " + "  RIFANNO, "
+                + "  RIFTIPOREGISTRO, " + "  CODALLEGATO, " + "  FLGSTATO, " + "  DTINS, "
+                + "  DTAGG, " + "  PGM, " + "  ID, " + "  ID_FORMATO_FILE_DOC, "
+                + "  ID_TIPO_COMP_DOC, " + "  FLGUTFIRMARIFERIMENTOTEMP, "
+                + "  DATARIFERIMENTOTEMP, " + "  DESCRIFERIMENTOTEMP, "
+                + "  DS_HASH_FILE_VERS from PAR_COMPONENTE"
+                + " where IDDOCUMENTO=?  and IDUNITADOC=?";
 
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
@@ -545,16 +556,19 @@ public class ParComponenteDAO extends ParComponente {
         }
     }
 
-    public java.util.List<ParComponente> getParComponentesByIdcomponenteIdunitadocNoBlob(Long idcomponente,
-            Long idunitadoc, Connection con) throws SQLException {
+    public java.util.List<ParComponente> getParComponentesByIdcomponenteIdunitadocNoBlob(
+            Long idcomponente, Long idunitadoc, Connection con) throws SQLException {
         java.util.List<ParComponente> retRows = new java.util.ArrayList<ParComponente>();
         ParComponente curRow;
 
-        String query = "select IDDOCUMENTO, " + "  IDUNITADOC, " + "  IDCOMPONENTE, " + "  URNFILE, " + "  NOME, "
-                + "  RIFNUMERO, " + "  RIFANNO, " + "  RIFTIPOREGISTRO, " + "  CODALLEGATO, " + "  FLGSTATO, "
-                + "  DTINS, " + "  DTAGG, " + "  PGM, " + "  ID, " + "  ID_FORMATO_FILE_DOC, " + "  ID_TIPO_COMP_DOC, "
-                + "  FLGUTFIRMARIFERIMENTOTEMP, " + "  DATARIFERIMENTOTEMP, " + "  DESCRIFERIMENTOTEMP, "
-                + "  DS_HASH_FILE_VERS from PAR_COMPONENTE" + " where IDCOMPONENTE=?  and IDUNITADOC=?";
+        String query = "select IDDOCUMENTO, " + "  IDUNITADOC, " + "  IDCOMPONENTE, "
+                + "  URNFILE, " + "  NOME, " + "  RIFNUMERO, " + "  RIFANNO, "
+                + "  RIFTIPOREGISTRO, " + "  CODALLEGATO, " + "  FLGSTATO, " + "  DTINS, "
+                + "  DTAGG, " + "  PGM, " + "  ID, " + "  ID_FORMATO_FILE_DOC, "
+                + "  ID_TIPO_COMP_DOC, " + "  FLGUTFIRMARIFERIMENTOTEMP, "
+                + "  DATARIFERIMENTOTEMP, " + "  DESCRIFERIMENTOTEMP, "
+                + "  DS_HASH_FILE_VERS from PAR_COMPONENTE"
+                + " where IDCOMPONENTE=?  and IDUNITADOC=?";
 
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
@@ -575,15 +589,17 @@ public class ParComponenteDAO extends ParComponente {
         }
     }
 
-    public java.util.List<ParComponente> getParComponentesByIdunitadocNoBlob(Long idunitadoc, Connection con)
-            throws SQLException {
+    public java.util.List<ParComponente> getParComponentesByIdunitadocNoBlob(Long idunitadoc,
+            Connection con) throws SQLException {
         java.util.List<ParComponente> retRows = new java.util.ArrayList<ParComponente>();
         ParComponente curRow;
 
-        String query = "select IDDOCUMENTO, " + "  IDUNITADOC, " + "  IDCOMPONENTE, " + "  URNFILE, " + "  NOME, "
-                + "  RIFNUMERO, " + "  RIFANNO, " + "  RIFTIPOREGISTRO, " + "  CODALLEGATO, " + "  FLGSTATO, "
-                + "  DTINS, " + "  DTAGG, " + "  PGM, " + "  ID, " + "  ID_FORMATO_FILE_DOC, " + "  ID_TIPO_COMP_DOC, "
-                + "  FLGUTFIRMARIFERIMENTOTEMP, " + "  DATARIFERIMENTOTEMP, " + "  DESCRIFERIMENTOTEMP, "
+        String query = "select IDDOCUMENTO, " + "  IDUNITADOC, " + "  IDCOMPONENTE, "
+                + "  URNFILE, " + "  NOME, " + "  RIFNUMERO, " + "  RIFANNO, "
+                + "  RIFTIPOREGISTRO, " + "  CODALLEGATO, " + "  FLGSTATO, " + "  DTINS, "
+                + "  DTAGG, " + "  PGM, " + "  ID, " + "  ID_FORMATO_FILE_DOC, "
+                + "  ID_TIPO_COMP_DOC, " + "  FLGUTFIRMARIFERIMENTOTEMP, "
+                + "  DATARIFERIMENTOTEMP, " + "  DESCRIFERIMENTOTEMP, "
                 + "  DS_HASH_FILE_VERS from PAR_COMPONENTE" + " where IDUNITADOC=?";
 
         ResultSet r = null;
@@ -607,8 +623,8 @@ public class ParComponenteDAO extends ParComponente {
     /**
      * Retrieve from the database for table "PAR_COMPONENTE"
      */
-    public java.util.List<ParComponente> getParComponentesByIddocumentoIdunitadocOrdered(Long iddocumento,
-            Long idunitadoc, Connection con) throws SQLException {
+    public java.util.List<ParComponente> getParComponentesByIddocumentoIdunitadocOrdered(
+            Long iddocumento, Long idunitadoc, Connection con) throws SQLException {
         java.util.List<ParComponente> retRows = new java.util.ArrayList<>();
         ParComponente curRow;
 
@@ -640,17 +656,19 @@ public class ParComponenteDAO extends ParComponente {
     /**
      * Get all related PAR_DATISPECIFICI which have same iddocumento, idunitadoc, idcomponente
      */
-    public java.util.List<ParDatispecifici> getRelatedParDatispecificiByIddocumento(Long iddocumento, Long idunitadoc,
-            Long idcomponente, Connection con) throws SQLException {
+    public java.util.List<ParDatispecifici> getRelatedParDatispecificiByIddocumento(
+            Long iddocumento, Long idunitadoc, Long idcomponente, Connection con)
+            throws SQLException {
         ParDatispecificiVO x = new ParDatispecificiVO();
-        return x.getParDatispecificisByIddocumentoIdunitadocIdcomponente(iddocumento, idunitadoc, idcomponente, con);
+        return x.getParDatispecificisByIddocumentoIdunitadocIdcomponente(iddocumento, idunitadoc,
+                idcomponente, con);
     }
 
     /**
      * Retrieve from the database for table "PAR_COMPONENTE"
      */
-    public ParComponente retrieveByIndex(Long iddocumento, Long idunitadoc, Long idcomponente, Connection con)
-            throws SQLException {
+    public ParComponente retrieveByIndex(Long iddocumento, Long idunitadoc, Long idcomponente,
+            Connection con) throws SQLException {
 
         String query = "select * from PAR_COMPONENTE" + " where IDDOCUMENTO=?" + " and IDUNITADOC=?"
                 + " and IDCOMPONENTE=?";
@@ -679,10 +697,11 @@ public class ParComponenteDAO extends ParComponente {
      * Updates the current object values into the database.
      */
     public int updateByIndex(ParComponente obj, Connection con) throws SQLException {
-        String preparedQuery = "update PAR_COMPONENTE set " + "IDDOCUMENTO=?, " + "IDUNITADOC=?, " + "IDCOMPONENTE=?, "
-                + "URNFILE=?, " + "NOME=?, " + "RIFNUMERO=?, " + "RIFANNO=?, " + "RIFTIPOREGISTRO=?, "
-                + "CODALLEGATO=?, " + "FLGSTATO=?, " + "DTAGG=current_timestamp, " + "PGM=?, " + "ID=?, "
-                + "ID_FORMATO_FILE_DOC=?, " + "ID_TIPO_COMP_DOC=?, " + "FLGUTFIRMARIFERIMENTOTEMP=?, "
+        String preparedQuery = "update PAR_COMPONENTE set " + "IDDOCUMENTO=?, " + "IDUNITADOC=?, "
+                + "IDCOMPONENTE=?, " + "URNFILE=?, " + "NOME=?, " + "RIFNUMERO=?, " + "RIFANNO=?, "
+                + "RIFTIPOREGISTRO=?, " + "CODALLEGATO=?, " + "FLGSTATO=?, "
+                + "DTAGG=current_timestamp, " + "PGM=?, " + "ID=?, " + "ID_FORMATO_FILE_DOC=?, "
+                + "ID_TIPO_COMP_DOC=?, " + "FLGUTFIRMARIFERIMENTOTEMP=?, "
                 + "DATARIFERIMENTOTEMP=?, " + "DESCRIFERIMENTOTEMP=?, " + "DS_HASH_FILE_VERS=? "
                 + " where IDDOCUMENTO=? and IDUNITADOC=? and IDCOMPONENTE=?";
         StringBuilder logStr = new StringBuilder(preparedQuery);
@@ -824,7 +843,8 @@ public class ParComponenteDAO extends ParComponente {
             st.setLong(2, obj.getIdunitadoc());
             st.setLong(3, obj.getIdcomponente());
 
-            log.debug("{} - [{}, {}, {}]", query, obj.getIddocumento(), obj.getIdunitadoc(), obj.getIdcomponente());
+            log.debug("{} - [{}, {}, {}]", query, obj.getIddocumento(), obj.getIdunitadoc(),
+                    obj.getIdcomponente());
             int updates = st.executeUpdate();
             return updates;
         }
@@ -839,13 +859,14 @@ public class ParComponenteDAO extends ParComponente {
      */
     public int insertPrepared(ParComponente obj, Blob blob, Connection con) throws Exception {
         int indice = 1;
-        String prepQuery = "insert into PAR_COMPONENTE ( " + "IDDOCUMENTO," + "IDUNITADOC," + "IDCOMPONENTE,"
-                + "URNFILE," + "RIFNUMERO," + "RIFANNO," + "RIFTIPOREGISTRO," + "CODALLEGATO," + "FLGSTATO," + "DTINS,"
-                + "DTAGG," + "PGM," + "ID," + "ID_FORMATO_FILE_DOC," + " ID_TIPO_COMP_DOC ,"
-                + "FLGUTFIRMARIFERIMENTOTEMP," + " DATARIFERIMENTOTEMP, " + "NOME," + "BL_FILE_COMP,"
-                + " DESCRIFERIMENTOTEMP," + " DS_HASH_FILE_VERS" + ") values (" + "? ," + "? ," + "? ," + "? ," + "? ,"
-                + "? ," + "? ," + "? ," + "? ," + " current_timestamp ," + " current_timestamp ," + "? ," + "? ,"
-                + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? )";
+        String prepQuery = "insert into PAR_COMPONENTE ( " + "IDDOCUMENTO," + "IDUNITADOC,"
+                + "IDCOMPONENTE," + "URNFILE," + "RIFNUMERO," + "RIFANNO," + "RIFTIPOREGISTRO,"
+                + "CODALLEGATO," + "FLGSTATO," + "DTINS," + "DTAGG," + "PGM," + "ID,"
+                + "ID_FORMATO_FILE_DOC," + " ID_TIPO_COMP_DOC ," + "FLGUTFIRMARIFERIMENTOTEMP,"
+                + " DATARIFERIMENTOTEMP, " + "NOME," + "BL_FILE_COMP," + " DESCRIFERIMENTOTEMP,"
+                + " DS_HASH_FILE_VERS" + ") values (" + "? ," + "? ," + "? ," + "? ," + "? ,"
+                + "? ," + "? ," + "? ," + "? ," + " current_timestamp ," + " current_timestamp ,"
+                + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? ," + "? )";
 
         StringBuilder log_s = new StringBuilder(prepQuery);
         FileInputStream fileDati = null;
@@ -984,7 +1005,8 @@ public class ParComponenteDAO extends ParComponente {
         }
     }
 
-    public InputStream getBlobWhereByCodAllegato(String codAllegato, Connection con) throws SQLException {
+    public InputStream getBlobWhereByCodAllegato(String codAllegato, Connection con)
+            throws SQLException {
         String query = "select BL_FILE_COMP from PAR_COMPONENTE  where CODALLEGATO = ?";
 
         InputStream ret = null;
@@ -1005,7 +1027,8 @@ public class ParComponenteDAO extends ParComponente {
         return ret;
     }
 
-    public InputStream getBlobWhereByIdCompIdUD(Long idComp, Long idUd, Connection con) throws SQLException {
+    public InputStream getBlobWhereByIdCompIdUD(Long idComp, Long idUd, Connection con)
+            throws SQLException {
         String query = "select BL_FILE_COMP from PAR_COMPONENTE  where IDCOMPONENTE = ? and IDUNITADOC = ?";
 
         InputStream ret = null;

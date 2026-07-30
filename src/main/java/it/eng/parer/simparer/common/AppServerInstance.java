@@ -1,24 +1,19 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this license header, choose License Headers in Project Properties. To change this
+ * template file, choose Tools | Templates and open the template in the editor.
  */
 package it.eng.parer.simparer.common;
 
@@ -26,7 +21,7 @@ package it.eng.parer.simparer.common;
  *
  * @author fioravanti_f
  */
-import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.SERVER_NAME_PROPERTY;
+import static it.eng.spagoCore.ConfigProperties.StandardProperty.SERVER_NAME_PROPERTY;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -39,7 +34,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import it.eng.spagoCore.configuration.ConfigSingleton;
+import it.eng.spagoCore.ConfigSingleton;
 
 @SuppressWarnings("rawtypes")
 public class AppServerInstance {
@@ -51,7 +46,8 @@ public class AppServerInstance {
             InetAddress address = this.getMyHostAddress();
             String servername = null;
             servername = address.getCanonicalHostName();
-            String systemProperty = ConfigSingleton.getInstance().getStringValue(SERVER_NAME_PROPERTY.name());
+            String systemProperty = ConfigSingleton.getInstance()
+                    .getStringValue(SERVER_NAME_PROPERTY.name());
             String instance = System.getProperty(systemProperty);
 
             if (instance != null) {
@@ -74,8 +70,9 @@ public class AppServerInstance {
         // tendenzialmente è meglio un site local di un ip pubblico.
         // per capire se un ip ha un nome, verifico se questo è diverso dalla
         // rappresentazione in stringa delll'ip. (non molto bello, in effetti)
-        SITE_LOCAL_WITH_NAME, NON_SITE_LOCAL_WITH_NAME, SITE_LOCAL_WITHOUT_NAME_IPV4, NON_SITE_LOCAL_WITHOUT_NAME_IPV4,
-        SITE_LOCAL_WITHOUT_NAME_IPV6, NON_SITE_LOCAL_WITHOUT_NAME_IPV6, LOOPBACK_IPV4, LOOPBACK_IPV6
+        SITE_LOCAL_WITH_NAME, NON_SITE_LOCAL_WITH_NAME, SITE_LOCAL_WITHOUT_NAME_IPV4,
+        NON_SITE_LOCAL_WITHOUT_NAME_IPV4, SITE_LOCAL_WITHOUT_NAME_IPV6,
+        NON_SITE_LOCAL_WITHOUT_NAME_IPV6, LOOPBACK_IPV4, LOOPBACK_IPV6
     }
 
     private InetAddress getMyHostAddress() throws UnknownHostException {
@@ -86,10 +83,12 @@ public class AppServerInstance {
             // probabilmente disconnessa dalla rete
             //
             // Scorri su tutte le interfacce di rete
-            for (Enumeration ifaces = NetworkInterface.getNetworkInterfaces(); ifaces.hasMoreElements();) {
+            for (Enumeration ifaces = NetworkInterface.getNetworkInterfaces(); ifaces
+                    .hasMoreElements();) {
                 NetworkInterface iface = (NetworkInterface) ifaces.nextElement();
                 // Scorri su tutti gli indirizzi IP associati ad una scheda di rete
-                for (Enumeration inetAddrs = iface.getInetAddresses(); inetAddrs.hasMoreElements();) {
+                for (Enumeration inetAddrs = iface.getInetAddresses(); inetAddrs
+                        .hasMoreElements();) {
                     InetAddress inetAddr = (InetAddress) inetAddrs.nextElement();
                     log.debug("Verifico l'indirizzo " + inetAddr.getHostAddress());
                     AddressTypes tipo = decodeAddrType(inetAddr);
@@ -114,7 +113,8 @@ public class AppServerInstance {
             // del tutto inutile (sotto Linux la cosa è frequente)
             InetAddress jdkSuppliedAddress = InetAddress.getLocalHost();
             if (jdkSuppliedAddress == null) {
-                throw new UnknownHostException("Il metodo JDK InetAddress.getLocalHost() ha reso null.");
+                throw new UnknownHostException(
+                        "Il metodo JDK InetAddress.getLocalHost() ha reso null.");
             }
             return jdkSuppliedAddress;
         } catch (Exception e) {

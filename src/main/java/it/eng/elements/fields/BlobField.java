@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.elements.fields;
@@ -71,7 +67,8 @@ public class BlobField extends AbstractField implements MultipartRequestField {
         this(accessor, mode, null);
     }
 
-    public BlobField(@NotNull PropertyAccessor accessor, @NotNull Mode mode, @Nullable String prefix) {
+    public BlobField(@NotNull PropertyAccessor accessor, @NotNull Mode mode,
+            @Nullable String prefix) {
         super(accessor, mode, prefix);
 
         innerId = id + INNER_SUFFIX;
@@ -162,19 +159,23 @@ public class BlobField extends AbstractField implements MultipartRequestField {
 
             String radioId = id + UPLOAD_KEEP;
             String script = "var inptxt = this.ownerDocument.getElementById('"
-                    + StringEscapeUtils.escapeJavaScript(innerId) + "');" + "inptxt.disabled=true;inptxt.value='';";
+                    + StringEscapeUtils.escapeJavaScript(innerId) + "');"
+                    + "inptxt.disabled=true;inptxt.value='';";
             printRadio(xb, radioId, "elements.field.upload.keep", UPLOAD_KEEP, true, script);
 
             radioId = id + UPLOAD_MODIFY;
-            script = "var inptxt = this.ownerDocument.getElementById('" + StringEscapeUtils.escapeJavaScript(innerId)
-                    + "');" + "inptxt.disabled=false;inptxt.value='';";
+            script = "var inptxt = this.ownerDocument.getElementById('"
+                    + StringEscapeUtils.escapeJavaScript(innerId) + "');"
+                    + "inptxt.disabled=false;inptxt.value='';";
             printRadio(xb, radioId, "elements.field.upload.update", UPLOAD_MODIFY, false, script);
 
             if (!isRequired()) {
                 radioId = id + UPLOAD_DELETE;
                 script = "var inptxt = this.ownerDocument.getElementById('"
-                        + StringEscapeUtils.escapeJavaScript(innerId) + "');" + "inptxt.disabled=true;inptxt.value='';";
-                printRadio(xb, radioId, "elements.field.upload.delete", UPLOAD_DELETE, false, script);
+                        + StringEscapeUtils.escapeJavaScript(innerId) + "');"
+                        + "inptxt.disabled=true;inptxt.value='';";
+                printRadio(xb, radioId, "elements.field.upload.delete", UPLOAD_DELETE, false,
+                        script);
             }
 
             xb.writeInputFile(innerId, inputName, true);
@@ -184,8 +185,8 @@ public class BlobField extends AbstractField implements MultipartRequestField {
         }
     }
 
-    protected void printRadio(XhtmlBuffer xb, String radioId, String labelKey, String value, boolean checked,
-            String script) {
+    protected void printRadio(XhtmlBuffer xb, String radioId, String labelKey, String value,
+            boolean checked, String script) {
         xb.openElement("label");
         xb.addAttribute("for", radioId);
         xb.addAttribute("class", "radio");
@@ -281,7 +282,8 @@ public class BlobField extends AbstractField implements MultipartRequestField {
         Connection conn = null;
         blob = null;
         if (code != null) {
-            DataSource datasource = SpringContext.getApplicationContext().getBean("dataSource", DataSource.class);
+            DataSource datasource = SpringContext.getApplicationContext().getBean("dataSource",
+                    DataSource.class);
             if (datasource != null) {
                 try {
                     conn = datasource.getConnection();

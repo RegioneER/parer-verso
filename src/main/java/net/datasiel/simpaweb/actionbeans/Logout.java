@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 /**
@@ -23,6 +19,8 @@ package net.datasiel.simpaweb.actionbeans;
 import it.eng.parer.simparer.security.SimparerLoginLog;
 import it.eng.spagoLite.SessionManager;
 import it.eng.spagoLite.security.IUser;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 import net.datasiel.simpaweb.common.Constants;
 import net.datasiel.webapp.BaseAction;
@@ -39,6 +37,11 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 @UrlBinding("/pro/logout")
 public class Logout extends BaseAction {
 
+    private static final String JSESSIONID = "JSESSIONID";
+
+    @SpringBean("nomeApplicazione")
+    public String nomeApplicazione;
+
     @SpringBean("simparerLoginLog")
     private SimparerLoginLog loginLog;
 
@@ -46,15 +49,68 @@ public class Logout extends BaseAction {
     public Resolution executeDefault() {
         HttpSession httpSession = getContext().getRequest().getSession();
         IUser<?> user = SessionManager.getUser(httpSession);
-        String ipVers = (String) httpSession.getAttribute(Constants.SESS_PARAM_WEB_CLIENT_IP_ADDRESS);
-        String serverName = (String) httpSession.getAttribute(Constants.SESS_PARAM_WEB_SERVER_ADDRESS);
+        String ipVers = (String) httpSession
+                .getAttribute(Constants.SESS_PARAM_WEB_CLIENT_IP_ADDRESS);
+        String serverName = (String) httpSession
+                .getAttribute(Constants.SESS_PARAM_WEB_SERVER_ADDRESS);
         loginLog.writeLogEvento(user, ipVers, serverName, SimparerLoginLog.TipiEvento.LOGOUT);
         Resolution resolution = null;
-        // Se l'utente è FEDERA SPID allora non fa il GLOBAL LOGOUT che FEDERA NON GESTISCE
-        if (user.getUserType() != null && user.getUserType().equals(IUser.UserType.SPID_FEDERA)) {
-            resolution = new RedirectResolution("/saml/logout?local=true");
+        // Se l'utente è FEDERA SPID o CIE FEDERA allora non fa il GLOBAL LOGOUT che FEDERA NON
+        // GESTISCE
+        if (user.getUserType() != null && (user.getUserType().equals(IUser.UserType.SPID_FEDERA)
+                || user.getUserType().equals(IUser.UserType.CIE_FEDERA))) {
+            // resolution = new RedirectResolution("/saml/logout?local=true");
+
+            log.debug("Richiesto SAML LOCAL LOGOUT per l'utente "
+                    + user.getUserType().name());
+
+            Cookie cookie = new Cookie("shib_idp_session", "");
+            cookie.setMaxAge(0);
+            cookie.setPath("/idp");
+            cookie.setSecure(true);
+            // cookie.setHttpOnly(true);
+            getContext().getResponse().addCookie(cookie);
+
+            cookie = new Cookie(JSESSIONID, "");
+            cookie.setMaxAge(0);
+            cookie.setPath("/wayf");
+            cookie.setSecure(true);
+            // cookie.setHttpOnly(true);
+            getContext().getResponse().addCookie(cookie);
+
+            cookie = new Cookie(JSESSIONID, "");
+            cookie.setMaxAge(0);
+            cookie.setPath("/idp");
+            cookie.setSecure(true);
+            // cookie.setHttpOnly(true);
+            getContext().getResponse().addCookie(cookie);
+
+            cookie = new Cookie(JSESSIONID, "");
+            cookie.setMaxAge(0);
+            cookie.setPath("/" + nomeApplicazione);
+            cookie.setSecure(true);
+            // cookie.setHttpOnly(true);
+            getContext().getResponse().addCookie(cookie);
+            log.info("Nome applicazione {}", nomeApplicazione);
+
+            cookie = new Cookie("_saml_wayf_idp_", "");
+            cookie.setMaxAge(0);
+            cookie.setPath("/");
+            cookie.setSecure(true);
+            // cookie.setHttpOnly(true);
+            getContext().getResponse().addCookie(cookie);
+
+            cookie = new Cookie("USENAV", "");
+            cookie.setMaxAge(0);
+            cookie.setSecure(true);
+            // cookie.setHttpOnly(true);
+            getContext().getResponse().addCookie(cookie);
+
+            resolution = new RedirectResolution("/pages/Logout.jsp");
+            httpSession.invalidate();
         } else {
-            resolution = new RedirectResolution("/saml/logout?local=false");
+            // resolution = new RedirectResolution("/saml/logout?local=false");
+            resolution = new RedirectResolution("/pages/logoutGlobale.jsp");
         }
         return resolution;
     }

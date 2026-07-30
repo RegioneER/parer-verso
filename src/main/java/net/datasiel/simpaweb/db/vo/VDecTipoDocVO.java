@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.db.vo;
@@ -20,8 +16,7 @@ package net.datasiel.simpaweb.db.vo;
 /**
  * V_dec_tipo_doc
  *
- * WARNING! Automatically generated file! Do not edit! Code Generator by
- * J.A.Carter
+ * WARNING! Automatically generated file! Do not edit! Code Generator by J.A.Carter
  */
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,24 +44,20 @@ public class VDecTipoDocVO extends VDecTipoDocDAO {
     }
 
     /**
-     * Restituisce il numero di tipologie documentarie ammesse per la tipologia di unità documentaria e tipo di
-     * documento ricevuti.
+     * Restituisce il numero di tipologie documentarie ammesse per la tipologia di unità
+     * documentaria e tipo di documento ricevuti.
      *
-     * @param idTipoUnitaDoc
-     *            Codice tipologia unità documentaria
-     * @param strTiDoc
-     *            Tipo documento (PRINCIPALE, ALLEGATO, ANNESSO o ANNOTAZIONE)
-     * @param idUserIam
-     *            ID dell'utente in IAM
-     * @param con
-     *            Connessione a db
+     * @param idTipoUnitaDoc Codice tipologia unità documentaria
+     * @param strTiDoc       Tipo documento (PRINCIPALE, ALLEGATO, ANNESSO o ANNOTAZIONE)
+     * @param idUserIam      ID dell'utente in IAM
+     * @param con            Connessione a db
      *
      * @return Numero di tipologie di documento trovate.
      *
      * @throws SQLException
      */
-    public static int getNumeroTipiDoc(Long idTipoUnitaDoc, String strTiDoc, Long idUserIam, Connection con)
-            throws SQLException {
+    public static int getNumeroTipiDoc(Long idTipoUnitaDoc, String strTiDoc, Long idUserIam,
+            Connection con) throws SQLException {
         StringBuilder sb = new StringBuilder();
         int returnValue = 0;
 
@@ -98,25 +89,21 @@ public class VDecTipoDocVO extends VDecTipoDocDAO {
     }
 
     /**
-     * Restituisce l'elenco delle tipologie documentarie ammesse per la tipologia di unità documentaria e tipo di
-     * documento ricevuti.
+     * Restituisce l'elenco delle tipologie documentarie ammesse per la tipologia di unità
+     * documentaria e tipo di documento ricevuti.
      *
-     * @param idTipoUnitaDoc
-     *            Codice tipologia unità documentaria
-     * @param strTiDoc
-     *            Tipo documento (principale, allegato, annesso o annotazione)
-     * @param idUserIam
-     *            ID dell'utente in IAM
-     * @param con
-     *            Connessione a db
+     * @param idTipoUnitaDoc Codice tipologia unità documentaria
+     * @param strTiDoc       Tipo documento (principale, allegato, annesso o annotazione)
+     * @param idUserIam      ID dell'utente in IAM
+     * @param con            Connessione a db
      * @param fl_princ
      *
      * @return L'elenco delle tipologie documentarie ammesse.
      *
      * @throws SQLException
      */
-    public static List<VDecTipoDocVO> getListaTipiDoc(Long idTipoUnitaDoc, String strTiDoc, Long idUserIam,
-            Connection con, boolean fl_princ) throws SQLException {
+    public static List<VDecTipoDocVO> getListaTipiDoc(Long idTipoUnitaDoc, String strTiDoc,
+            Long idUserIam, Connection con, boolean fl_princ) throws SQLException {
 
         StringBuffer sb = new StringBuffer();
         /*
@@ -157,20 +144,22 @@ public class VDecTipoDocVO extends VDecTipoDocDAO {
 
     }
 
-    public static DefaultSelectionProvider getTipiDoc(Long idTipoUnitaDoc, String strTiDoc, Long idUserIam,
-            Connection con, boolean fl_princ) throws SQLException {
-        List<VDecTipoDocVO> listaValori = getListaTipiDoc(idTipoUnitaDoc, strTiDoc, idUserIam, con, fl_princ);
+    public static DefaultSelectionProvider getTipiDoc(Long idTipoUnitaDoc, String strTiDoc,
+            Long idUserIam, Connection con, boolean fl_princ) throws SQLException {
+        List<VDecTipoDocVO> listaValori = getListaTipiDoc(idTipoUnitaDoc, strTiDoc, idUserIam, con,
+                fl_princ);
 
         DefaultSelectionProvider selTipoDocumento = new DefaultSelectionProvider("tipiDocumento");
         for (VDecTipoDocVO vDecTipoDocVO : listaValori) {
-            selTipoDocumento.appendRow(vDecTipoDocVO.getIdTipoDoc(), vDecTipoDocVO.getNmTipoDoc(), true);
+            selTipoDocumento.appendRow(vDecTipoDocVO.getIdTipoDoc(), vDecTipoDocVO.getNmTipoDoc(),
+                    true);
         }
 
         return selTipoDocumento;
     }
 
-    public static DefaultSelectionProvider getTipiDoc(Long idStruttura, Long idUserIam, Connection con)
-            throws SQLException {
+    public static DefaultSelectionProvider getTipiDoc(Long idStruttura, Long idUserIam,
+            Connection con) throws SQLException {
         DefaultSelectionProvider selTipoDocumento = new DefaultSelectionProvider("tipiDocumento");
         StringBuffer prepQuery = new StringBuffer();
         prepQuery.append("SELECT ID_TIPO_DOC, NM_TIPO_DOC ");
@@ -202,7 +191,8 @@ public class VDecTipoDocVO extends VDecTipoDocDAO {
         return selTipoDocumento;
     }
 
-    public String getNMTipoDoc(Long idtipodoc, Long idUserIam, Connection connection) throws SQLException {
+    public String getNMTipoDoc(Long idtipodoc, Long idUserIam, Connection connection)
+            throws SQLException {
         VDecTipoDoc tipoDoc = retrieveByIdTipoDoc(idtipodoc, idUserIam, connection);
         if (tipoDoc != null) {
             return tipoDoc.getNmTipoDoc();
@@ -210,9 +200,11 @@ public class VDecTipoDocVO extends VDecTipoDocDAO {
         return null;
     }
 
-    public VDecTipoDoc retrieveByIdTipoDoc(Long idtipodoc, Long idUserIam, Connection con) throws SQLException {
+    public VDecTipoDoc retrieveByIdTipoDoc(Long idtipodoc, Long idUserIam, Connection con)
+            throws SQLException {
 
-        String query = "SELECT * " + "FROM V_DEC_TIPO_DOC " + "WHERE ID_TIPO_DOC = ? AND ID_USER_IAM = ?";
+        String query = "SELECT * " + "FROM V_DEC_TIPO_DOC "
+                + "WHERE ID_TIPO_DOC = ? AND ID_USER_IAM = ?";
 
         ResultSet r = null;
         java.sql.PreparedStatement st = con.prepareStatement(query);

@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.par;
@@ -44,7 +40,7 @@ import org.xml.sax.InputSource;
 
 import net.datasiel.par.beans.DatiUnitaDocumentaria;
 import net.datasiel.par.jaxb.versamento.UnitaDocumentaria;
-//import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
+// import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
 import net.datasiel.simpaweb.common.Constants;
 
 @Deprecated
@@ -88,12 +84,13 @@ public class Versatore {
             reqEntity.addPart("PASSWORD ", new StringBody(password));
             /*
              * LS: 18 novembre 2016 la riga commentata qui sotto utilizza la libreria "vietata"
-             * com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl; Ho sostituito la chiamata con quella
-             * standard
+             * com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl; Ho sostituito la
+             * chiamata con quella standard
              */
             // DocumentBuilderFactory documentBuilderFactory = new DocumentBuilderFactoryImpl();
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            File xmlFile = new File("D:\\progetti\\PoloArchivisticoRegionale\\VersamentoEpsilon.xml");
+            File xmlFile = new File(
+                    "D:\\progetti\\PoloArchivisticoRegionale\\VersamentoEpsilon.xml");
             String xmlSip = FileUtils.readFileToString(xmlFile, "UTF-8");
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             Document doc = null;

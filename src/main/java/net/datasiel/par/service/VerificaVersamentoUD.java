@@ -1,23 +1,19 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.par.service;
 
-import static it.eng.spagoCore.configuration.ConfigProperties.StandardProperty.URI_VERSMENTO_SYNC;
+import static it.eng.spagoCore.ConfigProperties.StandardProperty.URI_VERSMENTO_SYNC;
 
 import java.io.StringReader;
 import java.net.URI;
@@ -41,7 +37,7 @@ import com.manydesigns.elements.messages.SessionMessages;
 import it.eng.exceptions.ErrorCategory.VersoErrorCategory;
 import it.eng.exceptions.VersoException;
 import it.eng.parer.simparer.security.ClientUser;
-import it.eng.spagoCore.configuration.ConfigSingleton;
+import it.eng.spagoCore.ConfigSingleton;
 import it.eng.spagoLite.SessionManager;
 import net.datasiel.par.beans.DatiUnitaDocumentaria;
 import net.datasiel.par.xml.PARHelper;
@@ -75,11 +71,13 @@ public class VerificaVersamentoUD {
         if (StringUtils.isBlank(automaPassword)) {
             infoEsito.setStato(1);
             infoEsito.setEsito("NEGATIVO");
-            infoEsito.setMessaggio("La password dell'automa di versamento non è stata configurata.");
+            infoEsito
+                    .setMessaggio("La password dell'automa di versamento non è stata configurata.");
         } else if (StringUtils.isBlank(automaUsername)) {
             infoEsito.setStato(1);
             infoEsito.setEsito("NEGATIVO");
-            infoEsito.setMessaggio("Lo username  dell'automa di versamento non è stato configurato.");
+            infoEsito.setMessaggio(
+                    "Lo username  dell'automa di versamento non è stato configurato.");
         } else {
             try {
                 ParUnitadocVO parUnitadocVO = new ParUnitadocVO();
@@ -87,7 +85,8 @@ public class VerificaVersamentoUD {
 
                 GatewayHelper sacerHelper = new GatewayHelper();
                 boolean simulaDb = true;
-                if (operazione == EnumOperazione.VERSAMENTO || operazione == EnumOperazione.COMUNICAZIONE) {
+                if (operazione == EnumOperazione.VERSAMENTO
+                        || operazione == EnumOperazione.COMUNICAZIONE) {
                     simulaDb = false;
                 }
                 if (operazione == EnumOperazione.COMUNICAZIONE) {
@@ -95,18 +94,21 @@ public class VerificaVersamentoUD {
                     isComunicazione = true;
                 }
 
-                DatiUnitaDocumentaria udDaTestare = sacerHelper.preparaUd(parUnitaDoc, simulaDb, con, automaUsername,
+                DatiUnitaDocumentaria udDaTestare = sacerHelper.preparaUd(parUnitaDoc, simulaDb,
+                        con, automaUsername,
                         ((ClientUser) SessionManager.getUser(session)).getUsername());
                 if (udDaTestare != null) {
                     PARHelper parHelper = new PARHelper("UTF-8");
                     String esitoInvocazione = "";
                     try {
-                        URI uploadUrl = ConfigSingleton.getInstance().getUriValue(URI_VERSMENTO_SYNC.name());
+                        URI uploadUrl = ConfigSingleton.getInstance()
+                                .getUriValue(URI_VERSMENTO_SYNC.name());
                         xmlRichiesta = new PARHelper().creaRequestVersamento(udDaTestare);
-                        esitoInvocazione = parHelper.invocaVersamentoSync(automaUsername, automaPassword, udDaTestare,
-                                uploadUrl,
-                                (Vector<Map<String, String>>) request.getSession().getAttribute("listaCookie"),
-                                xmlRichiesta);
+                        esitoInvocazione = parHelper
+                                .invocaVersamentoSync(automaUsername, automaPassword, udDaTestare,
+                                        uploadUrl, (Vector<Map<String, String>>) request
+                                                .getSession().getAttribute("listaCookie"),
+                                        xmlRichiesta);
                     } catch (Exception e) {
                         // Tentativo di versamento fallito per eccezione senza che
                         // sia restituito xml di risposta.
@@ -123,8 +125,8 @@ public class VerificaVersamentoUD {
                         if (operazione == EnumOperazione.VERIFICA) {
                             opDesc = "Verifica fallita";
                         }
-                        infoEsito.setMessaggio(String.format("%s a causa di un errore generico %s", opDesc,
-                                ExceptionUtils.getRootCauseMessage(e)));
+                        infoEsito.setMessaggio(String.format("%s a causa di un errore generico %s",
+                                opDesc, ExceptionUtils.getRootCauseMessage(e)));
                         return infoEsito;
                     }
 
@@ -146,38 +148,45 @@ public class VerificaVersamentoUD {
                             if (parUnitaDocVO.getStato(idUnitaDoc, con) == 4) {
                                 log.debug("UD {} già versata in Sacer!", idUnitaDoc);
                             } else {
-                                parUnitaDocVO.aggiornaUnitaDoc(statoDopoVerifica, xmlRichiesta, esitoInvocazione,
-                                        idUnitaDoc, simulaDb || isComunicazione ? null : infoEsito.getEsito(), con);
+                                parUnitaDocVO.aggiornaUnitaDoc(statoDopoVerifica, xmlRichiesta,
+                                        esitoInvocazione, idUnitaDoc,
+                                        simulaDb || isComunicazione ? null : infoEsito.getEsito(),
+                                        con);
                             }
                         } else {
-                            parUnitaDocVO.aggiornaUnitaDoc(statoDopoVerifica, xmlRichiesta, esitoInvocazione,
-                                    idUnitaDoc, simulaDb || isComunicazione ? null : infoEsito.getEsito(), con);
+                            parUnitaDocVO.aggiornaUnitaDoc(statoDopoVerifica, xmlRichiesta,
+                                    esitoInvocazione, idUnitaDoc,
+                                    simulaDb || isComunicazione ? null : infoEsito.getEsito(), con);
                         }
                     } else {
-                        parUnitaDocVO.aggiornaUnitaDoc(statoDopoVerifica, xmlRichiesta, esitoInvocazione, idUnitaDoc,
+                        parUnitaDocVO.aggiornaUnitaDoc(statoDopoVerifica, xmlRichiesta,
+                                esitoInvocazione, idUnitaDoc,
                                 simulaDb || isComunicazione ? null : infoEsito.getEsito(), con);
                     }
                 } else {
                     ParUnitadocVO udDAO = new ParUnitadocVO();
                     int statoPerVerificaOVersa = isComunicazione ? 0 : simulaDb ? 1 : -2;
                     if (statoPerVerificaOVersa == 1 && udDaTestare == null) {
-                        statoPerVerificaOVersa = -6; // setto il nuovo stato per verifica locale fallita
+                        statoPerVerificaOVersa = -6; // setto il nuovo stato per verifica locale
+                                                     // fallita
                     }
                     udDAO.aggiornaUnitaDoc(statoPerVerificaOVersa, xmlRichiesta, null, idUnitaDoc,
                             simulaDb || isComunicazione ? null : infoEsito.getEsito(), con);
                     infoEsito.setStato(1);
                     infoEsito.setEsito("NEGATIVO");
-                    infoEsito.setMessaggio("L'unità documentaria è priva di un documento principale.");
+                    infoEsito.setMessaggio(
+                            "L'unità documentaria è priva di un documento principale.");
                 }
             } catch (Exception e) {
                 Throwable rootCause = ExceptionUtils.getRootCause(e);
-                log.error("Errore " + operazione + " unità documentaria " + idUnitaDoc + ": " + rootCause, e);
+                log.error("Errore " + operazione + " unità documentaria " + idUnitaDoc + ": "
+                        + rootCause, e);
                 infoEsito.setStato(1);
                 infoEsito.setEsito("NEGATIVO");
 
                 String messaggio = "Errore generico, Contattare l'assistenza";
-                SessionMessages.addErrorMessage(
-                        "Errore " + operazione + " unità documentaria " + idUnitaDoc + ": " + messaggio);
+                SessionMessages.addErrorMessage("Errore " + operazione + " unità documentaria "
+                        + idUnitaDoc + ": " + messaggio);
             }
         }
         return infoEsito;

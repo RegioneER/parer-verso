@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 /**
@@ -103,8 +99,7 @@ public abstract class BaseAction implements ActionBean {
     /**
      * Elimina i files associati ad un allegato elements.
      *
-     * @param codiceBlob
-     *            Il codice del blob da eliminare.
+     * @param codiceBlob Il codice del blob da eliminare.
      *
      * @throws IOException
      */
@@ -135,7 +130,8 @@ public abstract class BaseAction implements ActionBean {
     /*
      * (non-Javadoc)
      *
-     * @see net.sourceforge.stripes.action.ActionBean#setContext(net.sourceforge. stripes.action.ActionBeanContext)
+     * @see net.sourceforge.stripes.action.ActionBean#setContext(net.sourceforge.
+     * stripes.action.ActionBeanContext)
      */
 
     public void setContext(ActionBeanContext arg0) {
@@ -186,15 +182,15 @@ public abstract class BaseAction implements ActionBean {
         /**
          * Implementazione di default
          */
-        return new Class[] { this.getClass() };
+        return new Class[] {
+                this.getClass() };
     }
 
     /**
-     * Hook per gestione abilitazione/disabilitazione tabs Fare override se necessario cioè se nella gestione
-     * dell'intero set di tabs c'è la necessità di gestire l'abilitazione dei tab.
+     * Hook per gestione abilitazione/disabilitazione tabs Fare override se necessario cioè se nella
+     * gestione dell'intero set di tabs c'è la necessità di gestire l'abilitazione dei tab.
      *
-     * @param indiceTab
-     *            indice del tab da controllare
+     * @param indiceTab indice del tab da controllare
      *
      * @return true se il tab deve essere abilitato false altrimenti.
      *
@@ -215,8 +211,7 @@ public abstract class BaseAction implements ActionBean {
     }
 
     /**
-     * @param idrecord
-     *            the idrecord to set
+     * @param idrecord the idrecord to set
      */
     public void setIdrecord(Long idrecord) {
         this.idrecord = idrecord;
@@ -238,7 +233,8 @@ public abstract class BaseAction implements ActionBean {
      *
      * @throws SQLException
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({
+            "unchecked", "rawtypes" })
     protected Resolution handleSalvaEContinua(Resolution updateResult) throws SQLException {
         if (updateResult instanceof ForwardResolution) {
             log.debug("errori in update quindi rimaniamo dove siamo");
@@ -267,7 +263,8 @@ public abstract class BaseAction implements ActionBean {
 
         if (tabSuccessivo >= toolbarActions.length) {
             log.debug("non ci sono tab successivi: restiamo dove siamo");
-            SessionMessages.addInfoMessage("Ultima sezione raggiunta: per procedere tornare all'indice.");
+            SessionMessages
+                    .addInfoMessage("Ultima sezione raggiunta: per procedere tornare all'indice.");
             return updateResult;
         }
 
@@ -284,8 +281,9 @@ public abstract class BaseAction implements ActionBean {
         String idComponente = context.getRequest().getParameter("idComponente");
         if (idComponente != null && checkPermission(idComponente)) {
             ParComponenteVO parComponenteVO = new ParComponenteVO();
-            List<ParComponente> componenteList = parComponenteVO.getParComponentesByIdcomponenteIdunitadocNoBlob(
-                    Long.parseLong(idComponente), idrecord, getConnection());
+            List<ParComponente> componenteList = parComponenteVO
+                    .getParComponentesByIdcomponenteIdunitadocNoBlob(Long.parseLong(idComponente),
+                            idrecord, getConnection());
             if (componenteList != null && componenteList.size() > 0) {
                 if (componenteList.size() == 1) {
                     ParComponente componente = componenteList.get(0);
@@ -293,8 +291,8 @@ public abstract class BaseAction implements ActionBean {
 
                     BlobManager blManager = BlobManager.createDefaultBlobManager();
                     try {
-                        InputStream datiBlob = parComponenteVO.getBlobWhereByIdCompIdUD(Long.parseLong(idComponente),
-                                idrecord, getConnection());
+                        InputStream datiBlob = parComponenteVO.getBlobWhereByIdCompIdUD(
+                                Long.parseLong(idComponente), idrecord, getConnection());
                         // blobAll = blManager.loadBlob(codAllegato);
                         // File fileAll = blobAll.getDataFile();
                         // FileInputStream fis = new FileInputStream(fileAll);
@@ -305,7 +303,8 @@ public abstract class BaseAction implements ActionBean {
                     } catch (Exception e) {
                         Throwable rootCause = ExceptionUtils.getRootCause(e);
                         log.error("Generic error {}", rootCause, e);
-                        SessionMessages.addErrorMessage("Si è verificato un errore durante l'apertura del file");
+                        SessionMessages.addErrorMessage(
+                                "Si è verificato un errore durante l'apertura del file");
                         throw e;
                     }
                 } else {
@@ -329,8 +328,9 @@ public abstract class BaseAction implements ActionBean {
         String idComponente = context.getRequest().getParameter("idComponente");
         if (idComponente != null && checkPermission(idComponente)) {
             ParComponenteVO parComponenteVO = new ParComponenteVO();
-            List<ParComponente> componenteList = parComponenteVO.getParComponentesByIdcomponenteIdunitadocNoBlob(
-                    Long.parseLong(idComponente), idrecord, getConnection());
+            List<ParComponente> componenteList = parComponenteVO
+                    .getParComponentesByIdcomponenteIdunitadocNoBlob(Long.parseLong(idComponente),
+                            idrecord, getConnection());
             if (componenteList != null && !componenteList.isEmpty()) {
                 if (componenteList.size() == 1) {
                     ParComponente componente = componenteList.get(0);
@@ -347,13 +347,15 @@ public abstract class BaseAction implements ActionBean {
                         } catch (Exception e) {
                             Throwable rootCause = ExceptionUtils.getRootCause(e);
                             log.error("Generic error {}", rootCause, e);
-                            SessionMessages.addErrorMessage("Si è verificato un errore durante l'apertura del file");
+                            SessionMessages.addErrorMessage(
+                                    "Si è verificato un errore durante l'apertura del file");
                             throw e;
                         }
                     } catch (Exception e) {
                         Throwable rootCause = ExceptionUtils.getRootCause(e);
                         log.error("Generic error {}", rootCause, e);
-                        SessionMessages.addErrorMessage("Si è verificato un errore durante l'apertura del file");
+                        SessionMessages.addErrorMessage(
+                                "Si è verificato un errore durante l'apertura del file");
                         throw e;
                     }
 
@@ -393,8 +395,7 @@ public abstract class BaseAction implements ActionBean {
     }
 
     /**
-     * @param relName
-     *            the relName to set
+     * @param relName the relName to set
      */
     public void setRelName(String relName) {
         this.relName = relName;
@@ -408,8 +409,7 @@ public abstract class BaseAction implements ActionBean {
     }
 
     /**
-     * @param jsonOutput
-     *            the jsonOutput to set
+     * @param jsonOutput the jsonOutput to set
      */
     public void setJsonOutput(String jsonOutput) {
         this.jsonOutput = jsonOutput;
@@ -423,8 +423,7 @@ public abstract class BaseAction implements ActionBean {
     }
 
     /**
-     * @param selectionProviderIndex
-     *            the selectionProviderIndex to set
+     * @param selectionProviderIndex the selectionProviderIndex to set
      */
     public void setSelectionProviderIndex(int selectionProviderIndex) {
         this.selectionProviderIndex = selectionProviderIndex;
@@ -438,8 +437,7 @@ public abstract class BaseAction implements ActionBean {
     }
 
     /**
-     * @param labelSearch
-     *            the labelSearch to set
+     * @param labelSearch the labelSearch to set
      */
     public void setLabelSearch(String labelSearch) {
         this.labelSearch = labelSearch;

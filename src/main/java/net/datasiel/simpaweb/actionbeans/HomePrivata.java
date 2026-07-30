@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.actionbeans;
@@ -149,15 +145,18 @@ public class HomePrivata extends BaseAction {
         this.labelSearch = labelSearch;
     }
 
-    protected void initListaTipoUnitaDoc(Long idStrut, Long idUser, Connection con) throws SQLException {
+    protected void initListaTipoUnitaDoc(Long idStrut, Long idUser, Connection con)
+            throws SQLException {
         selTipoUnitaDoc = ElementsHelper.getTipiRegUniDoc(idStrut, idUser, con);
     }
 
     @Before
     public Resolution checkPermissions() throws AuthorizationException, SQLException {
         String permission = String.format(CustomRealm.PERMESSO_PER_STRUTTURA_LEGGI_D, idStrut);
-        if (!CustomRealm.isPermitted(permission, idStrut, getContext().getRequest().getSession(), getConnection())) {
-            return new ErrorResolution(HttpServletResponse.SC_FORBIDDEN, "Struttura non accessibile dall'utente.");
+        if (!CustomRealm.isPermitted(permission, idStrut, getContext().getRequest().getSession(),
+                getConnection())) {
+            return new ErrorResolution(HttpServletResponse.SC_FORBIDDEN,
+                    "Struttura non accessibile dall'utente.");
         }
         return null;
     }
@@ -209,7 +208,8 @@ public class HomePrivata extends BaseAction {
 
         if (searchFormVersamenti == null) {
             initListaTipoUnitaDoc(idStrut, Long.parseLong(idutente), getConnection());
-            searchFormVersamenti = (SearchForm) ElementsHelper.buildSearchFormVersamenti(selTipoUnitaDoc);
+            searchFormVersamenti = (SearchForm) ElementsHelper
+                    .buildSearchFormVersamenti(selTipoUnitaDoc);
         }
 
         return new ForwardResolution("/pages/homeprivata.jsp");
@@ -272,7 +272,8 @@ public class HomePrivata extends BaseAction {
             localIdUtente = getIdutente();
 
         }
-        udTrovateBozze = parDAO.retrieveBozzeUtente(Long.parseLong(localIdUtente), idStrut, getConnection());
+        udTrovateBozze = parDAO.retrieveBozzeUtente(Long.parseLong(localIdUtente), idStrut,
+                getConnection());
         int numeroBozze = udTrovateBozze.size();
         if (numeroBozze == 0) {
             log.debug("Unita' documentarie non trovate per l'utente");
@@ -305,15 +306,18 @@ public class HomePrivata extends BaseAction {
     @HandlesEvent("listaVersamenti")
     public Resolution listaVersamenti() throws SQLException {
         boolean cambiaPagina = context.getRequest().getParameter("cambiaPagina") != null;
-        if (!ricercaEseguita && !cambiaPagina || ricercaEseguita && udTrovateVersamenti == null && !cambiaPagina) {
+        if (!ricercaEseguita && !cambiaPagina
+                || ricercaEseguita && udTrovateVersamenti == null && !cambiaPagina) {
             ParUnitadocVO parDAO = new ParUnitadocVO();
-            udTrovateVersamenti = parDAO.retrieveUltimi5VersamentiStruttura(idStrut, Long.parseLong(idutente),
-                    getConnection());
+            udTrovateVersamenti = parDAO.retrieveUltimi5VersamentiStruttura(idStrut,
+                    Long.parseLong(idutente), getConnection());
         } else if (cambiaPagina) {
             HttpServletRequest request = context.getRequest();
             paginaVersamenti = Integer.parseInt(request.getParameter("paginaVersamenti"));
             initListaTipoUnitaDoc(idStrut, Long.parseLong(idutente), getConnection());
-            searchFormVersamenti = (SearchForm) ElementsHelper.buildSearchFormVersamenti(selTipoUnitaDoc);
+            reloadElementsThreadLocals();
+            searchFormVersamenti = (SearchForm) ElementsHelper
+                    .buildSearchFormVersamenti(selTipoUnitaDoc);
             searchFormVersamenti.readFromRequest(request);
             SearchCriteriaOracleImpl criteria = new SearchCriteriaOracleImpl("U");
             searchFormVersamenti.configureCriteria(criteria);
@@ -323,12 +327,12 @@ public class HomePrivata extends BaseAction {
             try {
                 con = getConnection();
                 ParUnitadocVO parUnitadocVO = new ParUnitadocVO();
-                udTrovateVersamenti = parUnitadocVO.cercaVersamenti(con, strWhere, idStrut, Long.parseLong(idutente),
-                        listaParametri);
+                udTrovateVersamenti = parUnitadocVO.cercaVersamenti(con, strWhere, idStrut,
+                        Long.parseLong(idutente), listaParametri);
             } catch (Exception e) {
                 log.error("Error in read udTrovateVersamenti", e);
             } finally {
-                DbUtils.closeQuietly(con);
+                closeConnection();
             }
 
         }
@@ -387,10 +391,11 @@ public class HomePrivata extends BaseAction {
         this.ricercaEseguita = ricercaEseguita;
     }
 
-    public Element prepareEnteStruttura(DefaultSelectionProvider selEnteStruttura, boolean soloUnaStruttura,
-            Mode mode) {
+    public Element prepareEnteStruttura(DefaultSelectionProvider selEnteStruttura,
+            boolean soloUnaStruttura, Mode mode) {
         reloadElementsThreadLocals();
-        return ElementsHelper.buildEnteStruttura(selEnteStruttura, soloUnaStruttura, "enteStruttura_", mode);
+        return ElementsHelper.buildEnteStruttura(selEnteStruttura, soloUnaStruttura,
+                "enteStruttura_", mode);
     }
 
     public Element getEnteStruttura() {
@@ -409,8 +414,7 @@ public class HomePrivata extends BaseAction {
     }
 
     /**
-     * @param udPaginaBozze
-     *            the udPaginaBozze to set
+     * @param udPaginaBozze the udPaginaBozze to set
      */
     public void setUdPaginaBozze(List<ParUnitadocVO> udPaginaBozze) {
         this.udPaginaBozze = udPaginaBozze;
@@ -424,8 +428,7 @@ public class HomePrivata extends BaseAction {
     }
 
     /**
-     * @param paginaBozze
-     *            the paginaBozze to set
+     * @param paginaBozze the paginaBozze to set
      */
     public void setPaginaBozze(int paginaBozze) {
         this.paginaBozze = paginaBozze;
@@ -439,8 +442,7 @@ public class HomePrivata extends BaseAction {
     }
 
     /**
-     * @param udTrovateBozze
-     *            the udTrovateBozze to set
+     * @param udTrovateBozze the udTrovateBozze to set
      */
     public void setUdTrovateBozze(List<ParUnitadocVO> udTrovateBozze) {
         this.udTrovateBozze = udTrovateBozze;
@@ -499,7 +501,8 @@ public class HomePrivata extends BaseAction {
 
             initListaTipoUnitaDoc(idStrut, Long.parseLong(idutente), getConnection());
             selectionProvider = selTipoUnitaDoc;
-            fieldNames = new String[] { "idTipoUnitaDoc", "idRegistroUnitaDoc" };
+            fieldNames = new String[] {
+                    "idTipoUnitaDoc", "idRegistroUnitaDoc" };
         } else {
             log.error("Relname non trovato");
             return new StreamingResolution("text/plain");
@@ -508,21 +511,23 @@ public class HomePrivata extends BaseAction {
         /*
          * Costruzione form ridotto con i soli select da sincronizzare
          */
+        reloadElementsThreadLocals();
 
-        Form searchForm = new FormBuilder(ParUnitadoc.class).configFields(fieldNames).configPrefix(prefix)
-                .configSelectionProvider(selectionProvider, fieldNames).build();
+        Form searchForm = new FormBuilder(ParUnitadoc.class).configFields(fieldNames)
+                .configPrefix(prefix).configSelectionProvider(selectionProvider, fieldNames)
+                .build();
         searchForm.readFromRequest(context.getRequest());
 
         /*
-         * SelectionProviderIndex e' la posizione, all'interno dell'elenco di select che voglio sincronizzare in cascata
-         * (di solito 2, ma possono essere di piu') dell'elemento che devo ricaricare con i valori dipendenti dalla
-         * selezione nella select precedente
+         * SelectionProviderIndex e' la posizione, all'interno dell'elenco di select che voglio
+         * sincronizzare in cascata (di solito 2, ma possono essere di piu') dell'elemento che devo
+         * ricaricare con i valori dipendenti dalla selezione nella select precedente
          */
         SelectField targetField = (SelectField) searchForm.get(0).get(getSelectionProviderIndex());
 
         /*
-         * Il parametro passato discrimina tra combo in cascata (true) e autocomplete (false) NOTA: combo sincronizzate
-         * e campo ad autocompletamento sono mutuamente esclusivi
+         * Il parametro passato discrimina tra combo in cascata (true) e autocomplete (false) NOTA:
+         * combo sincronizzate e campo ad autocompletamento sono mutuamente esclusivi
          */
         targetField.setLabelSearch(getLabelSearch());
         String text = targetField.jsonSelectFieldOptions(includeSelectPrompt);
@@ -545,7 +550,9 @@ public class HomePrivata extends BaseAction {
             idutente = "" + getUser().getIdUtente();
 
         initListaTipoUnitaDoc(idStrut, Long.parseLong(idutente), getConnection());
-        searchFormVersamenti = (SearchForm) ElementsHelper.buildSearchFormVersamenti(selTipoUnitaDoc);
+        reloadElementsThreadLocals();
+        searchFormVersamenti = (SearchForm) ElementsHelper
+                .buildSearchFormVersamenti(selTipoUnitaDoc);
         searchFormVersamenti.readFromRequest(request);
 
         SearchCriteriaOracleImpl criteria = new SearchCriteriaOracleImpl("U");
@@ -557,14 +564,15 @@ public class HomePrivata extends BaseAction {
         try {
             con = getConnection();
             ParUnitadocVO parUnitadocVO = new ParUnitadocVO();
-            udTrovateVersamenti = parUnitadocVO.cercaVersamenti(con, strWhere, idStrut, Long.parseLong(idutente),
-                    listaParametri);
+            udTrovateVersamenti = parUnitadocVO.cercaVersamenti(con, strWhere, idStrut,
+                    Long.parseLong(idutente), listaParametri);
 
             int numeroVersamenti = udTrovateVersamenti.size();
             if (numeroVersamenti == 0) {
                 log.debug("Unita' documentarie non trovate per l'utente");
                 udTrovateVersamenti = new ArrayList<>();
-                SessionMessages.addInfoMessage("Con i criteri impostati non e' stato trovato alcun risultato");
+                SessionMessages.addInfoMessage(
+                        "Con i criteri impostati non e' stato trovato alcun risultato");
             } else {
                 log.debug("Trovate numero {} unita' documentarie", numeroVersamenti);
                 int fromIndex = paginaVersamenti * ITEM_PER_PAGINA;
@@ -587,7 +595,7 @@ public class HomePrivata extends BaseAction {
         } catch (Exception e) {
             log.error(e.toString());
         } finally {
-            DbUtils.closeQuietly(con);
+            closeConnection();
         }
         if (udPaginaVersamenti != null && !udPaginaVersamenti.isEmpty()) {
             log.debug("Query eseguita. Trovati: {}", udPaginaVersamenti.size());

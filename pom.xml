@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>verso-jboss</artifactId>
-    <version>3.4.2-SNAPSHOT</version>
+    <version>3.5.0</version>
     <packaging>war</packaging>
     <parent>
         <groupId>it.eng.parer</groupId>
         <artifactId>parer-pom</artifactId>
-        <version>6.5.0</version>
+        <version>7.2.0</version>
     </parent>
     <name>verso</name>
     <description>Progetto VERSO</description>
@@ -20,7 +20,7 @@
         <!-- Skiptests by default : esecuzione su CI -->
         <skipTests>true</skipTests>
         <!-- spagofat bom -->
-        <spagofat.version>6.16.0</spagofat.version>
+        <spagofat.version>7.6.1</spagofat.version>
         <!-- third party lib -->
         <xml-resolver.version>1.2.0.redhat-10</xml-resolver.version>
         <cglib-nodep.version>3.3.0</cglib-nodep.version>
@@ -36,22 +36,22 @@
         <jaxp-jdk11.version>0.0.3</jaxp-jdk11.version>
         <!-- resource filter -->
         <web.session-config.cookie-config.http-only>true</web.session-config.cookie-config.http-only>
-		<web.session-config.cookie-config.secure>true</web.session-config.cookie-config.secure>        
+        <web.session-config.cookie-config.secure>true</web.session-config.cookie-config.secure>        
     </properties>
 
-<distributionManagement>
-        <repository>
-          <id>github</id>
-          <url>https://maven.pkg.github.com/RegioneER/parer-verso</url>
-        </repository>      
-    </distributionManagement>
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <url>https://maven.pkg.github.com/RegioneER/parer-verso</url>
+    </repository>
+  </distributionManagement>
 
-<repositories>
-        <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/RegioneER/parer-framework-parerpom</url>           
-        </repository>          
-     </repositories>
+  <repositories>
+    <repository>
+      <id>github</id>
+      <url>https://maven.pkg.github.com/RegioneER/parer-framework-parerpom</url>
+    </repository>
+  </repositories>
 
     <dependencyManagement>
         <dependencies>
@@ -94,26 +94,43 @@
     </dependencyManagement>
 
     <dependencies>
-          <!-- BOM per JBoss EAP 7.4 (jboss-eap-jakartaee8) dependencies -->
-            <!-- jboss-ejb-api_3.2_spec -->
-            <!-- jboss-annotations-api_1.3_spec -->
-            <dependency>
-                <groupId>org.jboss.spec.javax.annotation</groupId>
-                <artifactId>jboss-annotations-api_1.3_spec</artifactId>
-                <scope>provided</scope>
-            </dependency>
-            <!-- jboss-jaxb-api_2.3_spec -->
-            <dependency>
-                <groupId>org.jboss.spec.javax.xml.bind</groupId>
-                <artifactId>jboss-jaxb-api_2.3_spec</artifactId>
-                <scope>provided</scope>
-            </dependency>
-            <!-- jboss-jaxws-api_2.3_spec -->
-            <dependency>
-                <groupId>org.jboss.spec.javax.xml.ws</groupId>
-                <artifactId>jboss-jaxws-api_2.3_spec</artifactId>
-                <scope>provided</scope>
-            </dependency>
+        <!-- BOM per JBoss EAP 7.4 (jboss-eap-jakartaee8) dependencies -->
+        <!-- jboss-ejb-api_3.2_spec -->
+        <!-- jboss-annotations-api_1.3_spec -->
+        <dependency>
+            <groupId>org.jboss.spec.javax.annotation</groupId>
+            <artifactId>jboss-annotations-api_1.3_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- jboss-jaxb-api_2.3_spec -->
+        <dependency>
+            <groupId>org.jboss.spec.javax.xml.bind</groupId>
+            <artifactId>jboss-jaxb-api_2.3_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- jboss-jaxws-api_2.3_spec -->
+        <dependency>
+            <groupId>org.jboss.spec.javax.xml.ws</groupId>
+            <artifactId>jboss-jaxws-api_2.3_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>jstl-api</artifactId>
+            <version>${jstl-api.version}</version>
+            <!--             <scope>provided</scope>-->
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>        
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
@@ -124,16 +141,28 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.servlet/jsp-api -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.0</version>
+            <!--    <scope>provided</scope> -->
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -147,14 +176,22 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
+            <version>5.2.25.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
+            <version>5.2.25.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>javax.servlet-api</artifactId>
+                </exclusion>
+            </exclusions>            
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -165,33 +202,21 @@
             <artifactId>spring-security-config</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.security.extensions</groupId>
-            <artifactId>spring-security-saml2-core</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache-extras.beanshell</groupId>
-                    <artifactId>bsh</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-beanutils</groupId>
-                    <artifactId>commons-beanutils</artifactId>
-                </exclusion>
-                <exclusion>
-                	<groupId>xml-apis</groupId>
-                	<artifactId>xml-apis</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>		
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-saml2-service-provider</artifactId>
+        </dependency>
+        <!-- OpenSaML -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
+            <groupId>org.opensaml</groupId>
+            <artifactId>opensaml-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib-nodep</artifactId>
-            <version>${cglib-nodep.version}</version>
-            <scope>test</scope>
+            <groupId>org.opensaml</groupId>
+            <artifactId>opensaml-saml-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.opensaml</groupId>
+            <artifactId>opensaml-saml-impl</artifactId>
         </dependency>
         <dependency>
             <groupId>it.eng.parer</groupId>
@@ -225,28 +250,31 @@
             <type>war</type>
             <scope>runtime</scope>
         </dependency>
-		<dependency>
-			<groupId>net.sourceforge.stripes</groupId>
-			<artifactId>stripes</artifactId>
-			<version>${stripes.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>log4j</groupId>
-					<artifactId>log4j</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+        <dependency>
+            <groupId>net.sourceforge.stripes</groupId>
+            <artifactId>stripes</artifactId>
+            <version>${stripes.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>commons-dbutils</groupId>
             <artifactId>commons-dbutils</artifactId>
             <version>${commons-dbutils.version}</version>
         </dependency>
-		<!-- https://mvnrepository.com/artifact/ognl/ognl -->
+        <!-- https://mvnrepository.com/artifact/ognl/ognl -->
+        
+        
         <dependency>
             <groupId>ognl</groupId>
             <artifactId>ognl</artifactId>
             <version>${ognl.version}</version>
-        </dependency>
+        </dependency><!-- sarà tutto confluito nella libreria principale manydesigns TOGLIERLA DOOPO L'AGGIORNAMENTO! -->
+        <!-- non presente su maven central, probabilmente nella versione stabile 4.1 -->
         
         <dependency>
             <groupId>com.manydesigns</groupId>
@@ -258,17 +286,14 @@
                     <artifactId>commons-collections</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-		<!-- non presente su maven central, probabilmente nella versione stabile 4.1 -->
-		<!-- sarà tutto confluito nella libreria principale manydesigns TOGLIERLA DOOPO L'AGGIORNAMENTO! -->
+        </dependency><!-- Implementation-Vendor: Datasiel S.p.A. -->
+        <!-- non presente su maven central -->
+        
         <dependency>
             <groupId>com.manydesigns</groupId>
             <artifactId>elements-extras</artifactId>
             <version>4.0.8</version>
-        </dependency>
-		<!-- non presente su maven central -->
-		<!-- Implementation-Vendor: Datasiel S.p.A. -->
-        <dependency>
+        </dependency><dependency>
             <groupId>net.datasiel</groupId>
             <artifactId>basewebapp</artifactId>
             <version>1.0.beta0</version>
@@ -283,12 +308,14 @@
             <artifactId>httpmime</artifactId>
             <version>${httpmime.version}</version>
         </dependency>
-        <dependency>
-            <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>jstl-api</artifactId>
-            <version>${jstl-api.version}</version>
-            <scope>provided</scope>
-        </dependency>
+        <!--        
+                <dependency>
+                    <groupId>javax.servlet.jsp.jstl</groupId>
+                    <artifactId>jstl-api</artifactId>
+                    <version>${jstl-api.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+        -->        
         <dependency>
             <groupId>jaxen</groupId>
             <artifactId>jaxen</artifactId>
@@ -303,7 +330,19 @@
             <artifactId>jaxp-jdk11</artifactId>
             <version>${jaxp-jdk11.version}</version>
             <scope>runtime</scope>
-        </dependency>  
+        </dependency>
+        <!-- Unit Test -->
+		<dependency>
+		    <groupId>org.junit.jupiter</groupId>
+		    <artifactId>junit-jupiter-api</artifactId>
+		    <scope>test</scope>
+		</dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>${cglib-nodep.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -325,11 +364,11 @@
                             </manifestEntries>
                         </archive>
                         <overlays>
-					        <overlay>
-                              <groupId>it.eng.parer</groupId>
-                              <artifactId>spagofat-webresources</artifactId>
+                            <overlay>
+                                <groupId>it.eng.parer</groupId>
+                                <artifactId>spagofat-webresources</artifactId>
                             </overlay>						               
-						</overlays>
+                        </overlays>
                     </configuration>
                 </plugin>
                 <!-- OWASP -->
@@ -344,43 +383,43 @@
         </pluginManagement>
         <plugins>
             <plugin>
-				<groupId>pl.project13.maven</groupId>
-				<artifactId>git-commit-id-plugin</artifactId>
-				<configuration>
-					<generateGitPropertiesFile>true</generateGitPropertiesFile>
-					<useNativeGit>false</useNativeGit>
-					<failOnNoGitDirectory>false</failOnNoGitDirectory>
-				</configuration>
-				<executions>
-					<execution>
-						<id>get-the-git-infos</id>
-						<goals>
-							<goal>revision</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>validate-the-git-infos</id>
-						<goals>
-							<goal>validateRevision</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <configuration>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <useNativeGit>false</useNativeGit>
+                    <failOnNoGitDirectory>false</failOnNoGitDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>get-the-git-infos</id>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>validate-the-git-infos</id>
+                        <goals>
+                            <goal>validateRevision</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     
     <profiles>
-		<profile>
-			<id>dev</id>
-			<properties>
-				<web.session-config.cookie-config.http-only>false</web.session-config.cookie-config.http-only>
-				<web.session-config.cookie-config.secure>false</web.session-config.cookie-config.secure>
-			</properties>
-		</profile>
-     </profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <web.session-config.cookie-config.http-only>false</web.session-config.cookie-config.http-only>
+                <web.session-config.cookie-config.secure>false</web.session-config.cookie-config.secure>
+            </properties>
+        </profile>
+    </profiles>
      
-<scm>
-        <developerConnection>scm:git:https://github.com/RegioneER/parer-verso.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
+  <scm>
+    <developerConnection>scm:git:https://github.com/RegioneER/parer-verso.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
 </project>

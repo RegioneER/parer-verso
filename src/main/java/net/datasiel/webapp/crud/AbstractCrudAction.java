@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 /**
@@ -101,7 +97,8 @@ public abstract class AbstractCrudAction extends BaseAction {
     protected RigaModel rigaModel;
 
     /**
-     * Contiene i dati della riga di dettaglio da inserire (dovrebbe servire per entrambi i dettagli).
+     * Contiene i dati della riga di dettaglio da inserire (dovrebbe servire per entrambi i
+     * dettagli).
      */
     protected Object dettaglioModel;
 
@@ -139,8 +136,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     /**
      * Metodo eseguito di default.
      *
-     * @throws Eccezione
-     *             in caricamento model
+     * @throws Eccezione in caricamento model
      *
      * @return Forward di edit
      */
@@ -150,6 +146,7 @@ public abstract class AbstractCrudAction extends BaseAction {
         loadCrudModel();
 
         // Preparazione per generazione oggetti di interfaccia
+        reloadElementsThreadLocals();
         setupUI();
 
         // Caricamento dati nell'interfaccia
@@ -167,8 +164,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     /**
      * Metodo per l'azione di aggiornamento.
      *
-     * @throws Eccezione
-     *             in caricamento model
+     * @throws Eccezione in caricamento model
      *
      * @return
      */
@@ -206,7 +202,8 @@ public abstract class AbstractCrudAction extends BaseAction {
                 } catch (Exception e) {
                     Throwable rootCause = ExceptionUtils.getRootCause(e);
                     log.error("Generic error {}", rootCause, e);
-                    SessionMessages.addErrorMessage("Salvataggio fallito a causa di un errore generico");
+                    SessionMessages
+                            .addErrorMessage("Salvataggio fallito a causa di un errore generico");
                     return new ForwardResolution(getEditView());
                 } finally {
                     safeEndTransaction();
@@ -270,6 +267,7 @@ public abstract class AbstractCrudAction extends BaseAction {
         // Preparazione per generazione oggetti di interfaccia
         // Parte di setupUI relativa solamente all'inserimento di
         // una nuova riga
+        reloadElementsThreadLocals();
         elNewRiga = prepareElRiga(EL_NEW_RIGA, Mode.CREATE);
 
         // Caricamento dati già presenti nell'interfaccia
@@ -306,6 +304,7 @@ public abstract class AbstractCrudAction extends BaseAction {
         // Preparazione per generazione oggetti di interfaccia
         // Parte di setupUI relativa solamente all'inserimento di
         // una nuova riga
+        reloadElementsThreadLocals();
         elNewRiga = prepareElRiga(EL_NEW_RIGA, Mode.CREATE);
 
         // Caricamento dati già presenti nell'interfaccia
@@ -336,7 +335,8 @@ public abstract class AbstractCrudAction extends BaseAction {
                 } catch (Exception e) {
                     Throwable rootCause = ExceptionUtils.getRootCause(e);
                     log.error("Generic error {}", rootCause, e);
-                    SessionMessages.addErrorMessage("Salvataggio fallito a causa di un errore genrico");
+                    SessionMessages
+                            .addErrorMessage("Salvataggio fallito a causa di un errore genrico");
                     if (ajaxEnabled) {
                         context.getResponse().setHeader(CH_DTS_ACA_RESULT, CH_VALIDATION_ERROR);
                         return new ForwardResolution(getRigaCreataView());
@@ -437,6 +437,7 @@ public abstract class AbstractCrudAction extends BaseAction {
         // Parte di setupUI relativa solamente all'inserimento di
         // una nuova riga
         // Si usa lo stesso form di inserimento per riga e dettagli
+        reloadElementsThreadLocals();
         elNewRiga = prepareElDettaglio1(EL_NEW_RIGA, Mode.CREATE);
 
         // Caricamento dati già presenti nell'interfaccia
@@ -474,6 +475,7 @@ public abstract class AbstractCrudAction extends BaseAction {
         // Preparazione per generazione oggetti di interfaccia
         // Parte di setupUI relativa solamente all'inserimento di
         // una nuova riga
+        reloadElementsThreadLocals();
         elNewRiga = prepareElDettaglio1(EL_NEW_RIGA, Mode.CREATE);
 
         // Caricamento dati già presenti nell'interfaccia
@@ -494,7 +496,8 @@ public abstract class AbstractCrudAction extends BaseAction {
                     beginTransaction();
                     insertDettaglio1Model(indiceRiga - 1, dettaglioModel);
                     commitTransaction();
-                    SessionMessages.addInfoMessage(String.format("Dettaglio aggiunto a riga %d", indiceRiga));
+                    SessionMessages.addInfoMessage(
+                            String.format("Dettaglio aggiunto a riga %d", indiceRiga));
                     if (ajaxEnabled) {
                         context.getResponse().setHeader(CH_DTS_ACA_RESULT, CH_INSERT_OK);
                         // Uscita fittizia, tanto la pagina viene ricaricata.
@@ -506,7 +509,8 @@ public abstract class AbstractCrudAction extends BaseAction {
                 } catch (Exception e) {
                     Throwable rootCause = ExceptionUtils.getRootCause(e);
                     log.error("Generic error {}", rootCause, e);
-                    SessionMessages.addErrorMessage("Salvataggio fallito a causa di un errore generico");
+                    SessionMessages
+                            .addErrorMessage("Salvataggio fallito a causa di un errore generico");
                     if (ajaxEnabled) {
                         context.getResponse().setHeader(CH_DTS_ACA_RESULT, CH_VALIDATION_ERROR);
                         return new ForwardResolution(getDettaglio1CreatoView());
@@ -573,16 +577,18 @@ public abstract class AbstractCrudAction extends BaseAction {
                 }
                 commitTransaction();
                 if (selezione.length == 1) {
-                    SessionMessages
-                            .addInfoMessage(String.format("Un dettaglio cancellato dalla riga %d", indiceRiga + 1));
-                } else {
                     SessionMessages.addInfoMessage(
-                            String.format("Cancellati %d dettagli dalla riga %d", selezione.length, indiceRiga + 1));
+                            String.format("Un dettaglio cancellato dalla riga %d", indiceRiga + 1));
+                } else {
+                    SessionMessages
+                            .addInfoMessage(String.format("Cancellati %d dettagli dalla riga %d",
+                                    selezione.length, indiceRiga + 1));
                 }
             } catch (Exception e) {
                 Throwable rootCause = ExceptionUtils.getRootCause(e);
                 log.error("Generic error {}", rootCause, e);
-                SessionMessages.addErrorMessage("Salvataggio fallito a causa di un errore generico");
+                SessionMessages
+                        .addErrorMessage("Salvataggio fallito a causa di un errore generico");
             } finally {
                 safeEndTransaction();
             }
@@ -616,6 +622,7 @@ public abstract class AbstractCrudAction extends BaseAction {
         // Parte di setupUI relativa solamente all'inserimento di
         // una nuova riga
         // Si usa lo stesso form di inserimento per riga e dettagli
+        reloadElementsThreadLocals();
         elNewRiga = prepareElDettaglio2(EL_NEW_RIGA, Mode.CREATE);
 
         // Caricamento dati già presenti nell'interfaccia
@@ -652,6 +659,7 @@ public abstract class AbstractCrudAction extends BaseAction {
         // Preparazione per generazione oggetti di interfaccia
         // Parte di setupUI relativa solamente all'inserimento di
         // una nuova riga
+        reloadElementsThreadLocals();
         elNewRiga = prepareElDettaglio2(EL_NEW_RIGA, Mode.CREATE);
 
         // Caricamento dati già presenti nell'interfaccia
@@ -670,7 +678,8 @@ public abstract class AbstractCrudAction extends BaseAction {
                     beginTransaction();
                     insertDettaglio2Model(indiceRiga - 1, dettaglioModel);
                     commitTransaction();
-                    SessionMessages.addInfoMessage(String.format("Dettaglio aggiunto a riga %d", indiceRiga));
+                    SessionMessages.addInfoMessage(
+                            String.format("Dettaglio aggiunto a riga %d", indiceRiga));
                     if (ajaxEnabled) {
                         context.getResponse().setHeader(CH_DTS_ACA_RESULT, CH_INSERT_OK);
                         // Uscita fittizia, tanto la pagina viene ricaricata.
@@ -682,7 +691,8 @@ public abstract class AbstractCrudAction extends BaseAction {
                 } catch (Exception e) {
                     Throwable rootCause = ExceptionUtils.getRootCause(e);
                     log.error("Generic error {}", rootCause, e);
-                    SessionMessages.addErrorMessage("Salvataggio fallito a causa di un errore generico");
+                    SessionMessages
+                            .addErrorMessage("Salvataggio fallito a causa di un errore generico");
                     if (ajaxEnabled) {
                         context.getResponse().setHeader(CH_DTS_ACA_RESULT, CH_VALIDATION_ERROR);
                         return new ForwardResolution(getDettaglio2CreatoView());
@@ -742,15 +752,17 @@ public abstract class AbstractCrudAction extends BaseAction {
                 }
                 commitTransaction();
                 if (selezione.length == 1) {
-                    SessionMessages.addInfoMessage(String.format("Un dettaglio cancellato dalla riga %d", indiceRiga));
-                } else {
                     SessionMessages.addInfoMessage(
-                            String.format("Cancellati %d dettagli dalla riga %d", selezione.length, indiceRiga));
+                            String.format("Un dettaglio cancellato dalla riga %d", indiceRiga));
+                } else {
+                    SessionMessages.addInfoMessage(String.format(
+                            "Cancellati %d dettagli dalla riga %d", selezione.length, indiceRiga));
                 }
             } catch (Exception e) {
                 Throwable rootCause = ExceptionUtils.getRootCause(e);
                 log.error("Generic error {}", rootCause, e);
-                SessionMessages.addErrorMessage("Salvataggio fallito a causa di un errore generico");
+                SessionMessages
+                        .addErrorMessage("Salvataggio fallito a causa di un errore generico");
             } finally {
                 safeEndTransaction();
             }
@@ -777,6 +789,7 @@ public abstract class AbstractCrudAction extends BaseAction {
      *
      */
     public void setupUI() {
+        reloadElementsThreadLocals();
 
         crudUi = new CrudUI(isReadOnly());
         Mode mode;
@@ -858,8 +871,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     /**
      * Prepara gli elements per intestazione read/write.
      *
-     * @param mode
-     *            TODO
+     * @param mode TODO
      */
     public abstract Element prepareIntestazioneUiRW(Mode mode);
 
@@ -891,8 +903,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     /**
      * Hook per caricamento del model.
      *
-     * @throws Eccezione
-     *             generica a seconda della persistenza usata.
+     * @throws Eccezione generica a seconda della persistenza usata.
      */
     public abstract void loadCrudModel() throws Exception;
 
@@ -904,8 +915,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     /**
      * Hook per validazione singola riga.
      *
-     * @param rigaModel
-     *            Riga da validare
+     * @param rigaModel Riga da validare
      *
      * @return esito validazione
      */
@@ -914,8 +924,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     /**
      * Hook per la validazione business di una riga della tabella dettaglio 1.
      *
-     * @param dettaglio
-     *            Riga da validare
+     * @param dettaglio Riga da validare
      *
      * @return Esito validazione
      */
@@ -924,8 +933,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     /**
      * Hook per la validazione business di una riga della tabella dettaglio 2.
      *
-     * @param dettaglio
-     *            Riga da validare
+     * @param dettaglio Riga da validare
      *
      * @return Esito validazione
      */
@@ -934,8 +942,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     /**
      * Hook per l'eliminazine di una riga intera (testata e dettagli).
      *
-     * @param indiceRiga
-     *            indice 0 based della riga da eliminare.
+     * @param indiceRiga indice 0 based della riga da eliminare.
      */
     public abstract void deleteRiga(int indiceRiga) throws Exception;
 
@@ -949,8 +956,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     /**
      * Hook per inserimento di una singola riga.
      *
-     * @param rigaModel
-     *            Riga da inserire
+     * @param rigaModel Riga da inserire
      *
      * @throws Exception
      */
@@ -961,30 +967,28 @@ public abstract class AbstractCrudAction extends BaseAction {
     /**
      * Hook per inserimento riga dettaglio 1.
      *
-     * @param indiceRiga
-     *            Indice della riga a cui aggiungere la riga dettaglio.
-     * @param dettaglio
-     *            Oggetto da inserire
+     * @param indiceRiga Indice della riga a cui aggiungere la riga dettaglio.
+     * @param dettaglio  Oggetto da inserire
      */
     public abstract void insertDettaglio1Model(int indiceRiga, Object dettaglio) throws Exception;
 
     public abstract Object createDettaglio1Model();
 
-    public abstract void deleteDettaglio1Model(int indiceRiga2, int indiceDettaglio) throws Exception;
+    public abstract void deleteDettaglio1Model(int indiceRiga2, int indiceDettaglio)
+            throws Exception;
 
     /**
      * Hook per inserimento riga dettaglio 2.
      *
-     * @param indiceRiga
-     *            Indice della riga a cui aggiungere la riga dettaglio.
-     * @param dettaglio
-     *            Oggetto da inserire
+     * @param indiceRiga Indice della riga a cui aggiungere la riga dettaglio.
+     * @param dettaglio  Oggetto da inserire
      */
     public abstract void insertDettaglio2Model(int indiceRiga, Object dettaglio) throws Exception;
 
     public abstract Object createDettaglio2Model();
 
-    public abstract void deleteDettaglio2Model(int indiceRiga2, int indiceDettaglio) throws Exception;
+    public abstract void deleteDettaglio2Model(int indiceRiga2, int indiceDettaglio)
+            throws Exception;
 
     /**
      * Hook per l'impostazione di title (da ripetere per altri meta)
@@ -1013,8 +1017,8 @@ public abstract class AbstractCrudAction extends BaseAction {
      * Hooks per la personalizzazione dell'interfaccia
      */
     /**
-     * Restituisce il numero massimo di righe. Fare restituire 1 per caso estremo di una sola riga non eliminabile. Se
-     * non c'è limite restituire 0.
+     * Restituisce il numero massimo di righe. Fare restituire 1 per caso estremo di una sola riga
+     * non eliminabile. Se non c'è limite restituire 0.
      *
      * @return
      */
@@ -1041,8 +1045,8 @@ public abstract class AbstractCrudAction extends BaseAction {
     }
 
     /**
-     * Hook per la restituzione della jsp da usare per la creazione di una riga del primo dettaglio nel caso JS
-     * disabilitato.
+     * Hook per la restituzione della jsp da usare per la creazione di una riga del primo dettaglio
+     * nel caso JS disabilitato.
      *
      * @return
      */
@@ -1051,7 +1055,8 @@ public abstract class AbstractCrudAction extends BaseAction {
     }
 
     /**
-     * Hook per la restituzione della jsp da usare per la creazione di una riga del secondo dettaglio.
+     * Hook per la restituzione della jsp da usare per la creazione di una riga del secondo
+     * dettaglio.
      *
      * @return
      */
@@ -1060,8 +1065,8 @@ public abstract class AbstractCrudAction extends BaseAction {
     }
 
     /**
-     * Hook per la restituzione della jsp da usare per la creazione di una riga del secondo dettaglio caso JS
-     * disabilitato.
+     * Hook per la restituzione della jsp da usare per la creazione di una riga del secondo
+     * dettaglio caso JS disabilitato.
      *
      * @return
      */
@@ -1070,7 +1075,8 @@ public abstract class AbstractCrudAction extends BaseAction {
     }
 
     /**
-     * Hook per la restituzione della jsp da creare per la creazione di una nuova riga nel caso JS disabilitato.
+     * Hook per la restituzione della jsp da creare per la creazione di una nuova riga nel caso JS
+     * disabilitato.
      *
      * @return
      */
@@ -1101,7 +1107,8 @@ public abstract class AbstractCrudAction extends BaseAction {
      ********************************************/
 
     /**
-     * Hook per il commit. Lanciamo eccezioni generiche perchè potremmo avere db jdbc come altre cose
+     * Hook per il commit. Lanciamo eccezioni generiche perchè potremmo avere db jdbc come altre
+     * cose
      */
     public abstract void commitTransaction() throws Exception;
 
@@ -1136,8 +1143,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     }
 
     /**
-     * @param modalita
-     *            the modalita to set
+     * @param modalita the modalita to set
      */
     public void setModalita(String modalita) {
         this.modalita = modalita;
@@ -1151,8 +1157,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     }
 
     /**
-     * @param crudUi
-     *            the crudUi to set
+     * @param crudUi the crudUi to set
      */
     public void setCrudUi(CrudUI crudUi) {
         this.crudUi = crudUi;
@@ -1166,8 +1171,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     }
 
     /**
-     * @param crudModel
-     *            the crudModel to set
+     * @param crudModel the crudModel to set
      */
     public void setCrudModel(CrudModel crudModel) {
         this.crudModel = crudModel;
@@ -1181,8 +1185,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     }
 
     /**
-     * @param elNewRiga
-     *            the elNewRiga to set
+     * @param elNewRiga the elNewRiga to set
      */
     public void setElNewRiga(Element elNewRiga) {
         this.elNewRiga = elNewRiga;
@@ -1196,8 +1199,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     }
 
     /**
-     * @param rigaModel
-     *            the rigaModel to set
+     * @param rigaModel the rigaModel to set
      */
     public void setRigaModel(RigaModel rigaModel) {
         this.rigaModel = rigaModel;
@@ -1211,8 +1213,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     }
 
     /**
-     * @param ajaxEnabled
-     *            the ajaxEnabled to set
+     * @param ajaxEnabled the ajaxEnabled to set
      */
     public void setAjaxEnabled(boolean ajaxEnabled) {
         this.ajaxEnabled = ajaxEnabled;
@@ -1226,8 +1227,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     }
 
     /**
-     * @param methodDelete
-     *            the delete to set
+     * @param methodDelete the delete to set
      */
     public void setDelete(String methodDelete) {
         delete = methodDelete;
@@ -1241,8 +1241,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     }
 
     /**
-     * @param methodInsertDettaglio1
-     *            the insertDettaglio1 to set
+     * @param methodInsertDettaglio1 the insertDettaglio1 to set
      */
     public void setInsertDettaglio1(String methodInsertDettaglio1) {
         insertDettaglio1 = methodInsertDettaglio1;
@@ -1256,8 +1255,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     }
 
     /**
-     * @param methodCreateDettaglio1
-     *            the createDettaglio1 to set
+     * @param methodCreateDettaglio1 the createDettaglio1 to set
      */
     public void setCreateDettaglio1(String methodCreateDettaglio1) {
         createDettaglio1 = methodCreateDettaglio1;
@@ -1271,8 +1269,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     }
 
     /**
-     * @param indiceRiga
-     *            the indiceRiga to set
+     * @param indiceRiga the indiceRiga to set
      */
     public void setIndiceRiga(Integer indiceRiga) {
         this.indiceRiga = indiceRiga;
@@ -1286,8 +1283,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     }
 
     /**
-     * @param methodCreateDettaglio2
-     *            the createDettaglio2 to set
+     * @param methodCreateDettaglio2 the createDettaglio2 to set
      */
     public void setCreateDettaglio2(String methodCreateDettaglio2) {
         createDettaglio2 = methodCreateDettaglio2;
@@ -1301,8 +1297,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     }
 
     /**
-     * @param methodInsertDettaglio2
-     *            the insertDettaglio2 to set
+     * @param methodInsertDettaglio2 the insertDettaglio2 to set
      */
     public void setInsertDettaglio2(String methodInsertDettaglio2) {
         insertDettaglio2 = methodInsertDettaglio2;
@@ -1316,8 +1311,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     }
 
     /**
-     * @param methodDeleteDettaglio1
-     *            the deleteDettaglio1 to set
+     * @param methodDeleteDettaglio1 the deleteDettaglio1 to set
      */
     public void setDeleteDettaglio1(String methodDeleteDettaglio1) {
         deleteDettaglio1 = methodDeleteDettaglio1;
@@ -1331,8 +1325,7 @@ public abstract class AbstractCrudAction extends BaseAction {
     }
 
     /**
-     * @param methodDeleteDettaglio2
-     *            the deleteDettaglio2 to set
+     * @param methodDeleteDettaglio2 the deleteDettaglio2 to set
      */
     public void setDeleteDettaglio2(String methodDeleteDettaglio2) {
         deleteDettaglio2 = methodDeleteDettaglio2;

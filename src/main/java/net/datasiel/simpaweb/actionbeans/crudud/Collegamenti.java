@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 /**
@@ -71,7 +67,8 @@ public class Collegamenti extends SimpaAbstractCrudAction {
     private DefaultSelectionProvider selTipoUnitaDoc = null;
     private DefaultSelectionProvider selRegistroUnitaDoc = null;
 
-    protected void initListeSelectionProv(Long idStrut, Long idutente, Connection con) throws SQLException {
+    protected void initListeSelectionProv(Long idStrut, Long idutente, Connection con)
+            throws SQLException {
         selTipoUnitaDoc = ElementsHelper.getTipiRegUniDoc(idStrut, idutente, con);
         selRegistroUnitaDoc = ElementsHelper.getRegistriUnitaDoc(idStrut, idutente, con);
     }
@@ -82,8 +79,10 @@ public class Collegamenti extends SimpaAbstractCrudAction {
         leggiDatiUnitaDoc(idrecord, getConnection());
         idStrut = datiUnitaDoc.getIdStrut();
         String permission = String.format(CustomRealm.PERMESSO_PER_UD_LEGGI_D, idrecord);
-        if (!CustomRealm.isPermitted(permission, idStrut, getContext().getRequest().getSession(), getConnection())) {
-            return new ErrorResolution(HttpServletResponse.SC_FORBIDDEN, CustomRealm.CUSTOM_FORBIDDEN_MESSAGE);
+        if (!CustomRealm.isPermitted(permission, idStrut, getContext().getRequest().getSession(),
+                getConnection())) {
+            return new ErrorResolution(HttpServletResponse.SC_FORBIDDEN,
+                    CustomRealm.CUSTOM_FORBIDDEN_MESSAGE);
         }
 
         initListeSelectionProv(idStrut, datiUnitaDoc.getIdutente(), getConnection());
@@ -114,7 +113,8 @@ public class Collegamenti extends SimpaAbstractCrudAction {
     public Element prepareIntestazioneUiRO() {
         reloadElementsThreadLocals();
         Form intestazioneForm = new FormBuilder(ParUnitadoc.class).configPrefix("datiUnitaDoc_")
-                .configFields("idTipoUnitaDoc", "idRegistroUnitaDoc", "anno", "numero", "oggetto", "data")
+                .configFields("idTipoUnitaDoc", "idRegistroUnitaDoc", "anno", "numero", "oggetto",
+                        "data")
                 .configSelectionProvider(selTipoUnitaDoc, "idTipoUnitaDoc", "idRegistroUnitaDoc")
                 .configFieldSetNames("Unita Documentaria").configMode(Mode.PREVIEW).build();
         return intestazioneForm;
@@ -123,7 +123,8 @@ public class Collegamenti extends SimpaAbstractCrudAction {
     /*
      * (non-Javadoc)
      *
-     * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareElRiga(java.lang.String, com.manydesigns.elements.Mode)
+     * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareElRiga(java.lang.String,
+     * com.manydesigns.elements.Mode)
      */
     @Override
     public Element prepareElRiga(String prefix, Mode mode) {
@@ -134,8 +135,8 @@ public class Collegamenti extends SimpaAbstractCrudAction {
     /*
      * (non-Javadoc)
      *
-     * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareEltafoDettaglio1(java.lang.String, int,
-     * com.manydesigns.elements.Mode)
+     * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareEltafoDettaglio1(java.lang.String,
+     * int, com.manydesigns.elements.Mode)
      */
     @Override
     public TableForm prepareEltafoDettaglio1(String prefix, int nRows, Mode mode) {
@@ -146,8 +147,8 @@ public class Collegamenti extends SimpaAbstractCrudAction {
     /*
      * (non-Javadoc)
      *
-     * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareEltafoDettaglio2(java.lang.String, int,
-     * com.manydesigns.elements.Mode)
+     * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareEltafoDettaglio2(java.lang.String,
+     * int, com.manydesigns.elements.Mode)
      */
     @Override
     public TableForm prepareEltafoDettaglio2(String prefix, int nRows, Mode mode) {
@@ -214,8 +215,8 @@ public class Collegamenti extends SimpaAbstractCrudAction {
             ParCollegamento collegamento = (ParCollegamento) rigaCollegamentoModel.getRiga();
             if (!isChiaveCompilata(collegamento)) {
                 isValid = false;
-                com.manydesigns.elements.messages.SessionMessages
-                        .addErrorMessage("Attenzione : Uno o più collegamenti non sono validi per l'inserimento.");
+                com.manydesigns.elements.messages.SessionMessages.addErrorMessage(
+                        "Attenzione : Uno o più collegamenti non sono validi per l'inserimento.");
             }
         }
         return isValid;
@@ -224,7 +225,8 @@ public class Collegamenti extends SimpaAbstractCrudAction {
     /*
      * (non-Javadoc)
      *
-     * @see net.datasiel.webapp.crud.AbstractCrudAction#rigaValidate(net.datasiel.webapp.crud.RigaModel)
+     * @see
+     * net.datasiel.webapp.crud.AbstractCrudAction#rigaValidate(net.datasiel.webapp.crud.RigaModel)
      */
     @Override
     public boolean rigaValidate(RigaModel rigaModel) {
@@ -268,10 +270,12 @@ public class Collegamenti extends SimpaAbstractCrudAction {
     @Override
     public void deleteRiga(int indiceRiga) throws Exception {
         loadCrudModel();
-        ParCollegamento rigaDaCancellare = (ParCollegamento) crudModel.getRighe().get(indiceRiga).getRiga();
+        ParCollegamento rigaDaCancellare = (ParCollegamento) crudModel.getRighe().get(indiceRiga)
+                .getRiga();
         ParCollegamentoVO parCollegamentoVO = new ParCollegamentoVO();
         parCollegamentoVO.delete(rigaDaCancellare, getConnection());
-        log.debug("{} - Cancellato Collegamento: {}", getClass().getName(), rigaDaCancellare.getIdcollegamento());
+        log.debug("{} - Cancellato Collegamento: {}", getClass().getName(),
+                rigaDaCancellare.getIdcollegamento());
     }
 
     /*
@@ -292,12 +296,13 @@ public class Collegamenti extends SimpaAbstractCrudAction {
             collegamento.setPgm(pgm);
             collegamento.setId(RandomUtils.nextLong());
             parCollegamentoVO.updateByIndex(collegamento, connection);
-            log.debug("{} - Aggiornato Collegamento: {}", getClass().getName(), collegamento.getIdcollegamento());
+            log.debug("{} - Aggiornato Collegamento: {}", getClass().getName(),
+                    collegamento.getIdcollegamento());
         }
         // Aggiornamento dati unità documentaria
         ParUnitadocVO parUDDao = new ParUnitadocVO();
-        int righeAggiornate = parUDDao.aggiornaUnitaDoc(EnumStatoUD.BOZZA.ordinal(), null, null, idrecord, null,
-                connection);
+        int righeAggiornate = parUDDao.aggiornaUnitaDoc(EnumStatoUD.BOZZA.ordinal(), null, null,
+                idrecord, null, connection);
         if (righeAggiornate == 0) {
             log.debug("Nessuna riga aggiornata: problema di concorrenza");
             endTransaction();
@@ -307,7 +312,8 @@ public class Collegamenti extends SimpaAbstractCrudAction {
     /*
      * (non-Javadoc)
      *
-     * @see net.datasiel.webapp.crud.AbstractCrudAction#insertRigaModel(net.datasiel.webapp.crud.RigaModel)
+     * @see net.datasiel.webapp.crud.AbstractCrudAction#insertRigaModel(net.datasiel.webapp.crud.
+     * RigaModel)
      */
     @Override
     public void insertRigaModel(RigaModel rigaModel) throws Exception {
@@ -317,9 +323,11 @@ public class Collegamenti extends SimpaAbstractCrudAction {
         collegamento.setPgm(pgm);
         collegamento.setId(0L);
         collegamento.setIdStrut(datiUnitaDoc.getIdStrut());
-        collegamento.setIdcollegamento(DbUtil.getSequenceValue("PAR_SEQ_IDGENERALI ", getConnection()));
+        collegamento
+                .setIdcollegamento(DbUtil.getSequenceValue("PAR_SEQ_IDGENERALI ", getConnection()));
         parCollegamentoVO.insertPrepared(collegamento, getConnection());
-        log.debug("{} - Inserito collegamento: {}", getClass().getName(), collegamento.getIdcollegamento());
+        log.debug("{} - Inserito collegamento: {}", getClass().getName(),
+                collegamento.getIdcollegamento());
     }
 
     @Override
@@ -464,7 +472,8 @@ public class Collegamenti extends SimpaAbstractCrudAction {
         if (StringUtils.isBlank(collegamento.getDescrizione())) {
             result = false;
         }
-        if (!(collegamento.getIdRegistroUnitaDoc() != null && collegamento.getIdRegistroUnitaDoc().longValue() > 0)) {
+        if (!(collegamento.getIdRegistroUnitaDoc() != null
+                && collegamento.getIdRegistroUnitaDoc().longValue() > 0)) {
             result = false;
         }
         return result;

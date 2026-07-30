@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 /**
@@ -88,8 +84,7 @@ public abstract class MonoCrudAction extends BaseAction {
     /**
      * Metodo eseguito di default.
      *
-     * @throws Eccezione
-     *             in caricamento model
+     * @throws Eccezione in caricamento model
      *
      * @return Forward di edit
      */
@@ -197,8 +192,7 @@ public abstract class MonoCrudAction extends BaseAction {
     /**
      * Metodo per l'azione di aggiornamento.
      *
-     * @throws Eccezione
-     *             in caricamento model
+     * @throws Eccezione in caricamento model
      *
      * @return
      */
@@ -237,7 +231,8 @@ public abstract class MonoCrudAction extends BaseAction {
                 } catch (Exception e) {
                     Throwable rootCause = ExceptionUtils.getRootCause(e);
                     log.error("Generic error {}", rootCause, e);
-                    SessionMessages.addErrorMessage("Salvataggio fallito a causa di un errore generico");
+                    SessionMessages
+                            .addErrorMessage("Salvataggio fallito a causa di un errore generico");
                     return new ForwardResolution(getEditView());
                 } finally {
                     safeEndTransaction();
@@ -313,7 +308,8 @@ public abstract class MonoCrudAction extends BaseAction {
                 } catch (Exception e) {
                     Throwable rootCause = ExceptionUtils.getRootCause(e);
                     log.error("Generic error {}", rootCause, e);
-                    SessionMessages.addErrorMessage("Salvataggio fallito a causa di un errore generico");
+                    SessionMessages
+                            .addErrorMessage("Salvataggio fallito a causa di un errore generico");
                     return new ForwardResolution(getCreateView());
                 } finally {
                     safeEndTransaction();
@@ -334,8 +330,8 @@ public abstract class MonoCrudAction extends BaseAction {
     }
 
     /**
-     * Hook per capire se si deve entrare in modalità create o update. Fare override se la condizione non è
-     * semplicemente il controllo sulla presenza di idrecord.
+     * Hook per capire se si deve entrare in modalità create o update. Fare override se la
+     * condizione non è semplicemente il controllo sulla presenza di idrecord.
      *
      * @return true se si deve creare il record.
      */
@@ -349,8 +345,8 @@ public abstract class MonoCrudAction extends BaseAction {
     }
 
     /**
-     * L'override deve essere eseguito solo nelle action che supportano l'inserimento e deve restituire true se ci sono
-     * le condizioni per inserire un nuovo record.
+     * L'override deve essere eseguito solo nelle action che supportano l'inserimento e deve
+     * restituire true se ci sono le condizioni per inserire un nuovo record.
      *
      * @return
      */
@@ -415,8 +411,7 @@ public abstract class MonoCrudAction extends BaseAction {
     /**
      * Hook per la preparazione gui parte modificabile in inserimento.
      *
-     * @param mode
-     *            TODO
+     * @param mode TODO
      */
     public abstract Element prepareUiRWInsert(Mode mode);
 
@@ -431,16 +426,14 @@ public abstract class MonoCrudAction extends BaseAction {
     /**
      * Hook per la preparazione gui parte modificabile in fase di edit.
      *
-     * @param mode
-     *            TODO
+     * @param mode TODO
      */
     public abstract Element prepareUiRWEdit(Mode mode);
 
     /**
      * Hook per caricamento del model.
      *
-     * @throws Eccezione
-     *             generica a seconda della persistenza usata.
+     * @throws Eccezione generica a seconda della persistenza usata.
      */
     public abstract void loadModel() throws Exception;
 
@@ -467,7 +460,8 @@ public abstract class MonoCrudAction extends BaseAction {
     public abstract boolean businessValidate();
 
     /**
-     * Hook per il commit. Lanciamo eccezioni generiche perchè potremmo avere db jdbc come altre cose
+     * Hook per il commit. Lanciamo eccezioni generiche perchè potremmo avere db jdbc come altre
+     * cose
      */
     public abstract void commitTransaction() throws Exception;
 
@@ -505,8 +499,7 @@ public abstract class MonoCrudAction extends BaseAction {
     }
 
     /**
-     * @param uiRO
-     *            the uiRO to set
+     * @param uiRO the uiRO to set
      */
     public void setUiRO(Element uiRO) {
         this.uiRO = uiRO;
@@ -520,8 +513,7 @@ public abstract class MonoCrudAction extends BaseAction {
     }
 
     /**
-     * @param uiRW
-     *            the uiRW to set
+     * @param uiRW the uiRW to set
      */
     public void setUiRW(Element uiRW) {
         this.uiRW = uiRW;
@@ -535,8 +527,7 @@ public abstract class MonoCrudAction extends BaseAction {
     }
 
     /**
-     * @param modelRO
-     *            the modelRO to set
+     * @param modelRO the modelRO to set
      */
     public void setModelRO(Object modelRO) {
         this.modelRO = modelRO;
@@ -550,8 +541,7 @@ public abstract class MonoCrudAction extends BaseAction {
     }
 
     /**
-     * @param modelRW
-     *            the modelRW to set
+     * @param modelRW the modelRW to set
      */
     public void setModelRW(Object modelRW) {
         this.modelRW = modelRW;

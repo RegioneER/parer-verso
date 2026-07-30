@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.helpers;
@@ -110,8 +106,9 @@ public class GatewayHelper {
      * @throws SQLException
      * @throws IOException
      */
-    public DatiUnitaDocumentaria preparaUd(ParUnitadoc datiUnitaDoc, boolean simulaDb, Connection connection,
-            String userIdVersatore, String utenteLoggato) throws SQLException, IOException {
+    public DatiUnitaDocumentaria preparaUd(ParUnitadoc datiUnitaDoc, boolean simulaDb,
+            Connection connection, String userIdVersatore, String utenteLoggato)
+            throws SQLException, IOException {
 
         DatiUnitaDocumentaria udDaVerificare = new DatiUnitaDocumentaria();
         udDaVerificare.setOggetto(datiUnitaDoc.getOggetto());
@@ -128,7 +125,8 @@ public class GatewayHelper {
 
         TipoConservazione versAnt = TipoConservazione.VERSAMENTO_ANTICIPATO;
         TipoConservazione fiscale = TipoConservazione.FISCALE;
-        configurazione.setTipoConservazione("F".equalsIgnoreCase(tipoconservazione) ? fiscale : versAnt);
+        configurazione
+                .setTipoConservazione("F".equalsIgnoreCase(tipoconservazione) ? fiscale : versAnt);
         udDaVerificare.setConfigurazione(configurazione);
         Intestazione intestazione = new Intestazione();
         Long idStrut = datiUnitaDoc.getIdStrut();
@@ -137,11 +135,12 @@ public class GatewayHelper {
         intestazione.setAmbiente(getAmbiente(idStrut, connection));
         intestazione.setEnte(getEnte(idStrut, connection));
         intestazione.setStruttura(getStruttura(idStrut, connection));
-        intestazione.setTipologiaUnitaDocumentaria(
-                getTipoUD(datiUnitaDoc.getIdTipoUnitaDoc(), datiUnitaDoc.getIdutente(), connection));
+        intestazione.setTipologiaUnitaDocumentaria(getTipoUD(datiUnitaDoc.getIdTipoUnitaDoc(),
+                datiUnitaDoc.getIdutente(), connection));
 
         Chiave chiaveUD = new Chiave(datiUnitaDoc.getNumero(), datiUnitaDoc.getAnno(),
-                getTipoRegistro(datiUnitaDoc.getIdRegistroUnitaDoc(), datiUnitaDoc.getIdutente(), connection));
+                getTipoRegistro(datiUnitaDoc.getIdRegistroUnitaDoc(), datiUnitaDoc.getIdutente(),
+                        connection));
         intestazione.setChiave(chiaveUD);
 
         intestazione.setUserId(userIdVersatore);
@@ -152,7 +151,8 @@ public class GatewayHelper {
         udDaVerificare.setFascicoloPrincipale(getFascicoloPrincipale(idunitadoc, connection));
 
         udDaVerificare.setFascicoliSecondari(getFascicoliSecondari(idunitadoc, connection));
-        udDaVerificare.setDocumentiCollegati(getCollegamenti(idunitadoc, datiUnitaDoc.getIdutente(), connection));
+        udDaVerificare.setDocumentiCollegati(
+                getCollegamenti(idunitadoc, datiUnitaDoc.getIdutente(), connection));
 
         Documento docPrincipale = getDocPrincipale(datiUnitaDoc, connection);
         if (docPrincipale == null) {
@@ -168,8 +168,9 @@ public class GatewayHelper {
 
         DatiSpecifici datiSpec = null;
         try {
-            datiSpec = getDatiSpecifici(idunitadoc, datiUnitaDoc.getIdStrut(), datiUnitaDoc.getIdTipoUnitaDoc(),
-                    "UNI_DOC", datiUnitaDoc.getCdVersioneXSD(), connection);
+            datiSpec = getDatiSpecifici(idunitadoc, datiUnitaDoc.getIdStrut(),
+                    datiUnitaDoc.getIdTipoUnitaDoc(), "UNI_DOC", datiUnitaDoc.getCdVersioneXSD(),
+                    connection);
             if (datiSpec != null && (datiSpec.getDocDatiSpecifici() != null)) {
                 udDaVerificare.setDatiSpecifici(datiSpec);
             }
@@ -189,24 +190,26 @@ public class GatewayHelper {
         // e recuperare attributi e xsd
         ParDatispecificiVO datiSpecDAO = new ParDatispecificiVO();
         ParDatispecifici ds = null;
-        // Recupero il record padre dei dati specifici a seconda che sia un unita' documentaria o un documento
+        // Recupero il record padre dei dati specifici a seconda che sia un unita' documentaria o un
+        // documento
         if ("UNI_DOC".equalsIgnoreCase(tipoEntitaSacer)) {
             ds = datiSpecDAO.getDatiSpecUnitaDoc(identificativo, tipoEntitaSacer, connection);
         } else if ("DOC".equalsIgnoreCase(tipoEntitaSacer)) {
             ds = datiSpecDAO.getDatiSpecDoc(identificativo, tipoEntitaSacer, connection);
         }
         if (ds == null) {
-            log.debug(String.format("Dati specifici non trovati per  idStrut %s, tipoEntitaSacer %s, idtipounitadoc %s",
+            log.debug(String.format(
+                    "Dati specifici non trovati per  idStrut %s, tipoEntitaSacer %s, idtipounitadoc %s",
                     idstrut, tipoEntitaSacer, idTipoUnitaDoc));
             return null;
         }
         Long idDatiSpecifici = ds.getIddatispecifici();
 
         VDecAttribDatiSpecVO vdecAttribDAO = new VDecAttribDatiSpecVO();
-        Map<String, String> mappaDati = vdecAttribDAO.getMapOfValoriSpecifici(idDatiSpecifici, idstrut, tipoEntitaSacer,
-                idTipoUnitaDoc, cdVersioneXsd, connection);
-        VDecXsdDatiSpecVO xsdDatiSpec = VDecXsdDatiSpecVO.getXSDDatiSpecifici(idTipoUnitaDoc, tipoEntitaSacer,
-                cdVersioneXsd, connection);
+        Map<String, String> mappaDati = vdecAttribDAO.getMapOfValoriSpecifici(idDatiSpecifici,
+                idstrut, tipoEntitaSacer, idTipoUnitaDoc, cdVersioneXsd, connection);
+        VDecXsdDatiSpecVO xsdDatiSpec = VDecXsdDatiSpecVO.getXSDDatiSpecifici(idTipoUnitaDoc,
+                tipoEntitaSacer, cdVersioneXsd, connection);
         List<Element> listaElementiXsd = null;
         if (xsdDatiSpec != null) {
             listaElementiXsd = getListaElementi(xsdDatiSpec.getStrXsdDatiSpec());
@@ -217,7 +220,8 @@ public class GatewayHelper {
         if (listaElementiXsd == null) {
             log.debug("Lista elementi xsd nulla");
         } else {
-            log.debug(String.format("Trovata lista di elementi xsd con %d elementi", listaElementiXsd.size()));
+            log.debug(String.format("Trovata lista di elementi xsd con %d elementi",
+                    listaElementiXsd.size()));
 
             Document xmlDocDatiSpecifici = new Document();
             Element root = new Element("DatiSpecifici");
@@ -248,7 +252,8 @@ public class GatewayHelper {
         return retValue;
     }
 
-    private List<Element> getListaElementi(String strXsdDatiSpec) throws JDOMException, IOException {
+    private List<Element> getListaElementi(String strXsdDatiSpec)
+            throws JDOMException, IOException {
         SAXBuilder sb = new SAXBuilder();
         Document docXsd = sb.build(new StringReader(strXsdDatiSpec));
         Element root = docXsd.getRootElement();
@@ -256,8 +261,8 @@ public class GatewayHelper {
         // Con questa query non si trova niente:
         // valuta tutti gli elementi presenti su XSD
         String xpathExpr = "//xs:element";
-        XPathExpression<Element> elementPath = XPathFactory.instance().compile(xpathExpr, Filters.element(), null,
-                Namespace.getNamespace("xs", root.getNamespaceURI()));
+        XPathExpression<Element> elementPath = XPathFactory.instance().compile(xpathExpr,
+                Filters.element(), null, Namespace.getNamespace("xs", root.getNamespaceURI()));
         return elementPath.evaluate(docXsd);
     }
 
@@ -268,8 +273,8 @@ public class GatewayHelper {
                 EnumTipoDocumento.ANNO.name(), connection);
         List<Documento> retRows = new ArrayList<>();
         for (ParDocumento parDocumento : allegati) {
-            retRows.add(preparaDocumento(datiUnitaDoc, parDocumento, EnumTipoDocumento.ANNO, datiUnitaDoc.getIdutente(),
-                    connection));
+            retRows.add(preparaDocumento(datiUnitaDoc, parDocumento, EnumTipoDocumento.ANNO,
+                    datiUnitaDoc.getIdutente(), connection));
         }
         return retRows;
     }
@@ -281,8 +286,8 @@ public class GatewayHelper {
                 EnumTipoDocumento.ANNE.name(), connection);
         List<Documento> retRows = new ArrayList<>();
         for (ParDocumento parDocumento : allegati) {
-            retRows.add(preparaDocumento(datiUnitaDoc, parDocumento, EnumTipoDocumento.ANNE, datiUnitaDoc.getIdutente(),
-                    connection));
+            retRows.add(preparaDocumento(datiUnitaDoc, parDocumento, EnumTipoDocumento.ANNE,
+                    datiUnitaDoc.getIdutente(), connection));
         }
         return retRows;
     }
@@ -294,8 +299,8 @@ public class GatewayHelper {
                 EnumTipoDocumento.ALLE.name(), connection);
         List<Documento> retRows = new ArrayList<>();
         for (ParDocumento parDocumento : allegati) {
-            retRows.add(preparaDocumento(datiUnitaDoc, parDocumento, EnumTipoDocumento.ALLE, datiUnitaDoc.getIdutente(),
-                    connection));
+            retRows.add(preparaDocumento(datiUnitaDoc, parDocumento, EnumTipoDocumento.ALLE,
+                    datiUnitaDoc.getIdutente(), connection));
         }
         return retRows;
     }
@@ -303,12 +308,14 @@ public class GatewayHelper {
     private Documento getDocPrincipale(ParUnitadoc datiUnitaDoc, Connection connection)
             throws SQLException, IOException {
         ParDocumentoVO parDocDAO = new ParDocumentoVO();
-        ParDocumento datiDocPrincipale = parDocDAO.getDocPrincipale(datiUnitaDoc.getIdunitadoc(), connection);
+        ParDocumento datiDocPrincipale = parDocDAO.getDocPrincipale(datiUnitaDoc.getIdunitadoc(),
+                connection);
         if (datiDocPrincipale != null) {
             return preparaDocumento(datiUnitaDoc, datiDocPrincipale, EnumTipoDocumento.PRINC,
                     datiUnitaDoc.getIdutente(), connection);
         } else {
-            SessionMessages.addErrorMessage("L'unità documentaria è priva di un documento principale.");
+            SessionMessages
+                    .addErrorMessage("L'unità documentaria è priva di un documento principale.");
             return null;
         }
     }
@@ -316,8 +323,7 @@ public class GatewayHelper {
     /**
      * @param datiUnitaDoc
      * @param datiDocumento
-     * @param tipoDoc
-     *            "PRINC", "ALLE", "ANNE", "ANNO"
+     * @param tipoDoc       "PRINC", "ALLE", "ANNE", "ANNO"
      * @param datiDocumento
      * @param connection
      *
@@ -327,7 +333,8 @@ public class GatewayHelper {
      * @throws IOException
      */
     protected Documento preparaDocumento(ParUnitadoc datiUnitaDoc, ParDocumento datiDocumento,
-            EnumTipoDocumento tipoDoc, Long idUserIam, Connection connection) throws SQLException, IOException {
+            EnumTipoDocumento tipoDoc, Long idUserIam, Connection connection)
+            throws SQLException, IOException {
         Documento docPrincipale = new Documento();
         docPrincipale.setIdDocumento(datiDocumento.getIddocumento().toString());
         docPrincipale.setProfiloAutoreDoc(datiDocumento.getProfiloautoredoc());
@@ -335,14 +342,14 @@ public class GatewayHelper {
         VDecTipoDocVO tipoDocDAO = new VDecTipoDocVO();
         Long idTipoDocumento = datiDocumento.getIdTipoDoc();
         if (idTipoDocumento == null) {
-            SessionMessages
-                    .addErrorMessage(String.format(TIPOLOGIA_DOCUMENTO_NON_IMPOSTATA, tipoDoc.getValoreLeggibile()));
+            SessionMessages.addErrorMessage(
+                    String.format(TIPOLOGIA_DOCUMENTO_NON_IMPOSTATA, tipoDoc.getValoreLeggibile()));
             return null;
         }
         String nmTipoDoc = tipoDocDAO.getNMTipoDoc(idTipoDocumento, idUserIam, connection);
         if (nmTipoDoc == null) {
-            SessionMessages
-                    .addErrorMessage(String.format(TIPOLOGIA_DOCUMENTO_NON_IMPOSTATA, tipoDoc.getValoreLeggibile()));
+            SessionMessages.addErrorMessage(
+                    String.format(TIPOLOGIA_DOCUMENTO_NON_IMPOSTATA, tipoDoc.getValoreLeggibile()));
             return null;
         }
         docPrincipale.setTipoDocumento(nmTipoDoc);
@@ -374,12 +381,13 @@ public class GatewayHelper {
         }
 
         // //Non impostiamo la struttura, sarà quella di default
-        List<FileAllegato> componenti = getComponenti(datiDocumento.getIddocumento(), datiUnitaDoc.getIdutente(),
-                connection);
+        List<FileAllegato> componenti = getComponenti(datiDocumento.getIddocumento(),
+                datiUnitaDoc.getIdutente(), connection);
         // Se null ci sono errori nei dati inseriti. Il messaggio è già
         // stato impostato
         if (componenti == null || componenti.isEmpty()) {
-            SessionMessages.addErrorMessage(String.format(COMPONENTI_NON_INSERITI, tipoDoc.getValoreLeggibile()));
+            SessionMessages.addErrorMessage(
+                    String.format(COMPONENTI_NON_INSERITI, tipoDoc.getValoreLeggibile()));
             return null;
         }
         docPrincipale.setComponenti(componenti);
@@ -388,7 +396,8 @@ public class GatewayHelper {
         DatiSpecifici datiSpec = null;
         try {
             datiSpec = getDatiSpecifici(datiDocumento.getIddocumento(), datiUnitaDoc.getIdStrut(),
-                    datiDocumento.getIdTipoDoc(), "DOC", datiDocumento.getCdVersioneXSD(), connection);
+                    datiDocumento.getIdTipoDoc(), "DOC", datiDocumento.getCdVersioneXSD(),
+                    connection);
             if (datiSpec != null && (datiSpec.getDocDatiSpecifici() != null)) {
                 docPrincipale.setDatiSpecifici(datiSpec);
             }
@@ -455,8 +464,8 @@ public class GatewayHelper {
             if (riftiporegistro != null && rifnumero != null && rifanno != null) {
                 // Componente di tipo riferimento
                 // Controllare se compilazione completa
-                Chiave chiave = new Chiave(rifnumero, rifanno,
-                        VDecRegistroUnitaDocVO.getCdRegistroUnitaDoc(riftiporegistro, idUtente, connection));
+                Chiave chiave = new Chiave(rifnumero, rifanno, VDecRegistroUnitaDocVO
+                        .getCdRegistroUnitaDoc(riftiporegistro, idUtente, connection));
                 allegato.setRiferimento(chiave);
             } else {
 
@@ -484,12 +493,13 @@ public class GatewayHelper {
                 try {
                     Long idFormatoFileDoc = parComponente.getIdFormatoFileDoc();
                     VDecFormatoFileDocVO vDecFormatoFileDocVO = new VDecFormatoFileDocVO();
-                    String formatoFileVersato = vDecFormatoFileDocVO.decodeFormato(idFormatoFileDoc, connection);
+                    String formatoFileVersato = vDecFormatoFileDocVO.decodeFormato(idFormatoFileDoc,
+                            connection);
                     allegato.setFormatoFileVersato(formatoFileVersato);
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
-                    throw new SQLException(
-                            "Errore nel recupero del formato file versato di " + parComponente.getNome());
+                    throw new SQLException("Errore nel recupero del formato file versato di "
+                            + parComponente.getNome());
                 }
 
                 nomeFile = parComponente.getNome();
@@ -501,7 +511,8 @@ public class GatewayHelper {
             Long idtipoCompdoc = parComponente.getIdTipoCompDoc();
             if (idtipoCompdoc != null && idtipoCompdoc > 0) {
                 VDecTipoCompDocVO vDecTipoCompDocVO = new VDecTipoCompDocVO();
-                String tipoComponente = vDecTipoCompDocVO.getNmTipoCompDoc(idtipoCompdoc, connection);
+                String tipoComponente = vDecTipoCompDocVO.getNmTipoCompDoc(idtipoCompdoc,
+                        connection);
                 allegato.setTipoComponente(tipoComponente);
             } else {
                 allegato.setTipoComponente("");
@@ -520,8 +531,8 @@ public class GatewayHelper {
         return retRows;
     }
 
-    private List<DocumentoCollegato> getCollegamenti(Long idunitadoc, Long idUser, Connection connection)
-            throws SQLException {
+    private List<DocumentoCollegato> getCollegamenti(Long idunitadoc, Long idUser,
+            Connection connection) throws SQLException {
         ParCollegamentoVO parCollDAO = new ParCollegamentoVO();
         List<ParCollegamento> collegamenti = parCollDAO.getCollegamenti(idunitadoc, connection);
         List<DocumentoCollegato> retRows = new ArrayList<>();
@@ -534,42 +545,47 @@ public class GatewayHelper {
                     | (idRegistroUnitaDoc != null & idRegistroUnitaDoc.longValue() > 0);
             if (isNumeroOrAnnoOrIdRegistroUnitaDocValid) {
                 Chiave chiave = new Chiave(parCollegamento.getNumero(), parCollegamento.getAnno(),
-                        parCollegamento.getIdRegistroUnitaDoc() == null ? null : VDecRegistroUnitaDocVO
-                                .getCdRegistroUnitaDoc(parCollegamento.getIdRegistroUnitaDoc(), idUser, connection));
-                DocumentoCollegato collegamento = new DocumentoCollegato(chiave, parCollegamento.getDescrizione());
+                        parCollegamento.getIdRegistroUnitaDoc() == null ? null
+                                : VDecRegistroUnitaDocVO.getCdRegistroUnitaDoc(
+                                        parCollegamento.getIdRegistroUnitaDoc(), idUser,
+                                        connection));
+                DocumentoCollegato collegamento = new DocumentoCollegato(chiave,
+                        parCollegamento.getDescrizione());
                 retRows.add(collegamento);
             }
         }
         return retRows;
     }
 
-    private List<CamiciaFascicolo> getFascicoliSecondari(Long idunitadoc, Connection connection) throws SQLException {
+    private List<CamiciaFascicolo> getFascicoliSecondari(Long idunitadoc, Connection connection)
+            throws SQLException {
         List<CamiciaFascicolo> retRows = new ArrayList<>();
         ParFascicoloVO fascicoloDAO = new ParFascicoloVO();
         List<ParFascicolo> secondari = fascicoloDAO.getSecondari(idunitadoc, connection);
         for (ParFascicolo parFascicolo : secondari) {
             CamiciaFascicolo camiciaFascicolo = new CamiciaFascicolo();
             camiciaFascicolo.setClassifica(parFascicolo.getClassifica());
-            camiciaFascicolo.setFascicolo(
-                    camiciaFascicolo.new Fascicolo(parFascicolo.getIdentificativo(), parFascicolo.getOggetto()));
-            camiciaFascicolo.setSottoFascicolo(camiciaFascicolo.new Fascicolo(parFascicolo.getIdsottofascicolo(),
-                    parFascicolo.getOggettosottofascicolo()));
+            camiciaFascicolo.setFascicolo(camiciaFascicolo.new Fascicolo(
+                    parFascicolo.getIdentificativo(), parFascicolo.getOggetto()));
+            camiciaFascicolo.setSottoFascicolo(camiciaFascicolo.new Fascicolo(
+                    parFascicolo.getIdsottofascicolo(), parFascicolo.getOggettosottofascicolo()));
 
             retRows.add(camiciaFascicolo);
         }
         return retRows;
     }
 
-    private CamiciaFascicolo getFascicoloPrincipale(Long idunitadoc, Connection connection) throws SQLException {
+    private CamiciaFascicolo getFascicoloPrincipale(Long idunitadoc, Connection connection)
+            throws SQLException {
         CamiciaFascicolo camiciaFascicolo = new CamiciaFascicolo();
         ParFascicoloVO fascicoloDAO = new ParFascicoloVO();
         ParFascicolo principale = fascicoloDAO.getFascicoloPrincipale(idunitadoc, connection);
         if (principale != null) {
             camiciaFascicolo.setClassifica(principale.getClassifica());
-            camiciaFascicolo.setFascicolo(
-                    camiciaFascicolo.new Fascicolo(principale.getIdentificativo(), principale.getOggetto()));
-            camiciaFascicolo.setSottoFascicolo(camiciaFascicolo.new Fascicolo(principale.getIdsottofascicolo(),
-                    principale.getOggettosottofascicolo()));
+            camiciaFascicolo.setFascicolo(camiciaFascicolo.new Fascicolo(
+                    principale.getIdentificativo(), principale.getOggetto()));
+            camiciaFascicolo.setSottoFascicolo(camiciaFascicolo.new Fascicolo(
+                    principale.getIdsottofascicolo(), principale.getOggettosottofascicolo()));
             return camiciaFascicolo;
         } else {
             return null;
@@ -577,11 +593,13 @@ public class GatewayHelper {
 
     }
 
-    private String getTipoRegistro(Long idRegistroUnitaDoc, Long idUser, Connection connection) throws SQLException {
+    private String getTipoRegistro(Long idRegistroUnitaDoc, Long idUser, Connection connection)
+            throws SQLException {
         return VDecRegistroUnitaDocVO.getCdRegistroUnitaDoc(idRegistroUnitaDoc, idUser, connection);
     }
 
-    private String getTipoUD(Long idTipoUnitaDoc, Long idUser, Connection connection) throws SQLException {
+    private String getTipoUD(Long idTipoUnitaDoc, Long idUser, Connection connection)
+            throws SQLException {
         return VDecTipoUnitaDocVO.getNomeTipoUnitaDoc(idTipoUnitaDoc, idUser, connection);
     }
 

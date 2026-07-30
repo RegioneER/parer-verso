@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.beans;
@@ -221,8 +217,7 @@ public class DatiSpecifici {
     }
 
     /**
-     * @param campo12
-     *            the campo12 to set
+     * @param campo12 the campo12 to set
      */
     public void setCampo12(String campo12) {
         this.campo12 = campo12;
@@ -237,8 +232,7 @@ public class DatiSpecifici {
     }
 
     /**
-     * @param campo13
-     *            the campo13 to set
+     * @param campo13 the campo13 to set
      */
     public void setCampo13(String campo13) {
         this.campo13 = campo13;
@@ -253,8 +247,7 @@ public class DatiSpecifici {
     }
 
     /**
-     * @param campo14
-     *            the campo14 to set
+     * @param campo14 the campo14 to set
      */
     public void setCampo14(String campo14) {
         this.campo14 = campo14;
@@ -269,8 +262,7 @@ public class DatiSpecifici {
     }
 
     /**
-     * @param campo15
-     *            the campo15 to set
+     * @param campo15 the campo15 to set
      */
     public void setCampo15(String campo15) {
         this.campo15 = campo15;
@@ -285,8 +277,7 @@ public class DatiSpecifici {
     }
 
     /**
-     * @param campo16
-     *            the campo16 to set
+     * @param campo16 the campo16 to set
      */
     public void setCampo16(String campo16) {
         this.campo16 = campo16;
@@ -301,8 +292,7 @@ public class DatiSpecifici {
     }
 
     /**
-     * @param campo17
-     *            the campo17 to set
+     * @param campo17 the campo17 to set
      */
     public void setCampo17(String campo17) {
         this.campo17 = campo17;
@@ -317,8 +307,7 @@ public class DatiSpecifici {
     }
 
     /**
-     * @param campo18
-     *            the campo18 to set
+     * @param campo18 the campo18 to set
      */
     public void setCampo18(String campo18) {
         this.campo18 = campo18;
@@ -333,8 +322,7 @@ public class DatiSpecifici {
     }
 
     /**
-     * @param campo19
-     *            the campo19 to set
+     * @param campo19 the campo19 to set
      */
     public void setCampo19(String campo19) {
         this.campo19 = campo19;
@@ -349,8 +337,7 @@ public class DatiSpecifici {
     }
 
     /**
-     * @param campo20
-     *            the campo20 to set
+     * @param campo20 the campo20 to set
      */
     public void setCampo20(String campo20) {
         this.campo20 = campo20;
@@ -365,8 +352,7 @@ public class DatiSpecifici {
     }
 
     /**
-     * @param campo21
-     *            the campo21 to set
+     * @param campo21 the campo21 to set
      */
     public void setCampo21(String campo21) {
         this.campo21 = campo21;
@@ -381,8 +367,7 @@ public class DatiSpecifici {
     }
 
     /**
-     * @param campo22
-     *            the campo22 to set
+     * @param campo22 the campo22 to set
      */
     public void setCampo22(String campo22) {
         this.campo22 = campo22;
@@ -397,8 +382,7 @@ public class DatiSpecifici {
     }
 
     /**
-     * @param campo23
-     *            the campo23 to set
+     * @param campo23 the campo23 to set
      */
     public void setCampo23(String campo23) {
         this.campo23 = campo23;
@@ -413,8 +397,7 @@ public class DatiSpecifici {
     }
 
     /**
-     * @param campo24
-     *            the campo24 to set
+     * @param campo24 the campo24 to set
      */
     public void setCampo24(String campo24) {
         this.campo24 = campo24;
@@ -429,8 +412,7 @@ public class DatiSpecifici {
     }
 
     /**
-     * @param campo25
-     *            the campo25 to set
+     * @param campo25 the campo25 to set
      */
     public void setCampo25(String campo25) {
         this.campo25 = campo25;
@@ -445,8 +427,7 @@ public class DatiSpecifici {
     }
 
     /**
-     * @param campo26
-     *            the campo26 to set
+     * @param campo26 the campo26 to set
      */
     public void setCampo26(String campo26) {
         this.campo26 = campo26;
@@ -461,8 +442,7 @@ public class DatiSpecifici {
     }
 
     /**
-     * @param campo27
-     *            the campo27 to set
+     * @param campo27 the campo27 to set
      */
     public void setCampo27(String campo27) {
         this.campo27 = campo27;
@@ -477,8 +457,7 @@ public class DatiSpecifici {
     }
 
     /**
-     * @param campo28
-     *            the campo28 to set
+     * @param campo28 the campo28 to set
      */
     public void setCampo28(String campo28) {
         this.campo28 = campo28;
@@ -493,8 +472,7 @@ public class DatiSpecifici {
     }
 
     /**
-     * @param campo29
-     *            the campo29 to set
+     * @param campo29 the campo29 to set
      */
     public void setCampo29(String campo29) {
         this.campo29 = campo29;
@@ -509,8 +487,7 @@ public class DatiSpecifici {
     }
 
     /**
-     * @param campo30
-     *            the campo30 to set
+     * @param campo30 the campo30 to set
      */
     public void setCampo30(String campo30) {
         this.campo30 = campo30;

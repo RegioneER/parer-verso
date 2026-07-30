@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.db.dao;
@@ -45,7 +41,8 @@ public class ParDatispecificiDAO extends ParDatispecifici {
     protected static String[] fieldNames = null;
 
     static {
-        fieldNames = new String[] { "iddatispecifici", "idunitadoc", "iddocumento", "entitasacer", "idcomponente",
+        fieldNames = new String[] {
+                "iddatispecifici", "idunitadoc", "iddocumento", "entitasacer", "idcomponente",
                 "flgstato", "dtins", "dtagg", "pgm", "id" };
     }
 
@@ -93,12 +90,14 @@ public class ParDatispecificiDAO extends ParDatispecifici {
         }
     }
 
-    public String[] keyNames = { "iddatispecifici" };
+    public String[] keyNames = {
+            "iddatispecifici" };
 
     /**
      * Retrieve from the database for table "PAR_DATISPECIFICI"
      */
-    public ParDatispecifici retrieveByKey(Long iddatispecifici, Connection con) throws SQLException {
+    public ParDatispecifici retrieveByKey(Long iddatispecifici, Connection con)
+            throws SQLException {
 
         String query = "select * from PAR_DATISPECIFICI" + " where IDDATISPECIFICI=?";
 
@@ -124,10 +123,11 @@ public class ParDatispecificiDAO extends ParDatispecifici {
      * Retrieve from the database for table "PAR_DATISPECIFICI"
      */
     @Deprecated
-    public java.util.List<ParDatispecifici> retrieveWhere(String where, String orderByClause, Connection con)
-            throws SQLException {
+    public java.util.List<ParDatispecifici> retrieveWhere(String where, String orderByClause,
+            Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         java.util.List<ParDatispecifici> retRows = new java.util.ArrayList<ParDatispecifici>();
         ParDatispecifici curRow;
@@ -159,9 +159,11 @@ public class ParDatispecificiDAO extends ParDatispecifici {
      * Retrieve from the database for table "PAR_DATISPECIFICI"
      */
     @Deprecated
-    public java.util.List<ParDatispecifici> retrieveWhere(String where, Connection con) throws SQLException {
+    public java.util.List<ParDatispecifici> retrieveWhere(String where, Connection con)
+            throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         java.util.List<ParDatispecifici> retRows = new java.util.ArrayList<ParDatispecifici>();
         ParDatispecifici curRow;
@@ -270,7 +272,8 @@ public class ParDatispecificiDAO extends ParDatispecifici {
     @Deprecated
     public int updateWhere(ParDatispecifici obj, String where, Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         String preparedQuery = "update PAR_DATISPECIFICI set IDDATISPECIFICI= ?  , IDUNITADOC= ?  , IDDOCUMENTO= ?  , ENTITASACER= ?  , IDCOMPONENTE= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?   where "
                 + where;
@@ -343,7 +346,8 @@ public class ParDatispecificiDAO extends ParDatispecifici {
     @Deprecated
     public int deleteWhere(String where, Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         String query = "delete from PAR_DATISPECIFICI where " + where;
         java.sql.Statement st = con.createStatement();
@@ -364,15 +368,17 @@ public class ParDatispecificiDAO extends ParDatispecifici {
     public ParComponente getParComponenteByIddocumentoIdunitadocIdcomponente(ParDatispecifici obj,
             java.sql.Connection con) throws java.sql.SQLException {
         ParComponenteDAO x = new ParComponenteDAO();
-        ParComponente o = x.retrieveByKey(obj.getIddocumento(), obj.getIdunitadoc(), obj.getIdcomponente(), con);
+        ParComponente o = x.retrieveByKey(obj.getIddocumento(), obj.getIdunitadoc(),
+                obj.getIdcomponente(), con);
         return o;
     }
 
     /**
      * Retrieve from the database for table "PAR_DATISPECIFICI"
      */
-    public java.util.List<ParDatispecifici> getParDatispecificisByIddocumentoIdunitadocIdcomponente(Long iddocumento,
-            Long idunitadoc, Long idcomponente, Connection con) throws SQLException {
+    public java.util.List<ParDatispecifici> getParDatispecificisByIddocumentoIdunitadocIdcomponente(
+            Long iddocumento, Long idunitadoc, Long idcomponente, Connection con)
+            throws SQLException {
         java.util.List<ParDatispecifici> retRows = new java.util.ArrayList<ParDatispecifici>();
         ParDatispecifici curRow;
 
@@ -403,10 +409,12 @@ public class ParDatispecificiDAO extends ParDatispecifici {
      * Retrieve from the database for table "PAR_DATISPECIFICI"
      */
     @Deprecated
-    public java.util.List<ParDatispecifici> getParDatispecificisByIddocumentoIdunitadocIdcomponente(Long iddocumento,
-            Long idunitadoc, Long idcomponente, String orderByClause, Connection con) throws SQLException {
+    public java.util.List<ParDatispecifici> getParDatispecificisByIddocumentoIdunitadocIdcomponente(
+            Long iddocumento, Long idunitadoc, Long idcomponente, String orderByClause,
+            Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         java.util.List<ParDatispecifici> retRows = new java.util.ArrayList<ParDatispecifici>();
         ParDatispecifici curRow;
@@ -437,8 +445,8 @@ public class ParDatispecificiDAO extends ParDatispecifici {
     /**
      * Imported PAR_DATISPECIFICI PK:PAR_DOCUMENTO FK:PAR_DATISPECIFICI
      */
-    public ParDocumento getParDocumentoByIddocumentoIdunitadoc(ParDatispecifici obj, java.sql.Connection con)
-            throws java.sql.SQLException {
+    public ParDocumento getParDocumentoByIddocumentoIdunitadoc(ParDatispecifici obj,
+            java.sql.Connection con) throws java.sql.SQLException {
         ParDocumentoDAO x = new ParDocumentoDAO();
         ParDocumento o = x.retrieveByKey(obj.getIddocumento(), con);
         return o;
@@ -447,8 +455,8 @@ public class ParDatispecificiDAO extends ParDatispecifici {
     /**
      * Retrieve from the database for table "PAR_DATISPECIFICI"
      */
-    public java.util.List<ParDatispecifici> getParDatispecificisByIddocumentoIdunitadoc(Long iddocumento,
-            Long idunitadoc, Connection con) throws SQLException {
+    public java.util.List<ParDatispecifici> getParDatispecificisByIddocumentoIdunitadoc(
+            Long iddocumento, Long idunitadoc, Connection con) throws SQLException {
         java.util.List<ParDatispecifici> retRows = new java.util.ArrayList<ParDatispecifici>();
         ParDatispecifici curRow;
 
@@ -478,16 +486,18 @@ public class ParDatispecificiDAO extends ParDatispecifici {
      * Retrieve from the database for table "PAR_DATISPECIFICI"
      */
     @Deprecated
-    public java.util.List<ParDatispecifici> getParDatispecificisByIddocumentoIdunitadoc(Long iddocumento,
-            Long idunitadoc, String orderByClause, Connection con) throws SQLException {
+    public java.util.List<ParDatispecifici> getParDatispecificisByIddocumentoIdunitadoc(
+            Long iddocumento, Long idunitadoc, String orderByClause, Connection con)
+            throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         java.util.List<ParDatispecifici> retRows = new java.util.ArrayList<ParDatispecifici>();
         ParDatispecifici curRow;
 
-        String query = "select * from PAR_DATISPECIFICI" + " where IDDOCUMENTO=" + iddocumento + " and IDUNITADOC="
-                + idunitadoc;
+        String query = "select * from PAR_DATISPECIFICI" + " where IDDOCUMENTO=" + iddocumento
+                + " and IDUNITADOC=" + idunitadoc;
         query += " order by " + orderByClause;
         java.sql.Statement st = con.createStatement();
         ResultSet r = null;
@@ -523,8 +533,8 @@ public class ParDatispecificiDAO extends ParDatispecifici {
     /**
      * Retrieve from the database for table "PAR_DATISPECIFICI"
      */
-    public java.util.List<ParDatispecifici> getParDatispecificisByIdunitadoc(Long idunitadoc, Connection con)
-            throws SQLException {
+    public java.util.List<ParDatispecifici> getParDatispecificisByIdunitadoc(Long idunitadoc,
+            Connection con) throws SQLException {
         java.util.List<ParDatispecifici> retRows = new java.util.ArrayList<ParDatispecifici>();
         ParDatispecifici curRow;
 
@@ -553,10 +563,11 @@ public class ParDatispecificiDAO extends ParDatispecifici {
      * Retrieve from the database for table "PAR_DATISPECIFICI"
      */
     @Deprecated
-    public java.util.List<ParDatispecifici> getParDatispecificisByIdunitadoc(Long idunitadoc, String orderByClause,
-            Connection con) throws SQLException {
+    public java.util.List<ParDatispecifici> getParDatispecificisByIdunitadoc(Long idunitadoc,
+            String orderByClause, Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         java.util.List<ParDatispecifici> retRows = new java.util.ArrayList<ParDatispecifici>();
         ParDatispecifici curRow;
@@ -596,11 +607,11 @@ public class ParDatispecificiDAO extends ParDatispecifici {
     /**
      * Retrieve from the database for table "PAR_DATISPECIFICI"
      */
-    public ParDatispecifici retrieveByIndex(Long iddatispecifici, Long idunitadoc, Long iddocumento, Long idcomponente,
-            Connection con) throws SQLException {
+    public ParDatispecifici retrieveByIndex(Long iddatispecifici, Long idunitadoc, Long iddocumento,
+            Long idcomponente, Connection con) throws SQLException {
 
-        String query = "select * from PAR_DATISPECIFICI" + " where IDDATISPECIFICI=?" + " and IDUNITADOC=?"
-                + " and IDDOCUMENTO=?" + " and IDCOMPONENTE=?";
+        String query = "select * from PAR_DATISPECIFICI" + " where IDDATISPECIFICI=?"
+                + " and IDUNITADOC=?" + " and IDDOCUMENTO=?" + " and IDCOMPONENTE=?";
         ResultSet r = null;
         try (PreparedStatement st = con.prepareStatement(query)) {
             st.setLong(1, iddatispecifici);
@@ -799,8 +810,8 @@ public class ParDatispecificiDAO extends ParDatispecifici {
         }
     }
 
-    public Object getParObjectByIdDatiSpecificiAndEntitaSacer(Long idDatiSpecifici, String entita, Connection con)
-            throws SQLException {
+    public Object getParObjectByIdDatiSpecificiAndEntitaSacer(Long idDatiSpecifici, String entita,
+            Connection con) throws SQLException {
         Object result = null;
         StringBuilder SQL = new StringBuilder();
         SQL.append("SELECT IDDATISPECIFICI,");

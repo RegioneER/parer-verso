@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.db.dao;
@@ -42,7 +38,8 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
     public static String[] fieldNames = null;
 
     static {
-        fieldNames = new String[] { "idvaloredatispecifici", "iddatispecifici", "valore", "flgstato", "dtins", "dtagg",
+        fieldNames = new String[] {
+                "idvaloredatispecifici", "iddatispecifici", "valore", "flgstato", "dtins", "dtagg",
                 "pgm", "id", "idStrut", "idAttribDatiSpec" };
     }
 
@@ -93,12 +90,14 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
 
     }
 
-    public String[] keyNames = { "idvaloredatispecifici" };
+    public String[] keyNames = {
+            "idvaloredatispecifici" };
 
     /**
      * Retrieve from the database for table "PAR_VALOREDATISPECIFICI"
      */
-    public ParValoredatispecifici retrieveByKey(Long idvaloredatispecifici, Connection con) throws SQLException {
+    public ParValoredatispecifici retrieveByKey(Long idvaloredatispecifici, Connection con)
+            throws SQLException {
 
         String query = "select * from PAR_VALOREDATISPECIFICI" + " where IDVALOREDATISPECIFICI=?";
 
@@ -124,10 +123,11 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
      * Retrieve from the database for table "PAR_VALOREDATISPECIFICI"
      */
     @Deprecated
-    public java.util.List<ParValoredatispecifici> retrieveWhere(String where, String orderByClause, Connection con)
-            throws SQLException {
+    public java.util.List<ParValoredatispecifici> retrieveWhere(String where, String orderByClause,
+            Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         java.util.List<ParValoredatispecifici> retRows = new java.util.ArrayList<ParValoredatispecifici>();
         ParValoredatispecifici curRow;
@@ -159,9 +159,11 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
      * Retrieve from the database for table "PAR_VALOREDATISPECIFICI"
      */
     @Deprecated
-    public java.util.List<ParValoredatispecifici> retrieveWhere(String where, Connection con) throws SQLException {
+    public java.util.List<ParValoredatispecifici> retrieveWhere(String where, Connection con)
+            throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         java.util.List<ParValoredatispecifici> retRows = new java.util.ArrayList<ParValoredatispecifici>();
         ParValoredatispecifici curRow;
@@ -250,9 +252,11 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
      * Updates the current object values into the database.
      */
     @Deprecated
-    public int updateWhere(ParValoredatispecifici obj, String where, Connection con) throws SQLException {
+    public int updateWhere(ParValoredatispecifici obj, String where, Connection con)
+            throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         String preparedQuery = "update PAR_VALOREDATISPECIFICI set IDVALOREDATISPECIFICI= ?  , IDDATISPECIFICI= ?  , VALORE= ?  , FLGSTATO= ?  , DTAGG= current_timestamp  , PGM= ?  , ID= ?  , ID_STRUT= ?  , ID_ATTRIB_DATI_SPEC= ?   where "
                 + where;
@@ -350,8 +354,8 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
     /**
      * Imported PAR_VALOREDATISPECIFICI PK:PAR_DATISPECIFICI FK:PAR_VALOREDATISPECIFICI
      */
-    public ParDatispecifici getParDatispecificiByIddatispecifici(ParValoredatispecifici obj, java.sql.Connection con)
-            throws java.sql.SQLException {
+    public ParDatispecifici getParDatispecificiByIddatispecifici(ParValoredatispecifici obj,
+            java.sql.Connection con) throws java.sql.SQLException {
         ParDatispecificiDAO x = new ParDatispecificiDAO();
         ParDatispecifici o = x.retrieveByKey(obj.getIddatispecifici(), con);
         return o;
@@ -360,8 +364,8 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
     /**
      * Retrieve from the database for table "PAR_VALOREDATISPECIFICI"
      */
-    public java.util.List<ParValoredatispecifici> getParValoredatispecificisByIddatispecifici(Long iddatispecifici,
-            Connection con) throws SQLException {
+    public java.util.List<ParValoredatispecifici> getParValoredatispecificisByIddatispecifici(
+            Long iddatispecifici, Connection con) throws SQLException {
         java.util.List<ParValoredatispecifici> retRows = new java.util.ArrayList<ParValoredatispecifici>();
         ParValoredatispecifici curRow;
 
@@ -389,15 +393,17 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
      * Retrieve from the database for table "PAR_VALOREDATISPECIFICI"
      */
     @Deprecated
-    public java.util.List<ParValoredatispecifici> getParValoredatispecificisByIddatispecifici(Long iddatispecifici,
-            String orderByClause, Connection con) throws SQLException {
+    public java.util.List<ParValoredatispecifici> getParValoredatispecificisByIddatispecifici(
+            Long iddatispecifici, String orderByClause, Connection con) throws SQLException {
         if (true) {
-            throw new IllegalArgumentException("Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
+            throw new IllegalArgumentException(
+                    "Metodo deprecato, non usato e vulnerabile alla SQL INJECTION");
         }
         java.util.List<ParValoredatispecifici> retRows = new java.util.ArrayList<ParValoredatispecifici>();
         ParValoredatispecifici curRow;
 
-        String query = "select * from PAR_VALOREDATISPECIFICI" + " where IDDATISPECIFICI=" + iddatispecifici;
+        String query = "select * from PAR_VALOREDATISPECIFICI" + " where IDDATISPECIFICI="
+                + iddatispecifici;
         query += " order by " + orderByClause;
         java.sql.Statement st = con.createStatement();
         ResultSet r = null;
@@ -423,8 +429,8 @@ public class ParValoredatispecificiDAO extends ParValoredatispecifici {
     /**
      * Retrieve from the database for table "PAR_VALOREDATISPECIFICI"
      */
-    public ParValoredatispecifici retrieveByIndex(Long idvaloredatispecifici, Long iddatispecifici, Connection con)
-            throws SQLException {
+    public ParValoredatispecifici retrieveByIndex(Long idvaloredatispecifici, Long iddatispecifici,
+            Connection con) throws SQLException {
 
         String query = "select * from PAR_VALOREDATISPECIFICI" + " where IDVALOREDATISPECIFICI=?"
                 + " and IDDATISPECIFICI=?";

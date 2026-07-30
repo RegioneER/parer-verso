@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 /**
@@ -73,10 +69,12 @@ public class HomePubblica extends BaseAction {
             String numero = buildProps.getProperty("build.number");
             String data = buildProps.getProperty("build.date");
             String revisione = buildProps.getProperty("build.revision");
-            buildInfo = String.format("SimpaWeb build numero %s a partire dalla revision %s creata il %s", numero,
+            buildInfo = String.format(
+                    "SimpaWeb build numero %s a partire dalla revision %s creata il %s", numero,
                     revisione, data);
         } catch (Exception e) {
-            // Le informazioni di build potrebbero non essere disponibili se il build non è stato fatto in maniera
+            // Le informazioni di build potrebbero non essere disponibili se il build non è stato
+            // fatto in maniera
             // opportuna.
             // Non blocchiamo l'esecuzione
             buildInfo = "Informazioni di build non trovate";

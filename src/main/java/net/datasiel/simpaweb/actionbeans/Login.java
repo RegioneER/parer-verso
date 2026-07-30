@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.actionbeans;
@@ -97,33 +93,41 @@ public class Login extends BaseAction {
                 conn = dataSource.getConnection();
                 CustomRealm customRealm = new CustomRealm();
                 // Determina se un utente è entrato con lo SPID Federa
-                // MAC#25318 - Correzione della gestione delle utenze non attive mediante autenticazione SPID
+                // MAC#25318 - Correzione della gestione delle utenze non attive mediante
+                // autenticazione SPID
                 boolean isUtenteSpid = false;
                 if (utente.getUserType() != null) {
                     isUtenteSpid = utente.getUserType().equals(IUser.UserType.SPID_FEDERA);
                 }
-                UtenteStrutture struttureUtente = customRealm.retrieveUtenteStrutture(userName, conn, isUtenteSpid);
+                UtenteStrutture struttureUtente = customRealm.retrieveUtenteStrutture(userName,
+                        conn, isUtenteSpid);
                 if (struttureUtente == null || struttureUtente.getStrutture() == null
                         || struttureUtente.getStrutture().isEmpty()) {
-                    SessionMessages.addErrorMessage("L'utente non risulta associato a nessuna struttura.");
+                    SessionMessages
+                            .addErrorMessage("L'utente non risulta associato a nessuna struttura.");
                     resolution = new RedirectResolution(HomePubblica.class);
                 } else {
                     /*
-                     * Logica per generalizzare il funzionamento dell'applicativo IDP: Un IDP che non conosce il DB di
-                     * IAM non è a conoscenza dell'ID dell'utente. La logica seguente recupera l'ID dell'utente dal db
-                     * di IAM attraverso lo userID e lo setta in sessione
+                     * Logica per generalizzare il funzionamento dell'applicativo IDP: Un IDP che
+                     * non conosce il DB di IAM non è a conoscenza dell'ID dell'utente. La logica
+                     * seguente recupera l'ID dell'utente dal db di IAM attraverso lo userID e lo
+                     * setta in sessione
                      */
                     utente.setUtenteStrutture(struttureUtente);
-                    // ricarico l'ID dell'utente, poichè il dato che arriva dall'IDP potrebbe essere privo di senso
+                    // ricarico l'ID dell'utente, poichè il dato che arriva dall'IDP potrebbe essere
+                    // privo di senso
                     utente.setIdUtente(struttureUtente.getUtente().getIdUser());
                     Set<String> stringPermissions = new HashSet<String>();
                     for (StrutturaInfo struttura : struttureUtente.getStrutture()) {
                         Long idStrut = struttura.getIdStrut();
-                        String permesso = String.format(CustomRealm.PERMESSO_PER_STRUTTURA_LEGGI_D, idStrut);
+                        String permesso = String.format(CustomRealm.PERMESSO_PER_STRUTTURA_LEGGI_D,
+                                idStrut);
                         stringPermissions.add(permesso);
                         // Se ci saranno delle condizioni per inibire l'inserimento di nuove ud su
-                        // una certa struttura inserire qui il controllo e non aggiungere il permesso.
-                        permesso = String.format(CustomRealm.PERMESSO_PER_STRUTTURA_NUOVAUD_D, idStrut);
+                        // una certa struttura inserire qui il controllo e non aggiungere il
+                        // permesso.
+                        permesso = String.format(CustomRealm.PERMESSO_PER_STRUTTURA_NUOVAUD_D,
+                                idStrut);
                         stringPermissions.add(permesso);
                     }
                     utente.setStringPermissions(stringPermissions);
@@ -163,8 +167,12 @@ public class Login extends BaseAction {
                 return resolution;
             }
         }
-        /* Per sicurezza se qualcuno forza l'accesso con la URL senza provenire da IAM lo butto fuori! */
-        log.error("Chiamata al metodo beckFromAssociation non autorizzata! Effettuo il logout forzato!");
+        /*
+         * Per sicurezza se qualcuno forza l'accesso con la URL senza provenire da IAM lo butto
+         * fuori!
+         */
+        log.error(
+                "Chiamata al metodo beckFromAssociation non autorizzata! Effettuo il logout forzato!");
         resolution = new RedirectResolution(Logout.class);
         return resolution;
     }
@@ -174,9 +182,9 @@ public class Login extends BaseAction {
         HttpSession session = getContext().getRequest().getSession();
         String username = "NON_PRESENTE";
         /*
-         * MEV#22913 - Logging accessi SPID non autorizzati In caso di utente SPID lo username non c'è ancora perché
-         * deve essere ancora associato Quindi si prende il suo codice fiscale se presente, altrimenti una stringa fissa
-         * come username
+         * MEV#22913 - Logging accessi SPID non autorizzati In caso di utente SPID lo username non
+         * c'è ancora perché deve essere ancora associato Quindi si prende il suo codice fiscale se
+         * presente, altrimenti una stringa fissa come username
          */
         if (utente.getCodiceFiscale() != null && !utente.getCodiceFiscale().isEmpty()) {
             username = utente.getCodiceFiscale().toUpperCase();
@@ -187,26 +195,34 @@ public class Login extends BaseAction {
         String serverName = (String) session.getAttribute(Constants.SESS_PARAM_WEB_SERVER_ADDRESS);
         SimparerLoginLog sl = new SimparerLoginLog();
         sl.insertEventoLoginUser(username, ipClient, serverName, new Date(), "BAD_CF",
-                "VERSO - " + DS_EVENTO_BAD_CF_SPID, utente.getCognome(), utente.getNome(), utente.getCodiceFiscale(),
-                utente.getExternalId(), utente.getEmail());
+                "VERSO - " + DS_EVENTO_BAD_CF_SPID, utente.getCognome(), utente.getNome(),
+                utente.getCodiceFiscale(), utente.getExternalId(), utente.getEmail());
 
         ParConfigurazioneDAO configDao = new ParConfigurazioneDAO();
         String salt = Base64.encodeBase64URLSafeString(PwdUtil.generateSalt());
-        byte[] cfCriptato = EncryptionUtil.aesCrypt(utente.getCodiceFiscale(), EncryptionUtil.Aes.BIT_256);
+        byte[] cfCriptato = EncryptionUtil.aesCrypt(utente.getCodiceFiscale(),
+                EncryptionUtil.Aes.BIT_256);
         String f = Base64.encodeBase64URLSafeString(cfCriptato);
-        byte[] cogCriptato = EncryptionUtil.aesCrypt(utente.getCognome(), EncryptionUtil.Aes.BIT_256);
+        byte[] cogCriptato = EncryptionUtil.aesCrypt(utente.getCognome(),
+                EncryptionUtil.Aes.BIT_256);
         String c = Base64.encodeBase64URLSafeString(cogCriptato);
         byte[] nomeCriptato = EncryptionUtil.aesCrypt(utente.getNome(), EncryptionUtil.Aes.BIT_256);
         String n = Base64.encodeBase64URLSafeString(nomeCriptato);
         try {
-            String urlIam = configDao.retrieveByChiave("URL_ASSOCIAZIONE_UTENTE_CF", getConnection());
-            String retURL = configDao.retrieveByChiave("URL_BACK_ASSOCIAZIONE_UTENTE_CF", getConnection());
-            String hmac = EncryptionUtil.getHMAC(retURL + ":" + utente.getCodiceFiscale() + ":" + salt);
-            getContext().getResponse().sendRedirect(urlIam + "?r=" + Base64.encodeBase64URLSafeString(retURL.getBytes())
-                    + "&h=" + hmac + "&s=" + salt + "&f=" + f + "&c=" + c + "&n=" + n);
+            String urlIam = configDao.retrieveByChiave("URL_ASSOCIAZIONE_UTENTE_CF",
+                    getConnection());
+            String retURL = configDao.retrieveByChiave("URL_BACK_ASSOCIAZIONE_UTENTE_CF",
+                    getConnection());
+            String hmac = EncryptionUtil
+                    .getHMAC(retURL + ":" + utente.getCodiceFiscale() + ":" + salt);
+            getContext().getResponse()
+                    .sendRedirect(urlIam + "?r="
+                            + Base64.encodeBase64URLSafeString(retURL.getBytes()) + "&h=" + hmac
+                            + "&s=" + salt + "&f=" + f + "&c=" + c + "&n=" + n);
         } catch (IOException | EMFError | SQLException ex) {
             log.error("Errore nella redirect verso IAM", ex);
-            throw new AuthenticationServiceException("Errore nella gestione della redirect verso Iam", ex);
+            throw new AuthenticationServiceException(
+                    "Errore nella gestione della redirect verso Iam", ex);
         }
 
     }
@@ -215,7 +231,8 @@ public class Login extends BaseAction {
         User user = (User) SessionManager.currentUserDetails();
         ClientUser utente = null;
         if (user != null) {
-            // Il controllo sull'authorized lo fa solo se l'utente non è da associare. Se è uno SPID bypassa questo
+            // Il controllo sull'authorized lo fa solo se l'utente non è da associare. Se è uno SPID
+            // bypassa questo
             // controllo
             if (!user.isUtenteDaAssociare() && !isAutorized(user)) {
                 return null;
@@ -231,7 +248,8 @@ public class Login extends BaseAction {
             String serverName = new AppServerInstance().getAddress();
             log.debug("Indirizzo del server che riceve la connessione: " + serverName);
             if (!user.isUtenteDaAssociare()) {
-                loginLog.writeLogEvento(user, ipVers, serverName, SimparerLoginLog.TipiEvento.LOGIN);
+                loginLog.writeLogEvento(user, ipVers, serverName,
+                        SimparerLoginLog.TipiEvento.LOGIN);
             }
             SessionManager.setUser(httpSession, utente);
             httpSession.setAttribute(Constants.SESS_PARAM_WEB_CLIENT_IP_ADDRESS, ipVers);
@@ -241,7 +259,8 @@ public class Login extends BaseAction {
     }
 
     /**
-     * Metodo per la verifica dell'autorizzazione ad eseguire l'applicazione corrente Il test deve essere del tipo:
+     * Metodo per la verifica dell'autorizzazione ad eseguire l'applicazione corrente Il test deve
+     * essere del tipo:
      *
      *
      * @param utente

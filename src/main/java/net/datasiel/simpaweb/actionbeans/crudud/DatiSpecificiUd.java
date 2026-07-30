@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 /**
@@ -83,18 +79,22 @@ public class DatiSpecificiUd extends SimpaMonoCrudAction {
 
     public DefaultSelectionProvider selTipoUnitaDoc = null;
 
-    protected void initListeSelectionProv(Long idStrut, Long idUser, Connection con) throws SQLException {
+    protected void initListeSelectionProv(Long idStrut, Long idUser, Connection con)
+            throws SQLException {
         selTipoUnitaDoc = ElementsHelper.getTipiRegUniDoc(idStrut, idUser, con);
     }
 
     @Before
-    public Resolution caricaDatiUnitaDoc() throws AuthorizationException, SQLException, NoSuchFieldException {
+    public Resolution caricaDatiUnitaDoc()
+            throws AuthorizationException, SQLException, NoSuchFieldException {
         Connection connection = getConnection();
         leggiDatiUnitaDoc(idrecord, connection);
         idStrut = datiUnitaDoc.getIdStrut();
         String permission = String.format(CustomRealm.PERMESSO_PER_UD_LEGGI_D, idrecord);
-        if (!CustomRealm.isPermitted(permission, idStrut, getContext().getRequest().getSession(), getConnection())) {
-            return new ErrorResolution(HttpServletResponse.SC_FORBIDDEN, CustomRealm.CUSTOM_FORBIDDEN_MESSAGE);
+        if (!CustomRealm.isPermitted(permission, idStrut, getContext().getRequest().getSession(),
+                getConnection())) {
+            return new ErrorResolution(HttpServletResponse.SC_FORBIDDEN,
+                    CustomRealm.CUSTOM_FORBIDDEN_MESSAGE);
         }
         log.debug("Controllo se il tab è abilitato...");
         int indiceTab = 0;
@@ -107,14 +107,16 @@ public class DatiSpecificiUd extends SimpaMonoCrudAction {
         // Il controllo sull'abilitazione del tab ha bisogno di datiUnitaDoc
         // quindi va eseguito dopo la lettura
         if (!isTabEnabled(indiceTab)) {
-            return new ErrorResolution(HttpServletResponse.SC_FORBIDDEN, "Tentativo di accesso a pagina non abilitata");
+            return new ErrorResolution(HttpServletResponse.SC_FORBIDDEN,
+                    "Tentativo di accesso a pagina non abilitata");
         }
 
         initListeSelectionProv(idStrut, datiUnitaDoc.getIdutente(), connection);
 
         log.debug("Leggo o creo se non c'è il record di PAR_DATISPECIFICI");
         ParDatispecificiVO parDsDAO = new ParDatispecificiVO();
-        idDatiSpecifici = parDsDAO.loadOrCreateDatiSpecifici(idrecord, EnumEntitaDatiSpecifici.UNI_DOC, connection);
+        idDatiSpecifici = parDsDAO.loadOrCreateDatiSpecifici(idrecord,
+                EnumEntitaDatiSpecifici.UNI_DOC, connection);
 
         VDecAttribDatiSpecVO vdecAttribDAO = new VDecAttribDatiSpecVO();
         /*
@@ -150,7 +152,8 @@ public class DatiSpecificiUd extends SimpaMonoCrudAction {
     /*
      * (non-Javadoc)
      *
-     * @see net.datasiel.webapp.monocrud.MonoCrudAction#prepareUiRWInsert(com.manydesigns.elements.Mode)
+     * @see
+     * net.datasiel.webapp.monocrud.MonoCrudAction#prepareUiRWInsert(com.manydesigns.elements.Mode)
      */
     @Override
     public Element prepareUiRWInsert(Mode mode) {
@@ -169,7 +172,8 @@ public class DatiSpecificiUd extends SimpaMonoCrudAction {
 
     private Element prepareUiRO() {
         Form intestazioneForm = new FormBuilder(ParUnitadoc.class).configPrefix("datiUnitaDoc_")
-                .configFields("idTipoUnitaDoc", "idRegistroUnitaDoc", "anno", "numero", "oggetto", "data")
+                .configFields("idTipoUnitaDoc", "idRegistroUnitaDoc", "anno", "numero", "oggetto",
+                        "data")
                 .configFieldSetNames("Unita Documentaria")
                 .configSelectionProvider(selTipoUnitaDoc, "idTipoUnitaDoc", "idRegistroUnitaDoc")
                 .configMode(Mode.PREVIEW).build();
@@ -181,7 +185,8 @@ public class DatiSpecificiUd extends SimpaMonoCrudAction {
     /*
      * (non-Javadoc)
      *
-     * @see net.datasiel.webapp.monocrud.MonoCrudAction#prepareUiRWEdit(com.manydesigns.elements.Mode)
+     * @see
+     * net.datasiel.webapp.monocrud.MonoCrudAction#prepareUiRWEdit(com.manydesigns.elements.Mode)
      */
     @Override
     public Element prepareUiRWEdit(Mode mode) {
@@ -220,7 +225,8 @@ public class DatiSpecificiUd extends SimpaMonoCrudAction {
         String testo = "";
         InputStream is = null;
         try {
-            is = DtsActionBeanContext.class.getClassLoader().getResourceAsStream("/resources/ContrattoPubblico.txt");
+            is = DtsActionBeanContext.class.getClassLoader()
+                    .getResourceAsStream("/resources/ContrattoPubblico.txt");
             testo = IOUtils.toString(is, StandardCharsets.UTF_8);
         } catch (Exception e) {
             log.error("errore lettura testo help", e);
@@ -262,7 +268,8 @@ public class DatiSpecificiUd extends SimpaMonoCrudAction {
             if (StringUtils.isNotEmpty(valDaInserire)) {
                 if (currentIdValoreDS.compareTo(0L) == 0) {
                     // inserire
-                    Long newIdValoreDS = DbUtil.getSequenceValue(DbConstants.SEQ_ID_GENERALI, connection);
+                    Long newIdValoreDS = DbUtil.getSequenceValue(DbConstants.SEQ_ID_GENERALI,
+                            connection);
                     objToInsUpdOrDel.setIdvaloredatispecifici(newIdValoreDS);
                     parDsDAO.insertPrepared(objToInsUpdOrDel, connection);
                 } else {
@@ -281,7 +288,8 @@ public class DatiSpecificiUd extends SimpaMonoCrudAction {
 
         // Aggiornamento dati unità documentaria
         ParUnitadocVO parUDDao = new ParUnitadocVO();
-        int righe = parUDDao.aggiornaUnitaDoc(EnumStatoUD.BOZZA.ordinal(), null, null, idrecord, null, connection);
+        int righe = parUDDao.aggiornaUnitaDoc(EnumStatoUD.BOZZA.ordinal(), null, null, idrecord,
+                null, connection);
         if (righe == 0) {
             log.debug("Nessuna riga aggiornata: problema di concorrenza");
             endTransaction();

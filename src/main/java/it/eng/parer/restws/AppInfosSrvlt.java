@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.parer.restws;
@@ -78,29 +74,34 @@ public class AppInfosSrvlt extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         if (!isUserAuthenticated(req.getHeader("authorization"), getIpAddrFromReq(req))) {
             resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
         } else {
             // json mapper
             ObjectMapper mapper = new ObjectMapper();
             // final result
-            final Map<String, Map<String, String>> infos = Collections.synchronizedMap(new LinkedHashMap<>());
+            final Map<String, Map<String, String>> infos = Collections
+                    .synchronizedMap(new LinkedHashMap<>());
             // props or root to skip
-            final String rootToSkip = Objects.toString(System.getProperty(SYS_CONFIG_ROOT_TO_SKIP), StringUtils.EMPTY);
-            final String propToSkip = Objects.toString(System.getProperty(SYS_CONFIG_PROP_TO_SKIP), StringUtils.EMPTY);
+            final String rootToSkip = Objects.toString(System.getProperty(SYS_CONFIG_ROOT_TO_SKIP),
+                    StringUtils.EMPTY);
+            final String propToSkip = Objects.toString(System.getProperty(SYS_CONFIG_PROP_TO_SKIP),
+                    StringUtils.EMPTY);
             // infos
             // git
             Map<String, String> git = gitproperties.entrySet().stream()
                     .filter(p -> !String.valueOf(p.getKey()).matches(propToSkip))
-                    .collect(Collectors.toMap(e -> String.valueOf(e.getKey()), e -> String.valueOf(e.getValue()),
-                            (prev, next) -> next, HashMap::new));
+                    .collect(Collectors.toMap(e -> String.valueOf(e.getKey()),
+                            e -> String.valueOf(e.getValue()), (prev, next) -> next, HashMap::new));
             // filter
             if (!ROOT_GIT.matches(rootToSkip)) {
                 infos.put(ROOT_GIT, git);
             }
             // env
-            Map<String, String> env = System.getenv().entrySet().stream().filter(p -> !p.getKey().matches(propToSkip))
+            Map<String, String> env = System.getenv().entrySet().stream()
+                    .filter(p -> !p.getKey().matches(propToSkip))
                     .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
             // filter
@@ -110,8 +111,8 @@ public class AppInfosSrvlt extends HttpServlet {
             // sys props
             Map<String, String> sysprops = System.getProperties().entrySet().stream()
                     .filter(p -> !String.valueOf(p.getKey()).matches(propToSkip))
-                    .collect(Collectors.toMap(e -> String.valueOf(e.getKey()), e -> String.valueOf(e.getValue()),
-                            (prev, next) -> next, HashMap::new));
+                    .collect(Collectors.toMap(e -> String.valueOf(e.getKey()),
+                            e -> String.valueOf(e.getValue()), (prev, next) -> next, HashMap::new));
             // filter
             if (!ROOT_SYSPROPS.matches(rootToSkip)) {
                 infos.put(ROOT_SYSPROPS, sysprops);
@@ -130,8 +131,9 @@ public class AppInfosSrvlt extends HttpServlet {
     }
 
     /*
-     * Basic Auth con credenziali da anagrafica. Nota: si ri-utilizza per semplificare il processo di gestione, il
-     * servizio di monitoraggio che è comunque da considerasi ad utilizzo esclusivo interno / amministrativo.
+     * Basic Auth con credenziali da anagrafica. Nota: si ri-utilizza per semplificare il processo
+     * di gestione, il servizio di monitoraggio che è comunque da considerasi ad utilizzo esclusivo
+     * interno / amministrativo.
      */
     private boolean isUserAuthenticated(String authString, String ipAddr) {
         if (StringUtils.isBlank(authString))
@@ -181,13 +183,15 @@ public class AppInfosSrvlt extends HttpServlet {
 
     private Connection getConnection() throws SQLException, VersoException {
         // context
-        WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+        WebApplicationContext ctx = WebApplicationContextUtils
+                .getWebApplicationContext(getServletContext());
         // get datasource
         if (Objects.nonNull(ctx)) {
             final DataSource datasource = (DataSource) ctx.getBean("dataSource");
             return datasource.getConnection();
         } else {
-            throw new VersoException("Context null cannot get connection", VersoErrorCategory.INTERNAL_ERROR);
+            throw new VersoException("Context null cannot get connection",
+                    VersoErrorCategory.INTERNAL_ERROR);
         }
     }
 }

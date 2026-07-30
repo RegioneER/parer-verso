@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.db.dao;
@@ -39,8 +35,10 @@ public class SLLogEventoLoginUserDAO extends SLLogLoginUser {
     public static String[] fieldNames = null;
 
     static {
-        fieldNames = new String[] { "idEventoLoginUser", "nmUserid", "cdIndIpClient", "cdIndServer", "dtEvento",
-                "tipoEvento", "dsEvento", "nmNomeUser", "nmCognomeUser", "cdFiscUser", "dsEmailUser", "cdIdEsterno" };
+        fieldNames = new String[] {
+                "idEventoLoginUser", "nmUserid", "cdIndIpClient", "cdIndServer", "dtEvento",
+                "tipoEvento", "dsEvento", "nmNomeUser", "nmCognomeUser", "cdFiscUser",
+                "dsEmailUser", "cdIdEsterno" };
     }
 
     public SLLogEventoLoginUserDAO() {
@@ -51,8 +49,8 @@ public class SLLogEventoLoginUserDAO extends SLLogLoginUser {
         int indice = 1;
         String prepQuery = "Insert into sacer_log.LOG_EVENTO_LOGIN_USER (ID_EVENTO_LOGIN_USER, NM_USERID,"
                 + "CD_IND_IP_CLIENT, CD_IND_SERVER, DT_EVENTO, TIPO_EVENTO, "
-                + "DS_EVENTO, nm_nome_user, nm_cognome_user, cd_fisc_user, " + "ds_email_user, CD_ID_ESTERNO)"
-                + "values (?,?, ?,?,sysdate,?, ?,?,?,?, ?,?)";
+                + "DS_EVENTO, nm_nome_user, nm_cognome_user, cd_fisc_user, "
+                + "ds_email_user, CD_ID_ESTERNO)" + "values (?,?, ?,?,sysdate,?, ?,?,?,?, ?,?)";
         java.sql.PreparedStatement pst = con.prepareStatement(prepQuery);
         // campo obbligatorio, inutile gestire il caso in cui questo valore è null
         pst.setLong(indice++, obj.getIdEventoLoginUser());

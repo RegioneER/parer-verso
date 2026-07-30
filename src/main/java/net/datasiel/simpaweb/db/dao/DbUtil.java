@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.db.dao;
@@ -60,8 +56,7 @@ public class DbUtil {
     /**
      * Restituisce il valore successivo del sequence rappresentato dalla parametro sequenceName
      *
-     * @param sequenceName
-     *            il nome del sequence
+     * @param sequenceName il nome del sequence
      * @param con
      *
      * @return
@@ -90,39 +85,38 @@ public class DbUtil {
     }
 
     /**
-     * Crea un oggetto di tipo beanType e lo popola con il contenuto del record corrente associato al parametreo rs di
-     * tipo java.sql.ResultSet. Se il parametro allString è true, trasforma in java.lang.String tutti i valori del
-     * record, altrimenti utilizza la naturale conversione dei tipi SQL in tipi JAVA. Utilizza il metodo getSetterName
-     * per ottenere attraverso il nome di una colonna il nome del metodo Set da invocare sull'oggetto bean. Se il metodo
-     * non esiste il valore della colonna per il record corrente viene ignorato e si passa al successivo.
+     * Crea un oggetto di tipo beanType e lo popola con il contenuto del record corrente associato
+     * al parametreo rs di tipo java.sql.ResultSet. Se il parametro allString è true, trasforma in
+     * java.lang.String tutti i valori del record, altrimenti utilizza la naturale conversione dei
+     * tipi SQL in tipi JAVA. Utilizza il metodo getSetterName per ottenere attraverso il nome di
+     * una colonna il nome del metodo Set da invocare sull'oggetto bean. Se il metodo non esiste il
+     * valore della colonna per il record corrente viene ignorato e si passa al successivo.
      *
-     * @param rs
-     *            L'oggetto che punta al record
-     * @param beanType
-     *            Tipo dell'oggetto da creare e popolare
+     * @param rs        L'oggetto che punta al record
+     * @param beanType  Tipo dell'oggetto da creare e popolare
      * @param allString
      *
      * @return L'oggetto di tipo beanType che rappresenta il record corrente
      *
      * @throws Exception
      */
-    public Object createResultBean(ResultSet rs, Class<?> beanType, boolean allString) throws Exception {
+    public Object createResultBean(ResultSet rs, Class<?> beanType, boolean allString)
+            throws Exception {
         Object bean = beanType.newInstance();
         populateResultBean(rs, bean, allString);
         return bean;
     }
 
     /**
-     * Crea un oggetto di tipo beanType e lo popola con il contenuto del record corrente associato al parametreo rs di
-     * tipo java.sql.ResultSet. Equivalente a <code>createResultBean(rs,beanType,false)</code> Utilizza il metodo
-     * getSetterName per ottenere attraverso il nome di una colonna il nome del metodo Set da invocare sull'oggetto
-     * bean. Se il metodo non esiste il valore della colonna per il record corrente viene ignorato e si passa al
-     * successivo.
+     * Crea un oggetto di tipo beanType e lo popola con il contenuto del record corrente associato
+     * al parametreo rs di tipo java.sql.ResultSet. Equivalente a
+     * <code>createResultBean(rs,beanType,false)</code> Utilizza il metodo getSetterName per
+     * ottenere attraverso il nome di una colonna il nome del metodo Set da invocare sull'oggetto
+     * bean. Se il metodo non esiste il valore della colonna per il record corrente viene ignorato e
+     * si passa al successivo.
      *
-     * @param rs
-     *            L'oggetto che punta al record
-     * @param beanType
-     *            Tipo dell'oggetto da creare e popolare
+     * @param rs       L'oggetto che punta al record
+     * @param beanType Tipo dell'oggetto da creare e popolare
      *
      * @return L'oggetto di tipo beanType che rappresenta il record corrente
      *
@@ -135,22 +129,18 @@ public class DbUtil {
     }
 
     /**
-     * Popola la lista rappresentata dal parametro list, con oggetti che rappresentano i record contenuti nel parametro
-     * rs. Utilizza per ogni record il metodo populateResultBean.
+     * Popola la lista rappresentata dal parametro list, con oggetti che rappresentano i record
+     * contenuti nel parametro rs. Utilizza per ogni record il metodo populateResultBean.
      *
-     * @param rs
-     *            L'oggetto risultato di una qualche query
-     * @param list
-     *            La lista da popolare
-     * @param objType
-     *            Il tipo di oggetti che la collectio deve contenere
-     * @param allStrings
-     *            Informazione da passare a populateResultBean
+     * @param rs         L'oggetto risultato di una qualche query
+     * @param list       La lista da popolare
+     * @param objType    Il tipo di oggetti che la collectio deve contenere
+     * @param allStrings Informazione da passare a populateResultBean
      *
      * @throws Exception
      */
-    public void populateResultList(ResultSet rs, List<Object> list, Class<?> beanType, boolean allString)
-            throws Exception {
+    public void populateResultList(ResultSet rs, List<Object> list, Class<?> beanType,
+            boolean allString) throws Exception {
         while (rs.next()) {
             Object bean = createResultBean(rs, beanType, allString);
             list.add(bean);
@@ -158,25 +148,23 @@ public class DbUtil {
     }
 
     /**
-     * Popola l'oggetto bean con il contenuto del record corrente associato al parametreo rs di tipo java.sql.ResultSet.
-     * Se il parametro allString è true, trasforma in java.lang.String tutti i valori del record, altrimenti utilizza la
-     * naturale conversione dei tipi SQL in tipi JAVA. Utilizza il metodo getSetterName per ottenere attraverso il nome
-     * di una colonna il nome del metodo Set da invocare sull'oggetto bean. Se il metodo non esiste il valore della
-     * colonna per il record corrente viene ignorato e si passa al successivo.
+     * Popola l'oggetto bean con il contenuto del record corrente associato al parametreo rs di tipo
+     * java.sql.ResultSet. Se il parametro allString è true, trasforma in java.lang.String tutti i
+     * valori del record, altrimenti utilizza la naturale conversione dei tipi SQL in tipi JAVA.
+     * Utilizza il metodo getSetterName per ottenere attraverso il nome di una colonna il nome del
+     * metodo Set da invocare sull'oggetto bean. Se il metodo non esiste il valore della colonna per
+     * il record corrente viene ignorato e si passa al successivo.
      *
-     * @param rs
-     *            L'oggetto che punta al record
-     * @param bean
-     *            L'oggetto da popolare
-     * @param allStrings
-     *            true = trasformazione in {@link String} del parametro di ritorno
+     * @param rs         L'oggetto che punta al record
+     * @param bean       L'oggetto da popolare
+     * @param allStrings true = trasformazione in {@link String} del parametro di ritorno
      *
-     * @throws SQLException
-     *             errore SQL
+     * @throws SQLException errore SQL
      *
      */
     @SuppressWarnings("rawtypes")
-    public void populateResultBean(ResultSet rs, Object bean, boolean allString) throws SQLException {
+    public void populateResultBean(ResultSet rs, Object bean, boolean allString)
+            throws SQLException {
         Class<? extends Object> clazz = bean.getClass();
         ResultSetMetaData metaData = rs.getMetaData();
         String colName = null;
@@ -191,8 +179,10 @@ public class DbUtil {
                         methodName = createSetName(colName);
                         Object val = rs.getObject(i);
                         if (val != null) {
-                            Class[] paramsTypes = { String.class };
-                            Object[] args = { val.toString().trim() };
+                            Class[] paramsTypes = {
+                                    String.class };
+                            Object[] args = {
+                                    val.toString().trim() };
                             Method method = clazz.getMethod(methodName, paramsTypes);
                             method.invoke(bean, args);
                         }
@@ -207,8 +197,10 @@ public class DbUtil {
                         methodName = createSetName(colName);
                         Object val = rs.getObject(i);
                         if (val != null) {
-                            Class[] paramsTypes = { String.class };
-                            Object[] args = { val.toString() };
+                            Class[] paramsTypes = {
+                                    String.class };
+                            Object[] args = {
+                                    val.toString() };
                             Method method = clazz.getMethod(methodName, paramsTypes);
                             method.invoke(bean, args);
                         }
@@ -225,8 +217,10 @@ public class DbUtil {
                         methodName = createSetName(colName);
                         Object val = rs.getObject(i);
                         if (val != null) {
-                            Class[] paramsTypes = { val.getClass() };
-                            Object[] args = { val instanceof String ? ((String) val).trim() : val };
+                            Class[] paramsTypes = {
+                                    val.getClass() };
+                            Object[] args = {
+                                    val instanceof String ? ((String) val).trim() : val };
                             Method method = clazz.getMethod(methodName, paramsTypes);
                             method.invoke(bean, args);
                         }
@@ -241,8 +235,10 @@ public class DbUtil {
                         methodName = createSetName(colName);
                         Object val = rs.getObject(i);
                         if (val != null) {
-                            Class[] paramsTypes = { val.getClass() };
-                            Object[] args = { val };
+                            Class[] paramsTypes = {
+                                    val.getClass() };
+                            Object[] args = {
+                                    val };
                             Method method = clazz.getMethod(methodName, paramsTypes);
                             method.invoke(bean, args);
                         }
@@ -268,19 +264,19 @@ public class DbUtil {
      * Restituisce il nome di un metodo Set a partire dal parametro fieldName.
      * <p>
      * <ul>
-     * <li>Se la proprietà nomiEsatti == true concatena la stringa "set" a fieldName dopo aver eseguito l'uppercase sul
-     * carattere alla posizione 0 di fieldName</li>
-     * <li>Se la proprietà nomiEsatti == false concatena la stringa "set" a fieldName dopo aver eseguito il lowercase su
-     * fieldName e successivamente l'uppercase sul carattere alla posizione 0 di fieldName. Elimina eventuali underscore
-     * ('_') per usare metodi java like.</li>
+     * <li>Se la proprietà nomiEsatti == true concatena la stringa "set" a fieldName dopo aver
+     * eseguito l'uppercase sul carattere alla posizione 0 di fieldName</li>
+     * <li>Se la proprietà nomiEsatti == false concatena la stringa "set" a fieldName dopo aver
+     * eseguito il lowercase su fieldName e successivamente l'uppercase sul carattere alla posizione
+     * 0 di fieldName. Elimina eventuali underscore ('_') per usare metodi java like.</li>
      * </p>
      *
-     * @param fieldName
-     *            Stringa da cui generare il nome del setter
+     * @param fieldName Stringa da cui generare il nome del setter
      */
     public String createSetName(String fieldName) {
         if (nomiEsatti) {
-            return "set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1, fieldName.length());
+            return "set" + fieldName.substring(0, 1).toUpperCase()
+                    + fieldName.substring(1, fieldName.length());
         } else {
             String setName = "";
             StringTokenizer tokenizer = new StringTokenizer(fieldName, "_");
@@ -295,19 +291,19 @@ public class DbUtil {
      * Restituisce il nome di un metodo Get a partire dal parametro fieldName.
      * <p>
      * <ul>
-     * <li>Se la proprietà nomiEsatti == true concatena la stringa "set" a fieldName dopo aver eseguito l'uppercase sul
-     * carattere alla posizione 0 di fieldName</li>
-     * <li>Se la proprietà nomiEsatti == false concatena la stringa "set" a fieldName dopo aver eseguito il lowercase su
-     * fieldName e successivamente l'uppercase sul carattere alla posizione 0 di fieldName. Elimina eventuali underscore
-     * ('_') per usare metodi java like.</li>
+     * <li>Se la proprietà nomiEsatti == true concatena la stringa "set" a fieldName dopo aver
+     * eseguito l'uppercase sul carattere alla posizione 0 di fieldName</li>
+     * <li>Se la proprietà nomiEsatti == false concatena la stringa "set" a fieldName dopo aver
+     * eseguito il lowercase su fieldName e successivamente l'uppercase sul carattere alla posizione
+     * 0 di fieldName. Elimina eventuali underscore ('_') per usare metodi java like.</li>
      * </p>
      *
-     * @param fieldName
-     *            Stringa da cui generare il nome del setter
+     * @param fieldName Stringa da cui generare il nome del setter
      */
     public String createGetName(String fieldName) {
         if (nomiEsatti) {
-            return "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1, fieldName.length());
+            return "get" + fieldName.substring(0, 1).toUpperCase()
+                    + fieldName.substring(1, fieldName.length());
         } else {
             String setName = "";
             StringTokenizer tokenizer = new StringTokenizer(fieldName, "_");

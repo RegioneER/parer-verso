@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package it.eng.parer.simparer.security;
@@ -49,10 +45,12 @@ public class SimparerLoginLog {
         LOGIN, LOGOUT
     }
 
-    public void writeLogEvento(IUser<?> user, String indIpClient, String localServerName, TipiEvento tipoEvento) {
+    public void writeLogEvento(IUser<?> user, String indIpClient, String localServerName,
+            TipiEvento tipoEvento) {
         long idApplic;
         Connection conn = null;
-        DataSource datasource = SpringContext.getApplicationContext().getBean("dataSource", DataSource.class);
+        DataSource datasource = SpringContext.getApplicationContext().getBean("dataSource",
+                DataSource.class);
 
         if (datasource != null) {
             try {
@@ -77,7 +75,8 @@ public class SimparerLoginLog {
                 tmpVO.insertPrepared(tmpLoginUser, conn);
             } catch (SQLException e) {
                 logger.error("Errore nella registrazione dell'evento di log: ", e);
-                throw new RuntimeException("impossibile registrare l'evento di login/logout: " + e.getMessage());
+                throw new RuntimeException(
+                        "impossibile registrare l'evento di login/logout: " + e.getMessage());
             } finally {
                 if (conn != null) {
                     try {
@@ -89,15 +88,17 @@ public class SimparerLoginLog {
         }
     }
 
-    public void insertEventoLoginUser(String nmUserid, String cdIndIpClient, String nomeServer, Date dtEvento,
-            String tipoEvento, String dsEvento, String cognomeUser, String nomeUser, String cfUser, String cdIdEsterno,
-            String emailUser) {
+    public void insertEventoLoginUser(String nmUserid, String cdIndIpClient, String nomeServer,
+            Date dtEvento, String tipoEvento, String dsEvento, String cognomeUser, String nomeUser,
+            String cfUser, String cdIdEsterno, String emailUser) {
         Connection conn = null;
-        DataSource datasource = SpringContext.getApplicationContext().getBean("dataSource", DataSource.class);
+        DataSource datasource = SpringContext.getApplicationContext().getBean("dataSource",
+                DataSource.class);
         if (datasource != null) {
             try {
                 conn = datasource.getConnection();
-                long idDaInserire = DbUtil.getSequenceValue("sacer_log.slog_evento_login_user", conn);
+                long idDaInserire = DbUtil.getSequenceValue("sacer_log.slog_evento_login_user",
+                        conn);
                 SLLogEventoLoginUser logEventoLoginUser = new SLLogEventoLoginUser();
                 logEventoLoginUser.setIdEventoLoginUser(idDaInserire);
                 logEventoLoginUser.setNmUserid(nmUserid);
@@ -118,7 +119,8 @@ public class SimparerLoginLog {
                 tmpVO.insertPrepared(logEventoLoginUser, conn);
             } catch (SQLException e) {
                 logger.error("Errore nella registrazione dell'evento di log: ", e);
-                throw new RuntimeException("impossibile registrare l'evento di login/logout: " + e.getMessage());
+                throw new RuntimeException(
+                        "impossibile registrare l'evento di login/logout: " + e.getMessage());
             } finally {
                 if (conn != null) {
                     try {
@@ -135,9 +137,11 @@ public class SimparerLoginLog {
     public List<UsrUser> findUtenteByCf(String cf) {
         String sql = "SELECT ID_USER_IAM, NM_USERID, DT_SCAD_PSW, CD_FISC FROM SACER_IAM.USR_USER WHERE (CD_FISC = ? OR CD_FISC = ?) AND FL_ATTIVO='1'";
         List<UsrUser> users = new ArrayList<>();
-        DataSource datasource = SpringContext.getApplicationContext().getBean("dataSource", DataSource.class);
+        DataSource datasource = SpringContext.getApplicationContext().getBean("dataSource",
+                DataSource.class);
         if (datasource != null) {
-            try (Connection con = datasource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+            try (Connection con = datasource.getConnection();
+                    PreparedStatement ps = con.prepareStatement(sql)) {
                 ps.setString(1, cf.toUpperCase());
                 ps.setString(2, cf.toLowerCase());
                 try (ResultSet rs = ps.executeQuery()) {
@@ -157,9 +161,11 @@ public class SimparerLoginLog {
     public UsrUser findUtenteByUsername(String username) {
         String sql = "SELECT ID_USER_IAM, NM_USERID, DT_SCAD_PSW, CD_FISC FROM SACER_IAM.USR_USER WHERE NM_USERID = ?";
         List<UsrUser> users = new ArrayList<>();
-        DataSource datasource = SpringContext.getApplicationContext().getBean("dataSource", DataSource.class);
+        DataSource datasource = SpringContext.getApplicationContext().getBean("dataSource",
+                DataSource.class);
         if (datasource != null) {
-            try (Connection con = datasource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+            try (Connection con = datasource.getConnection();
+                    PreparedStatement ps = con.prepareStatement(sql)) {
                 ps.setString(1, username);
                 try (ResultSet rs = ps.executeQuery()) {
                     while (rs.next()) {
@@ -181,15 +187,18 @@ public class SimparerLoginLog {
     /*
      * Estrae utenti dalla USR_USER per username case insensitive
      *
-     * Introdotto per l'itegrazione con SPID Puglia dove a fronte del codice fiscale arrivato da SPID andiamo a cercare
-     * sulla usruser un utente avente come username il codice fiscale ignorando il case.
+     * Introdotto per l'itegrazione con SPID Puglia dove a fronte del codice fiscale arrivato da
+     * SPID andiamo a cercare sulla usruser un utente avente come username il codice fiscale
+     * ignorando il case.
      */
     public List<UsrUser> findUtentiPerUsernameCaseInsensitive(String username) {
         String sql = "SELECT ID_USER_IAM, NM_USERID, DT_SCAD_PSW, CD_FISC FROM SACER_IAM.USR_USER WHERE lower(NM_USERID) = ? AND FL_ATTIVO='1'";
         List<UsrUser> users = new ArrayList<>();
-        DataSource datasource = SpringContext.getApplicationContext().getBean("dataSource", DataSource.class);
+        DataSource datasource = SpringContext.getApplicationContext().getBean("dataSource",
+                DataSource.class);
         if (datasource != null) {
-            try (Connection con = datasource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+            try (Connection con = datasource.getConnection();
+                    PreparedStatement ps = con.prepareStatement(sql)) {
                 ps.setString(1, username.toLowerCase());
                 try (ResultSet rs = ps.executeQuery()) {
                     while (rs.next()) {

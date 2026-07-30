@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 /**
@@ -101,7 +97,8 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
         setTitoloPagina(getTitoloFromAnnotation());
     }
 
-    protected String[] campiDettaglio = { "idTipoCompDoc", "idFormatoFileDoc", "dsHashFileVers", "flgFirmaPerRifTemp",
+    protected String[] campiDettaglio = {
+            "idTipoCompDoc", "idFormatoFileDoc", "dsHashFileVers", "flgFirmaPerRifTemp",
             "dataRifTemp", "descRifTemp", "codallegato" };
     protected EnumEntitaDatiSpecifici entitaDatiSpecifici = null;
     private DatiSpecifici datiForm;
@@ -125,8 +122,8 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
     private long idDocumento = -1;
     private String verXsd = null;
 
-    protected void initSelProviders(Long idStrut, Long idTipoDoc, Long idTipoStrutDoc, Long idUser, Connection con)
-            throws SQLException {
+    protected void initSelProviders(Long idStrut, Long idTipoDoc, Long idTipoStrutDoc, Long idUser,
+            Connection con) throws SQLException {
         selTipoUnitaDoc = ElementsHelper.getTipiRegUniDoc(idStrut, idUser, con);
         selRegistroUnitaDoc = ElementsHelper.getRegistriUnitaDoc(idStrut, idUser, con);
         seltipoStruttura = ElementsHelper.getTipoStruttura(idStrut, con);
@@ -134,13 +131,15 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
         // TO-DO: USARE RIFERIMENTO A ID_TIPO_STRUT_DOC
         selFormatoFileAmmesso = ElementsHelper.getFormatiFile(idStrut, con);
         if (idTipoDoc != null) {
-            selCDVersione = ElementsHelper.getCDVersione(idStrut, EnumEntitaDatiSpecifici.DOC.name(), idTipoDoc, con);
+            selCDVersione = ElementsHelper.getCDVersione(idStrut,
+                    EnumEntitaDatiSpecifici.DOC.name(), idTipoDoc, con);
         } else {
             selCDVersione = new DefaultSelectionProvider("cdVersioneXSD");
         }
     }
 
-    protected void initListaTipoDoc(Long idStrut, String strTiDoc, Long idUserIam, Connection con) throws SQLException {
+    protected void initListaTipoDoc(Long idStrut, String strTiDoc, Long idUserIam, Connection con)
+            throws SQLException {
         boolean isPrincipale = "PRINC".equalsIgnoreCase(getTipoTab());
         selTipoDoc = VDecTipoDocVO.getTipiDoc(idStrut, strTiDoc, idUserIam, con, isPrincipale);
     }
@@ -159,8 +158,10 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
         String strTiDOC = getValoreTiDoc(getTipoTab());
 
         String permission = String.format(CustomRealm.PERMESSO_PER_UD_LEGGI_D, idrecord);
-        if (!CustomRealm.isPermitted(permission, idStrut, getContext().getRequest().getSession(), getConnection())) {
-            return new ErrorResolution(HttpServletResponse.SC_FORBIDDEN, CustomRealm.CUSTOM_FORBIDDEN_MESSAGE);
+        if (!CustomRealm.isPermitted(permission, idStrut, getContext().getRequest().getSession(),
+                getConnection())) {
+            return new ErrorResolution(HttpServletResponse.SC_FORBIDDEN,
+                    CustomRealm.CUSTOM_FORBIDDEN_MESSAGE);
         }
 
         inizializzaDocPrincipale(idrecord, connection);
@@ -200,17 +201,19 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
                 cdVersioneXSD = docum.getCdVersioneXSD();
             }
         }
-        initSelProviders(idStrut, idTipoDoc, idTipoStrutDoc, datiUnitaDoc.getIdutente(), connection);
+        initSelProviders(idStrut, idTipoDoc, idTipoStrutDoc, datiUnitaDoc.getIdutente(),
+                connection);
 
         initListaTipoDoc(idStrut, strTiDOC, datiUnitaDoc.getIdutente(), connection);
         log.debug("Leggo o creo se non c'è il record di PAR_DATISPECIFICI");
         ParDatispecificiVO parDsDAO = new ParDatispecificiVO();
-        idDatiSpecifici = parDsDAO.loadOrCreateDatiSpecifici(idDocumento, EnumEntitaDatiSpecifici.DOC, connection);
+        idDatiSpecifici = parDsDAO.loadOrCreateDatiSpecifici(idDocumento,
+                EnumEntitaDatiSpecifici.DOC, connection);
 
         /* DONE: CAMBIATO RIFERIMENTO AL TIPO DATO DI ATTRIBUTI SPECIFICI */
         VDecAttribDatiSpecVO vdecAttribDAO = new VDecAttribDatiSpecVO();
-        listaCampi = vdecAttribDAO.getValoriSpecificiPerVersione(idDatiSpecifici, idStrut, EnumEntitaDatiSpecifici.DOC,
-                idTipoDoc, cdVersioneXSD, connection);
+        listaCampi = vdecAttribDAO.getValoriSpecificiPerVersione(idDatiSpecifici, idStrut,
+                EnumEntitaDatiSpecifici.DOC, idTipoDoc, cdVersioneXSD, connection);
         if (cdVersioneXSD != null) {
             try {
                 datiForm = new DatiSpecifici();
@@ -251,15 +254,16 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
     }
 
     /**
-     * Fare override solo in documento principale Inizializza (inserisce) il documento principale se non c'è ancora.
-     * Nelle gestioni diverse da doc principale non deve fare niente.
+     * Fare override solo in documento principale Inizializza (inserisce) il documento principale se
+     * non c'è ancora. Nelle gestioni diverse da doc principale non deve fare niente.
      *
      * @param idrecord
      * @param connection
      *
      * @throws SQLException
      */
-    protected void inizializzaDocPrincipale(Long idrecord, Connection connection) throws SQLException {
+    protected void inizializzaDocPrincipale(Long idrecord, Connection connection)
+            throws SQLException {
     }
 
     /**
@@ -292,8 +296,8 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
         Form intestazioneForm = null;
 
         FormBuilder formBuilder = new FormBuilder(ParUnitadoc.class).configPrefix("datiUnitaDoc_")
-                .configFields("idTipoUnitaDoc", "idRegistroUnitaDoc", "anno", "numero", "oggetto", "data",
-                        "cdVersioneXSD") // ,"idTipoStrutDoc"
+                .configFields("idTipoUnitaDoc", "idRegistroUnitaDoc", "anno", "numero", "oggetto",
+                        "data", "cdVersioneXSD") // ,"idTipoStrutDoc"
                 .configFieldSetNames("Unita Documentaria")
                 .configSelectionProvider(selTipoUnitaDoc, "idTipoUnitaDoc", "idRegistroUnitaDoc");
         if ("PRINC".equals(getTipoTab())) {
@@ -308,7 +312,9 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
     /*
      * (non-Javadoc)
      *
-     * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareIntestazioneUiRW(com.manydesigns.elements.Mode)
+     * @see
+     * net.datasiel.webapp.crud.AbstractCrudAction#prepareIntestazioneUiRW(com.manydesigns.elements.
+     * Mode)
      */
     @Override
     public Element prepareIntestazioneUiRW(Mode mode) {
@@ -319,20 +325,21 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
     /*
      * (non-Javadoc)
      *
-     * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareElRiga(java.lang.String, com.manydesigns.elements.Mode)
+     * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareElRiga(java.lang.String,
+     * com.manydesigns.elements.Mode)
      */
     @Override
     public Element prepareElRiga(String prefix, Mode mode) {
         boolean isPrincipale = "PRINC".equalsIgnoreCase(getTipoTab());
-        return new RigaDocumentoForm(selTipoDoc, selCDVersione, seltipoStruttura, "Dati " + getTitoloFieldsetRiga(),
-                mode, prefix, isPrincipale);
+        return new RigaDocumentoForm(selTipoDoc, selCDVersione, seltipoStruttura,
+                "Dati " + getTitoloFieldsetRiga(), mode, prefix, isPrincipale);
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareEltafoDettaglio1(java.lang.String, int,
-     * com.manydesigns.elements.Mode)
+     * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareEltafoDettaglio1(java.lang.String,
+     * int, com.manydesigns.elements.Mode)
      */
     @Override
     public TableForm prepareEltafoDettaglio1(String prefix, int nRows, Mode mode) {
@@ -348,17 +355,19 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
     /*
      * (non-Javadoc)
      *
-     * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareEltafoDettaglio2(java.lang.String, int,
-     * com.manydesigns.elements.Mode)
+     * @see net.datasiel.webapp.crud.AbstractCrudAction#prepareEltafoDettaglio2(java.lang.String,
+     * int, com.manydesigns.elements.Mode)
      */
     @Override
     public TableForm prepareEltafoDettaglio2(String prefix, int nRows, Mode mode) {
         TableForm formDati = null;
         if ("PRINC".equals(getTipoTab())) {
             if (datiForm != null) {
-                String[] campiData = { "dato", "valore" };
-                TableFormBuilder builder = new TableFormBuilder(DatoSpecifico.class).configPrefix(prefix)
-                        .configFields(campiData).configNRows(nRows).configMode(Mode.PREVIEW);
+                String[] campiData = {
+                        "dato", "valore" };
+                TableFormBuilder builder = new TableFormBuilder(DatoSpecifico.class)
+                        .configPrefix(prefix).configFields(campiData).configNRows(nRows)
+                        .configMode(Mode.PREVIEW);
 
                 formDati = builder.build();
                 formDati.setCaption("Dati Specifici");
@@ -378,14 +387,17 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
      */
     @Override
     public Element prepareElDettaglio1(String prefix, Mode mode) {
-        Form elfoDettaglio = new FormBuilder(ParComponente.class).configPrefix(prefix).configFields(campiDettaglio)
-                .configSelectionProvider(selFormatoFileAmmesso, "idTipoCompDoc", "idFormatoFileDoc").configMode(mode)
-                .build();
+        Form elfoDettaglio = new FormBuilder(ParComponente.class).configPrefix(prefix)
+                .configFields(campiDettaglio)
+                .configSelectionProvider(selFormatoFileAmmesso, "idTipoCompDoc", "idFormatoFileDoc")
+                .configMode(mode).build();
         /*
-         * "idTipoCompDoc","idFormatoFileDoc", "flgFirmaPerRifTemp", "dataRifTemp","descRifTemp","codallegato"
+         * "idTipoCompDoc","idFormatoFileDoc", "flgFirmaPerRifTemp",
+         * "dataRifTemp","descRifTemp","codallegato"
          */
         Field idTipoCompDoc = elfoDettaglio.findFieldByPropertyName("idTipoCompDoc");
-        idTipoCompDoc.setHelp("Individua la tipologia di componente, generalmente è \"Contenuto\".");
+        idTipoCompDoc
+                .setHelp("Individua la tipologia di componente, generalmente è \"Contenuto\".");
 
         Field idFormatoFileDoc = elfoDettaglio.findFieldByPropertyName("idFormatoFileDoc");
         idFormatoFileDoc.setHelp("Inserire il formato del file da trasmettere. "
@@ -407,8 +419,9 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
                 + "Indica la data alla quale il sistema di conservazione verificherà le firme digitali apposte sul documento al momento del versamento");
 
         Field descRifTemp = elfoDettaglio.findFieldByPropertyName("descRifTemp");
-        descRifTemp.setHelp("Compilare obbligatoriamente se si è compilato il campo Riferimento temporale. "
-                + "Descrive il riferimento temporale inserito nel campo precedente (es.: Data di registrazione di protocollo, Data di pubblicazione, Data di firma, ecc.)");
+        descRifTemp.setHelp(
+                "Compilare obbligatoriamente se si è compilato il campo Riferimento temporale. "
+                        + "Descrive il riferimento temporale inserito nel campo precedente (es.: Data di registrazione di protocollo, Data di pubblicazione, Data di firma, ecc.)");
 
         return elfoDettaglio;
     }
@@ -445,7 +458,8 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
         }
         // FieldSet messaggioDate= new FieldSet("Attenzione", 1, Mode.VIEW);
         // LabelField avvertenza=new LabelField(null, mode, null,
-        // "I campi data devono essere compilati devono essere compilati secondo il formato : AAAA-MM-GG ");
+        // "I campi data devono essere compilati devono essere compilati secondo il formato :
+        // AAAA-MM-GG ");
         // messaggioDate.add(avvertenza);
         // formDati.add(messaggioDate);
         return formDati;
@@ -468,14 +482,17 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
         ParComponenteDAO parComponenteDAO = new ParComponenteDAO();
         for (ParDocumento parDocumento : documenti) {
             List<ParComponente> fileAllegati = parComponenteDAO
-                    .getParComponentesByIddocumentoIdunitadocOrdered(parDocumento.getIddocumento(), idrecord, con);
+                    .getParComponentesByIddocumentoIdunitadocOrdered(parDocumento.getIddocumento(),
+                            idrecord, con);
             // Per mantenere intatta la lista dei codici allegato in modo da poter confrontare
             // vecchio codice con il nuovo e poter decidere se fare pulizia dei file vecchi
-            // ci vuole un altra lista con oggetti ParComponenete nuovi altrimenti la writeToObject dopo
+            // ci vuole un altra lista con oggetti ParComponenete nuovi altrimenti la writeToObject
+            // dopo
             // la readFromRequest sovrascrive i vecchi valori
             List<String> listaVecchiCodiciAllegato = new ArrayList<String>();
             for (ParComponente parComponente : fileAllegati) {
-                listaVecchiCodiciAllegato.add(StringUtils.defaultString(parComponente.getCodallegato()));
+                listaVecchiCodiciAllegato
+                        .add(StringUtils.defaultString(parComponente.getCodallegato()));
             }
 
             ParDatispecificiVO parDsDAO = new ParDatispecificiVO();
@@ -484,16 +501,18 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
             VDecAttribDatiSpecVO vdecAttribDAO = new VDecAttribDatiSpecVO();
             /*
-             * UNI_DOC("idunitadoc"), DOC("iddocumento"), COMP("idcomponente"), SUB_COMP("idcomponente")
+             * UNI_DOC("idunitadoc"), DOC("iddocumento"), COMP("idcomponente"),
+             * SUB_COMP("idcomponente")
              */
             if (tipoDato == null) {
                 tipoDato = EnumEntitaDatiSpecifici.DOC.name();
             }
-            listaCampi = vdecAttribDAO.getValoriSpecificiPerVersione(idDatiSpecifici, idStrut, getEntitaDatiSpecifici(),
-                    parDocumento.getIdTipoDoc(), parDocumento.getCdVersioneXSD(),
-                    con);/*
-                          * (idDatiSpecifici, idStrut, tipoDato, datiUnitaDoc.getIdTipoUnitaDoc(), con);
-                          */
+            listaCampi = vdecAttribDAO.getValoriSpecificiPerVersione(idDatiSpecifici, idStrut,
+                    getEntitaDatiSpecifici(), parDocumento.getIdTipoDoc(),
+                    parDocumento.getCdVersioneXSD(), con);/*
+                                                           * (idDatiSpecifici, idStrut, tipoDato,
+                                                           * datiUnitaDoc.getIdTipoUnitaDoc(), con);
+                                                           */
 
             List<DatoSpecifico> listaDatiSpecifici = new ArrayList<>();
             for (VDecAttribDatiSpecVO attributo : listaCampi) {
@@ -503,8 +522,8 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
                 listaDatiSpecifici.add(dato);
             }
             boolean isPrincipale = "PRINC".equals(getTipoTab());
-            RigaModel riga = new DocumentiRigaModel(parDocumento, fileAllegati, listaVecchiCodiciAllegato,
-                    listaDatiSpecifici, isPrincipale);
+            RigaModel riga = new DocumentiRigaModel(parDocumento, fileAllegati,
+                    listaVecchiCodiciAllegato, listaDatiSpecifici, isPrincipale);
             crudModel.getRighe().add(riga);
         }
 
@@ -524,7 +543,8 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
     /*
      * (non-Javadoc)
      *
-     * @see net.datasiel.webapp.crud.AbstractCrudAction#rigaValidate(net.datasiel.webapp.crud.RigaModel)
+     * @see
+     * net.datasiel.webapp.crud.AbstractCrudAction#rigaValidate(net.datasiel.webapp.crud.RigaModel)
      */
     @Override
     public boolean rigaValidate(RigaModel rigaModel) {
@@ -572,12 +592,14 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
     public void deleteRiga(int indiceRiga) throws Exception {
         loadCrudModel();
         Connection con = getConnection();
-        ParDocumento rigaDaCancellare = (ParDocumento) crudModel.getRighe().get(indiceRiga).getRiga();
+        ParDocumento rigaDaCancellare = (ParDocumento) crudModel.getRighe().get(indiceRiga)
+                .getRiga();
         ParComponenteVO parComponenteVO = new ParComponenteVO();
 
         int componentiCancellati = 0;
-        List<ParComponente> componentiDaCancellare = parComponenteVO.getParComponentesByIddocumentoIdunitadocNoBlob(
-                rigaDaCancellare.getIddocumento(), rigaDaCancellare.getIdunitadoc(), con);
+        List<ParComponente> componentiDaCancellare = parComponenteVO
+                .getParComponentesByIddocumentoIdunitadocNoBlob(rigaDaCancellare.getIddocumento(),
+                        rigaDaCancellare.getIdunitadoc(), con);
         for (ParComponente componenteDaCancellare : componentiDaCancellare) {
             parComponenteVO.delete(componenteDaCancellare, con);
             String codiceBlob = componenteDaCancellare.getCodallegato();
@@ -588,8 +610,9 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
         ParDocumentoVO parDocumentoVO = new ParDocumentoVO();
         int righeCancellate = parDocumentoVO.delete(rigaDaCancellare, con);
         if (righeCancellate > 0) {
-            log.debug(getClass().getName() + " - Cancellata riga documento: " + rigaDaCancellare.getIddocumento()
-                    + " - cancellati " + componentiCancellati + " componenti");
+            log.debug(getClass().getName() + " - Cancellata riga documento: "
+                    + rigaDaCancellare.getIddocumento() + " - cancellati " + componentiCancellati
+                    + " componenti");
         }
     }
 
@@ -639,7 +662,8 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
         // Aggiornamento dati unità documentaria
         ParUnitadocVO parUDDao = new ParUnitadocVO();
-        int righe = parUDDao.aggiornaUnitaDoc(EnumStatoUD.BOZZA.ordinal(), null, null, idrecord, null, connection);
+        int righe = parUDDao.aggiornaUnitaDoc(EnumStatoUD.BOZZA.ordinal(), null, null, idrecord,
+                null, connection);
         if (righe == 0) {
             log.debug("Nessuna riga aggiornata: problema di concorrenza");
             endTransaction();
@@ -676,7 +700,8 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
     /*
      * (non-Javadoc)
      *
-     * @see net.datasiel.webapp.crud.AbstractCrudAction#insertRigaModel(net.datasiel.webapp.crud.RigaModel)
+     * @see net.datasiel.webapp.crud.AbstractCrudAction#insertRigaModel(net.datasiel.webapp.crud.
+     * RigaModel)
      */
     @Override
     public void insertRigaModel(RigaModel rigaModel) throws Exception {
@@ -687,7 +712,8 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
         ParDocumentoVO datiDocAllegato = new ParDocumentoVO();
         datiDocAllegato.setIdunitadoc(idrecord);
         datiDocAllegato.setTipologia(getTipoTab());
-        datiDocAllegato.setIddocumento(DbUtil.getSequenceValue("PAR_SEQ_IDCOMPONENTE", getConnection()));
+        datiDocAllegato
+                .setIddocumento(DbUtil.getSequenceValue("PAR_SEQ_IDCOMPONENTE", getConnection()));
         datiDocAllegato.setIdTipoDoc(riga.getIdTipoDoc());
         datiDocAllegato.setProfiloautoredoc(riga.getProfiloautoredoc());
         datiDocAllegato.setProfilodescrizionedoc(riga.getProfilodescrizionedoc());
@@ -729,7 +755,8 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
     @Override
     public void insertDettaglio1Model(int indiceRiga, Object dettaglio) throws Exception {
         Connection con = getConnection();
-        Long idDoc = ((DocumentiRigaModel) crudModel.getRighe().get(indiceRiga)).riga.getIddocumento();
+        Long idDoc = ((DocumentiRigaModel) crudModel.getRighe().get(indiceRiga)).riga
+                .getIddocumento();
         ParComponenteDAO parCompDAO = new ParComponenteDAO();
         ParComponente objToInsert = (ParComponente) dettaglio;
         objToInsert.setId(0L);
@@ -769,8 +796,8 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
     public void deleteDettaglio1Model(int indiceRiga2, int indiceDettaglio) throws Exception {
 
         loadCrudModel();
-        ParComponente objDaEliminare = (ParComponente) crudModel.getRighe().get(indiceRiga2).getDettagli1()
-                .get(indiceDettaglio);
+        ParComponente objDaEliminare = (ParComponente) crudModel.getRighe().get(indiceRiga2)
+                .getDettagli1().get(indiceDettaglio);
         ParComponenteDAO objDAO = new ParComponenteDAO();
         objDAO.deleteByIndex(objDaEliminare, getConnection());
         String codiceBlob = objDaEliminare.getCodallegato();
@@ -791,8 +818,8 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
         ParValoredatispecificiDAO parDsDAO = new ParValoredatispecificiDAO();
         ParDatispecificiDAO parDatSpecDao = new ParDatispecificiDAO();
         Connection connection = getConnection();
-        ParDocumento parDoc = (ParDocumento) parDatSpecDao.getParObjectByIdDatiSpecificiAndEntitaSacer(idDatiSpecifici,
-                "DOC", connection);
+        ParDocumento parDoc = (ParDocumento) parDatSpecDao
+                .getParObjectByIdDatiSpecificiAndEntitaSacer(idDatiSpecifici, "DOC", connection);
         String valCDXSD = parDoc.getCdVersioneXSD();
 
         for (VDecAttribDatiSpecVO current : listaCampi) {
@@ -812,7 +839,8 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
             if (StringUtils.isNotEmpty(valDaInserire)) {
                 if (currentIdValoreDS.compareTo(0L) == 0) {
                     // inserire
-                    Long newIdValoreDS = DbUtil.getSequenceValue(DbConstants.SEQ_ID_GENERALI, connection);
+                    Long newIdValoreDS = DbUtil.getSequenceValue(DbConstants.SEQ_ID_GENERALI,
+                            connection);
                     objToInsUpdOrDel.setIdvaloredatispecifici(newIdValoreDS);
                     parDsDAO.insertPrepared(objToInsUpdOrDel, connection);
                 } else {
@@ -831,7 +859,8 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
 
         // Aggiornamento dati unità documentaria
         ParUnitadocVO parUDDao = new ParUnitadocVO();
-        int righe = parUDDao.aggiornaUnitaDoc(EnumStatoUD.BOZZA.ordinal(), null, null, idrecord, null, connection);
+        int righe = parUDDao.aggiornaUnitaDoc(EnumStatoUD.BOZZA.ordinal(), null, null, idrecord,
+                null, connection);
         if (righe == 0) {
             log.debug("Nessuna riga aggiornata: problema di concorrenza");
             endTransaction();
@@ -938,7 +967,8 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
                 RigaModel rigaModel = righeModel.get(j);
                 if (rigaModel.getDettagli1() != null && rigaModel.getDettagli1().size() > 0) {
                     ParComponente componente = (ParComponente) rigaModel.getDettagli1().get(i);
-                    if (componente.getCodallegato() != null && StringUtils.isNotEmpty(componente.getCodallegato())) {
+                    if (componente.getCodallegato() != null
+                            && StringUtils.isNotEmpty(componente.getCodallegato())) {
                         Field campoFile = row.findFieldByPropertyName("codallegato");
                         Long idComponente = componente.getIdcomponente();
                         campoFile.setHref("?vediAllegato&idComponente=" + idComponente);
@@ -974,7 +1004,8 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
             }
 
             selectionProvider = selFormatoFileAmmesso;
-            fieldNames = new String[] { "idTipoCompDoc", "idFormatoFileDoc" };
+            fieldNames = new String[] {
+                    "idTipoCompDoc", "idFormatoFileDoc" };
             clazz = ParComponente.class;
         } else {
             log.error("Relname non trovato");
@@ -990,15 +1021,15 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
         elfoForm.readFromRequest(context.getRequest());
 
         /*
-         * SelectionProviderIndex è la posizione, all'interno dell'elenco di select che voglio sincronizzare in cascata
-         * (di solito 2, ma possono essere di più) dell'elemento che devo ricaricare con i valori dipendenti dalla
-         * selezione nella select precedente
+         * SelectionProviderIndex è la posizione, all'interno dell'elenco di select che voglio
+         * sincronizzare in cascata (di solito 2, ma possono essere di più) dell'elemento che devo
+         * ricaricare con i valori dipendenti dalla selezione nella select precedente
          */
         SelectField targetField = (SelectField) elfoForm.get(0).get(getSelectionProviderIndex());
 
         /*
-         * Il parametro passato discrimina tra combo in cascata (true) e autocomplete (false) NOTA: combo sincronizzate
-         * e campo ad autocompletamento sono mutuamente esclusivi
+         * Il parametro passato discrimina tra combo in cascata (true) e autocomplete (false) NOTA:
+         * combo sincronizzate e campo ad autocompletamento sono mutuamente esclusivi
          */
         targetField.setLabelSearch(getLabelSearch());
         String text = targetField.jsonSelectFieldOptions(includeSelectPrompt);
@@ -1050,7 +1081,8 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
         String idTipoDoc = null;
         while (parametriReq.hasMoreElements()) {
             String parametro = parametriReq.nextElement();
-            if (parametro.endsWith("elNewRigaidTipoDoc") | (parametro.equalsIgnoreCase("idTipoDocSelezionato"))) {
+            if (parametro.endsWith("elNewRigaidTipoDoc")
+                    | (parametro.equalsIgnoreCase("idTipoDocSelezionato"))) {
                 idTipoDoc = context.getRequest().getParameter(parametro);
             }
         }
@@ -1058,8 +1090,8 @@ public abstract class Documenti extends SimpaAbstractCrudAction {
             List<String> listaOpzioni = null;
             StringBuilder jsonOpzioni = new StringBuilder();
             try {
-                listaOpzioni = ElementsHelper.getOptionsXSDVersione(idStrut, "DOC", Long.parseLong(idTipoDoc),
-                        getConnection());
+                listaOpzioni = ElementsHelper.getOptionsXSDVersione(idStrut, "DOC",
+                        Long.parseLong(idTipoDoc), getConnection());
                 if (listaOpzioni != null && !listaOpzioni.isEmpty()) {
                     jsonOpzioni.append("{\"opzioni\":[{");
                     for (String id : listaOpzioni) {

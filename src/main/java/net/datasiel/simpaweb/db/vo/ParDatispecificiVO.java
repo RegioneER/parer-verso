@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.db.vo;
@@ -20,8 +16,7 @@ package net.datasiel.simpaweb.db.vo;
 /**
  * Par_datispecifici
  *
- * WARNING! Automatically generated file! Do not edit! Code Generator by
- * J.A.Carter
+ * WARNING! Automatically generated file! Do not edit! Code Generator by J.A.Carter
  */
 
 import java.sql.Connection;
@@ -48,8 +43,8 @@ public class ParDatispecificiVO extends ParDatispecificiDAO {
         super();
     }
 
-    public long loadOrCreateDatiSpecifici(long idEntita, EnumEntitaDatiSpecifici entita, Connection connection)
-            throws SQLException {
+    public long loadOrCreateDatiSpecifici(long idEntita, EnumEntitaDatiSpecifici entita,
+            Connection connection) throws SQLException {
 
         StringBuilder sb = new StringBuilder();
         sb.append(" select iddatispecifici ");
@@ -104,11 +99,13 @@ public class ParDatispecificiVO extends ParDatispecificiDAO {
         return idDatiSpecifici;
     }
 
-    public ParDatispecifici getDatiSpecUnitaDoc(Long idunitadoc, String tipoEntitaSacer, Connection connection)
-            throws SQLException {
+    public ParDatispecifici getDatiSpecUnitaDoc(Long idunitadoc, String tipoEntitaSacer,
+            Connection connection) throws SQLException {
 
-        // String query = "select * from PAR_DATISPECIFICI"+" where IDDATISPECIFICI="+iddatispecifici;
-        String query = "select * from PAR_DATISPECIFICI " + " where IDUNITADOC=? " + " and entitasacer=?";
+        // String query = "select * from PAR_DATISPECIFICI"+" where
+        // IDDATISPECIFICI="+iddatispecifici;
+        String query = "select * from PAR_DATISPECIFICI " + " where IDUNITADOC=? "
+                + " and entitasacer=?";
         // java.sql.Statement st = con.createStatement();
         java.sql.PreparedStatement st = connection.prepareStatement(query);
         st.setLong(1, idunitadoc);
@@ -130,11 +127,13 @@ public class ParDatispecificiVO extends ParDatispecificiDAO {
         }
     }
 
-    public ParDatispecifici getDatiSpecDoc(Long iddoc, String tipoEntitaSacer, Connection connection)
-            throws SQLException {
+    public ParDatispecifici getDatiSpecDoc(Long iddoc, String tipoEntitaSacer,
+            Connection connection) throws SQLException {
 
-        // String query = "select * from PAR_DATISPECIFICI"+" where IDDATISPECIFICI="+iddatispecifici;
-        String query = "select * from PAR_DATISPECIFICI " + " where IDDOCUMENTO=? " + " and entitasacer=?";
+        // String query = "select * from PAR_DATISPECIFICI"+" where
+        // IDDATISPECIFICI="+iddatispecifici;
+        String query = "select * from PAR_DATISPECIFICI " + " where IDDOCUMENTO=? "
+                + " and entitasacer=?";
         // java.sql.Statement st = con.createStatement();
         java.sql.PreparedStatement st = connection.prepareStatement(query);
         st.setLong(1, iddoc);

@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.db.vo;
@@ -20,8 +16,7 @@ package net.datasiel.simpaweb.db.vo;
 /**
  * Par_unitadoc
  *
- * WARNING! Automatically generated file! Do not edit! Code Generator by
- * J.A.Carter
+ * WARNING! Automatically generated file! Do not edit! Code Generator by J.A.Carter
  */
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,8 +44,8 @@ public class ParUnitadocVO extends ParUnitadocDAO {
     private String descTipoUnitaDoc;
     private String cdRegistroUnitaDoc;
 
-    public int aggiornaUnitaDoc(int stato, String xmlRichiesta, String xmlRisposta, Long idUnitaDoc, String esito,
-            Connection con) throws SQLException {
+    public int aggiornaUnitaDoc(int stato, String xmlRichiesta, String xmlRisposta, Long idUnitaDoc,
+            String esito, Connection con) throws SQLException {
 
         StringBuffer sb = new StringBuffer();
         sb.append(" update PAR_UNITADOC ");
@@ -102,8 +97,8 @@ public class ParUnitadocVO extends ParUnitadocDAO {
     /**
      * Retrieve from the database for table "PAR_UNITADOC"
      */
-    public java.util.List<ParUnitadocVO> retrieveBozzeUtente(Long idUtente, Long idStrut, Connection con)
-            throws SQLException {
+    public java.util.List<ParUnitadocVO> retrieveBozzeUtente(Long idUtente, Long idStrut,
+            Connection con) throws SQLException {
         java.util.List<ParUnitadocVO> retRows = new java.util.ArrayList<ParUnitadocVO>();
         ParUnitadocVO curRow;
         /*
@@ -116,7 +111,8 @@ public class ParUnitadocVO extends ParUnitadocDAO {
                 + "ON (u.ID_REGISTRO_UNITA_DOC = r.id_registro_unita_doc AND u.IDUTENTE = r.ID_USER_IAM) "
                 + "JOIN V_DEC_TIPO_UNITA_DOC t "
                 + "ON (u.ID_TIPO_UNITA_DOC = t.ID_TIPO_UNITA_DOC AND u.IDUTENTE = t.ID_USER_IAM) "
-                + "WHERE u.IDUTENTE = ? AND u.ID_STRUT = ? AND u.STATO < ? " + "ORDER BY u.DTAGG DESC";
+                + "WHERE u.IDUTENTE = ? AND u.ID_STRUT = ? AND u.STATO < ? "
+                + "ORDER BY u.DTAGG DESC";
         java.sql.PreparedStatement st = con.prepareStatement(query);
         ResultSet r = null;
         try {
@@ -142,9 +138,10 @@ public class ParUnitadocVO extends ParUnitadocDAO {
         }
     }
 
-    // restituisce le unità documentarie versate dalla struttura di appartenenza dell'utente corrente
-    public java.util.List<ParUnitadocVO> retrieveVersamentiStruttura(Long idStrut, Long idUser, Connection con)
-            throws SQLException {
+    // restituisce le unità documentarie versate dalla struttura di appartenenza dell'utente
+    // corrente
+    public java.util.List<ParUnitadocVO> retrieveVersamentiStruttura(Long idStrut, Long idUser,
+            Connection con) throws SQLException {
         java.util.List<ParUnitadocVO> retRows = new java.util.ArrayList<ParUnitadocVO>();
         ParUnitadocVO curRow;
 
@@ -154,9 +151,11 @@ public class ParUnitadocVO extends ParUnitadocDAO {
                 "SELECT u.IDUNITADOC, u.NUMERO, u.ANNO, u.OGGETTO, u.DATA, u.DTINS, u.DTAGG, u.STATO, t.DS_TIPO_UNITA_DOC, u.DATAVERSAMENTO, r.CD_REGISTRO_UNITA_DOC ");
         query.append("FROM PAR_UNITADOC u ");
         query.append("JOIN v_dec_registro_unita_doc r ");
-        query.append("ON (u.id_registro_unita_doc = r.id_registro_unita_doc AND u.IDUTENTE = r.ID_USER_IAM) ");
+        query.append(
+                "ON (u.id_registro_unita_doc = r.id_registro_unita_doc AND u.IDUTENTE = r.ID_USER_IAM) ");
         query.append("JOIN V_DEC_TIPO_UNITA_DOC t ");
-        query.append("ON (u.ID_TIPO_UNITA_DOC = t.ID_TIPO_UNITA_DOC AND u.IDUTENTE = t.ID_USER_IAM) ");
+        query.append(
+                "ON (u.ID_TIPO_UNITA_DOC = t.ID_TIPO_UNITA_DOC AND u.IDUTENTE = t.ID_USER_IAM) ");
         query.append("WHERE u.IDUTENTE = ? AND u.ID_STRUT = ? AND u.STATO = ? ");
         query.append("ORDER BY u.DTAGG DESC ");
 
@@ -185,9 +184,10 @@ public class ParUnitadocVO extends ParUnitadocDAO {
         }
     }
 
-    // restituisce le 5 unità documentarie versate più recentemente dalla struttura di appartenenza dell'utente corrente
-    public java.util.List<ParUnitadocVO> retrieveUltimi5VersamentiStruttura(Long idStrut, Long idUserIam,
-            Connection con) throws SQLException {
+    // restituisce le 5 unità documentarie versate più recentemente dalla struttura di appartenenza
+    // dell'utente corrente
+    public java.util.List<ParUnitadocVO> retrieveUltimi5VersamentiStruttura(Long idStrut,
+            Long idUserIam, Connection con) throws SQLException {
         java.util.List<ParUnitadocVO> retRows = new java.util.ArrayList<ParUnitadocVO>();
         ParUnitadocVO curRow;
 
@@ -195,8 +195,9 @@ public class ParUnitadocVO extends ParUnitadocDAO {
 
         query.append("SELECT * " + "FROM ("
                 + "SELECT DISTINCT u.IDUNITADOC, u.NUMERO, u.ANNO, u.OGGETTO, u.DATA, u.DTINS, u.DTAGG, u.STATO, t.DS_TIPO_UNITA_DOC, u.DATAVERSAMENTO, r.cd_registro_unita_doc "
-                + "FROM PAR_UNITADOC u " + "JOIN PAR_DOCUMENTO doc " + "ON u.IDUNITADOC = doc.IDUNITADOC "
-                + "JOIN V_DEC_REGISTRO_UNITA_DOC r " + "ON u.ID_REGISTRO_UNITA_DOC = r.ID_REGISTRO_UNITA_DOC "
+                + "FROM PAR_UNITADOC u " + "JOIN PAR_DOCUMENTO doc "
+                + "ON u.IDUNITADOC = doc.IDUNITADOC " + "JOIN V_DEC_REGISTRO_UNITA_DOC r "
+                + "ON u.ID_REGISTRO_UNITA_DOC = r.ID_REGISTRO_UNITA_DOC "
                 + "JOIN V_DEC_TIPO_UNITA_DOC t " + "ON u.ID_TIPO_UNITA_DOC = t.ID_TIPO_UNITA_DOC "
                 + "JOIN V_DEC_TIPO_DOC tipo_doc " + "ON tipo_doc.ID_TIPO_DOC = doc.ID_TIPO_DOC "
                 + "WHERE r.ID_USER_IAM = ? AND t.ID_USER_IAM = ? AND u.ID_STRUT = ? AND u.STATO = ? "
@@ -237,8 +238,7 @@ public class ParUnitadocVO extends ParUnitadocDAO {
     }
 
     /**
-     * @param descTipoUnitaDoc
-     *            the descTipoUnitaDoc to set
+     * @param descTipoUnitaDoc the descTipoUnitaDoc to set
      */
     public void setDescTipoUnitaDoc(String descTipoUnitaDoc) {
         this.descTipoUnitaDoc = descTipoUnitaDoc;
@@ -330,8 +330,8 @@ public class ParUnitadocVO extends ParUnitadocDAO {
         return result;
     }
 
-    public List<ParUnitadocVO> cercaVersamenti(Connection con, String strWhere, Long idStrut, Long idUser,
-            Collection<?> listaParametri) throws Exception {
+    public List<ParUnitadocVO> cercaVersamenti(Connection con, String strWhere, Long idStrut,
+            Long idUser, Collection<?> listaParametri) throws Exception {
 
         java.util.List<ParUnitadocVO> retRows = new java.util.ArrayList<ParUnitadocVO>();
         ParUnitadocVO curRow;
@@ -344,7 +344,8 @@ public class ParUnitadocVO extends ParUnitadocDAO {
         query.append("ON u.ID_REGISTRO_UNITA_DOC = rud.ID_REGISTRO_UNITA_DOC ");
         query.append("JOIN V_DEC_TIPO_UNITA_DOC tud ");
         query.append("ON U.ID_TIPO_UNITA_DOC = tud.ID_TIPO_UNITA_DOC ");
-        query.append("WHERE u.ID_STRUT = ? AND u.STATO = ? AND rud.ID_USER_IAM = ? AND tud.ID_USER_IAM = ? ");
+        query.append(
+                "WHERE u.ID_STRUT = ? AND u.STATO = ? AND rud.ID_USER_IAM = ? AND tud.ID_USER_IAM = ? ");
 
         if (StringUtils.trimToEmpty(strWhere).length() > 0) {
             query.append(" AND " + strWhere);

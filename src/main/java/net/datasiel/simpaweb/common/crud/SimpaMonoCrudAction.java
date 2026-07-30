@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.common.crud;
@@ -186,7 +182,8 @@ public class SimpaMonoCrudAction extends MonoCrudAction {
      * @throws SQLException
      * @throws AuthorizationException
      */
-    protected void leggiDatiUnitaDoc(Long idrecord, Connection con) throws SQLException, AuthorizationException {
+    protected void leggiDatiUnitaDoc(Long idrecord, Connection con)
+            throws SQLException, AuthorizationException {
         ParUnitadocVO parUnitadocVO = new ParUnitadocVO();
         datiUnitaDoc = parUnitadocVO.retrieveByKey(idrecord, con);
         if (datiUnitaDoc == null) {
@@ -199,18 +196,21 @@ public class SimpaMonoCrudAction extends MonoCrudAction {
      *
      * @see net.datasiel.webapp.BaseAction#isTabEnabled(int)
      *
-     * @Override public boolean isTabEnabled(int indiceTab) throws SQLException { int indiceInTipoDoc=0; //corrisponde
-     *           al doc principale che qui non è gestito switch (indiceTab) { case 4: case 5: case 6: //Tab allegati,
-     *           annessi e annotazioni //Calcolare indiceInTipoDoc e recuperare EnumTipodocumento indiceInTipoDoc =
-     *           indiceTab - 3; int numTipiDoc = VDecTipoDocVO.getNumeroTipiDoc(datiUnitaDoc.getIdTipoUnitaDoc(),
-     *           EnumTipoDocumento.values()[indiceInTipoDoc].getValoreInDb(), getConnection()); if (numTipiDoc == 0) {
-     *           return false; } else { return true; } case 7: return
+     * @Override public boolean isTabEnabled(int indiceTab) throws SQLException { int
+     *           indiceInTipoDoc=0; //corrisponde al doc principale che qui non è gestito switch
+     *           (indiceTab) { case 4: case 5: case 6: //Tab allegati, annessi e annotazioni
+     *           //Calcolare indiceInTipoDoc e recuperare EnumTipodocumento indiceInTipoDoc =
+     *           indiceTab - 3; int numTipiDoc =
+     *           VDecTipoDocVO.getNumeroTipiDoc(datiUnitaDoc.getIdTipoUnitaDoc(),
+     *           EnumTipoDocumento.values()[indiceInTipoDoc].getValoreInDb(), getConnection()); if
+     *           (numTipiDoc == 0) { return false; } else { return true; } case 7: return
      *           VDecXsdDatiSpecVO.sonoPresentiDatiSpecificiUD(datiUnitaDoc.getIdStrut(),
      *           datiUnitaDoc.getIdTipoUnitaDoc(), getConnection()); default: return true; } }
      */
     public Resolution elimina() throws Exception {
         if (!checkCSRFToken(getContext().getRequest())) {
-            getContext().getResponse().sendError(HttpServletResponse.SC_FORBIDDEN, "Richiesta non autorizzata");
+            getContext().getResponse().sendError(HttpServletResponse.SC_FORBIDDEN,
+                    "Richiesta non autorizzata");
             // throw new AuthorizationException("Richiesta non autorizzata");
             return null;
         }
@@ -249,25 +249,28 @@ public class SimpaMonoCrudAction extends MonoCrudAction {
             // cancellazione dati specifici
             ParDatispecificiVO paDatispecificiVO = new ParDatispecificiVO();
             List<ParDatispecifici> parDatispecificiList = paDatispecificiVO
-                    .getParDatispecificisByIdunitadoc(datiUnitaDoc.getIdunitadoc(), getConnection());
+                    .getParDatispecificisByIdunitadoc(datiUnitaDoc.getIdunitadoc(),
+                            getConnection());
             if (parDatispecificiList != null && parDatispecificiList.size() == 1) {
                 ParDatispecifici parDatispecifici = parDatispecificiList.get(0);
                 Long idDatiSpecifici = parDatispecifici.getIddatispecifici();
 
                 ParValoredatispecificiVO parValoredatispecificiVO = new ParValoredatispecificiVO();
-                int recordCancellati = parValoredatispecificiVO.deleteByIdDatiSpec(idDatiSpecifici, getConnection());
-                log.debug("UD: " + datiUnitaDoc.getIdunitadoc() + " - Cancellati " + recordCancellati
-                        + " record da PAR_VALOREDATISPECIFICI");
+                int recordCancellati = parValoredatispecificiVO.deleteByIdDatiSpec(idDatiSpecifici,
+                        getConnection());
+                log.debug("UD: " + datiUnitaDoc.getIdunitadoc() + " - Cancellati "
+                        + recordCancellati + " record da PAR_VALOREDATISPECIFICI");
                 recordCancellati = paDatispecificiVO.delete(parDatispecifici, getConnection());
-                log.debug("UD: " + datiUnitaDoc.getIdunitadoc() + " - Cancellati " + recordCancellati
-                        + " record da PAR_DATISPECIFICI");
+                log.debug("UD: " + datiUnitaDoc.getIdunitadoc() + " - Cancellati "
+                        + recordCancellati + " record da PAR_DATISPECIFICI");
             }
 
             // cancellazione componenti
             int recordCancellati = 0;
             ParComponenteVO parComponenteVO = new ParComponenteVO();
             List<ParComponente> componentiDaCancellare = parComponenteVO
-                    .getParComponentesByIdunitadocNoBlob(datiUnitaDoc.getIdunitadoc(), getConnection());
+                    .getParComponentesByIdunitadocNoBlob(datiUnitaDoc.getIdunitadoc(),
+                            getConnection());
             for (ParComponente componenteDaCancellare : componentiDaCancellare) {
                 parComponenteVO.delete(componenteDaCancellare, getConnection());
                 String codiceBlob = componenteDaCancellare.getCodallegato();
@@ -279,25 +282,29 @@ public class SimpaMonoCrudAction extends MonoCrudAction {
 
             // cancellazione documenti
             ParDocumentoVO parDocumentoVO = new ParDocumentoVO();
-            recordCancellati = parDocumentoVO.deleteByIdUd(datiUnitaDoc.getIdunitadoc(), getConnection());
+            recordCancellati = parDocumentoVO.deleteByIdUd(datiUnitaDoc.getIdunitadoc(),
+                    getConnection());
             log.debug("UD: " + datiUnitaDoc.getIdunitadoc() + " - Cancellati " + recordCancellati
                     + " record da PAR_DOCUMENTO");
 
             // cancellazione fascicoli
             ParFascicoloVO parFascicoloVO = new ParFascicoloVO();
-            recordCancellati = parFascicoloVO.deleteByIdUd(datiUnitaDoc.getIdunitadoc(), getConnection());
+            recordCancellati = parFascicoloVO.deleteByIdUd(datiUnitaDoc.getIdunitadoc(),
+                    getConnection());
             log.debug("UD: " + datiUnitaDoc.getIdunitadoc() + " - Cancellati " + recordCancellati
                     + " record da PAR_FASCICOLO");
 
             // cancellazione collegamenti
             ParCollegamentoVO parCollegamentoVO = new ParCollegamentoVO();
-            recordCancellati = parCollegamentoVO.deleteByIdUd(datiUnitaDoc.getIdunitadoc(), getConnection());
+            recordCancellati = parCollegamentoVO.deleteByIdUd(datiUnitaDoc.getIdunitadoc(),
+                    getConnection());
             log.debug("UD: " + datiUnitaDoc.getIdunitadoc() + " - Cancellati " + recordCancellati
                     + " record da PAR_COLLEGAMENTO");
 
             // cancellazione unità documentaria
             ParUnitadocVO parUnitadocVO = new ParUnitadocVO();
-            recordCancellati = parUnitadocVO.deleteByIdUd(datiUnitaDoc.getIdunitadoc(), getConnection());
+            recordCancellati = parUnitadocVO.deleteByIdUd(datiUnitaDoc.getIdunitadoc(),
+                    getConnection());
             log.debug("UD: " + datiUnitaDoc.getIdunitadoc() + " - Cancellati " + recordCancellati
                     + " record da PAR_UNITADOC");
 
@@ -325,12 +332,15 @@ public class SimpaMonoCrudAction extends MonoCrudAction {
         // resol.addParameter("idrecord", idrecord);
         // redirect=resol;
         // }
-        String isPasswordPresente = (String) context.getRequest().getSession().getAttribute(Constants.PASSWORD_ATTR);
-        String isComunicazionePresente = (String) context.getRequest().getSession().getAttribute("Comunicazione");
+        String isPasswordPresente = (String) context.getRequest().getSession()
+                .getAttribute(Constants.PASSWORD_ATTR);
+        String isComunicazionePresente = (String) context.getRequest().getSession()
+                .getAttribute("Comunicazione");
 
         if (StringUtils.isNotBlank(isPasswordPresente) && "true".equals(isPasswordPresente)) {
             InfoEsito infoEsitoVerifica = VerificaVersamentoUD.esegui(
-                    "true".equals(isComunicazionePresente) ? EnumOperazione.COMUNICAZIONE : EnumOperazione.VERIFICA,
+                    "true".equals(isComunicazionePresente) ? EnumOperazione.COMUNICAZIONE
+                            : EnumOperazione.VERIFICA,
                     datiUnitaDoc.getIdunitadoc(), getConnection(), context.getRequest());
             String esitoOrdinal = infoEsitoVerifica.getEsito();
 
@@ -355,7 +365,8 @@ public class SimpaMonoCrudAction extends MonoCrudAction {
 
     public Resolution versa() throws Exception {
         if (!checkCSRFToken(getContext().getRequest())) {
-            getContext().getResponse().sendError(HttpServletResponse.SC_FORBIDDEN, "Richiesta non autorizzata");
+            getContext().getResponse().sendError(HttpServletResponse.SC_FORBIDDEN,
+                    "Richiesta non autorizzata");
             // throw new AuthorizationException("Richiesta non autorizzata");
             return null;
         }
@@ -372,7 +383,8 @@ public class SimpaMonoCrudAction extends MonoCrudAction {
         // resol.addParameter("idrecord", idrecord);
         // redirect=resol;
         // }
-        String isPasswordPresente = (String) context.getRequest().getSession().getAttribute(Constants.PASSWORD_ATTR);
+        String isPasswordPresente = (String) context.getRequest().getSession()
+                .getAttribute(Constants.PASSWORD_ATTR);
         // String isComunicazionePresente = (String) context.getRequest().getSession()
         // .getAttribute("Comunicazione");
 
@@ -405,7 +417,8 @@ public class SimpaMonoCrudAction extends MonoCrudAction {
 
     @Override
     public boolean isReadOnly() {
-        if (datiUnitaDoc != null && datiUnitaDoc.getStato().equals(EnumStatoUD.VERSATA.getValore())) {
+        if (datiUnitaDoc != null
+                && datiUnitaDoc.getStato().equals(EnumStatoUD.VERSATA.getValore())) {
             return true;
         } else {
             return false;

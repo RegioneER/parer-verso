@@ -1,18 +1,14 @@
 /*
  * Engineering Ingegneria Informatica S.p.A.
  *
- * Copyright (C) 2023 Regione Emilia-Romagna
- * <p/>
- * This program is free software: you can redistribute it and/or modify it under the terms of
- * the GNU Affero General Public License as published by the Free Software Foundation,
- * either version 3 of the License, or (at your option) any later version.
- * <p/>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Affero General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU Affero General Public License along with this program.
- * If not, see <https://www.gnu.org/licenses/>.
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
  */
 
 package net.datasiel.simpaweb.elements;
@@ -63,27 +59,33 @@ public class ElementsHelper {
 
     public static Form buildFascicolo(String titoloFieldset, String prefix, Mode mode) {
         Form form = null;
-        form = new FormBuilder(ParFascicolo.class).configPrefix(prefix).configFieldSetNames(titoloFieldset)
-                .configFields("classifica", "identificativo", "oggetto", "idsottofascicolo", "oggettosottofascicolo")
+        form = new FormBuilder(ParFascicolo.class).configPrefix(prefix)
+                .configFieldSetNames(titoloFieldset).configFields("classifica", "identificativo",
+                        "oggetto", "idsottofascicolo", "oggettosottofascicolo")
                 .configMode(mode).build();
-        ((TextField) form.findFieldByPropertyName("idsottofascicolo")).setLabel("Identificativo sottofascicolo");
-        ((TextField) form.findFieldByPropertyName("oggettosottofascicolo")).setLabel("Oggetto sottofascicolo");
+        ((TextField) form.findFieldByPropertyName("idsottofascicolo"))
+                .setLabel("Identificativo sottofascicolo");
+        ((TextField) form.findFieldByPropertyName("oggettosottofascicolo"))
+                .setLabel("Oggetto sottofascicolo");
         return form;
     }
 
-    public static Element buildCollegamento(String titoloFieldset, DefaultSelectionProvider selRegistroUnitaDoc,
-            String prefix, Mode mode) {
+    public static Element buildCollegamento(String titoloFieldset,
+            DefaultSelectionProvider selRegistroUnitaDoc, String prefix, Mode mode) {
         Form form = null;
-        form = new FormBuilder(ParCollegamento.class).configPrefix(prefix).configFieldSetNames(titoloFieldset)
+        form = new FormBuilder(ParCollegamento.class).configPrefix(prefix)
+                .configFieldSetNames(titoloFieldset)
                 .configFields("anno", "numero", "idRegistroUnitaDoc", "descrizione")
-                .configSelectionProvider(selRegistroUnitaDoc, "idRegistroUnitaDoc").configMode(mode).build();
+                .configSelectionProvider(selRegistroUnitaDoc, "idRegistroUnitaDoc").configMode(mode)
+                .build();
         return form;
     }
 
-    public static Element buildEnteStruttura(DefaultSelectionProvider selEnteStruttura, boolean soloUnaStruttura,
-            String prefix, Mode mode) {
+    public static Element buildEnteStruttura(DefaultSelectionProvider selEnteStruttura,
+            boolean soloUnaStruttura, String prefix, Mode mode) {
         Form form = new FormBuilder(VOrgStrut.class).configPrefix(prefix).configFieldSetNames("")
-                .configFields("idStrut").configSelectionProvider(selEnteStruttura, "idStrut").configMode(mode).build();
+                .configFields("idStrut").configSelectionProvider(selEnteStruttura, "idStrut")
+                .configMode(mode).build();
         form.findFieldByPropertyName("idStrut").setLabel("Ente - Struttura");
         if (soloUnaStruttura) {
             form.findFieldByPropertyName("idStrut").setUpdatable(false);
@@ -92,9 +94,11 @@ public class ElementsHelper {
     }
 
     public static Element buildSearchFormVersamenti(SelectionProvider selTipoUnitaDoc) {
-        SearchForm searchForm = new SearchFormBuilder(ParUnitadoc.class).configPrefix("datiUnitaDoc_")
+        SearchForm searchForm = new SearchFormBuilder(ParUnitadoc.class)
+                .configPrefix("datiUnitaDoc_")
                 .configFields("idTipoUnitaDoc", "idRegistroUnitaDoc", "anno", "numero")
-                .configSelectionProvider(selTipoUnitaDoc, "idTipoUnitaDoc", "idRegistroUnitaDoc").build();
+                .configSelectionProvider(selTipoUnitaDoc, "idTipoUnitaDoc", "idRegistroUnitaDoc")
+                .build();
         ((SelectSearchField) searchForm.get(0)).setDisplayMode(SearchDisplayMode.DROPDOWN);
         ((SelectSearchField) searchForm.get(1)).setDisplayMode(SearchDisplayMode.DROPDOWN);
         ((TextSearchField) searchForm.get(3)).setShowMatchMode(false);
@@ -114,8 +118,8 @@ public class ElementsHelper {
      *
      ***************************************************************/
 
-    public static DefaultSelectionProvider getTipiRegUniDoc(Long idStruttura, Long idUser, Connection con)
-            throws SQLException {
+    public static DefaultSelectionProvider getTipiRegUniDoc(Long idStruttura, Long idUser,
+            Connection con) throws SQLException {
         StringBuilder prepQuery = new StringBuilder();
         prepQuery.append(
                 "SELECT r.ID_REGISTRO_UNITA_DOC id_reg, r.CD_REGISTRO_UNITA_DOC ||' - '|| r.DS_REGISTRO_UNITA_DOC nome_reg, u.ID_TIPO_UNITA_DOC id_unidoc, u.NM_TIPO_UNITA_DOC nome_unidoc ");
@@ -123,7 +127,8 @@ public class ElementsHelper {
         prepQuery.append("JOIN V_DEC_REGISTRO_UNITA_DOC r ");
         prepQuery.append("ON r.ID_REGISTRO_UNITA_DOC = a.ID_REGISTRO_UNITA_DOC ");
         prepQuery.append("JOIN V_DEC_TIPO_UNITA_DOC u ");
-        prepQuery.append("ON (u.ID_TIPO_UNITA_DOC = a.ID_TIPO_UNITA_DOC AND r.ID_USER_IAM = u.ID_USER_IAM) ");
+        prepQuery.append(
+                "ON (u.ID_TIPO_UNITA_DOC = a.ID_TIPO_UNITA_DOC AND r.ID_USER_IAM = u.ID_USER_IAM) ");
         prepQuery.append("WHERE u.ID_USER_IAM = ? AND u.ID_STRUT = ? ");
         prepQuery.append("ORDER BY nome_unidoc ");
         PreparedStatement pst = con.prepareStatement(prepQuery.toString());
@@ -136,8 +141,10 @@ public class ElementsHelper {
             String nomeReg = rs.getString("nome_reg");
             Long idUniDoc = rs.getLong("id_unidoc");
             String nomeUniDoc = rs.getString("nome_unidoc");
-            Object[] values = { idUniDoc, idReg };
-            String[] labels = { nomeUniDoc, nomeReg };
+            Object[] values = {
+                    idUniDoc, idReg };
+            String[] labels = {
+                    nomeUniDoc, nomeReg };
             selProv.appendRow(values, labels, true);
         }
         DbUtils.closeQuietly(rs);
@@ -146,8 +153,8 @@ public class ElementsHelper {
         return selProv;
     }
 
-    public static DefaultSelectionProvider getRegistriUnitaDoc(Long idStruttura, Long idUser, Connection con)
-            throws SQLException {
+    public static DefaultSelectionProvider getRegistriUnitaDoc(Long idStruttura, Long idUser,
+            Connection con) throws SQLException {
         StringBuilder prepQuery = new StringBuilder();
         prepQuery.append("SELECT ID_REGISTRO_UNITA_DOC, DS_REGISTRO_UNITA_DOC ");
         prepQuery.append("FROM V_DEC_REGISTRO_UNITA_DOC ");
@@ -163,15 +170,16 @@ public class ElementsHelper {
             VDecRegistroUnitaDocVO registroUD = new VDecRegistroUnitaDocVO();
             registroUD.setIdRegistroUnitaDoc((rs.getLong("ID_REGISTRO_UNITA_DOC")));
             registroUD.setDsRegistroUnitaDoc(rs.getString("DS_REGISTRO_UNITA_DOC"));
-            selRegistroUD.appendRow(registroUD.getIdRegistroUnitaDoc(), registroUD.getDsRegistroUnitaDoc(), true);
+            selRegistroUD.appendRow(registroUD.getIdRegistroUnitaDoc(),
+                    registroUD.getDsRegistroUnitaDoc(), true);
         }
         DbUtils.closeQuietly(rs);
         DbUtils.closeQuietly(pst);
         return selRegistroUD;
     }
 
-    public static DefaultSelectionProvider getFormatoFileAmmessoPerComponente(Long idStrut, Connection con)
-            throws SQLException {
+    public static DefaultSelectionProvider getFormatoFileAmmessoPerComponente(Long idStrut,
+            Connection con) throws SQLException {
         DefaultSelectionProvider returnList = new DefaultSelectionProvider("formatiFile");
         List<VDecFormatoFileDocVO> listaFormati = null;
         listaFormati = VDecFormatoFileDocVO.getFormatiAmmessi(idStrut, con);
@@ -185,8 +193,8 @@ public class ElementsHelper {
         return returnList;
     }
 
-    public static DefaultSelectionProvider getCDVersione(Long idStruttura, String tiEntitaSacer, Long idTipoDoc,
-            Connection con) throws SQLException {
+    public static DefaultSelectionProvider getCDVersione(Long idStruttura, String tiEntitaSacer,
+            Long idTipoDoc, Connection con) throws SQLException {
         StringBuilder prepQuery = new StringBuilder();
         prepQuery.append("SELECT DISTINCT CD_VERSIONE_XSD id, CD_VERSIONE_XSD descrizione ");
         prepQuery.append("FROM V_DEC_XSD_DATI_SPEC ");
@@ -211,8 +219,8 @@ public class ElementsHelper {
 
     }
 
-    public static List<String> getOptionsXSDVersione(Long idStruttura, String tiEntitaSacer, Long idTipoDoc,
-            Connection con) throws SQLException {
+    public static List<String> getOptionsXSDVersione(Long idStruttura, String tiEntitaSacer,
+            Long idTipoDoc, Connection con) throws SQLException {
         ArrayList<String> lista = new ArrayList<>();
         StringBuilder prepQuery = new StringBuilder();
         prepQuery.append("SELECT DISTINCT CD_VERSIONE_XSD id, CD_VERSIONE_XSD descrizione ");
@@ -237,8 +245,8 @@ public class ElementsHelper {
 
     }
 
-    public static DefaultSelectionProvider getCDVersioneUniDoc(Long idStruttura, String tiEntitaSacer,
-            Long idTipoUnitaDoc, Connection con) throws SQLException {
+    public static DefaultSelectionProvider getCDVersioneUniDoc(Long idStruttura,
+            String tiEntitaSacer, Long idTipoUnitaDoc, Connection con) throws SQLException {
         StringBuilder prepQuery = new StringBuilder();
         prepQuery.append("SELECT DISTINCT CD_VERSIONE_XSD id, CD_VERSIONE_XSD descrizione ");
         prepQuery.append("FROM V_DEC_XSD_DATI_SPEC ");
@@ -262,7 +270,8 @@ public class ElementsHelper {
         return selCDVersione;
     }
 
-    public static DefaultSelectionProvider getTipoStruttura(Long idStruttura, Connection con) throws SQLException {
+    public static DefaultSelectionProvider getTipoStruttura(Long idStruttura, Connection con)
+            throws SQLException {
         StringBuilder prepQuery = new StringBuilder();
         prepQuery.append("SELECT ID_TIPO_STRUT_DOC id, NM_TIPO_STRUT_DOC descrizione ");
         prepQuery.append("FROM V_DEC_TIPO_STRUT_DOC ");
@@ -283,7 +292,8 @@ public class ElementsHelper {
 
     }
 
-    public static String getNomeTipoStrutturaFromId(Long idTipoStruttura, Connection con) throws SQLException {
+    public static String getNomeTipoStrutturaFromId(Long idTipoStruttura, Connection con)
+            throws SQLException {
         String descrizione = null;
         StringBuilder prepQuery = new StringBuilder();
         prepQuery.append("SELECT NM_TIPO_STRUT_DOC descrizione ");
@@ -302,7 +312,8 @@ public class ElementsHelper {
 
     }
 
-    public static DefaultSelectionProvider getFormatiFile(Long idStrut, Connection con) throws SQLException {
+    public static DefaultSelectionProvider getFormatiFile(Long idStrut, Connection con)
+            throws SQLException {
         StringBuilder prepQuery = new StringBuilder();
 
         prepQuery.append(
@@ -321,8 +332,10 @@ public class ElementsHelper {
             String nomeFormato = rs.getString("NOME_FORMATO");
             Long idTipoCompDoc = rs.getLong("ID_TIPO_COMP_DOC");
             String nomeTipoCompDoc = rs.getString("NM_TIPO_COMP_DOC");
-            Object[] values = { idTipoCompDoc, idFormato };
-            String[] labels = { nomeTipoCompDoc, nomeFormato };
+            Object[] values = {
+                    idTipoCompDoc, idFormato };
+            String[] labels = {
+                    nomeTipoCompDoc, nomeFormato };
             selProv.appendRow(values, labels, true);
         }
         DbUtils.closeQuietly(rs);
