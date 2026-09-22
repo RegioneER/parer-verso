@@ -1,7 +1,4 @@
-## 3.5.0 (30-07-2026)
+## 3.5.1 (22-09-2026)
 
 ### Bugfix: 1
-- [#38035](https://parermine.regione.emilia-romagna.it/issues/38035) Inserire i default corretti per le security policy
-
-### Novità: 1
-- [#40894](https://parermine.regione.emilia-romagna.it/issues/40894) Migrazione di Verso alla nuova versione del framework
+- [#41138](https://parermine.regione.emilia-romagna.it/issues/41138) Fix gestione response in VersoExceptionHandler.handleGeneric

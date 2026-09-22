@@ -118,9 +118,6 @@ public class VersoExceptionHandler extends DefaultExceptionHandler {
                 return;
             }
             request.getRequestDispatcher("/pages/error.jsp").forward(request, response);
-
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, message);
-
         } catch (Exception e) {
             log.error("Generic error", e);
 

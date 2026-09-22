@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>verso-jboss</artifactId>
-    <version>3.5.1-SNAPSHOT</version>
+    <version>3.5.1</version>
     <packaging>war</packaging>
     <parent>
         <groupId>it.eng.parer</groupId>
@@ -24,6 +24,7 @@
         <!-- third party lib -->
         <xml-resolver.version>1.2.0.redhat-10</xml-resolver.version>
         <cglib-nodep.version>3.3.0</cglib-nodep.version>
+        <mockito.version>4.11.0</mockito.version>
         <stripes.version>1.5.8</stripes.version>
         <commons-dbutils.version>1.7</commons-dbutils.version>
         <ognl.version>3.3.4</ognl.version>
@@ -337,6 +338,27 @@
 		    <artifactId>junit-jupiter-api</artifactId>
 		    <scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Il parent pom forza byte-buddy 1.11.12.redhat, incompatibile con
+             mockito-core 4.11.0 (richiede byte-buddy-agent 1.12.19): forziamo
+             qui la versione coerente solo per lo scope di test. -->
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>1.12.19</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy-agent</artifactId>
+            <version>1.12.19</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
