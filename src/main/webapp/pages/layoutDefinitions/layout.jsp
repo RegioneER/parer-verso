@@ -25,6 +25,7 @@
 %><%@page import="java.util.LinkedHashMap"
 %><%@page import = "java.lang.reflect.Method" 
 %><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" 
+%><%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" 
 %><%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" 
 %><%@ taglib prefix="stripes" uri="http://stripes.sourceforge.net/stripes.tld" 
 %><%@ taglib uri="/manydesigns-elements" prefix="md" 
@@ -85,6 +86,8 @@ String titoloApplicativo = ConfigSingleton.getInstance().getStringValue("TITOLO_
 		<script type="text/javascript" src="<c:url value="/js/jquery.blockUI.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/js/jquery.cookie.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/webjars/jquery-ui/1.13.3/jquery-ui.min.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/webjars/dompurify/3.4.15/dist/purify.min.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/js/help/sanitizeHtmlPreview.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/js/layoutscripts.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/js/menuscripts.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/js/layoutDefinitions/layout.js"/>"></script>
@@ -183,7 +186,7 @@ String titoloApplicativo = ConfigSingleton.getInstance().getStringValue("TITOLO_
 
 				%>
 				
-				<form  action="<c:out value="${actionBean.absoluteOriginalPath}"/>?${_csrf.parameterName}=${_csrf.token}${empty param.idStrut ? '': '&idStrut='}${empty param.idStrut ? '': param.idStrut}"  class="form-horizontal" style="margin: 0px;" method="post" enctype="multipart/form-data" >
+				<form  action="<c:out value="${actionBean.absoluteOriginalPath}"/>?${_csrf.parameterName}=${_csrf.token}${empty param.idStrut ? '': '&idStrut='}${empty param.idStrut ? '': fn:escapeXml(param.idStrut)}"  class="form-horizontal" style="margin: 0px;" method="post" enctype="multipart/form-data" >
 					<div id="toolbar">
 						<div class="intestazionePagina">
 							<stripes:layout-component name="breadcrumb">
@@ -311,7 +314,8 @@ String titoloApplicativo = ConfigSingleton.getInstance().getStringValue("TITOLO_
 							<div id="aiuti">
 								<div class="iconaAiuti">&nbsp;</div>
 								<div>
-									<span><c:out value="${actionBean.testoHelp}" escapeXml="false" /></span>
+									<span data-html-preview="testo-help"></span>
+									<textarea style="display:none" data-html-source="testo-help" aria-hidden="true"><c:out value="${actionBean.testoHelp}" /></textarea>
 								</div>
 							</div>
 						</div>

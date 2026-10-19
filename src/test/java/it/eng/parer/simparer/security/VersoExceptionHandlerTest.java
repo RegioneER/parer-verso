@@ -24,6 +24,8 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +34,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
+
+import net.sourceforge.stripes.controller.FileUploadLimitExceededException;
+import net.sourceforge.stripes.exception.StripesRuntimeException;
 
 /**
  * Verifica che {@link VersoExceptionHandler#handleGeneric} non esegua piu' sia {@code forward()}
@@ -118,4 +123,61 @@ class VersoExceptionHandlerTest {
         verify(dispatcher, never()).forward(any(), any());
         verify(response, never()).sendError(anyInt(), anyString());
     }
+
+    /** Rende stateful gli attributi della request mock, come in una richiesta reale. */
+    private void abilitaAttributiRequest() {
+        Map<String, Object> attributi = new HashMap<>();
+        doAnswer(inv -> attributi.put(inv.getArgument(0), inv.getArgument(1))).when(request)
+                .setAttribute(anyString(), any());
+        when(request.getAttribute(anyString()))
+                .thenAnswer(inv -> attributi.get(inv.<String>getArgument(0)));
+    }
+
+    @Test
+    void handleGeneric_erroreDuranteGestioneErrore_interrompeLaCatenaSenzaForwardNeStackTrace()
+            throws Exception {
+        // Scenario error loop: la pagina di errore fallisce a sua volta e il container
+        // re-invoca l'handler sulla stessa richiesta (dispatcher ERROR).
+        abilitaAttributiRequest();
+        when(response.isCommitted()).thenReturn(false);
+        doAnswer(invocation -> {
+            handler.handleGeneric(new RuntimeException("errore nella pagina di errore"), request,
+                    response);
+            return null;
+        }).when(dispatcher).forward(request, response);
+
+        handler.handleGeneric(new RuntimeException("errore iniziale"), request, response);
+
+        verify(dispatcher, times(1)).forward(request, response);
+        verify(mockLog, times(1)).error(anyString(), any(Throwable.class));
+        verify(mockLog, times(1)).warn(anyString(), anyString());
+        verify(response, times(1)).setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
+
+    @Test
+    void handleDatabaseException_rientro_nonRieseguePiuForward() throws Exception {
+        abilitaAttributiRequest();
+        when(response.isCommitted()).thenReturn(false);
+
+        handler.handleDatabaseException(new StripesRuntimeException("db"), request, response);
+        handler.handleDatabaseException(new StripesRuntimeException("db"), request, response);
+
+        verify(dispatcher, times(1)).forward(request, response);
+        verify(mockLog, times(1)).error(anyString(), any(Throwable.class));
+        verify(mockLog, times(1)).warn(anyString(), anyString());
+    }
+
+    @Test
+    void handleFileUploadLimitExceeded_rientro_loggaUnaVoltaSola() throws Exception {
+        abilitaAttributiRequest();
+        when(response.isCommitted()).thenReturn(false);
+        FileUploadLimitExceededException exc = new FileUploadLimitExceededException(1L, 2L);
+
+        handler.handleFileUploadLimitExceeded(exc, request, response);
+        handler.handleFileUploadLimitExceeded(exc, request, response);
+
+        verify(mockLog, times(1)).error(anyString(), any(Throwable.class));
+        verify(mockLog, times(1)).warn(anyString(), anyString());
+    }
+
 }

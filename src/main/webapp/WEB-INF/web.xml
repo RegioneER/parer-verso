@@ -56,11 +56,6 @@
         </init-param>
     </filter>
         
-        
-        
-        
-        
-        
     <filter-mapping>
         <filter-name>StripesFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -96,7 +91,9 @@
         <servlet-name>AppInfosSrvlt</servlet-name>
         <url-pattern>/admin/infos</url-pattern>
     </servlet-mapping>
+    
     <session-config>
+        <session-timeout>60</session-timeout>
         <cookie-config>
             <http-only>${web.session-config.cookie-config.http-only}</http-only>
             <secure>${web.session-config.cookie-config.secure}</secure>

@@ -38,7 +38,7 @@ $(document).ready(function() {
 			var main = textAreaBox.length * 100;
 			var value = (main / numMinCaratteri);
 			var count = textAreaBox.length;
-			$('#' + idCountName).html(count);
+			$('#' + idCountName).text(count);
 			if (textAreaBox.length < numMinCaratteri) {
 				$("#" + idProgressBarName).css("background-color", "#FFED00");
 				$("#" + idProgressBarName).animate({
@@ -77,7 +77,7 @@ $(document).ready(function() {
 					var numMinCaratteri = numMinimoCaratteri;
 					var main = textAreaBox.length * 100;
 					var value = (main / numMinCaratteri);
-					$('#' + idCountName).html(count);
+					$('#' + idCountName).text(count);
 					if (textAreaBox.length < numMinCaratteri) {
 						$("#" + idProgressBarName).css("background-color", "#FFED00");
 						$("#" + idProgressBarName).animate({
@@ -115,7 +115,7 @@ $('div.inputdescription').each( function(index, element) {
 			var numMinCaratteri = numMinimoCaratteri;
 			var main = textAreaBox.length * 100;
 			var value = (main / numMinCaratteri);
-			$('#' + idCountName).html(count);
+			$('#' + idCountName).text(count);
 			if (textAreaBox.length < numMinCaratteri) {
 				$("#" + idProgressBarName).css("background-color", "#FFED00");
 				$("#" + idProgressBarName).animate({

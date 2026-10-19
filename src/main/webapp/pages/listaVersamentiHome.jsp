@@ -21,13 +21,14 @@
 	%><%@ taglib uri="/manydesigns-elements" prefix="md"
 	%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"
 	%><%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" 
+	%><%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"
 	%>
 <%-- 	<%@ taglib --%>
 <%-- 	uri = "http://shiro.apache.org/tags" prefix="shiro"%> --%>
 	<jsp:useBean id="actionBean" scope="request"
 	type="net.datasiel.simpaweb.actionbeans.HomePrivata" />
 
-		<form id="searchFormVersamenti" action="<c:out value="${actionBean.absoluteOriginalPath}"/>?${_csrf.parameterName}=${_csrf.token}${empty param.idStrut ? '': '&idStrut='}${empty param.idStrut ? '': param.idStrut}" style="margin: 0px; padding-bottom: 25px;" method="post" enctype="multipart/form-data" >
+		<form id="searchFormVersamenti" action="<c:out value="${actionBean.absoluteOriginalPath}"/>?${_csrf.parameterName}=${_csrf.token}${empty param.idStrut ? '': '&idStrut='}${empty param.idStrut ? '': fn:escapeXml(param.idStrut)}" style="margin: 0px; padding-bottom: 25px;" method="post" enctype="multipart/form-data" >
 			<md:write name="actionBean" property="searchFormVersamenti"/>
 			<button type="submit" name="cerca" accesskey="C" title="Cerca tra le Unità Documentarie già versate [Alt-C]" class="btn btn-sacer menuAzioni">Cerca</button>
 			<input type="hidden" name="cambiaPagina" />

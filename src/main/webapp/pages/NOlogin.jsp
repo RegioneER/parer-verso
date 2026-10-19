@@ -29,7 +29,7 @@
 			<div class="offset3 span6">
 				<div class="well well-large">
 					<div class="tab-pane active in" id="login">
-						<form class="form-horizontal" action="<c:url value='j_spring_security_check' />" method="POST">
+						<form class="form-horizontal" action="<c:url value='j_spring_security_check' />" method="POST" autocomplete="off">
 							<fieldset>
 								<div id="legend">
 									<legend class="">Login</legend>
@@ -38,7 +38,7 @@
 									<!-- Username -->
 									<label class="control-label"  for="username">Username</label>
 									<div class="controls">
-										<input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+										<input type="text" id="username" name="username" placeholder="" class="input-xlarge" autocomplete="username">
 									</div>
 								</div>
 								
@@ -46,7 +46,7 @@
 									<!-- Password-->
 									<label class="control-label" for="password">Password</label>
 									<div class="controls">
-										<input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+										<input type="password" id="password" name="password" placeholder="" class="input-xlarge" autocomplete="current-password">
 									</div>
 								</div>
 								

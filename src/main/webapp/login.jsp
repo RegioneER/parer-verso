@@ -115,7 +115,7 @@
 					<div class="well well-large">
 						<div class="tab-pane active in" id="login">
 							<form class="form-horizontal" action="<c:url value="/login.do"/>"
-								method="post">
+								method="post" autocomplete="off">
 
 								<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
 									<div class="alert alert-danger">
@@ -137,7 +137,7 @@
 										<label class="control-label" for="username">Utente</label>
 										<div class="controls">
 											<input type="text" id="username" name="j_username"
-												placeholder="" class="input-xlarge">
+												placeholder="" class="input-xlarge" autocomplete="username">
 										</div>
 									</div>
 
@@ -146,7 +146,7 @@
 										<label class="control-label" for="password">Password</label>
 										<div class="controls">
 											<input type="password" id="password" name="j_password"
-												placeholder="" class="input-xlarge">
+												placeholder="" class="input-xlarge" autocomplete="current-password">
 										</div>
 									</div>
 

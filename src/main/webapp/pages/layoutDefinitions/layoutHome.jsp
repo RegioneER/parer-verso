@@ -250,17 +250,23 @@ String favIconRelative = ConfigSingleton.getInstance().getStringValue("FAV_ICON_
 				<div class="row-fluid" >
 					<div class="offset3 span6" >
 						  <div class="well well-large">
-							  <stripes:form class="inline" beanclass="net.datasiel.simpaweb.actionbeans.Login">
+							  <stripes:form id="loginFormInline" class="inline" beanclass="net.datasiel.simpaweb.actionbeans.Login">
 							  <img alt="Logo Applicazione" src="<c:url value='/img/Logo-SACER-VERSO_Beta.png' />" alt="">
 							  <p>Esegui la login per accedere al sistema di archiviazione.</p>
 							  <p>
-							  	<stripes:text name="userName" class="input-large" ></stripes:text>
-							  	<input type="password" class="input-large" placeholder="password" name="psswrd"/>
+							  	<stripes:text id="userNameInline" name="userName" class="input-large"></stripes:text>
+							  	<input type="password" class="input-large" placeholder="password" name="psswrd" autocomplete="current-password"/>
 							  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 							  	<button type="submit" value="Accedi" class="btn btn-sacer btn-medium" name="doLogin">Accedi</button>
 							    
 							  </p>
 							  </stripes:form>
+							  <script type="text/javascript">
+							  	// stripes:form/stripes:text non supportano l'attributo "autocomplete" nel TLD,
+							  	// quindi viene impostato via JS dopo il rendering del form.
+							  	document.getElementById('loginFormInline').setAttribute('autocomplete', 'off');
+							  	document.getElementById('userNameInline').setAttribute('autocomplete', 'username');
+							  </script>
 						  </div>
 					</div>
 				</div>	

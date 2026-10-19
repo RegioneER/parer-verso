@@ -176,12 +176,19 @@
                 $('a[href*="comunica=1"]').click(function () {
                     $(this).hide();
                 });
-                // Se l'utente loggato è stato ricondotto all'utenza PARER mostra un alert di notifica
-                <c:if test="${not empty actionBean.msgUtenteRicondotto}">
-                    alert("" + "<c:out value="${actionBean.msgUtenteRicondotto}" escapeXml="false" />");
-                </c:if>
+                // Se l'utente loggato è stato ricondotto all'utenza PARER mostra un alert di notifica.
+                // Il messaggio viene letto da un elemento nascosto (textContent, mai interpretato
+                // come HTML/JS) per evitare che un valore contenente apici possa interrompere la
+                // stringa JS ed eseguire codice arbitrario (XSS in contesto script).
+                var msgUtenteRicondotto = $('#msgUtenteRicondottoHidden').text();
+                if (msgUtenteRicondotto) {
+                    alert(msgUtenteRicondotto);
+                }
             });
-        </script>	
+        </script>
+        <c:if test="${not empty actionBean.msgUtenteRicondotto}">
+            <span id="msgUtenteRicondottoHidden" style="display:none"><c:out value="${actionBean.msgUtenteRicondotto}" /></span>
+        </c:if>
     </stripes:layout-component>
 
 </stripes:layout-render>

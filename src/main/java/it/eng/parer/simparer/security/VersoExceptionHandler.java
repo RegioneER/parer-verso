@@ -16,6 +16,9 @@
  */
 package it.eng.parer.simparer.security;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,8 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.manydesigns.elements.messages.SessionMessages;
-import java.io.IOException;
-import javax.servlet.ServletException;
 
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.controller.FileUploadLimitExceededException;
@@ -39,6 +40,9 @@ import net.sourceforge.stripes.validation.SimpleError;
  */
 public class VersoExceptionHandler extends DefaultExceptionHandler {
 
+    private static final String ERROR_HANDLING_ATTR = VersoExceptionHandler.class.getName()
+            + ".ERROR_HANDLING";
+
     private final Logger log = LoggerFactory.getLogger(VersoExceptionHandler.class);
 
     /**
@@ -48,10 +52,31 @@ public class VersoExceptionHandler extends DefaultExceptionHandler {
         // TODO Auto-generated constructor stub
     }
 
+    /**
+     * Evita il loop di errori: se la gestione di un errore e' gia' in corso per la stessa richiesta
+     * (es. la pagina di errore fallisce a sua volta), non si logga ne' si inoltra nuovamente.
+     *
+     * @return true se la richiesta e' gia' in gestione errore
+     */
+    private boolean isReentrant(HttpServletRequest request, HttpServletResponse response,
+            Exception exc) {
+        if (request.getAttribute(ERROR_HANDLING_ATTR) != null) {
+            log.warn("Errore durante la gestione di un errore ({}), interrompo la catena",
+                    exc.getClass().getName());
+            if (!response.isCommitted()) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            }
+            return true;
+        }
+        request.setAttribute(ERROR_HANDLING_ATTR, Boolean.TRUE);
+        return false;
+    }
+
     public void handleDatabaseException(StripesRuntimeException exc, HttpServletRequest request,
             HttpServletResponse response) {
-        // String message= exc.getLocalizedMessage();
-        // if ( message!=null){
+        if (isReentrant(request, response, exc)) {
+            return;
+        }
         log.error("ERRORE VersoException: ", exc);
         // message= message.contains("null")?"Errore non riconosciuto, Contattare
         // l'assistenza":message;
@@ -59,7 +84,7 @@ public class VersoExceptionHandler extends DefaultExceptionHandler {
 
         // }
         SessionMessages
-                .addErrorMessage("Attenzione si � verificato un errore imprevisto: " + message);
+                .addErrorMessage("Attenzione si è verificato un errore imprevisto: " + message);
         if (response.isCommitted()) {
             log.warn("Response already committed, cannot forward to error page");
             return;
@@ -71,32 +96,12 @@ public class VersoExceptionHandler extends DefaultExceptionHandler {
         }
     }
 
-    public void handleStripesRuntimeException(StripesRuntimeException exc,
-            HttpServletRequest request, HttpServletResponse response) {
-        // String message= exc.getLocalizedMessage();
-        // if ( message!=null){
-        //
-        // message= message.contains("null")?"Errore non riconosciuto, Contattare
-        // l'assistenza":message;
-        String message = "Errore critico sulla funzionalita, contattare l'assistenza tecnica.";
-
-        // }
-        SessionMessages.addErrorMessage(message);
-        if (response.isCommitted()) {
-            log.warn("Response already committed, cannot forward to error page");
-            return;
-        }
-        try {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, message);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            log.error("Generic error", e);
-        }
-    }
-
     // net.sourceforge.stripes.exception.StripesRuntimeException
     public void handleGeneric(Exception exc, HttpServletRequest request,
             HttpServletResponse response) {
+        if (isReentrant(request, response, exc)) {
+            return;
+        }
         ActionBean bean = (ActionBean) request.getAttribute(StripesConstants.REQ_ATTR_ACTION_BEAN);
         // String message= exc.getLocalizedMessage();
         // if ( message!=null){
@@ -128,13 +133,10 @@ public class VersoExceptionHandler extends DefaultExceptionHandler {
 
     public void handleFileUploadLimitExceeded(FileUploadLimitExceededException exc,
             HttpServletRequest request, HttpServletResponse response) {
+        if (isReentrant(request, response, exc)) {
+            return;
+        }
         ActionBean bean = (ActionBean) request.getAttribute(StripesConstants.REQ_ATTR_ACTION_BEAN);
-        // String message= exc.getLocalizedMessage();
-        // if ( message!=null){
-
-        // message= message==null ||message.toLowerCase().contains("null")?"Errore non riconosciuto,
-        // Contattare
-        // l'assistenza":message;
         String message = "Errore critico sulla funzionalita, contattare l'assistenza tecnica.";
 
         // }

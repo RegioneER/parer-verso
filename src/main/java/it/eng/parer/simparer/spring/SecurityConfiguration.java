@@ -12,9 +12,8 @@
  */
 package it.eng.parer.simparer.spring;
 
-import it.eng.spagoLite.spring.ParerSecurityConfiguration;
-import it.eng.spagoLite.spring.RefreshableRelyingPartyRegistrationRepository;
 import java.util.List;
+
 import javax.naming.NamingException;
 import javax.servlet.Filter;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +22,6 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import it.eng.parer.simparer.security.SimparerAuthenticator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -38,10 +36,12 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.security.web.header.HeaderWriterFilter;
-
-import it.eng.parer.simparer.security.SimparerLoginLog;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.transaction.jta.JtaTransactionManager;
+
+import it.eng.parer.simparer.security.SimparerAuthenticator;
+import it.eng.parer.simparer.security.SimparerLoginLog;
+import it.eng.spagoLite.spring.ParerSecurityConfiguration;
+import it.eng.spagoLite.spring.RefreshableRelyingPartyRegistrationRepository;
 
 /**
  *
@@ -123,12 +123,10 @@ public class SecurityConfiguration extends ParerSecurityConfiguration {
                     saml2.logoutResponse().logoutUrl("/saml/SingleLogout/alias/{registrationId}");
                     saml2.logoutUrl("/logout");
                 });
-        http.headers().contentSecurityPolicy(System.getProperty(
-                "http.sec.header.content-security-policy",
-                "'default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'report-sample' *; style-src 'self' 'report-sample' 'unsafe-inline' *; img-src 'self' data: *;"));
-        http.headers().permissionsPolicy(
-                pol -> pol.policy(System.getProperty("http.sec.header.permissions-policy",
-                        "'cross-origin-isolated=*, vertical-scroll=*'")));
+
+        // security header
+        applySecurityHeaders(http);
+
         SecurityFilterChain catena = http.build();
 
         List<Filter> filtri = catena.getFilters();
